@@ -1,3 +1,8 @@
+---
+layout: post
+title: [HowTo] Retrosmc - Retrogaming on OSMC with EXT USB Drive 
+---
+
 If you're like me, you have a lacking space SDCard in your RPi running OSMC as all you ever do is stream content, but now you want to play some ROMs. If you try to install full RetroPie, you will run out of space and OSMC will panic and die with no space left.
 
 So I decided to do a few quick & easy edits, to make it install to a USB Drive, plugged in to a connected powered USB hub.
