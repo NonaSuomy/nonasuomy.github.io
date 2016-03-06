@@ -191,5 +191,7 @@ Hopefully that's it, start it up from the OSMC programs RetroPie launcher.
 
 
 Forum post: <https://discourse.osmc.tv/t/howto-retrosmc-retrogaming-on-osmc-with-ext-usb-drive/13747>
+
+
 Original thread here for further help with other issues: <http://discourse.osmc.tv/t/howto-retrosmc-retrogaming-on-osmc/6671>
 
