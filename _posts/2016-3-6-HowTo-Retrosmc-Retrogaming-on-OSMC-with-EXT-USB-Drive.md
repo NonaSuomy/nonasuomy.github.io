@@ -189,4 +189,7 @@ Reboot your RPi via SSH:
 
 Hopefully that's it, start it up from the OSMC programs RetroPie launcher.
 
-Original thread here for further help with other issues: <a href="https://discourse.osmc.tv/t/howto-retrosmc-retrogaming-on-osmc/6671" />
+
+Forum post: <https://discourse.osmc.tv/t/howto-retrosmc-retrogaming-on-osmc-with-ext-usb-drive/13747>
+Original thread here for further help with other issues: <http://discourse.osmc.tv/t/howto-retrosmc-retrogaming-on-osmc/6671>
+
