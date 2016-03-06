@@ -72,13 +72,13 @@ Then run it:
 
     /home/osmc/install-retrosmc.sh
 
-<img src="/uploads/default/original/2X/6/65efdb800e2fc753bba9ef333259be56b052f756.png" width="441" height="270">
+<img src="http://discourse.osmc.tv/uploads/default/original/2X/6/65efdb800e2fc753bba9ef333259be56b052f756.png" width="441" height="270">
 
 Click Install retrosmc 
 
 After it is finished downloading the setup scripts (ie you see the [Choose an option] menu) **CLICK CANCEL!!!** until you are back to the CLI (Command Line). Don't worry it downloaded all the files we need to modify, from clicking the first menu option. We will come back here after a few more preliminary steps.
 
-<img src="/uploads/default/original/2X/c/c1798c4309e7d37b1407f09f79c6f95d5f00e799.png" width="645" height="392">
+<img src="http://discourse.osmc.tv/uploads/default/original/2X/c/c1798c4309e7d37b1407f09f79c6f95d5f00e799.png" width="645" height="392">
 
 Edit this file below to change the install location to our USB Drive that we formatted above.
 
@@ -109,11 +109,11 @@ This will show you, your free space on the SDCard while logged in via SSH look a
 
 Click Install retrosmc again.
 
-<img src="/uploads/default/original/2X/6/65efdb800e2fc753bba9ef333259be56b052f756.png" width="441" height="270">
+<img src="http://discourse.osmc.tv/uploads/default/original/2X/6/65efdb800e2fc753bba9ef333259be56b052f756.png" width="441" height="270">
 
 Once you get to the second menu of the Retrosmc [Choose an option], select "Binary-based installation (recommended)" and press enter.
 
-<img src="/uploads/default/original/2X/d/df3fa2c820d813f79e09116a8818c0b87af81956.png" width="645" height="392">
+<img src="http://discourse.osmc.tv/uploads/default/original/2X/d/df3fa2c820d813f79e09116a8818c0b87af81956.png" width="645" height="392">
 
 After the RetroPie-Setup script is finished the installation, press Enter for all windows, mentioning DATA and BIOS files for the emulators. When back at the main RetroPie menu, choose "Cancel"!
 
