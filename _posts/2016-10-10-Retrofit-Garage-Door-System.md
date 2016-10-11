@@ -1428,7 +1428,12 @@ or
 https://create.arduino.cc/editor/NonaSuomy/328479eb-790a-4a45-8659-ffa29d713058
 
                            ^=== These will always be more up to date than below…
-`s
+look here
+
+{% github_sample_ref /bwillis/versioncake/989237901cb873f96df12be48cbf1239be496bd7/Appraisals %}
+{% highlight ruby %}
+{% github_sample /bwillis/versioncake/989237901cb873f96df12be48cbf1239be496bd7/Appraisals 0 5 %}
+{% endhighlight %}
 
 /*               VCC  G13 G12 G14 G16 EN ADC RST
  *                 \_   |  |  |    /  /  /  _/
