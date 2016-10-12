@@ -273,6 +273,7 @@ gems:
 ***github_sample Usage***
 
 ```
+```
 {% github_sample URL_WITH_USERNAME_REPO_AND_FILE <START_LINE_NUMBER> <END_LINE_NUMBER> %}
 ```
 
