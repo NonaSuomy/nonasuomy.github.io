@@ -3,18 +3,24 @@ layout: post
 title: Local Jeykll-Github Pages And Live Code Samples
 ---
 
+# Resources #
+
 https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/#keeping-your-site-up-to-date-with-the-github-pages-gem
 
-Arch Linux
+# Arch Linux Install#
+
+## Install Ruby And Gems ##
 
 Open Terminal.
 
 Check whether you have Ruby 2.0.0 or higher installed:
+
 ```
 ruby --version
 ruby 2.X.X
-If you don't have Ruby installed, install Ruby 2.0.0 or higher.
 ```
+
+If you don't have Ruby installed, install Ruby 2.0.0 or higher.
 
 ```
 sudo pacman -S ruby
@@ -33,6 +39,7 @@ Installing ri documentation for bundler-1.13.3
 Done installing documentation for bundler after 8 seconds
 1 gem installed
 ```
+
 *Note:* If you see this message:
 WARNING:  You don't have /home/username/.gem/ruby/2.3.0/bin in your PATH, gem executables will not run.
 
@@ -40,7 +47,7 @@ WARNING:  You don't have /home/username/.gem/ruby/2.3.0/bin in your PATH, gem ex
 export PATH=$PATH:/home/username/.gem/ruby/2.3.0/bin
 ```
 
-# Installs the Bundler gem
+### Installs the Bundler gem ###
 
 If you already have a local repository for your Jekyll site, skip to Step 2.
 
@@ -60,24 +67,27 @@ git init my-jekyll-site-project-name
 ```
 
 Initialized empty Git repository in /home/username/my-jekyll-site-project-name/.git/
-# Creates a new file directory on your local computer, initialized as a Git repository
+
+Creates a new file directory on your local computer, initialized as a Git repository
+
 Change directories to the new repository you created:
 
 ```
 cd my-jekyll-site-project-name
 ```
 
-# Changes the working directory
 If your new local repository is for a Project pages site, create a new gh-pages branch:
 
-Note: You can skip this step if you would rather use the master branch for your Project Page. If you haven't checked out any branches, once you make a commit in your local repository, your change will appear on the master branch by default.
+**Note:** *You can skip this step if you would rather use the master branch for your Project Page. If you haven't checked out any branches, once you make a commit in your local repository, your change will appear on the master branch by default.*
 
 ```
 git checkout -b gh-pages
 ```
 
 Switched to a new branch 'gh-pages'
-# Creates a new branch called 'gh-pages', and checks it out
+
+Creates a new branch called 'gh-pages', and checks it out
+
 Tip: To learn more about creating a User, Organization or Project Page and which branch to use, see "User, Organization, and Project Pages." To learn more about how to build your site's source files from a /docs folder on the master branch, see "Configuring a publishing source for GitHub Pages."
 
 Step 2: Install Jekyll using Bundler
@@ -100,6 +110,8 @@ sudo pacman -S atom
 atom
 ```
 
+Edit Gemfile
+
 ```
 nano Gemfile
 source 'https://rubygems.org'
@@ -110,32 +122,47 @@ Name the file Gemfile and save it to the root directory of your local Jekyll sit
 
 If you already have a Gemfile, open your favorite text editor, such as Atom, and add these lines to your Gemfile:
 
+```
 source 'https://rubygems.org'
 gem 'github-pages', group: :jekyll_plugins
+```
+
 Install Jekyll and other dependencies from the GitHub Pages gem:
 
+```
 bundle install
+
 Fetching gem metadata from https://rubygems.org/............
 Fetching version metadata from https://rubygems.org/...
 Fetching dependency metadata from https://rubygems.org/..
 Resolving dependencies...
+```
+
 Step 3 (optional): Generate Jekyll site files
 
 To build your Jekyll site locally, preview your site changes, and troubleshoot build errors, you must have Jekyll site files on your local computer. You may already have Jekyll site files on your local computer if you cloned a Jekyll site repository. If you don't have a Jekyll site downloaded, you can generate Jekyll site files for a basic Jekyll template site in your local repository.
 
 If you want to use an existing Jekyll site repository on GitHub as the starting template for your Jekyll site, fork and clone the Jekyll site repository on GitHub to your local computer. For more information, see "Fork a repo."
 
-Note: As of Jekyll 3.2, the default Jekyll site contains a Gemfile that locks Jekyll to the Gem version you build it with. To instead lock it to the version used by GitHub Pages, you'll uncomment the gem "github-pages", group :jekyll_plugins line in the steps below.
+**Note:** *As of Jekyll 3.2, the default Jekyll site contains a Gemfile that locks Jekyll to the Gem version you build it with. To instead lock it to the version used by GitHub Pages, you'll uncomment the gem "github-pages", group :jekyll_plugins line in the steps below.*
+
 If you don't already have a Jekyll site on your local computer, create a Jekyll template site:
 
+```
 bundle exec jekyll new . --force
+```
+
 New jekyll site installed in /home/username/my-jekyll-site-project-name.
+
 Edit your Gemfile and remove the following line:
 
 "jekyll", "3.2.1"
 Uncomment the following line by removing the #:
 
+```
 gem "github-pages", group :jekyll_plugins
+```
+
 To edit the Jekyll template site, open your new Jekyll site files in a text editor. Make your changes and save them in the text editor. You can preview these changes locally without committing your changes using Git.
 
 If you want to publish your changes on your site, you must commit your changes and push them to GitHub using Git. For more information on this workflow, see "Good Resources for Learning Git and GitHub" or see this Git cheat sheet.
@@ -143,10 +170,12 @@ If you want to publish your changes on your site, you must commit your changes a
 Step 4: Build your local Jekyll site
 
 Navigate into the root directory of your local Jekyll site repository.
+
 Run your Jekyll site locally:
 
 ```
 bundle exec jekyll serve
+
 Configuration file: /home/username/my-jekyll-site-project-name/_config.yml
            Source: /home/username/my-jekyll-site-project-name/my-site
       Destination: /home/username/my-jekyll-site-project-name/_site
@@ -189,7 +218,12 @@ Open Terminal.
 
 Run this update command:
 
+```
+bundle update
+```
+
 If you followed our setup recommendations and installed Bundler, run bundle update github-pages or simply bundle update and all your gems will update to the latest versions.
+
 If you don't have Bundler installed, run gem update github-pages
 Next steps: Configuring Jekyll
 
@@ -203,7 +237,7 @@ Jekyll's official GitHub Pages documentation
 Jekyll commands
 
 
-***Add Live Github Code Samples***
+# Add Live Github Code Samples #
 
 https://github.com/bwillis/jekyll-github-sample/blob/master/README.md
 
