@@ -119,14 +119,14 @@ Garage Door Opener
 
 
                  Company: Stanley
-                 Product: Stanley Door Systems 
+                 Product: Stanley Door Systems
                 Model NO: V2000
          Date YYYY/MM/DD: 1996/03/14
                      AMP: 7A
                    Volts: 120(115)VAC@60Hz Single Phase(1PH)
               Idle Watts: 3.1W
                      CSA: LR47799
-       Expert Assistance: 1-800-253-3976 
+       Expert Assistance: 1-800-253-3976
                           DOC/MDC 164 K1086 360.3566
 
 CAUTION DISCONNECT FROM POWER SUPPLY BEFORE OPENING
@@ -159,7 +159,7 @@ CLOSE FORCE LOW/MED/HIGH [¼ Turn]
 
 Garage door button consumes 10mA while engaged @+7.62VDC
 
-Directional ASCII Art Of Sprocket 
+Directional ASCII Art Of Sprocket
 
 (_^ OPEN  [CCW]   
 ^_) CLOSE [CW]
@@ -197,7 +197,7 @@ Temperature Sensor
 1 x 4.7K Ohm Resistor
 1 x 3 Pin Header Male
 
-Or 
+Or
 
 1 x BME280 Pressure Temperature Humidity
 
@@ -235,7 +235,7 @@ ESP8266 Senseless ASCII Art! ( I had some free time… )
               VCC  G13 G12 G14 G16 EN ADC RST
                 \_   |  |  |    /  /  /  _/
 ESP8266 ESP-12-F  \  |  |  |   /  /  /  /  
-                  8  7  6  5  4  3  2  1 
+                  8  7  6  5  4  3  2  1
 NonaSuomy       ___________________________________________
                / (_)(_)(_)(_)(_)(_)(_)(_)                  /;
               /_    _____________________ _____________   //
@@ -247,7 +247,7 @@ GPIO10--12/(_)  /ISM+PA  2.4GHz+25dBm/ / /  /______   //
 SCLK--14/(_)  |_____________________|/ _  /______   //
        / _  _  _  _  _  _  _  _       /_/   AI  /  //
       /_(_)(_)(_)(_)(_)(_)(_)(_)_______________/__//
-      `-------------------------------------------' 
+      `-------------------------------------------'
         15 16 17 18 19 20 21 22
         _/  |  |  |  |  |  |  \_      ^
        /    |  |  |  |  |  |    \     |
@@ -286,7 +286,7 @@ Price: USD $5.99
 
 
 
-Or 
+Or
 
 Wemos
 
@@ -332,7 +332,7 @@ Price: USD $1.93
 
 Mirror Image Of EBAY Page
 
- 
+
 W5500 Ethernet Network Modules
 http://www.ebay.ca/itm/For-Arduino-W5500-Ethernet-Network-Modules-TCP-IP-51-STM32-SPI-Interface-/331829982337?hash=item4d429bb481:g:AxgAAOSwUUdXDVYX
 
@@ -421,7 +421,7 @@ Hall Effect Sensor BOM
 
 
 
-DRV5023 Digital Switch Hall Effect Sensor  Rev. F 
+DRV5023 Digital Switch Hall Effect Sensor  Rev. F
 
 Part Number: DRV5023BIQLPGM
 Sensitivity: BI: 14.5 / 6 mT
@@ -439,7 +439,7 @@ http://www.ti.com/lit/ds/symlink/drv5023.pdf
 Google Drive Mirror of Datasheet
 https://drive.google.com/open?id=0B7_sv8oBzuGNTER1anVITnh6M1k
 
-SS49E Hall Effect Sensor 
+SS49E Hall Effect Sensor
 (Linear HEF which is not appropriate for what we're doing but it’s what I used for testing)
 https://dscl.lcsr.jhu.edu/main/images/3/31/SS49e_Hall_Sensor_Datasheet.pdf
 Google drive mirror of Datasheets
@@ -476,7 +476,7 @@ GND to Ground.
 
 Note: Found out this HEF works @3.3v so no need for the voltage divider. Interesting information none the less. Added the 3.3V without voltage divider to the table.
 
-ESP8266 Pin Tolerances Information 
+ESP8266 Pin Tolerances Information
 
 http://download.arduino.org/products/UNOWIFI/0A-ESP8266-Datasheet-EN-v4.3.pdf
 Google Drive Mirror of Datasheet
@@ -617,7 +617,7 @@ Temperature Sensor BOM
 1 x 3 Pin Header Male
 1 x Perfboard
 
-Or 
+Or
 
 1 x BME280 Pressure Temperature Humidity
 
@@ -811,7 +811,7 @@ sudo nano /etc/mosquitto/mosquitto.conf
 #
 # Default values are shown, uncomment to change.
 #
-# Use the # character to indicate a comment, but only if it is the 
+# Use the # character to indicate a comment, but only if it is the
 # very first character on the line.
 
 # =================================================================
@@ -820,18 +820,18 @@ sudo nano /etc/mosquitto/mosquitto.conf
 
 #... other stuff in between here ...
 
-# Write process id to a file. Default is a blank string which means 
+# Write process id to a file. Default is a blank string which means
 # a pid file shouldn't be written.
 # This should be set to /var/run/mosquitto.pid if mosquitto is
-# being run automatically on boot with an init script and 
+# being run automatically on boot with an init script and
 # start-stop-daemon or similar.
 pid_file /var/run/mosquitto.pid
 
-# When run as root, drop privileges to this user and its primary 
+# When run as root, drop privileges to this user and its primary
 # group.
 # Leave blank to stay as root, but this is not recommended.
 # If run as a non-root user, this setting has no effect.
-# Note that on Windows this has no effect and so mosquitto should 
+# Note that on Windows this has no effect and so mosquitto should
 # be started by the user you wish it to run as.
 user mosquitto
 
@@ -841,7 +841,7 @@ user mosquitto
 # Default listener
 # =================================================================
 # IP address/hostname to bind the default listener to. If not
-# given, the default listener will not be bound to a specific 
+# given, the default listener will not be bound to a specific
 # address and so will be accessible to all network interfaces.
 # bind_address ip-address/host name
 bind_address 192.168.1.42
@@ -855,26 +855,26 @@ port 1883
 # Security
 # =================================================================
 
-# If set, only clients that have a matching prefix on their 
-# clientid will be allowed to connect to the broker. By default, 
+# If set, only clients that have a matching prefix on their
+# clientid will be allowed to connect to the broker. By default,
 # all clients may connect.
 # For example, setting "secure-" here would mean a client "secure-
 # client" could connect but another with clientid "mqtt" couldn't.
 #clientid_prefixes
 
-# Boolean value that determines whether clients that connect 
-# without providing a username are allowed to connect. If set to 
-# false then a password file should be created (see the 
-# password_file option) to control authenticated client access. 
+# Boolean value that determines whether clients that connect
+# without providing a username are allowed to connect. If set to
+# false then a password file should be created (see the
+# password_file option) to control authenticated client access.
 # Defaults to true.
 allow_anonymous false
 
-# In addition to the clientid_prefixes, allow_anonymous and TLS 
-# authentication options, username based authentication is also 
-# possible. The default support is described in "Default 
-# authentication and topic access control" below. The auth_plugin 
+# In addition to the clientid_prefixes, allow_anonymous and TLS
+# authentication options, username based authentication is also
+# possible. The default support is described in "Default
+# authentication and topic access control" below. The auth_plugin
 # allows another authentication method to be used.
-# Specify the path to the loadable plugin and see the 
+# Specify the path to the loadable plugin and see the
 # "Authentication and topic access plugin options" section below.
 #auth_plugin
 
@@ -888,9 +888,9 @@ allow_anonymous false
 # plain text passwords are used, in which case the file should be a text file
 # with lines in the format:
 # username:password
-# The password (and colon) may be omitted if desired, although this 
+# The password (and colon) may be omitted if desired, although this
 # offers very little in the way of security.
-# 
+#
 # See the TLS client require_certificate and use_identity_as_username options
 # for alternative authentication options.
 #password_file
@@ -910,14 +910,14 @@ allow_anonymous false
 # Topic access is added with lines of the format:
 #
 # topic [read|write|readwrite] <topic>
-# 
+#
 # The access type is controlled using "read", "write" or "readwrite". This
 # parameter is optional (unless <topic> contains a space character) - if not
 # given then the access is read/write.  <topic> can contain the + or #
 # wildcards as in subscriptions.
-# 
+#
 # The first set of topics are applied to anonymous clients, assuming
-# allow_anonymous is true. User specific topic ACLs are added after a 
+# allow_anonymous is true. User specific topic ACLs are added after a
 # user line as follows:
 #
 # user <username>
@@ -960,7 +960,7 @@ allow_anonymous false
 # using the format auth_opt_* will be passed to the plugin, for example:
 #
 # auth_opt_db_host
-# auth_opt_db_port 
+# auth_opt_db_port
 # auth_opt_db_username
 # auth_opt_db_password
 
@@ -1021,7 +1021,7 @@ sudo systemctl status openhab
 
 Change the name of OpenHab default configuration file so it won’t get overwritten while updating.
 
-sudo mv /opt/openhab/configuration/openhab_default.cfg /opt/openhab/configuration/openhab.cfg 
+sudo mv /opt/openhab/configuration/openhab_default.cfg /opt/openhab/configuration/openhab.cfg
 
 Edit the openhab.cfg with the MQTT settings.
 
@@ -1096,7 +1096,7 @@ Tools
 Avahi includes several utilities which help you discover the services running on a network. For example, run
 $ avahi-browse -alr
 
-Or just avahi-browse -a 
+Or just avahi-browse -a
 
 
 to discover services in your network.
@@ -1129,7 +1129,7 @@ Adding Services
 Avahi advertises the services whose *.service files are found in /etc/avahi/services. If you want to advertise a service for which there is no *.service file, it is very easy to create your own.
 As an example, let's say you wanted to advertise Message Queuing Telemetry Transport (MQTT) service operating per http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html on TCP port 1883 and 8883 secured which you are running on your server.
 
-The first thing to do is to determine the <type>. man avahi.service indicates that the type should be "the DNS-SD service type for this service. e.g. '_http._tcp'". Since the 
+The first thing to do is to determine the <type>. man avahi.service indicates that the type should be "the DNS-SD service type for this service. e.g. '_http._tcp'". Since the
 DNS-SD register was merged into the IANA register in 2010
 
 mqtt        IBM MQ Telemetry Transport Broker
@@ -1137,17 +1137,17 @@ mqtt        IBM MQ Telemetry Transport Broker
                 Protocol description: mqtt.org
                 Defined TXT keys: topics=<open topic to subscribe to for information>, eg topic=/info
 
-We can look for the service name on the 
+We can look for the service name on the
 IANA register
-Service Name 
-Port Number 
-Transport Protocol 
-Description 
+Service Name
+Port Number
+Transport Protocol
+Description
 Assignee
-Contact 
-Registration Date 
-Modification Date 
-Assignment Notes 
+Contact
+Registration Date
+Modification Date
+Assignment Notes
 mqtt
 1883
 tcp
@@ -1300,7 +1300,7 @@ MQTT Broker
 
 The entry in avahi-browse should now be:
 + ens3 IPv4 automation001                                        MQTT Broker local
- 
+
 
 OpenHAB WebGUI Configuration
 
@@ -1326,15 +1326,15 @@ Text item gG label="gG label="Garage" icon="garage" {
 	Text item=Encoder mappings=[UP="Up", STOP="Stop", DOWN="Down"]
 		Switch item=Relay1 mappings=[ON="Go!"]
 	}
-	Group item=gC label="Basement" icon="cellar"	
-	Group item=Outdoor icon="garden" 
+	Group item=gC label="Basement" icon="cellar"
+	Group item=Outdoor icon="garden"
 	}
 }
 
-The items configs are what makes the magic happen. 
+The items configs are what makes the magic happen.
 
 Note: The Less Than and Greater Than symbols in front of the MQTT commands are saying whether you want to Send or Receive information from the MQTT Broker.
- 
+
 sudo nano /opt/openhab/configuration/sitemaps/home.items
 
 /* home.items */
@@ -1370,7 +1370,7 @@ UNDEFINED=unknown
 
 OpenHAB Custom Icons
 
-The “<humidity>” icon does not exist but you can add one and uploaded it to “/opt/openhab/webapps/images/humidity.png”. 
+The “<humidity>” icon does not exist but you can add one and uploaded it to “/opt/openhab/webapps/images/humidity.png”.
 
 Web GUI Output
 
@@ -1397,7 +1397,7 @@ Change that by editing settings.
 
 
 Set the OpenHAB URL.
-Uncheck Demo Mode. 
+Uncheck Demo Mode.
 If you have your router configured to allow outside access, you can set the Remote URL as well.
 
 
@@ -1435,10 +1435,11 @@ look here
 {% github_sample /bwillis/versioncake/989237901cb873f96df12be48cbf1239be496bd7/Appraisals 0 5 %}
 {% endhighlight %}
 
+
 /*               VCC  G13 G12 G14 G16 EN ADC RST
  *                 \_   |  |  |    /  /  /  _/
  * ESP8266 ESP-12-F  \  |  |  |   /  /  /  /  
- *                   8  7  6  5  4  3  2  1 
+ *                   8  7  6  5  4  3  2  1
  * NonaSuomy       ___________________________________________
  *                / (_)(_)(_)(_)(_)(_)(_)(_)                  /;
  *               /_    _____________________ _____________   //
@@ -1450,7 +1451,7 @@ look here
  * SCLK--14/(_)  |_____________________|/ _  /______   //
  *        / _  _  _  _  _  _  _  _       /_/   AI  /  //
  *       /_(_)(_)(_)(_)(_)(_)(_)(_)_______________/__//
- *       `-------------------------------------------' 
+ *       `-------------------------------------------'
  *         15 16 17 18 19 20 21 22
  *         _/  |  |  |  |  |  |  \_      ^
  *        /    |  |  |  |  |  |    \     |
@@ -1462,7 +1463,7 @@ look here
  * Desc: Garage door talks to OpenHab via MQTT with Adafruit Huzzah(ESP8266).
  * Link: https://codebender.cc/sketch:348727
  *
- * Future note to self: Lookup reconnect function. See the 'mqtt_reconnect_nonblocking' 
+ * Future note to self: Lookup reconnect function. See the 'mqtt_reconnect_nonblocking'
  * example for how to achieve the same result without blocking the main loop.
  *
  * Install the ESP8266 board, (using Arduino 1.6.9) Currently 2.3.0
@@ -1471,7 +1472,7 @@ look here
  *
  * Add the following 3rd party board under "File -> Preferences -> Additional Boards Manager URLs":
  * http://arduino.esp8266.com/stable/package_esp8266com_index.json
- * 
+ *
  * Open the "Tools -> Board -> Board Manager" and click install for the ESP8266"
  *
  * Select the model of ESP8266 in "Tools -> Board"
@@ -1502,14 +1503,14 @@ look here
  * Website: https://learn.adafruit.com/dht
  * Github: https://github.com/adafruit/DHT-sensor-library (Not required, included in the Arduino Library Manager).
  * Arduino: Add the library under "Sketch => Include Library => Manage Libraries => DHT sensor library by Adafruit => Install".
- * 
+ *
  * Use the Ethernet2 built-in library for WIZNET as it supports the DFRobot's DFR0342 board without modification.
  * Website: http://www.dfrobot.com/wiki/index.php?title=W5500_Ethernet_with_POE_Mainboard_SKU:_DFR0342
  * Github: https://github.com/Wiznet/WIZ_Ethernet_Library (Not required, included in the Arduino Library).
  * Arduino: This library is already included in ArduinoIDE 1.6.9+ no need to install anything. */
 
 // Comment this out to disable serial debug print.
-#define DEBUG 
+#define DEBUG
 
 // Choose your weather sensor.
 #define DHTSEN // Pick DHT22.sensor.
@@ -1560,15 +1561,15 @@ look here
    Warning: Do not use Pin 16, it pulses high/low during boot for anything that cannot take the pulse.
    (Like the relay, the garage door would open ever time it had a power reset).
    https://github.com/nodemcu/nodemcu-firmware/issues/421
-   
+
    Maximum current drawn per pin is 12mA
-   
+
    The ESP8266 requires 3.3V power voltage and peaks at 500mA or so of current for
-   small periods of time. You'll want to assume the ESP8266 can draw up to 250mA 
-   so budget accordingly. To make it easier to power, Adafruit put a high-current-capable 
-   3.3V voltage regulator on the board. It can take 3.4-6V in but you should stick 
+   small periods of time. You'll want to assume the ESP8266 can draw up to 250mA
+   so budget accordingly. To make it easier to power, Adafruit put a high-current-capable
+   3.3V voltage regulator on the board. It can take 3.4-6V in but you should stick
    to 4-6V since the ESP8288 has high current usage when wifi is on.
-   
+
 V+ & VBat: Two inputs for the regulator, both have schottky diodes so you can connect both at different voltages and the regulator will simply power from the higher voltage. The V+ pin is also on the FTDI/serial header at the bottom edge.
    GPIO00: Does not have an internal pullup, and is also connected to both a mini tactile switch and red LED. This pin is used by the ESP8266 to determine when to boot into the bootloader. If the pin is held low during power-up it will start bootloading! That said, you can always use it as an output, and blink the red LED.
    GPIO02: Used to detect boot-mode. It also is connected to the blue LED that is near the WiFi antenna. It has a pullup resistor connected to it, and you can use it as any output (like #0) and blink the blue LED.
@@ -1642,11 +1643,11 @@ const char* password = "PASSWORD"; // The password of your wifi.
 #ifdef MQTT
   // Update these with values, suitable for your MQTT Broker.
   const char* mqtt_broker = "192.168.1.52"; // MQTT Broker IP address.
-  const char* mqtt_user = "MQTTUSER"; // MQTT Broker user. 
+  const char* mqtt_user = "MQTTUSER"; // MQTT Broker user.
   const char* mqtt_pass = "MQTTPASS"; // MQTT Broker password.
 
   // MQTT connect counter to track if out of sync.
-  long mqtt_connect_count = 0; 
+  long mqtt_connect_count = 0;
 #endif
 #ifdef ESP8266
   WiFiClient espClient; // Engage WiFiClient.
@@ -1677,7 +1678,7 @@ const char* password = "PASSWORD"; // The password of your wifi.
   Adafruit_BME280 bme; // I2C
 #endif
 #ifdef DHTSEN
-  // Initialize DHT sensor 
+  // Initialize DHT sensor
   // NOTE: For working with a faster than ATmega328p 16MHz Arduino chip, like an ESP8266,
   // you need to increase the threshold for cycle counts considered a 1 or 0.
   // You can do this by passing a 3rd parameter for this threshold.  It's a bit
@@ -1718,7 +1719,7 @@ long millis_prev3;
 
 // Track switch open/close status so we don't spam MQTT Broker.
 int swopenstat, swopenlast;  
-int swclosestat, swcloselast; 
+int swclosestat, swcloselast;
 
 // Setup Pins / Serial / WiFi / MQTT / etc.
 void setup() {
@@ -1727,8 +1728,8 @@ void setup() {
     pinMode(RST, OUTPUT);
     digitalWrite(SS, LOW);
     digitalWrite(RST,HIGH);  //Reset
-    delay(200); 
-    digitalWrite(RST,LOW); 
+    delay(200);
+    digitalWrite(RST,LOW);
     delay(200);
     digitalWrite(RST,HIGH);  
     delay(200);              //Wait W5500
@@ -1757,14 +1758,14 @@ void setup() {
     #else
       Ethernet.begin(mac,IP);
     #endif
-  
+
     #ifdef DEBUG
       // print your local IP address:
       Serial.print("My IP address: ");
       for (byte thisByte = 0; thisByte < 4; thisByte++) {
         // print the value of each byte of the IP address:
         Serial.print(Ethernet.localIP()[thisByte], DEC);
-        Serial.print("."); 
+        Serial.print(".");
       }
       Serial.println();
     #endif
@@ -1802,7 +1803,7 @@ void setup() {
   #endif
 }
 void setup_ethernet() {
-  //delay(10); 
+  //delay(10);
 }
 #ifdef ESP8266
   // Setup our WiFi connection.
@@ -1812,10 +1813,10 @@ void setup_ethernet() {
       // Print the SSID name to serial monitor.
       Serial.println();
       Serial.print("Connecting to ");
-      Serial.print(ssid); 
+      Serial.print(ssid);
     #endif
     // Connect to specified WiFi network.
-    WiFi.begin(ssid, password); 
+    WiFi.begin(ssid, password);
 
     while (WiFi.status() != WL_CONNECTED) {
       yield(); // Let the ESP8266 do other computations.
@@ -1845,7 +1846,7 @@ void setup_ethernet() {
   }
 #endif
 #ifdef MQTT
-  // Grab content from MQTT broker, topic eg: "hq/garage/switch1" 
+  // Grab content from MQTT broker, topic eg: "hq/garage/switch1"
   // payload will contain the values of the topics.
   // length will contain how long the string is.
   void callback(char* topic, byte* payload, unsigned int length) {
@@ -1876,7 +1877,7 @@ void setup_ethernet() {
           // Turn the LED OFF by making the voltage HIGH, because of active LOW state.
           //digitalWrite(BUILTIN_LED, HIGH);
           digitalWrite(DOOR1RELAY, 0); // Relay OFF
-      
+
           // Send MQTT Broker relay status of 0 meaning its off now.
           mqttclient.publish(rel1_topic, "0");
           #ifdef DEBUG
@@ -1887,7 +1888,7 @@ void setup_ethernet() {
     #endif
     #ifdef MQTT
       // Check for correct topic of switch1 open.
-      if (String(topic) == swi1_topic) { 
+      if (String(topic) == swi1_topic) {
         if ((char)payload[0] == '1') {
           #ifdef DEBUG
             // Send serial monitor switch status.
@@ -1903,7 +1904,7 @@ void setup_ethernet() {
       }
       /*
       // Check for correct topic of switch1 close.
-      if (String(topic) == swi1_topic) { 
+      if (String(topic) == swi1_topic) {
         if ((char)payload[0] == '0') {
           // Send serial monitor switch status.
           #ifdef DEBUG
@@ -1920,7 +1921,7 @@ void setup_ethernet() {
     #endif
     #ifdef MQTT
       // Check for correct topic of temperature.
-      if (String(topic) == temp_topic) { 
+      if (String(topic) == temp_topic) {
         // Send serial monitor garage temperature.
         #ifdef DEBUG
           Serial.print("MQTT Says, Garage Temperature: ");
@@ -1934,7 +1935,7 @@ void setup_ethernet() {
     #endif
     #ifdef MQTT
       // Check for correct topic of position from tension bar encoder.
-      if (String(topic) == posi_topic) { 
+      if (String(topic) == posi_topic) {
         // Send serial monitor garage temperature.
         #ifdef DEBUG
           Serial.print("MQTT Says, Garage Door Position: ");
@@ -1960,7 +1961,7 @@ void setup_ethernet() {
       #endif
       // Attempt to connect and send MQTT Broker our module name were connecting with.
       // Note: You will see this name in the MQTT Broker log. "ESPGarage01"
-    
+
       // If you do not want to use a username and password, change next line to
       // if (mqttclient.connect("ESPGarage01")) {
       if (mqttclient.connect("ESPGarage01", mqtt_user, mqtt_pass)) {
@@ -2029,12 +2030,12 @@ void loop() {
     if (!mqttclient.connected()) {
       reconnect();
     }
-    // Call MQTT client loop. 
+    // Call MQTT client loop.
     mqttclient.loop();
   #endif
   // Capture the current millis for non-blocking delay.
   millis_now = millis();
-  #ifdef ENCOPT 
+  #ifdef ENCOPT
     // Setup encoder and set current value to TBEncPos.
     long newTBEnc;
     newTBEnc = TBEnc.read();
@@ -2074,7 +2075,7 @@ void loop() {
       }
     #endif
   }
-  
+
   // Check close switch status every 5 seconds.
   if (millis_now > (millis_prev1 + 5000)) {  
     millis_prev1 = millis_now;
@@ -2155,10 +2156,10 @@ void loop() {
     }
   }
   // Send MQTT Broke that this module is still alive every 5 mins and check temperature.
-  if (millis_now > (millis_prev2 + 300000)){ //5 min 
+  if (millis_now > (millis_prev2 + 300000)){ //5 min
     millis_prev2 = millis_now;
     #ifdef MQTT
-      // Send alive message to MQTT Broker. 
+      // Send alive message to MQTT Broker.
       mqttclient.publish("hq/garage/available","1");
     #endif
     // Check temperature
@@ -2225,7 +2226,7 @@ void loop() {
       // Untrigger the force data push.
       forceMsg = false;
     #endif
-    
+
     #ifdef DHTSEN
       // Setup weather floats.
       float newTemp = dht.readTemperature();
@@ -2353,7 +2354,7 @@ Useless Stats
 Distance of Chain Travel Open/Close: 2 Meters 31 Centimeters (7 feet 6 15/16 inches).
 231cm / 18s = 12.83cm/s (Not accurately timed).
 
-I later on used a stopwatch and it took ~15 seconds to open/close, close enough! 
+I later on used a stopwatch and it took ~15 seconds to open/close, close enough!
 
 There is also a BME280 attached to the board via i2c checking for environment stats and a ping to the MQTT Broker to tell it that the board is online:
 
@@ -3619,7 +3620,7 @@ curl -X POST \
       -H "Content-Type: application/json" \
       -d '{"event":"GDS,"trackers":{"status":"open "}}' \
       https://api.instapush.im/post
- 
+
 NODEMCU TEST
 
 appid = "APPIDHERE"
@@ -3640,20 +3641,20 @@ if not wifi.sta.getip() then
  print(ip)
 end
 
-function upload() 
- conn = net.createConnection(net.TCP, 0) 
- conn:on("receive", 
-  function(conn, payload) 
+function upload()
+ conn = net.createConnection(net.TCP, 0)
+ conn:on("receive",
+  function(conn, payload)
    success = true
    print(payload)
   end)  
- conn:on("disconnection", 
+ conn:on("disconnection",
   function(conn, payload)
    print('\nDisconnected')
   end)
- conn:on("connection", 
-  function(conn, payload) 
-   print('\nConnected') 
+ conn:on("connection",
+  function(conn, payload)
+   print('\nConnected')
    data = "event=" .. event .. "&" .. key .. "=" .. val
    conn:send("POST /php HTTP/1.1\r\n"
    .. "Host: " .. host .. "\r\n"
@@ -3665,12 +3666,12 @@ function upload()
    .. data)
   end)  
  print("Opening port")
- conn:connect(80, host) 
+ conn:connect(80, host)
 end
 
 function maintask()
         if not wifi.sta.getip() then
-            print("Connecting to AP, Waiting...") 
+            print("Connecting to AP, Waiting...")
         elseif not done then
             print("Uploading to server...")
             upload()
@@ -3695,6 +3696,3 @@ Test
 Instapush Mobile App
 
 https://play.google.com/store/apps/details?id=im.instapush.pushbots
-
-
-

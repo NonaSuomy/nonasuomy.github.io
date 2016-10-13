@@ -259,7 +259,7 @@ gem 'rouge'
 gem 'jekyll_github_sample'
 ```
 
-Add gem jekyll github sample to the _config.yml gem: section.
+Add gem jekyll github sample to the config.yml
 
 ```
 nano _config.yml
@@ -269,10 +269,10 @@ gems:
   - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
   - rouge # Highlight Code Syntax.
   - jekyll_github_sample # Add live github code samples.
- 
-***github_sample Usage***
-
 ```
+
+#### github_sample Usage ####
+
 ```
 {% github_sample URL_WITH_USERNAME_REPO_AND_FILE <START_LINE_NUMBER> <END_LINE_NUMBER> %}
 ```
@@ -301,3 +301,5 @@ https://github.com/NonaSuomy/nonasuomy.github.io/blob/d2d123c640e2cb18e57d13bb76
 {% github_sample /NonaSuomy/nonasuomy.github.io/blob/989237901cb873f96df12be48cbf1239be496bd7/README.md 0 5 %}
 {% endhighlight %}
 ```
+
+Test
