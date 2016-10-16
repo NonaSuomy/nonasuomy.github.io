@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Local Jeykll-Github Pages And Live Code Samples
+title: Local Jeykll Github Pages And Live Code Samples
 ---
 
 # Resources #
@@ -175,7 +175,6 @@ Run your Jekyll site locally:
 
 ```
 bundle exec jekyll serve
-
 Configuration file: /home/username/my-jekyll-site-project-name/_config.yml
            Source: /home/username/my-jekyll-site-project-name/my-site
       Destination: /home/username/my-jekyll-site-project-name/_site
@@ -271,23 +270,28 @@ gems:
   - jekyll_github_sample # Add live github code samples.
 ```
 
-#### github_sample Usage ####
+### github_sample Usage ###
 
-```
+
+{% raw %}
 {% github_sample URL_WITH_USERNAME_REPO_AND_FILE <START_LINE_NUMBER> <END_LINE_NUMBER> %}
-```
+{% endraw %}
 
+```
 URL_WITH_USERNAME_REPO_AND_FILE - The relative path to the Github repo file, prefer a file with the commitish in it so it won't change when recompiling occurs. A url to this README would be: bwillis/jekyll-github-sample/blob/a3bc9e82412d364aa76e9308ab53ff2bddaa2faf/README.md
 
 START_LINE_NUMBER - (optional) number that is the first line to include (0 based)
 
 END_LINE_NUMBER - (optional) number that is the last line to include, if excluded will read to end of file github_sample_ref Usage
-
 ```
+
+{% raw %}
 {% github_sample_ref URL_WITH_USERNAME_REPO_AND_FILE %}
-```
+{% endraw %}
 
+```
 URL_WITH_USERNAME_REPO_AND_FILE - The relative path to the Github repo file, prefer a file with the commit in it so it won't change when recompiling occurs. A url to this README would be: bwillis/jekyll-github-sample/blob/a3bc9e82412d364aa76e9308ab53ff2bddaa2faf/README.md Example Usage
+```
 
 This is how you would display, reference and highlight code in your Jekyll post.
 
@@ -295,11 +299,14 @@ Sample URL:
 
 https://github.com/NonaSuomy/nonasuomy.github.io/blob/d2d123c640e2cb18e57d13bb7631a331c1018d8b/README.md
 
-```
-{% github_sample_ref /NonaSuomy/nonasuomy.github.io/blob/989237901cb873f96df12be48cbf1239be496bd7/README.md %}
+{% raw %}
+{% github_sample_ref /NonaSuomy/nonasuomy.github.io/blob/d2d123c640e2cb18e57d13bb7631a331c1018d8b/README.md %}
 {% highlight ruby %}
-{% github_sample /NonaSuomy/nonasuomy.github.io/blob/989237901cb873f96df12be48cbf1239be496bd7/README.md 0 5 %}
+{% github_sample /NonaSuomy/nonasuomy.github.io/blob/d2d123c640e2cb18e57d13bb7631a331c1018d8b/README.md 0 5 %}
 {% endhighlight %}
-```
+{% endraw %}
 
-Test
+{% github_sample_ref /NonaSuomy/nonasuomy.github.io/blob/d2d123c640e2cb18e57d13bb7631a331c1018d8b/README.md %}
+{% highlight ruby %}
+{% github_sample /NonaSuomy/nonasuomy.github.io/blob/d2d123c640e2cb18e57d13bb7631a331c1018d8b/README.md 0 5 %}
+{% endhighlight %}
