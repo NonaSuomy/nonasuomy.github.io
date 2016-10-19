@@ -305,3 +305,11 @@ https://github.com/NonaSuomy/nonasuomy.github.io/blob/d2d123c640e2cb18e57d13bb76
 {% github_sample /NonaSuomy/nonasuomy.github.io/blob/d2d123c640e2cb18e57d13bb7631a331c1018d8b/README.md 0 5 %}
 {% endhighlight %}
 {% endraw %}
+
+### Static GIST pages ###
+
+{% raw %}
+{% 0895a6778d7906ce79cfd64f93e4dae1 %}
+{% endraw %}
+
+{% 0895a6778d7906ce79cfd64f93e4dae1 %}
