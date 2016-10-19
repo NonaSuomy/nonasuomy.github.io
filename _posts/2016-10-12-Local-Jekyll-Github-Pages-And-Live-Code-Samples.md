@@ -308,8 +308,10 @@ https://github.com/NonaSuomy/nonasuomy.github.io/blob/d2d123c640e2cb18e57d13bb76
 
 ### Static GIST pages ###
 
+Just because jekyll plugins are currently blacklisted in github pages you can use gist below which is not as nice as using live code. 
+
 {% raw %}
-{% 0895a6778d7906ce79cfd64f93e4dae1 %}
+{% gist 0895a6778d7906ce79cfd64f93e4dae1 %}
 {% endraw %}
 
-{% 0895a6778d7906ce79cfd64f93e4dae1 %}
+{% gist 0895a6778d7906ce79cfd64f93e4dae1 %}
