@@ -7,5 +7,5 @@ label_color: 666666
 github_application:
   client_id: d301cbe8f1c916642d31
   code_authenticator: https://ghpagescomments.herokuapp.com/authenticate/
-  callback_url: http://nonasuomy.github.io/public/html/gpgc_redirect.html
+  callback_url: http://nonasuomy.github.io/public/html/gpgc_redirect/index.html
 enable_diagnostics: true
