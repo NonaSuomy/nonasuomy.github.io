@@ -8,4 +8,4 @@ github_application:
   client_id: d301cbe8f1c916642d31
   code_authenticator: https://ghpagescomments.herokuapp.com/authenticate/
   callback_url: https://nonasuomy.github.io/public/html/gpgc_redirect/index.html
-enable_diagnostics: true
+enable_diagnostics: false
