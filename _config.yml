@@ -37,7 +37,12 @@ footer-links:
 disqus: nonasuomy-github-io
 
 # Enter your Google Analytics web tracking code (e.g. UA-2110908-2) to activate tracking
-google_analytics: UA-85497296-1
+# Note: This puts the analytics at the end of the body of the page which is the old way to do things. 
+#       Should be before the </head> because it works async now. (Load at the same time as page.)
+#       Should not take longer to load the page because of this. 
+#       Manually put the Google Analytics script with ID in the _layouts/default.html before the </head>.
+google_analytics: 
+# UA-85497296-1 (Do not put this here! already in the default.html)
 
 # Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
 # Used for Sitemap.xml and your RSS feed
