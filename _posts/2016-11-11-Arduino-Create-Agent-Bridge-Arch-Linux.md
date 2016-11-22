@@ -3,21 +3,21 @@ layout: post
 title: Arduino Create Agent Bridge Arch Linux
 ---
 # Resources #
-https://create.arduino.cc/editor
+<https://create.arduino.cc/editor>
 
 
-Download the bleading edge Agent: http://downloads.arduino.cc/CreateBridge/staging/ArduinoCreateAgent-1.0-linux-x64-installer.run
+Download the bleading edge Agent: <http://downloads.arduino.cc/CreateBridge/staging/ArduinoCreateAgent-1.0-linux-x64-installer.run>
 
 
 **Note:** *1.1 (1.0.46) is the official release 1.0 (1.0.188) is the dev release above.*
 
 
-Which is actually newer than this one here: http://create.arduino.cc/getting-started/plugin?page=2.
+Which is actually newer than this one here: <http://create.arduino.cc/getting-started/plugin?page=2>.
 
 
 ## Other Research ##
-https://github.com/arduino/arduino-create-agent/issues/45
-https://github.com/puma/puma-dev/issues/47#issuecomment-259231445
+<https://github.com/arduino/arduino-create-agent/issues/45>
+<https://github.com/puma/puma-dev/issues/47#issuecomment-259231445>
 
 
 # Arch Linux Install 
@@ -33,7 +33,7 @@ FireFox Version 49.0.2
 
 
 Go here:
-http://create.arduino.cc/getting-started/plugin?page=2
+<http://create.arduino.cc/getting-started/plugin?page=2>
 
 
 Follow the directions on screen and make sure to add the cert to FireFox's own keychain, other wise you will get the HTTPS error in the console and it won't connect.
@@ -57,10 +57,8 @@ Something went wrong
 We are not able to establish a secure (HTTPS) connection between the Plugin and the Arduino Web Editor. You can try to restart your browser once more, or Download the Installer and run it again.
 Please Write us on the Forum so we can help debugging this issue.
 ```
-**Note:** *note here*
 
-
-Now if I hit up the http://create.arduino.cc/getting-started/plugin?page=2 then hit skip for the plugin download as I already have it installed:
+Now if I hit up the <http://create.arduino.cc/getting-started/plugin?page=2> then hit skip for the plugin download as I already have it installed:
 
 
 ```
@@ -265,8 +263,8 @@ Please Write us on the Forum so we can help debugging this issue.
 I believe the issue is with createAgentLocal.crt this file doesn't exist the name should be ca.cert.cer.
 
 
-https://github.com/arduino/arduino-create-agent/issues/129
-https://forum.arduino.cc/index.php?PHPSESSID=kbbk4oj7ed1u6u7qhv137n1kh2&topic=411290.msg2854866#msg2854866
+<https://github.com/arduino/arduino-create-agent/issues/129>
+<https://forum.arduino.cc/index.php?PHPSESSID=kbbk4oj7ed1u6u7qhv137n1kh2&topic=411290.msg2854866#msg2854866>
 
 
 ```* copy ca.cert.cer to your local certificate pool and refresh the index (maybe use this script to understand where it needs to be copied)```.
