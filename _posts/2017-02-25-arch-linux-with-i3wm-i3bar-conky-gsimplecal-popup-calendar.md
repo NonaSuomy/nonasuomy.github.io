@@ -146,6 +146,7 @@ conky.text = [[
 } ", "name":"updates"}\
 ],
 ]]
+```
 
 ## Extras
 
