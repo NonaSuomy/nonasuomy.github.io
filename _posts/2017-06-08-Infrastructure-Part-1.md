@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Arch Linux Infrastructure Part 1
+title: Arch Linux Infrastructure Part 1 Brouter Inception
 ---
 
-==Switch Hardware==
+##Switch Hardware##
 
 24 Port P.O.E. Switch H3C 4800G
 
@@ -19,7 +19,7 @@ Boot-Loader: A5500EI-CMW520-R2222P05.bin
 
 You may need to grab both lastest downloads as the bootrom is only in the prior release, you can use the newest boot-loader with it though, don't have to first use the older boot-loader *.bin file.
 
-===Factory Reset===
+###Factory Reset###
 
 Forgot your login password and want to do a password recovery? Factory reset to default!
 
@@ -130,9 +130,9 @@ Factory U/P
 U:admin
 P:<ENTER> key (blank)
 
-===Firmware Updates===
+###Firmware Updates###
 
-====FTP Method====
+####FTP Method####
 
 1.) Get the files to the switch by using FTP.
 
@@ -189,7 +189,7 @@ The backup boot app is: flash:/someoldversion.bin
 reboot
 ```
 
-====TFTP Method====
+####TFTP Method####
 
 TFTP is basically the same
 
@@ -231,7 +231,7 @@ Running Time:
 0 days 0 hours 1 minutes 46 seconds
 ```
 
-===How to enable Web Interface===
+###How to enable Web Interface###
 
 ```
 <4800G>display ip http
@@ -281,6 +281,70 @@ quit
 save
 ```
 
+## VLAN Setup ##
+
+```
+<4800G>system-view
+System View: return to User View with Ctrl+Z.
+
+```
+
+### Setup VLAN ###
+
+The primary two ports on the switch we need to setup are ports 1/0/1 and 1/0/2, 1/0/1 is the WAN port untagged vlan 500 and 1/0/2 is the trunk port for the hypervisor one of the required VLANs for it is 600 for general LAN traffic. The rest of the VLANs are for virtual machines (PBX, Automation, etc) which will be connected by virtual bridges. Port 1/0/3 is our emergency test port for the WAN, Unplug trunk and plug in a test machine to see if the WAN is functioning properly.
+
+```
+[4800G]vlan 500
+[4800G-vlan500]description WAN VLAN
+[4800G-vlan500]port GigabitEthernet 1/0/1 GigabitEthernet 1/0/3
+[4800G-vlan500]vlan 600
+[4800G-vlan600]description LAN VLAN
+[4800G-vlan600]port GigabitEthernet 1/0/4 to 1/0/24
+[4800G-vlan600]vlan 666
+[4800G-vlan666]description Default VLAN
+[4800G-vlan666]vlan 700
+[4800G-vlan700]description HOT VLAN
+[4800G-vlan700]vlan 800
+[4800G-vlan800]description WiFi VLAN
+[4800G-vlan800]vlan 850
+[4800G-vlan850]description Guest Wifi VLAN
+[4800G-vlan850]vlan 888
+[4800G-vlan888]description TOR VLAN
+[4800G-vlan888]vlan 900
+[4800G-vlan900]description VOIP VLAN
+[4800G-vlan900]quit
+[4800G]voice vlan 900 enable 
+[4800G]interface GigabitEthernet 1/0/4 to 1/0/24 
+voice vlan enable 
+[4800G]save
+The current configuration will be written to the device. Are you sure? [Y/N]:y
+Please input the file name(*.cfg)[flash:/3comoscfg.cfg]
+(To leave the existing filename unchanged, press the enter key):
+flash:/3comoscfg.cfg exists, overwrite? [Y/N]:y
+ Validating file. Please wait...................
+ The current configuration is saved to the active main board successfully.
+ Configuration is saved to device successfully.
+[4800G]interface GigabitEthernet 1/0/2
+[4800G-GigabitEthernet1/0/2]port hybrid vlan 500 600 700 800 850 888 900 tagged
+[4800G-GigabitEthernet1/0/2]port hybrid pvid vlan 666
+[4800G-GigabitEthernet1/0/2]quit
+
+
+[4800G] lldp compliance cdp
+[4800G] voice vlan mac-address xxxx-xxff-ffff mask ffff-ff00-0000
+[4800G]interface range GigabitEthernet 1/0/4 to GigabitEthernet 1/0/24
+[4800G-if-range]port link-type hybrid
+[4800G-if-range]undo port hybrid vlan 1
+ Please wait... Done.
+[4800G-if-range]port hybrid vlan 600 untagged
+ Please wait... Done.
+[4800G-if-range]port hybrid pvid vlan 600
+[4800G-if-range]voice vlan 900 enable
+[4800G-if-range]lldp compliance admin-status cdp txrx
+```
+
+
+
 Grab:
 
 cfdisk /dev/sda
@@ -290,24 +354,24 @@ cfdisk /dev/sda
  * Write, yes.
  * Quit.
  
- == Format the partition ==
+## Format the partition ##
 
 mkfs.btrfs -L "Arch Linux" /dev/sda1
 
-== Mount the partition ==
+## Mount the partition ##
 
 mkdir /mnt/btrfs-root
 mount -o defaults,relatime,discard,ssd,nodev,nosuid /dev/sda1 /mnt/btrfs-root
 mount -o defaults,relatime,discard,nodev,nosuid /dev/sda1 /mnt/btrfs-root
 
-== Create the subvolumes ==
+## Create the subvolumes ##
 
 mkdir -p /mnt/btrfs-root/__snapshot
 mkdir -p /mnt/btrfs-root/__current
 btrfs subvolume create /mnt/btrfs-root/__current/root
 btrfs subvolume create /mnt/btrfs-root/__current/home
 
-== Mount the subvolumes ==
+## Mount the subvolumes ##
 
 mkdir -p /mnt/btrfs-current
 
@@ -317,7 +381,7 @@ mkdir -p /mnt/btrfs-current/home
 
 mount -o defaults,relatime,discard,ssd,nodev,nosuid,subvol=__current/home /dev/sda1 /mnt/btrfs-current/home
 mount -o defaults,relatime,discard,nodev,nosuid,subvol=__current/home /dev/sda1 /mnt/btrfs-current/home
-== Install Arch Linux ==
+## Install Arch Linux ##
 
 nano /etc/pacman.d/mirrorlist 
  * Select the mirror to be used
@@ -327,7 +391,7 @@ genfstab -U -p /mnt/btrfs-current >> /mnt/btrfs-current/etc/fstab
 nano /mnt/btrfs-current/etc/fstab
  * copy the partition info for / and mount it on /run/btrfs-root (remember to remove subvol parameter! and add nodev,nosuid,noexec parameters)
 
-== Configure the system ==
+## Configure the system ##
  
 arch-chroot /mnt/btrfs-current /bin/bash
 
@@ -358,7 +422,7 @@ groupadd idv
 useradd -m -g idv -G users,wheel,storage,power,network -s /bin/bash -c "Ihor Dvoretskyi" idv
 passwd idv
 
-== Install boot loader ==
+## Install boot loader ##
 
 pacman -S grub-bios
 grub-install --target=i386-pc --recheck /dev/sda
@@ -366,7 +430,7 @@ nano /etc/default/grub
  * Edit settings (e.g., disable gfx, quiet, etc.)
 grub-mkconfig -o /boot/grub/grub.cfg
 
-== Unmount and reboot ==
+## Unmount and reboot ##
 
 exit
 
@@ -376,9 +440,9 @@ umount /mnt/btrfs-root
 
 reboot
 
-== Post installation configuration ==
+## Post installation configuration ##
 
-=== Power management ===
+### Power management ###
 
 nano /etc/modprobe.d/blacklist.conf
  * blacklist nouveau
@@ -398,7 +462,7 @@ nano /etc/modprobe.d/bbswitch.conf
  options bbswitch unload_state=1
 mkinitcpio -p linux
 
-=== Hardening ===
+### Hardening ###
 
 chmod 700 /boot /etc/{iptables,arptables}
 
@@ -426,7 +490,7 @@ nano /etc/sysctl.conf
  * net.ipv4.icmp_echo_ignore_broadcasts = 1
  * net.ipv4.icmp_ignore_bogus_error_responses = 1
 
-=== Snapshot ===
+### Snapshot ###
 
 echo `date "+%Y%m%d-%H%M%S"` > /run/btrfs-root/__current/ROOT/SNAPSHOT
 echo "Fresh install" >> /run/btrfs-root/__current/ROOT/SNAPSHOT
@@ -435,7 +499,7 @@ cd /run/btrfs-root/__snapshot/
 ln -s ROOT@`cat /run/btrfs-root/__current/ROOT/SNAPSHOT` fresh-install
 rm /run/btrfs-root/__current/ROOT/SNAPSHOT 
 
-==== Software Installation ===
+#### Software Installation ####
 su
 visudo
  * Enable sudo for wheel
