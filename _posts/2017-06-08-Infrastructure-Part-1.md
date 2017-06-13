@@ -5,9 +5,10 @@ title: Arch Linux Infrastructure Part 1
 
 ==Switch Hardware==
 
-```
 24 Port P.O.E. Switch H3C 4800G
+
 Firmware: https://h10145.www1.hpe.com/Downloads/SoftwareReleases.aspx?ProductNumber=JD008A&lang=en&cc=us&prodSeriesId=4177359&SoftwareReleaseUId=21933&SerialNumber=&PurchaseDate=
+```
 Version as of writing: 
 5500.EI-4800G_5.20.R2221P18-US (TAA Compliant)	28-Sep-2015	23-Oct-2015	Release notes 18.7 MB
 5500.EI_5.20.R2222P05	24-Apr-2017	26-Apr-2017	Release notes 17.0 MB
