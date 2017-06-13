@@ -3,8 +3,224 @@ layout: post
 title: Arch Linux Infrastructure Part 1
 ---
 
-Switch Config
+Switch Hardware
 24 Port P.O.E. Switch H3C 4800G
+Firmware: https://h10145.www1.hpe.com/Downloads/SoftwareReleases.aspx?ProductNumber=JD008A&lang=en&cc=us&prodSeriesId=4177359&SoftwareReleaseUId=21933&SerialNumber=&PurchaseDate=
+Version as of writing: 
+5500.EI-4800G_5.20.R2221P18-US (TAA Compliant)	28-Sep-2015	23-Oct-2015	Release notes 18.7 MB
+5500.EI_5.20.R2222P05	24-Apr-2017	26-Apr-2017	Release notes 17.0 MB
+
+BootROM: A5500EI-BTM-721-US.btm
+Boot-Loader: A5500EI-CMW520-R2222P05.bin
+
+You may need to grab both lastest downloads as the bootrom is only in the prior release, you can use the newest boot-loader with it though, don't have to first use the older boot-loader *.bin file.
+
+Factory Reset
+
+Forgot your login password and want to do a password recovery? 
+
+Factory reset to default!
+
+In order to restore your 3COM switch you will need the following:
+
+```
+Serial Console Cable
+```
+
+1.) Connect to the console port of the switch.
+
+Make sure to connect using the following settings 19200, 8, 1, N
+
+2.) Press Ctrl-B to enter the boot menu.
+
+```
+Starting......
+
+    *************************************************************************
+    *                                                                       *
+    *             Switch 4800G PWR 24-Port BOOTROM, Version 721             *
+    *                                                                       *
+    *************************************************************************
+    Copyright(c) 2004-2014 3Com Corp. and its licensors. All rights reserved.
+    Creation date   : Mar 14 2014, 12:12:47
+    CPU Clock Speed : 533MHz
+    BUS Clock Speed : 133MHz
+    Memory Size     : 256MB
+    Mac Address     : 001ec1dcff80
+
+
+Press Ctrl-B to enter Boot Menu... 1
+```
+
+3.) Enter 7 to skip current configuration file.
+
+When prompted for password just hit enter.
+```
+password: 
+
+  BOOT  MENU
+
+1. Download application file to flash
+2. Select application file to boot
+3. Display all files in flash
+4. Delete file from flash
+5. Modify bootrom password
+6. Enter bootrom upgrade menu
+7. Skip current configuration file
+8. Set bootrom password recovery
+9. Set switch startup mode
+0. Reboot
+
+Enter your choice(0-9): 7
+
+The current setting will boot with current configuration file when rebooted.
+Are you sure you want to skip the current configuration file when rebooting? Yes or No(Y/N)y
+
+Setting......done!
+Hit Y to continue
+```
+
+4.) Enter 0 to reboot.
+
+```
+Enter your choice(0-9): 0
+
+System is rebooting...
+```
+
+5.) Once booted, delete the 3comoscfg.cfg file.
+
+You can either backup the config file first then delete, or delete it.
+
+```
+<4800G>dir flash:/
+Directory of flash:/
+
+   0(b)  -rw-  10319701  Apr 30 2008 09:44:16   someoldfile.bin
+   1     -rw-      5827  Jun 13 2017 00:50:06   3comoscfg.cfg
+   2(*)  -rw-  14379886  Apr 26 2000 13:09:50   a5500ei-cmw520-r2222p05.bin
+   3     -rw-    484116  Apr 26 2000 12:07:55   a5500ei-btm-721-us.btm
+   4     drw-         -  Apr 26 2000 12:00:38   seclog
+   5     -rw-       151  Jun 13 2017 00:50:00   system.xml
+
+31496 KB total (6885 KB free)
+
+(*) -with main attribute   (b) -with backup attribute
+(*b) -with both main and backup attribute
+```
+
+Delete configuration file
+
+```
+delete 3comoscfg.cfg 
+Delete flash:/3comoscfg.cfg?[Y/N]:y
+.......
+%Delete file flash:/3comoscfg.cfg...Done.
+```
+
+6.) Reboot and you’re done!
+
+```
+reboot
+```
+
+Factory U/P
+U:admin
+P:<ENTER> key (blank)
+
+1.) Get the files to the switch by using FTP.
+```
+<4800G> ftp 10.13.37.100
+Trying ...
+Press CTRL+K to abort
+Connected.
+220 WFTPD 2.0 service (by Texas Imperial Software) ready for new user
+User(none):user
+331 Give me your password, please
+Password:
+230 Logged in successfully
+[ftp] get A5500EI-CMW520-R2222P05.bin
+[ftp] get A5500EI-BTM-721-US.btm
+[ftp] bye
+```
+
+2.) Upgrade Boot ROM.
+```
+<4800G> bootrom update file A5500EI-BTM-721-US.btm
+This command will update bootrom file on the specified board(s), Continue? [Y/N]y
+Now updating bootrom, please wait...
+Succeeded to update bootrom of Board
+```
+
+3a.) Load the system software image and specify the file as the main file at the next reboot.
+```
+<4800G> boot-loader file A5500EI-CMW520-R2222P05.bin main
+This command will set the boot file. Continue? [Y/N]: y
+The specified file will be used as the main boot file at the next reboot!
+```
+
+3b.) You can then set the old bootloader to backup in case it fails if you didn't delete it for space.
+```
+<4800G>boot-loader file someoldversion.bin backup
+ This command will set the boot file. Continue? [Y/N]:y
+ The specified file will be used as the backup boot file at the next reboot!
+```
+
+```
+<HP> display boot-loader
+The current boot app is: flash:/someoldversion.bin
+The main boot app is: flash:/A5500EI-CMW520-R2222P05.bin
+The backup boot app is: flash:/someoldversion.bin
+```
+
+4.) Reboot the switch with the reboot command to complete the upgrade.
+```
+reboot
+```
+
+TFTP is basically the same
+
+```
+<4800G>tftp 10.13.37.100 get A5500EI-CMW520-R2222P05.bin
+<4800G>tftp 10.13.37.100 get A5500EI-BTM-721-US.btm
+ ...
+ File will be transferred in binary mode
+ Downloading file from remote TFTP server, please wait............../
+<4800G>boot-loader file A5500EI-CMW520-R2222P05.bin main
+ This command will set the boot file. Continue? [Y/N]:y
+ The specified file will be used as the main boot file at the next reboot!
+```
+
+You can then set the old bootloader to backup in case it fails if you didn't delete it for space.
+```
+<4800G>boot-loader file someoldversion.bin backup
+ This command will set the boot file. Continue? [Y/N]:y
+ The specified file will be used as the backup boot file at the next reboot!
+```
+```
+reboot
+ Start to check configuration with next startup configuration file, please wait........DONE!
+This command will reboot the device. Current configuration will be lost in nex startup if you continue. Continue? [Y/N]:
+```
+
+Running...
+```
+Software Version 
+S4800G-CMW520-R2210-S168
+
+Hardware Version 
+REV.C
+
+Bootrom Version 
+721
+
+Running Time: 
+0 days 0 hours 1 minutes 46 seconds
+```
+
+
+
+How to enable Web Interface
 
 ```
 <4800G>display ip http
