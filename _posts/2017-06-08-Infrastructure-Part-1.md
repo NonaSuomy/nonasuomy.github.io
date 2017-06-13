@@ -3,6 +3,57 @@ layout: post
 title: Arch Linux Infrastructure Part 1
 ---
 
+Switch Config
+24 Port P.O.E. Switch H3C 4800G
+
+```
+<4800G>display ip http
+HTTP port: 80
+Basic ACL: 0
+Operation status: Stopped
+```
+
+```
+<4800G>system-view
+System View: return to User View with Ctrl+Z.
+```
+```
+[4800G]ip http enable
+```
+```
+[4800G]display ip http
+HTTP port: 80
+Basic ACL: 0
+Current connection: 0
+Operation status: Running
+```
+```
+local-user pleb
+password cipher plebmast0r
+authorization-attribute level 3
+service-type web
+save
+The current configuration will be written to the device. Are you sure? [Y/N]:y
+Please input the file name(*.cfg)[flash:/3comoscfg.cfg]
+(To leave the existing filename unchanged, press the enter key):
+Validating file. Please wait..................
+The current configuration is saved to the active main board successfully.
+Configuration is saved to device successfully.
+return
+```
+
+```
+system-view
+System View: return to User View with Ctrl+Z.
+```
+```
+interface vlan 1
+ip address 10.13.37.2 255.255.255.0
+ip route-static 0.0.0.0 0.0.0.0 10.13.37.1
+quit
+save
+```
+
 Grab:
 
 cfdisk /dev/sda
