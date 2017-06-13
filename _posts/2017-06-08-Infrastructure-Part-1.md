@@ -343,9 +343,92 @@ flash:/3comoscfg.cfg exists, overwrite? [Y/N]:y
 [4800G-if-range]lldp compliance admin-status cdp txrx
 ```
 
+## USB Install ##
+
+Grab ISO: http://mirror.rackspace.com/archlinux/iso/2017.06.01/archlinux-2017.06.01-x86_64.iso
+
+### Find USB Drive ###
+
+```
+lsblk
+sdb 8:17 1 8G 0 disk
+```
+
+### Write image to USB Drive ###
+
+Warning destroying all information on USB drive...
+
+```
+dd bs=4M if=/home/luser/Downloads/archlinux-2017.06.01-x86_64.iso of=/dev/sdb status=progress && sync
+```
+
+Plug USB Drive into machine you want to install hypervisor on and boot.
+
+We're going to use UEFI make sure your hardware bios is setup for UEFI.
+
+After boot double check UEFI
+
+```mount | egrep efi```
+
+Find your network port name
+
+```
+ip link
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+    link/ether d4:be:d9:24:3a:6b brd ff:ff:ff:ff:ff:ff
+```
+
+On this hardware it is called eno1
+
+Add an IP and Netmask to eno1
+
+```
+ip link set eno1 up
+ip addr add 10.73.208.22/24 broadcast 10.73.208.255 dev eno1
+```
+
+Add route to internet gateway
+
+```
+ip route add default via 10.73.208.1
+```
+```
+ping 8.8.8.8 - works.
+ping google.ca - not working.
+```
+```
+nano /etc/resolv.conf
+nameserver 8.8.8.8
+```
+```
+ping google.ca - working now.
+```
+
+Update pacman
+
+```
+pacman -Syy
+```
+
+For remote installing install openssh
+
+```
+pacman -S openssh
+systemctl start sshd
+passwd
+ip addr show eno1
+2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether d4:be:d9:24:3a:6b brd ff:ff:ff:ff:ff:ff
+    inet 10.73.208.22/24 brd 10.73.208.255 scope global eno1
+       valid_lft forever preferred_lft forever
+
+```
+
+Now you should beable to remote ssh root@10.73.208.22 from another machine on the network to finish config.
 
 
-Grab:
 
 cfdisk /dev/sda
  * If previously used drive and you don't care about the data, use the delete partitions option.
