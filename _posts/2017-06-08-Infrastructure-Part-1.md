@@ -3,7 +3,9 @@ layout: post
 title: Arch Linux Infrastructure Part 1
 ---
 
-Switch Hardware
+==Switch Hardware==
+
+```
 24 Port P.O.E. Switch H3C 4800G
 Firmware: https://h10145.www1.hpe.com/Downloads/SoftwareReleases.aspx?ProductNumber=JD008A&lang=en&cc=us&prodSeriesId=4177359&SoftwareReleaseUId=21933&SerialNumber=&PurchaseDate=
 Version as of writing: 
@@ -12,14 +14,13 @@ Version as of writing:
 
 BootROM: A5500EI-BTM-721-US.btm
 Boot-Loader: A5500EI-CMW520-R2222P05.bin
+```
 
 You may need to grab both lastest downloads as the bootrom is only in the prior release, you can use the newest boot-loader with it though, don't have to first use the older boot-loader *.bin file.
 
-Factory Reset
+===Factory Reset===
 
-Forgot your login password and want to do a password recovery? 
-
-Factory reset to default!
+Forgot your login password and want to do a password recovery? Factory reset to default!
 
 In order to restore your 3COM switch you will need the following:
 
@@ -96,7 +97,7 @@ You can either backup the config file first then delete, or delete it.
 <4800G>dir flash:/
 Directory of flash:/
 
-   0(b)  -rw-  10319701  Apr 30 2008 09:44:16   someoldfile.bin
+   0(b)  -rw-  10319701  Apr 30 2008 09:44:16   someoldversion.bin
    1     -rw-      5827  Jun 13 2017 00:50:06   3comoscfg.cfg
    2(*)  -rw-  14379886  Apr 26 2000 13:09:50   a5500ei-cmw520-r2222p05.bin
    3     -rw-    484116  Apr 26 2000 12:07:55   a5500ei-btm-721-us.btm
@@ -128,7 +129,12 @@ Factory U/P
 U:admin
 P:<ENTER> key (blank)
 
+===Firmware Updates===
+
+====FTP Method====
+
 1.) Get the files to the switch by using FTP.
+
 ```
 <4800G> ftp 10.13.37.100
 Trying ...
@@ -145,6 +151,7 @@ Password:
 ```
 
 2.) Upgrade Boot ROM.
+
 ```
 <4800G> bootrom update file A5500EI-BTM-721-US.btm
 This command will update bootrom file on the specified board(s), Continue? [Y/N]y
@@ -153,21 +160,24 @@ Succeeded to update bootrom of Board
 ```
 
 3a.) Load the system software image and specify the file as the main file at the next reboot.
+
 ```
 <4800G> boot-loader file A5500EI-CMW520-R2222P05.bin main
 This command will set the boot file. Continue? [Y/N]: y
 The specified file will be used as the main boot file at the next reboot!
+
 ```
 
 3b.) You can then set the old bootloader to backup in case it fails if you didn't delete it for space.
+
 ```
-<4800G>boot-loader file someoldversion.bin backup
+<4800G> boot-loader file someoldversion.bin backup
  This command will set the boot file. Continue? [Y/N]:y
  The specified file will be used as the backup boot file at the next reboot!
 ```
 
 ```
-<HP> display boot-loader
+<4800G> display boot-loader
 The current boot app is: flash:/someoldversion.bin
 The main boot app is: flash:/A5500EI-CMW520-R2222P05.bin
 The backup boot app is: flash:/someoldversion.bin
@@ -177,6 +187,8 @@ The backup boot app is: flash:/someoldversion.bin
 ```
 reboot
 ```
+
+====TFTP Method====
 
 TFTP is basically the same
 
@@ -218,9 +230,7 @@ Running Time:
 0 days 0 hours 1 minutes 46 seconds
 ```
 
-
-
-How to enable Web Interface
+===How to enable Web Interface===
 
 ```
 <4800G>display ip http
