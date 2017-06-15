@@ -1642,7 +1642,7 @@ Add btrfs to HOOKS to initramfs
 
 ```
 [root@mnt ~]# nano /etc/mkinitcpio.conf
-HOOKS="base udev autodetect modconf block filesystems btrfs keyboard fsck"
+HOOKS="base udev autodetect modconf block filesystems keyboard btrfs"
 ```
 
 Regenerate the initramfs image
@@ -1658,9 +1658,8 @@ Regenerate the initramfs image
   -> Running build hook: [modconf]
   -> Running build hook: [block]
   -> Running build hook: [filesystems]
-  -> Running build hook: [btrfs]
   -> Running build hook: [keyboard]
-  -> Running build hook: [fsck]
+  -> Running build hook: [btrfs]
 ==> Generating module dependencies
 ==> Creating gzip-compressed initcpio image: /boot/initramfs-linux.img
 ==> Image generation successful
@@ -1674,9 +1673,8 @@ Regenerate the initramfs image
 ==> WARNING: Possibly missing firmware for module: wd719x
 ==> WARNING: Possibly missing firmware for module: aic94xx
   -> Running build hook: [filesystems]
-  -> Running build hook: [btrfs]
   -> Running build hook: [keyboard]
-  -> Running build hook: [fsck]
+  -> Running build hook: [btrfs]
 ==> Generating module dependencies
 ==> Creating gzip-compressed initcpio image: /boot/initramfs-linux-fallback.img
 ==> Image generation successful
@@ -1778,7 +1776,57 @@ efibootmgr -d /dev/sda -p 1 -c -L "Arch Linux" -l /vmlinuz-linux -u "root=UUID=$
 efibootmgr -d /dev/sda -p 1 -c -L "Arch Linux" -l /vmlinuz-linux -u "root=UUID=399aea80-d00f-48b2-bc4f-74ff4a9bf9aa rootflags=subvol=root rw initrd=/initramfs-linux.img"
 ```
 
-Reboot
+Reboot failed...
+
+efibootmgr entries didn't work comes to a kernel panic.
+
+systemd-boot
+
+```
+bootctl install 
+```
+
+```
+nano /boot/loader/loader.conf
+timeout 3
+default arch
+editor 0
+```
+
+```
+/boot/loader/entries/arch.conf
+title   Arch Linux
+linux   /vmlinuz-linux
+initrd  /initramfs-linux.img
+options root=LABEL=system rw rootflags=subvol=root
+```
+
+Reboot Failure...
+
+Click on dell boot (F12) option for systemd-boot, just goes to a black screen (glitched: if you push the up/down buttons, the dell boot menu options start to show up again)
+
+Grub install
+
+```
+pacman -S grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck
+Installing for x86_64-efi platform.
+GPTH CRC check failed, 99180435 != 684361cf.
+GPTH CRC check failed, 99180435 != 684361cf.
+GPTH CRC check failed, 99180435 != 684361cf.
+GPTH CRC check failed, 99180435 != 684361cf.
+GPTH CRC check failed, 99180435 != 684361cf.
+GPTH CRC check failed, 99180435 != 684361cf.
+Installation finished. No error reported.
+```
+
+We are hoping for output like this from the grub-install command:
+Installation finished. No error reported.
+
+Got that but with errors above and then it seems the GPT partition backup gets corrupted after that command.
+
+And it just does the black screen thing above like systemd-boot.
+
 
 
 
