@@ -1764,7 +1764,9 @@ Container mnt has been shut down.
 systemd-nspawn -bD /mnt  28.71s user 11.05s system 1% cpu 35:37.54 total
 ```
 
-??
+## Can't boot things I've tried ##
+
+### Striaght efibootmgr ###
 
 ```
 efibootmgr -d /dev/sda -p 1 -c -L "Arch Linux" -l /vmlinuz-linux -u "root=UUID=$UUID rootflags=subvol=root rw initrd=/initramfs-linux.img"
@@ -1780,7 +1782,7 @@ Reboot failed...
 
 efibootmgr entries didn't work comes to a kernel panic.
 
-systemd-boot
+### systemd-boot ###
 
 ```
 bootctl install 
@@ -1805,7 +1807,7 @@ Reboot Failure...
 
 Click on dell boot (F12) option for systemd-boot, just goes to a black screen (glitched: if you push the up/down buttons, the dell boot menu options start to show up again)
 
-Grub install
+### Grub install ###
 
 ```
 pacman -S grub efibootmgr
