@@ -1638,7 +1638,7 @@ echo "127.0.1.1	myhostname.localdomain	myhostname" >> /etc/hosts
 [root@mnt ~]# pacman -Syu base-devel btrfs-progs iw gptfdisk zsh vim terminus-font
 ```
 
-Add btrfs to HOOKS to initramfs
+## Add btrfs to HOOKS to initramfs ##
 
 ```
 [root@mnt ~]# nano /etc/mkinitcpio.conf
