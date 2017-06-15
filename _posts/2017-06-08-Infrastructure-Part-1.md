@@ -1829,6 +1829,22 @@ Got that but with errors above and then it seems the GPT partition backup gets c
 
 And it just does the black screen thing above like systemd-boot.
 
+### UEFI BIOS BOOT MENU ###
+
+```
+root@archiso /mnt/boot/loader/entries # efibootmgr -v
+BootCurrent: 0007
+Timeout: 1 seconds
+BootOrder: 0006,0005,0000,0001,0002,0003,0004,0007
+Boot0000* Diskette Drive        BBS(Floppy,,0x0)
+Boot0001* Internal HDD (IRRT)   BBS(HD,,0x0)WDC WD3200LPVX-22V0TT0          .
+Boot0002* USB Storage Device    BBS(USB,,0x0)USB Storage Device.
+Boot0003* CD/DVD/CD-RW Drive    BBS(CDROM,,0x0)P1: HL-DT-ST DVD+/-RW GU60N   .
+Boot0004* Onboard NIC   BBS(Network,,0x0)IBA GE Slot 00C8 v1533.
+Boot0005* Linux Boot Manager    HD(1,GPT,e14b237f-5209-48dc-877d-6b7733d62a05,0x800,0x113000)/File(\EFI\systemd\systemd-bootx64.efi)
+Boot0006* arch_grub     HD(1,GPT,e14b237f-5209-48dc-877d-6b7733d62a05,0x800,0x113000)/File(\EFI\arch_grub\grubx64.efi)
+Boot0007  UEFI: INT13(,0x81)    PciRoot(0x0)/Pci(0x19,0x0)/VenHw(aa7ba38a-dabf-40c3-8d18-b55b39609ef7,8101000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffff)/HD(1,MBR,0x89211028,0x800,0x78a000)
+```
 
 
 
