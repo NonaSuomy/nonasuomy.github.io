@@ -1780,7 +1780,11 @@ efibootmgr -d /dev/sda -p 1 -c -L "Arch Linux" -l /vmlinuz-linux -u "root=UUID=3
 
 Reboot failed...
 
-efibootmgr entries didn't work comes to a kernel panic.
+efibootmgr entries didn't work comes to a kernel panic. 
+
+```
+kernel panic not syncing vfs unable to mount root fs on unknown-block(0 0)"
+```
 
 ### systemd-boot ###
 
