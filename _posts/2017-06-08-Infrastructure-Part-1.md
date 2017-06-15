@@ -1766,7 +1766,7 @@ systemd-nspawn -bD /mnt  28.71s user 11.05s system 1% cpu 35:37.54 total
 
 ## Can't boot things I've tried ##
 
-### Striaght efibootmgr ###
+### Straight efibootmgr ###
 
 ```
 efibootmgr -d /dev/sda -p 1 -c -L "Arch Linux" -l /vmlinuz-linux -u "root=UUID=$UUID rootflags=subvol=root rw initrd=/initramfs-linux.img"
