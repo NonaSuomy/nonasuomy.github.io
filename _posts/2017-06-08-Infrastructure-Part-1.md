@@ -467,10 +467,10 @@ root@archiso ~ # sgdisk --zap-all /dev/sda
 root@archiso ~ # sgdisk --clear \
        --new=1:0:+550MiB --typecode=1:ef00 --change-name=1:EFI \
        --new=2:0:+12GiB  --typecode=2:8200 --change-name=2:swap \
-       --new=3:0:0       --typecode=2:8300 --change-name=3:system \
+       --new=3:0:0       --typecode=3:8300 --change-name=3:system \
        /dev/sda
          
-/dev/sdaCreating new GPT entries.
+Creating new GPT entries.
 Setting name!
 partNum is 0
 REALLY setting name!
@@ -540,8 +540,11 @@ Create the subvolumes which will actually be mounted in our running system:
 
 ```
 root@archiso ~ # btrfs subvolume create /mnt/root
+Create subvolume '/mnt/root'
 root@archiso ~ # btrfs subvolume create /mnt/home
+Create subvolume '/mnt/home'
 root@archiso ~ # btrfs subvolume create /mnt/snapshots
+Create subvolume '/mnt/snapshots'
 ```
 
 Unmount everything
@@ -563,7 +566,7 @@ root@archiso ~ # mount LABEL=EFI /mnt/boot
 Install base system files
 
 ```
-root@archiso ~ # pacstrap /mnt base
+root@archiso ~ # pacstrap /mnt base base-devel
 ==> Creating install root at /mnt
 ==> Installing packages to /mnt
 :: Synchronizing package databases...
