@@ -2025,41 +2025,332 @@ ln -s ROOT@`cat /run/btrfs-root/__current/ROOT/SNAPSHOT` fresh-install
 rm /run/btrfs-root/__current/ROOT/SNAPSHOT 
 
 #### Software Installation ####
-su
-visudo
- * Enable sudo for wheel
- * Uncomment %wheel ALL=(ALL) ALL
- * :wq
- * exit
- sudo pacman -S dialog wpa_supplicant
- sudo wifi-menu
- * Chose your wifi connection.
- or
- ip addr
- dhcpcd eno1
- 
- ping google.ca
- ping 8.8.8.8
- 
- sudo pacman -S libvirt virt-manager qemu dmidecode ovmf dopenssh ebtables bridge-utils openbsd-netcat
- 
- sudo systemctl enable sshd
- sudo systemctl start sshd
- 
- sudo systemctl enable libvirtd
- sudo systemctl start libvirtd
- 
- sed -i s/78/kvm/ /etc/libvirt/qemu.conf
- 
- Enable UEFI Booting of VMs
- 
- sudo nano /etc/libvirt/qemu.conf
 
- nvram=["/usr/share/ovmf/ovmf_code_x64.bin:/usr/share/ovmf/ovmf_vars_x64.bin"]
+```
+su
+nano visudo
+```
+
+Enable sudo for wheel Uncomment ```#%wheel ALL=(ALL) ALL```
  
- sudo pacman -S xorg xorg-xinit i3-wm i3status i3lock dmenu nautilus
- echo "exec i3" > ~/.xinitrc
+```
+%wheel ALL=(ALL) ALL
+:wq
+exit
+```
+
+Chose your wifi connection.
+
+```
+sudo pacman -S dialog wpa_supplicant
+sudo wifi-menu
+```
+  
+or
+
+```
+ip addr
+dhcpcd eno1
  
+ping google.ca
+ping 8.8.8.8
+```
  
+Install libvirt, virt-manager, qemu, ovmf, openssh, ebtables, bridge-utils, openbsd-netcat, tcpdump
  
+```
+sudo pacman -S libvirt virt-manager qemu dmidecode ovmf openssh ebtables bridge-utils openbsd-netcat tcpdump
  
+sudo systemctl enable sshd
+sudo systemctl start sshd
+ 
+sudo systemctl enable libvirtd
+sudo systemctl start libvirtd
+```
+ 
+Change qemu running group from 78 to kvm
+
+```
+sed -i s/78/kvm/ /etc/libvirt/qemu.conf
+```
+ 
+Enable UEFI Booting of VMs
+ 
+```
+sudo nano /etc/libvirt/qemu.conf
+nvram=["/usr/share/ovmf/ovmf_code_x64.bin:/usr/share/ovmf/ovmf_vars_x64.bin"]
+```
+ 
+i3-wm (Windows manager to use virt-manager)
+ 
+```
+sudo pacman -S xorg xorg-xinit i3-wm i3status i3lock dmenu nautilus
+echo "exec i3" > ~/.xinitrc
+startx
+```
+ 
+PCI Passthrough for wireless access point
+ 
+```
+sudo nano /etc/modprobe.d/modprobe.conf
+options kvm_intel nested=1
+```
+
+```
+sudo nano /etc/modprobe.d/blacklist.conf
+blacklist iwlwifi
+```
+
+```
+grep -E "vmx|svm" /proc/cpuinfo
+dmesg | grep -iE "dmar|iommu"
+```
+
+```
+lspci -nn
+00:00.0 Host bridge [0600]: Intel Corporation 3rd Gen Core processor DRAM Controller [8086:0154] (rev 09)
+00:02.0 VGA compatible controller [0300]: Intel Corporation 3rd Gen Core processor Graphics Controller [8086:0166] (rev 09)
+00:14.0 USB controller [0c03]: Intel Corporation 7 Series/C210 Series Chipset Family USB xHCI Host Controller [8086:1e31] (rev 04)
+00:16.0 Communication controller [0780]: Intel Corporation 7 Series/C216 Chipset Family MEI Controller #1 [8086:1e3a] (rev 04)
+00:19.0 Ethernet controller [0200]: Intel Corporation 82579LM Gigabit Network Connection [8086:1502] (rev 04)
+00:1a.0 USB controller [0c03]: Intel Corporation 7 Series/C216 Chipset Family USB Enhanced Host Controller #2 [8086:1e2d] (rev 04)
+00:1b.0 Audio device [0403]: Intel Corporation 7 Series/C216 Chipset Family High Definition Audio Controller [8086:1e20] (rev 04)
+00:1c.0 PCI bridge [0604]: Intel Corporation 7 Series/C216 Chipset Family PCI Express Root Port 1 [8086:1e10] (rev c4)
+00:1c.1 PCI bridge [0604]: Intel Corporation 7 Series/C210 Series Chipset Family PCI Express Root Port 2 [8086:1e12] (rev c4)
+00:1c.2 PCI bridge [0604]: Intel Corporation 7 Series/C210 Series Chipset Family PCI Express Root Port 3 [8086:1e14] (rev c4)
+00:1c.3 PCI bridge [0604]: Intel Corporation 7 Series/C216 Chipset Family PCI Express Root Port 4 [8086:1e16] (rev c4)
+00:1c.5 PCI bridge [0604]: Intel Corporation 7 Series/C210 Series Chipset Family PCI Express Root Port 6 [8086:1e1a] (rev c4)
+00:1d.0 USB controller [0c03]: Intel Corporation 7 Series/C216 Chipset Family USB Enhanced Host Controller #1 [8086:1e26] (rev 04)
+00:1f.0 ISA bridge [0601]: Intel Corporation QM77 Express Chipset LPC Controller [8086:1e55] (rev 04)
+00:1f.2 RAID bus controller [0104]: Intel Corporation 82801 Mobile SATA Controller [RAID mode] [8086:282a] (rev 04)
+00:1f.3 SMBus [0c05]: Intel Corporation 7 Series/C216 Chipset Family SMBus Controller [8086:1e22] (rev 04)
+02:00.0 Network controller [0280]: Intel Corporation Centrino Advanced-N 6205 [Taylor Peak] [8086:0082] (rev 34)
+0b:00.0 SD Host controller [0805]: O2 Micro, Inc. OZ600FJ0/OZ900FJ0/OZ600FJS SD/MMC Card Reader Controller [1217:8221] (rev 05)
+```
+
+```
+sudo nano /boot/loader/entries/arch.conf
+title   Arch Linux BTRFS
+linux   /vmlinuz-linux
+initrd  /initramfs-linux.img
+options root=LABEL=ROOT rootflags=subvol=@ rw intel_iommu=on pci-stub.ids=8086:0082
+```
+
+Hardware NIC interface eno1
+
+```
+cat /etc/systemd/network/10-eno1.network
+[Match]
+Name=eno1
+
+[Network]
+VLAN=eno1.100
+VLAN=eno1.200
+VLAN=eno1.300
+VLAN=eno1.400
+VLAN=eno1.450
+VLAN=eno1.500
+```
+
+WAN VLAN 100
+
+```
+cat /etc/systemd/network/eno1.100.netdev
+[NetDev]
+Name=eno1.100
+Kind=vlan
+
+[VLAN]
+Id=100
+
+cat /etc/systemd/network/eno1.100.network
+[Match]
+Name=eno1.100
+
+[Network]
+Bridge=brv100
+
+cat /etc/systemd/network/brv100.netdev
+[NetDev]
+Name=brv100
+Kind=bridge
+```
+
+```
+cat /etc/systemd/network/brv100.network
+[Match]
+Name=brv100
+
+[Network]
+```
+
+LAN VLAN 200
+
+```
+cat /etc/systemd/network/eno1.200.netdev
+[NetDev]
+Name=eno1.200
+Kind=vlan
+
+[VLAN]
+Id=200
+
+cat /etc/systemd/network/eno1.200.network
+[Match]
+Name=eno1.200
+
+[Network]
+Bridge=brv200
+
+cat /etc/systemd/network/brv200.netdev
+[NetDev]
+Name=brv200
+Kind=bridge
+
+cat /etc/systemd/network/brv200.network
+[Match]
+Name=brv200
+
+[Network]
+DHCP=yes
+```
+
+Automation VLAN 300
+
+```
+cat /etc/systemd/network/eno1.300.netdev
+[NetDev]
+Name=eno1.300
+Kind=vlan
+
+[VLAN]
+Id=300
+
+cat /etc/systemd/network/eno1.300.network
+[Match]
+Name=eno1.300
+
+[Network]
+Bridge=brv300
+
+cat /etc/systemd/network/brv300.netdev
+[NetDev]
+Name=brv300
+Kind=bridge
+
+cat /etc/systemd/network/brv300.network
+[Match]
+Name=brv300
+
+[Network]
+```
+
+GUEST WiFi VLAN 400
+
+```
+cat /etc/systemd/network/eno1.400.netdev
+[NetDev]
+Name=eno1.400
+Kind=vlan
+
+[VLAN]
+Id=400
+
+cat /etc/systemd/network/eno1.400.network
+[Match]
+Name=eno1.400
+
+[Network]
+Bridge=brv400
+
+cat /etc/systemd/network/brv400.netdev
+[NetDev]
+Name=brv400
+Kind=bridge
+
+cat /etc/systemd/network/brv400.network
+[Match]
+Name=brv400
+
+[Network]
+```
+
+Main WiFi 450
+
+```
+cat /etc/systemd/network/eno1.450.netdev
+[NetDev]
+Name=eno1.450
+Kind=vlan
+
+[VLAN]
+Id=850
+
+cat /etc/systemd/network/eno1.450.network
+[Match]
+Name=eno1.450
+
+[Network]
+Bridge=brv450
+
+cat /etc/systemd/network/brv450.netdev
+[NetDev]
+Name=brv450
+Kind=bridge
+
+cat /etc/systemd/network/brv450.network
+[Match]
+Name=brv450
+
+[Network]
+```
+
+Voice VLAN 500
+
+```
+cat /etc/systemd/network/eno1.500.netdev
+[NetDev]
+Name=eno1.500
+Kind=vlan
+
+[VLAN]
+Id=500
+
+cat /etc/systemd/network/eno1.500.network
+[Match]
+Name=eno1.500
+
+[Network]
+Bridge=brv500
+
+cat /etc/systemd/network/brv500.netdev
+[NetDev]
+Name=brv500
+Kind=bridge
+
+cat /etc/systemd/network/brv500.network
+[Match]
+Name=brv500
+
+[Network]
+```
+
+```
+sudo systemctl enable systemd-networkd
+sudo systemctl start systemd-networkd
+```
+
+< To be continued... >
+
+VM Guest Virtual Router: pfSense or OPNsense or custom
+
+VM Guest Automation Server: OpenHAB
+
+VM Guest PBX Server: PIAF
+
+VM Guest TOR Server: TOR (Remote)
+
+VM Guest Fileserver: FreeNAS or ETC.
+
+
+
