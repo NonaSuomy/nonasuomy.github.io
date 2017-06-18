@@ -281,19 +281,21 @@ quit
 save
 ```
 
-## VLAN Setup ##
+### Basic Switch Configuration ###
 
 ```
 <4800G>system-view
-System View: return to User View with Ctrl+Z.
-
+[4800G]
+sysname HQ
+clock timezone "Eastern Time(US,Canada)" minus 05:00:00
 ```
-
 ### Setup VLAN ###
 
 The primary two ports on the switch we need to setup are ports 1/0/1 and 1/0/2, 1/0/1 is the WAN port untagged vlan 500 and 1/0/2 is the trunk port for the hypervisor one of the required VLANs for it is 600 for general LAN traffic. The rest of the VLANs are for virtual machines (PBX, Automation, etc) which will be connected by virtual bridges. Port 1/0/3 is our emergency test port for the WAN, Unplug trunk and plug in a test machine to see if the WAN is functioning properly.
 
 ```
+<4800G>system-view
+System View: return to User View with Ctrl+Z.
 [4800G]vlan 500
 [4800G-vlan500]description WAN VLAN
 [4800G-vlan500]port GigabitEthernet 1/0/1 GigabitEthernet 1/0/3
