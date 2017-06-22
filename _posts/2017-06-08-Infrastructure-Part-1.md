@@ -4,13 +4,11 @@ title: Arch Linux Infrastructure - Brouter Inception - Part 1 - Network Switch V
 ---
 Part 01 - Network Switch VLANs - You Are Here!
 
-[Part 02](../Infrastructure-Part-2)
+[Part 02 - Hypervisor OS Install](../Infrastructure-Part-2)
 
-[Part 02](../2017-06-22-Infrastructure-Part-2)
+[Part 03 - Hypervisor OS Setup](../Infrastructure-Part-3)
 
-[Part 03](../Infrastructure-Part-3)
-
-[Part 04](../Infrastructure-Part-4)
+[Part 04 - Virtual Router](../Infrastructure-Part-4)
 
 [Part 05 - Underconstruction](../Infrastructure-Part-5)
 
