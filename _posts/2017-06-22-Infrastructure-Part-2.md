@@ -5,7 +5,7 @@ title: Arch Linux Infrastructure - Brouter Inception - Part 2 - Hypervisor
 
 # Hypervisor OS Install #
 
-Like living on the razers edge how about an Arch Linux Hypervisor (These steps could be used for other systemd-networkd distributions).
+Like living on the razors edge how about an Arch Linux Hypervisor (These steps could be used for other systemd-networkd distributions).
 
 ## USB Install ##
 
