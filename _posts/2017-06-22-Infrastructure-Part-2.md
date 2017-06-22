@@ -3,6 +3,28 @@ layout: post
 title: Arch Linux Infrastructure - Brouter Inception - Part 2 - Hypervisor
 ---
 
+# Index #
+
+[Part 01 - Network Switch VLANs](../Infrastructure-Part-1)
+
+Part 02 - Hypervisor OS Install - You Are Here!
+
+[Part 03 - Hypervisor OS Setup](../Infrastructure-Part-3)
+
+[Part 04 - Virtual Router](../Infrastructure-Part-4)
+
+[Part 05 - Underconstruction](../Infrastructure-Part-5)
+
+[Part 06 - Underconstruction](../Infrastructure-Part-6)
+
+[Part 07 - Underconstruction](../Infrastructure-Part-7)
+
+[Part 08 - Underconstruction](../Infrastructure-Part-8)
+
+[Part 09 - Underconstruction](../Infrastructure-Part-9)
+
+[Part 10 - Underconstruction](../Infrastructure-Part-10)
+
 # Hypervisor OS Install #
 
 Like living on the razors edge, how about an Arch Linux Hypervisor (These steps could be used for other systemd-networkd distributions).
@@ -1029,5 +1051,4 @@ root@archiso ~ # reboot
 
 If everything goes well you should now be at a linux console waiting for you to login with your root user account and password we set before with passwd.
 
-Continue to Part 3
-
+Continue to [Part 03 - Hypervisor OS Setup](../Infrastructure-Part-3)
