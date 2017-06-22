@@ -2,6 +2,9 @@
 layout: post
 title: Arch Linux Infrastructure - Brouter Inception - Part 1 - Network Switch VLANs
 ---
+
+# Index #
+
 Part 01 - Network Switch VLANs - You Are Here!
 
 [Part 02 - Hypervisor OS Install](../Infrastructure-Part-2)
@@ -499,3 +502,5 @@ flash:/3comoscfg.cfg exists, overwrite? [Y/N]:y
  undo jumboframe enable
  stp edged-port enable
  ```
+
+Continue to [Part 02 - Hypervisor OS Install](../Infrastructure-Part-2)
