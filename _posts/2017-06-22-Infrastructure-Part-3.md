@@ -45,10 +45,10 @@ useradd -m -G wheel kvm libvirt docker -s /bin/bash plebuser
 
 ```
 passwd plebuser
+New password: 1337pleb
+Retype new password: 1337pleb
+passwd: password updated successfully
 ```
-
-add user pass change here
-
 
 ```
 EDITOR=nano visudo
