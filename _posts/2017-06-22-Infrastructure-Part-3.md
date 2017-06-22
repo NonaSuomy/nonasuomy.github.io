@@ -9,7 +9,7 @@ title: Arch Linux Infrastructure - Brouter Inception - Part 3 - Hypervisor OS Se
 
 [Part 02 - Hypervisor OS Install](../Infrastructure-Part-2)
 
-[Part 03 - Hypervisor OS Setup] - You Are Here!
+Part 03 - Hypervisor OS Setup - You Are Here!
 
 [Part 04 - Virtual Router](../Infrastructure-Part-4)
 
@@ -219,3 +219,5 @@ options root=LABEL=ROOT rootflags=subvol=@ rw intel_iommu=on pci-stub.ids=8086:0
 ```
 
 Now we should be able to the WiFi Hardware in our VM for PCI-Passthrough.
+
+Continue to [Part 04 - Virtual Router](../Infrastructure-Part-4)
