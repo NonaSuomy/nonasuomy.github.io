@@ -51,7 +51,7 @@ Turn off Nano’s word wrap default :S
 set nowrap
 Exit - Ctrl+X, Save - Y, File - <Enter>.
 
-### Install sudo ###
+### Install sudo (May already be installed) ###
 
 ```
 pacman -S sudo
@@ -60,7 +60,7 @@ pacman -S sudo
 ### Make A New User ###
 
 ```
-useradd -m -G wheel kvm libvirt docker -s /bin/bash plebuser
+useradd -m -G wheel -s /bin/bash plebuser
 ```
 
 ### Set password for user ###
@@ -72,16 +72,12 @@ Retype new password: 1337pleb
 passwd: password updated successfully
 ```
 
+### Edit visudo ###
+
 ```
 EDITOR=nano visudo
 ```
 
-### Edit visudo ###
-
-```
-nano visudo
-```
- 
 ### Enable sudo for wheel group ###
 
 Uncomment 
@@ -99,16 +95,24 @@ to
 ### Change To New User Account ###
 
 ```
-su plebuser
-cd ~/
+exit
+Arch Linux 4.11.6-1ARCH (tty1)
+login: plebuser
+cd
 ```
 
 ### Install Virtual Machine Packages ###
 
-Install libvirt, virt-manager, qemu, dmidecode, ovmf, openssh, ebtables, bridge-utils, openbsd-netcat, tcpdump
+Install libvirt, virt-manager, qemu, qemu-arch-extra, dmidecode, ovmf, openssh, ebtables, bridge-utils, openbsd-netcat, tcpdump
  
 ```
-sudo pacman -S libvirt virt-manager qemu dmidecode ovmf openssh ebtables bridge-utils openbsd-netcat tcpdump
+sudo pacman -S libvirt virt-manager qemu qemu-arch-extra dmidecode ovmf openssh ebtables bridge-utils openbsd-netcat tcpdump
+```
+
+### Add User To Virtual Machine Groups ###
+
+```
+sudo usermod -a -G kvm,libvirt nonasuomy
 ```
 
 ### Enable sshd Service ###
@@ -143,20 +147,28 @@ nvram=["/usr/share/ovmf/ovmf_code_x64.bin:/usr/share/ovmf/ovmf_vars_x64.bin"]
 i3-wm (Windows manager to use virt-manager)
  
 ```
-sudo pacman -S xorg xorg-xinit i3-wm i3status i3lock dmenu ranger xrvt-unicode chromium firefox scrot
-echo "exec i3" > ~/.xinitrc
+sudo pacman -S xorg xorg-xinit i3-wm i3status i3lock dmenu ranger rxvt-unicode chromium firefox scrot
+```
+
+Hit <Enter> on any default option selections during install process.
+
+#### Configure startx To Start i3-wm ####
+
+```
+echo "exec i3" >> ~/.xinitrc
 startx
 ```
 
 ### i3 Wizard ###
 
-i3 wizard will ask you two questions, reply ALT and then Yes to create the config file.
+i3 wizard will ask you two questions, Create the configuration YES , Select ALT for the MOD key 
+(Otherwise it gets touchy if you have to use MSWin Boxes and you have the MOD key set to the Windows Key).
  
-ALT D for menu of apps push page up/down to scroll through or just type a search like chromium when you install it.
+Push ALT+D for a menu of apps push page up/down to scroll through or just type a search like chromium when you install it.
  
-ALT ENTER for Terminal.
+ALT+ENTER for Terminal.
  
-ALT SHIFT E exit i3 
+ALT+SHIFT+E exit i3 
 
 ### Next Part ###
 
