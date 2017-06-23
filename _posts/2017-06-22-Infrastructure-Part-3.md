@@ -158,66 +158,6 @@ ALT ENTER for Terminal.
  
 ALT SHIFT E exit i3 
 
-
-### PCI Passthrough For Wireless Access Point ###
- 
-```
-sudo nano /etc/modprobe.d/modprobe.conf
-options kvm_intel nested=1
-```
-
-#### Blacklist Intel Chipset ####
-
-I have two wireless network cards, blacklist the Intel driver as were using an the atheros chipset.
-
-```
-sudo nano /etc/modprobe.d/blacklist.conf
-blacklist iwlwifi
-```
-
-#### Check If IOMMU Is Enable ###
-
-```
-grep -E "vmx|svm" /proc/cpuinfo
-dmesg | grep -iE "dmar|iommu"
-```
-
-#### Find Hardware ID ####
-
-```
-lspci -nn
-00:00.0 Host bridge [0600]: Intel Corporation 3rd Gen Core processor DRAM Controller [8086:0154] (rev 09)
-00:02.0 VGA compatible controller [0300]: Intel Corporation 3rd Gen Core processor Graphics Controller [8086:0166] (rev 09)
-00:14.0 USB controller [0c03]: Intel Corporation 7 Series/C210 Series Chipset Family USB xHCI Host Controller [8086:1e31] (rev 04)
-00:16.0 Communication controller [0780]: Intel Corporation 7 Series/C216 Chipset Family MEI Controller #1 [8086:1e3a] (rev 04)
-00:19.0 Ethernet controller [0200]: Intel Corporation 82579LM Gigabit Network Connection [8086:1502] (rev 04)
-00:1a.0 USB controller [0c03]: Intel Corporation 7 Series/C216 Chipset Family USB Enhanced Host Controller #2 [8086:1e2d] (rev 04)
-00:1b.0 Audio device [0403]: Intel Corporation 7 Series/C216 Chipset Family High Definition Audio Controller [8086:1e20] (rev 04)
-00:1c.0 PCI bridge [0604]: Intel Corporation 7 Series/C216 Chipset Family PCI Express Root Port 1 [8086:1e10] (rev c4)
-00:1c.1 PCI bridge [0604]: Intel Corporation 7 Series/C210 Series Chipset Family PCI Express Root Port 2 [8086:1e12] (rev c4)
-00:1c.2 PCI bridge [0604]: Intel Corporation 7 Series/C210 Series Chipset Family PCI Express Root Port 3 [8086:1e14] (rev c4)
-00:1c.3 PCI bridge [0604]: Intel Corporation 7 Series/C216 Chipset Family PCI Express Root Port 4 [8086:1e16] (rev c4)
-00:1c.5 PCI bridge [0604]: Intel Corporation 7 Series/C210 Series Chipset Family PCI Express Root Port 6 [8086:1e1a] (rev c4)
-00:1d.0 USB controller [0c03]: Intel Corporation 7 Series/C216 Chipset Family USB Enhanced Host Controller #1 [8086:1e26] (rev 04)
-00:1f.0 ISA bridge [0601]: Intel Corporation QM77 Express Chipset LPC Controller [8086:1e55] (rev 04)
-00:1f.2 RAID bus controller [0104]: Intel Corporation 82801 Mobile SATA Controller [RAID mode] [8086:282a] (rev 04)
-00:1f.3 SMBus [0c05]: Intel Corporation 7 Series/C216 Chipset Family SMBus Controller [8086:1e22] (rev 04)
-02:00.0 Network controller [0280]: Intel Corporation Centrino Advanced-N 6205 [Taylor Peak] [8086:0082] (rev 34)
-0b:00.0 SD Host controller [0805]: O2 Micro, Inc. OZ600FJ0/OZ900FJ0/OZ600FJS SD/MMC Card Reader Controller [1217:8221] (rev 05)
-```
-
-Intel Hardware ID: 8086:0082
-
-#### Enable Hardware ID For IOMMU In Bootloader ####
-
-```
-sudo nano /boot/loader/entries/arch.conf
-title   Arch Linux BTRFS
-linux   /vmlinuz-linux
-initrd  /initramfs-linux.img
-options root=LABEL=ROOT rootflags=subvol=@ rw intel_iommu=on pci-stub.ids=8086:0082
-```
-
-Now we should be able to the WiFi Hardware in our VM for PCI-Passthrough.
+### Next Part ###
 
 Continue to [Part 04 - Virtual Router](../Infrastructure-Part-4)
