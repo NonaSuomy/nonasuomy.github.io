@@ -153,8 +153,8 @@ root@archiso ~ # sgdisk --zap-all /dev/sda
 
 root@archiso ~ # sgdisk --clear \
        --new=1:0:+550MiB --typecode=1:ef00 --change-name=1:EFI \
-       --new=2:0:+12GiB  --typecode=2:8200 --change-name=2:swap \
-       --new=3:0:0       --typecode=3:8300 --change-name=3:system \
+       --new=2:0:+12GiB  --typecode=2:8200 --change-name=2:SWAP \
+       --new=3:0:0       --typecode=3:8300 --change-name=3:ROOT \
        /dev/sda
          
 Creating new GPT entries.
@@ -179,8 +179,8 @@ NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT                PARTLABEL
 loop0    7:0    0 375.6M  1 loop /run/archiso/sfs/airootfs
 sda      8:0    0 298.1G  0 disk
 ├─sda1   8:1    0   550M  0 part                           EFI
-├─sda2   8:2    0    12G  0 part                           swap
-└─sda3   8:3    0 285.6G  0 part                           system
+├─sda2   8:2    0    12G  0 part                           SWAP
+└─sda3   8:3    0 285.6G  0 part                           ROOT
 sdb      8:16   1   3.8G  0 disk
 └─sdb1   8:17   1   3.8G  0 part /run/archiso/bootmnt
 sr0     11:0    1  1024M  0 rom
@@ -191,6 +191,11 @@ sr0     11:0    1  1024M  0 rom
 ```
 root@archiso ~ # mkfs.vfat -F 32 -n EFI /dev/sda1
 mkfs.fat 4.1 (2017-01-24)
+```
+
+### Format ROOT Partition ###
+
+```
 root@archiso ~ # mkfs.btrfs -f -L ROOT /dev/sda3
 btrfs-progs v4.11
 See http://btrfs.wiki.kernel.org for more information.
