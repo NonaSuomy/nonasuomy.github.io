@@ -780,11 +780,16 @@ root@archiso ~ # arch-chroot /mnt/
 [root@archiso /]# echo hq > /etc/hostname
 [root@archiso /]# echo LANG=en_US.UTF-8 > /etc/locale.conf
 [root@archiso /]# echo LANGUAGE=en_US >> /etc/locale.conf
-[root@archiso /]# nano /etc/locale.gen
+[root@archiso /]# echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 [root@archiso /]# locale-gen
 Generating locales...
   en_US.UTF-8... done
 Generation complete.
+```
+
+### pacman.conf ###
+
+```
 [root@archiso /]# nano -w /etc/pacman.conf
 ```
 
@@ -802,7 +807,6 @@ ILoveCandy
 
 ```
 #[multilib]
-#SigLevel = PackageRequired
 #Include = /etc/pacman.d/mirrorlist
 ```
 
@@ -810,8 +814,15 @@ to
 
 ```
 [multilib]
-SigLevel = PackageRequired
 Include = /etc/pacman.d/mirrorlist
+```
+
+#### Add the AUR ####
+
+```
+[archlinuxfr]
+SigLevel = Never
+Server = http://repo.archlinux.fr/$arch
 ```
 
 ### Update Pacman ###
@@ -822,7 +833,8 @@ Include = /etc/pacman.d/mirrorlist
  core is up to date
  extra is up to date
  community is up to date
- multilib                 176.6 KiB   378K/s 00:00 [######################] 100%
+ multilib                 176.2 KiB   378K/s 00:00 [----------------------] 100%
+ archlinuxfr               15.2 KiB   112K/s 00:00 [----------------------] 100%
 ```
 
 ### Edit Mkinitcpio For BTRFS Changes ###
@@ -986,10 +998,10 @@ In the example below, root has been mounted as a btrfs subvolume called 'ROOT' (
 ```
 [root@archiso loader]# cd entries/
 [root@archiso entries]# nano -w arch.conf
-title    Arch Linux
+title    Arch Linux BTRFS
 linux    /vmlinuz-linux
 initrd   /initramfs-linux.img
-options  root=PARTUUID=14420948-2cea-4de7-b042-40f67c618660 rw rootflags=subvol=ROOT
+options  root=PARTLABEL=ROOT rw rootflags=subvol=@
 ```
 
 ### Install efibootmgr ###
@@ -1040,8 +1052,6 @@ Boot0008  UEFI: INT13(,0x81)    PciRoot(0x0)/Pci(0x19,0x0)/VenHw(aa7ba38a-dabf-4
 ### Exit arch-chroot and unmount everything ###
 
 ```
-[root@archiso entries]# exit
-exit
 [root@archiso entries]# exit
 exit
 arch-chroot /mnt/  10.54s user 2.72s system 1% cpu 16:15.60 total
