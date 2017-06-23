@@ -58,14 +58,32 @@ https://nyifiles.pfsense.org/mirror/downloads/
 
 ```
 sudo wget https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
-
 ```
 
 #### OPNsense ####
 
 http://mirrors.nycbug.org/pub/opnsense/releases/mirror/
 
+```
 sudo wget http://mirrors.nycbug.org/pub/opnsense/releases/mirror/OPNsense-17.1.4-OpenSSL-cdrom-amd64.iso.bz2
+```
+
+#### PIAF ####
+
+https://sourceforge.net/projects/pbxinaflash/files/
+
+```
+sudo wget https://downloads.sourceforge.net/project/pbxinaflash/IncrediblePBX13-12%20with%20Incredible%20PBX%20GUI/IncrediblePBX13.2.iso
+```
+
+#### Arch Linux ####
+
+http://mirror.rackspace.com/archlinux/iso/
+
+```
+sudo wget http://mirror.rackspace.com/archlinux/iso/2017.06.01/archlinux-2017.06.01-x86_64.iso
+```
+
 
 ## Setup Network VLAN interfaces ##
 
@@ -658,9 +676,9 @@ options root=LABEL=ROOT rootflags=subvol=@ rw intel_iommu=on pci-stub.ids=8086:0
 
 Now we should be able to the WiFi Hardware in our VM for PCI-Passthrough.
 
-Continue to [Part 05 - Underconstruction](../Infrastructure-Part-5)
- 
 < To be continued... >
+
+Continue to [Part 05 - Underconstruction](../Infrastructure-Part-5)
 
 VM Guest PBX Server: PIAF
 
