@@ -35,7 +35,7 @@ startx
 
 ### Open Terminal (urxvt) ###
 
-Alt+<Enter>
+Alt + <Enter>
 
 ### Make ISO Directory For Hypervisor Media Installs ###
 
@@ -84,6 +84,9 @@ http://mirror.rackspace.com/archlinux/iso/
 sudo wget http://mirror.rackspace.com/archlinux/iso/2017.06.01/archlinux-2017.06.01-x86_64.iso
 ```
 
+Grab any other distribution install media you require for your hypervisor...
+
+**Caution:** *you will no longer have interenet access after this part so make sure you have everything you need :)*
 
 ## Setup Network VLAN interfaces ##
 
@@ -379,7 +382,21 @@ sudo systemctl enable systemd-networkd
 sudo systemctl start systemd-networkd
 ```
 
+### Verify Interfaces Have Been Created ###
+
+```
+ip addr
+```
+
+...
+
+
+
 ### Start virt-manager ###
+
+Alt + D then type virt-manager <Enter>
+
+If you added your user to the libvirt and kvm user groups in the prior document it will show up with the vm connection already made. If not you will have to use sudo virt-manager in the console then add the connection manually like below.
 
 ```
 sudo virt-manager
@@ -445,7 +462,7 @@ Create storage pool
 Step 1 of 2
 
 Select the storage pool type you would like to configure.
-Name: ISO
+Name: iso
 Type: dir:Filesystem Directory
 ```
 
@@ -456,12 +473,12 @@ Add a New Storage Pool
 Create storage pool
 Step 2 of 2
 
-Target Path: /var/lib/libvirt/images/ISO
+Target Path: /var/lib/libvirt/images/iso
 ```
 
 Click Finish
 
-Now you should see the ISO storage pool on the left, click it.
+Now you should see the iso storage pool on the left, click it.
 
 Then click your Virtual Router ISO.
 
@@ -489,7 +506,7 @@ Step 4 of 5
 
 Enable storage for this virtual machine
 * Create a disk image for the virtual machine
-  20.0 - + GiB
+  10.0 - + GiB
   100 GiB available in the default location
 * Select or create custom storage
   Manage...
@@ -508,7 +525,7 @@ OS: Generic
 Install: Local CDROM/ISO
 Memory: 1024 MiB
 CPUs: 1
-Storage: 20.0 GiB /var/lib/libvirt/images/VirtualRouter.qcow2
+Storage: 10.0 GiB /var/lib/libvirt/images/VirtualRouter.qcow2
 X Customize configuration before install
 
 Network selection
@@ -520,22 +537,19 @@ Click Finish
 
 Now you should see the full virtual machine settings window.
 
-Remove the wizard created NIC :xx:xx:xx
-
-Click Add Hardware in the lower left.
-
 ```
-Add New Virtual Hardware
-Network
+Virtual Network Interface
 Network source: Specify shared device name
                 Bridge name: brv100
-MAC address: X 42:de:ad:be:ef:10
 Device model: virtio
+MAC address: X 42:de:ad:be:ef:10
 ```
 
-Click Finish.
+**Note:** *Changing the MAC to something you can recognise makes it easier to sort out in the VM Virtual Router we will see that :10 and know it's for our wan connection and is vlan 100 :20 is our LAN VLAN 200 etc.
 
-Click Add Hardware in the lower left again.
+Click Apply.
+
+Click Add Hardware in the lower left.
 
 ```
 Add New Virtual Hardware
@@ -614,6 +628,15 @@ Device model: virtio
 Click Finish.
 
 Click button in the top right of window.
+
+We just setup all the virtual machine interfaces and attached them to their corrisponding VLAN bridges for the Virtual Router to handle all the traffic.
+
+Click on CPUs at the left.
+
+Click the Copy host CPU configuration check box.
+
+Finally click "Begin Installation" at the top left.
+
 
 ### PCI Passthrough For Wireless Access Point ###
  
