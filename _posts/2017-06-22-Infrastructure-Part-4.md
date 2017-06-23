@@ -27,155 +27,45 @@ Part 04 - Virtual Router - You Are Here!
 
 # Virtual Router Setup #
 
+## Start i3-WM ##
+
 ```
 startx
 ```
 
-alt+<enter>
+### Open Terminal (urxvt) ###
+
+Alt+<Enter>
+
+### Make ISO Directory For Hypervisor Media Installs ###
 
 ```
-sudo virt-manager
+sudo mkdir /var/lib/libvirt/images/iso
+cd /var/lib/libvirt/images/iso
 ```
 
-virt-manager should now be on screen...
-
-Click File => Add Connection...
-
-Hypervisor: QEMU/KVM
-Leave "Connect to remote host" unchecked if on local hypervisor.
-Autoconnect: Check
-Generated URI: qemu:///system
-
-Click Connect
-
-Now you should be connected to your hypervisor.
-
-Click File => New Virtual Machine
+### Download Some Install Media ###
 
 ```
-New VM
-Create a new virtual machine
-Step 1 of 5
-
-Connection: QEMU/KVM
-
-Choose how you would like to install the operating system
-* Local install media (ISO image or CDROM)
-* Network Install (HTTP,FTP, or NFS)
-* Network Boot (PXE)
-* Import existing disk image
+sudo pacman -S wget
 ```
 
-Choose local install media and click Forward
+### Find the latest version ### 
+
+#### pfSense ####
+
+https://nyifiles.pfsense.org/mirror/downloads/
 
 ```
-New VM
-Create a new virtual machine
-Step 2 of 5
-
-Locate your install media
-* Use CDROM or DVD
-  No device present
-* Use ISO image:
-  ComboBox V Browse...
-Automatically detect operating system based on install media
-OS type: -
-Version: -
-```
-
-Click Browse
+sudo wget https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
 
 ```
-Choose Storage Volume
-```
 
-On the left bottom click the +
+#### OPNsense ####
 
-```
-Add a New Storage Pool
-Create storage pool
-Step 1 of 2
+http://mirrors.nycbug.org/pub/opnsense/releases/mirror/
 
-Select the storage pool type you would like to configure.
-Name: ISO
-Type: dir:Filesystem Directory
-```
-
-Click Forward
-
-```
-Add a New Storage Pool
-Create storage pool
-Step 2 of 2
-
-Target Path: /var/lib/libvirt/images/ISO
-```
-
-Click Finish
-
-Now you should see the ISO storage pool on the left, click it.
-
-Then click your Virtual Router ISO.
-
-Then click "Choose Volume".
-
-Leave Automatically detect checked and click Forward.
-
-```
-New VM
-Create a new virtual machine
-Step 3 of 5
-
-Choose Memory and CPU settings
-Memory (RAM): 1024 - + MiB
-CPUs: 1 - +
-Up to 4 available
-```
-
-Click Forward
-
-```
-New VM
-Create a new virtual machine
-Step 4 of 5
-
-Enable storage for this virtual machine
-* Create a disk image for the virtual machine
-  20.0 - + GiB
-  100 GiB available in the default location
-* Select or create custom storage
-  Manage...
-```
-
-Click Forward
-
-```
-New VM
-Create a new virtual machine
-Step 5 of 5
-
-Ready to begin the installation
-Name: VirtualRouter
-OS: Generic
-Install: Local CDROM/ISO
-Memory: 1024 MiB
-CPUs: 1
-Storage: 20.0 GiB /var/lib/libvirt/images/VirtualRouter.qcow2
-X Customize configuration before install
-
-Network selection
-* Specify shared device name
-  Bridge name: brv500
-```
-
-Click Finish
-
-Now you should see the full virtual machine settings window.
-
-add more network interfaces! BRB!
-
-Add stuff here for setting up vm...
-
+sudo wget http://mirrors.nycbug.org/pub/opnsense/releases/mirror/OPNsense-17.1.4-OpenSSL-cdrom-amd64.iso.bz2
 
 ## Setup Network VLAN interfaces ##
 
@@ -471,18 +361,313 @@ sudo systemctl enable systemd-networkd
 sudo systemctl start systemd-networkd
 ```
 
-Link to part 4
+### Start virt-manager ###
+
+```
+sudo virt-manager
+```
+
+virt-manager should now be on screen...
+
+Click File => Add Connection...
+
+Hypervisor: QEMU/KVM
+Leave "Connect to remote host" unchecked if on local hypervisor.
+Autoconnect: Check
+Generated URI: qemu:///system
+
+Click Connect
+
+Now you should be connected to your hypervisor.
+
+Click File => New Virtual Machine
+
+```
+New VM
+Create a new virtual machine
+Step 1 of 5
+
+Connection: QEMU/KVM
+
+Choose how you would like to install the operating system
+* Local install media (ISO image or CDROM)
+* Network Install (HTTP,FTP, or NFS)
+* Network Boot (PXE)
+* Import existing disk image
+```
+
+Choose local install media and click Forward
+
+```
+New VM
+Create a new virtual machine
+Step 2 of 5
+
+Locate your install media
+* Use CDROM or DVD
+  No device present
+* Use ISO image:
+  ComboBox V Browse...
+Automatically detect operating system based on install media
+OS type: -
+Version: -
+```
+
+Click Browse
+
+```
+Choose Storage Volume
+```
+
+On the left bottom click the +
+
+```
+Add a New Storage Pool
+Create storage pool
+Step 1 of 2
+
+Select the storage pool type you would like to configure.
+Name: ISO
+Type: dir:Filesystem Directory
+```
+
+Click Forward
+
+```
+Add a New Storage Pool
+Create storage pool
+Step 2 of 2
+
+Target Path: /var/lib/libvirt/images/ISO
+```
+
+Click Finish
+
+Now you should see the ISO storage pool on the left, click it.
+
+Then click your Virtual Router ISO.
+
+Then click "Choose Volume".
+
+Leave Automatically detect checked and click Forward.
+
+```
+New VM
+Create a new virtual machine
+Step 3 of 5
+
+Choose Memory and CPU settings
+Memory (RAM): 1024 - + MiB
+CPUs: 1 - +
+Up to 4 available
+```
+
+Click Forward
+
+```
+New VM
+Create a new virtual machine
+Step 4 of 5
+
+Enable storage for this virtual machine
+* Create a disk image for the virtual machine
+  20.0 - + GiB
+  100 GiB available in the default location
+* Select or create custom storage
+  Manage...
+```
+
+Click Forward
+
+```
+New VM
+Create a new virtual machine
+Step 5 of 5
+
+Ready to begin the installation
+Name: VirtualRouter
+OS: Generic
+Install: Local CDROM/ISO
+Memory: 1024 MiB
+CPUs: 1
+Storage: 20.0 GiB /var/lib/libvirt/images/VirtualRouter.qcow2
+X Customize configuration before install
+
+Network selection
+* Specify shared device name
+  Bridge name: brv100
+```
+
+Click Finish
+
+Now you should see the full virtual machine settings window.
+
+Remove the wizard created NIC :xx:xx:xx
+
+Click Add Hardware in the lower left.
+
+```
+Add New Virtual Hardware
+Network
+Network source: Specify shared device name
+                Bridge name: brv100
+MAC address: X 42:de:ad:be:ef:10
+Device model: virtio
+```
+
+Click Finish.
+
+Click Add Hardware in the lower left again.
+
+```
+Add New Virtual Hardware
+Network
+Network source: Specify shared device name
+                Bridge name: brv200
+MAC address: X 42:de:ad:be:ef:20
+Device model: virtio
+```
+
+Click Finish.
+
+Click Add Hardware in the lower left again.
+
+```
+Add New Virtual Hardware
+Network
+Network source: Specify shared device name
+                Bridge name: brv300
+MAC address: X 42:de:ad:be:ef:30
+Device model: virtio
+```
+
+Click Finish.
+
+Click Add Hardware in the lower left again.
+
+```
+Add New Virtual Hardware
+Network
+Network source: Specify shared device name
+                Bridge name: brv400
+MAC address: X 42:de:ad:be:ef:40
+Device model: virtio
+```
+
+Click Finish.
+
+Click Add Hardware in the lower left again.
+
+```
+Add New Virtual Hardware
+Network
+Network source: Specify shared device name
+                Bridge name: brv450
+MAC address: X 42:de:ad:be:ef:45
+Device model: virtio
+```
+
+Click Finish.
+
+Click Add Hardware in the lower left again.
+
+```
+Add New Virtual Hardware
+Network
+Network source: Specify shared device name
+                Bridge name: brv500
+MAC address: X 42:de:ad:be:ef:50
+Device model: virtio
+```
+
+Click Finish.
+
+Click Add Hardware in the lower left again.
+
+```
+Add New Virtual Hardware
+Network
+Network source: Specify shared device name
+                Bridge name: brv600
+MAC address: X 42:de:ad:be:ef:60
+Device model: virtio
+```
+
+Click Finish.
+
+Click button in the top right of window.
+
+### PCI Passthrough For Wireless Access Point ###
+ 
+```
+sudo nano /etc/modprobe.d/modprobe.conf
+options kvm_intel nested=1
+```
+
+#### Blacklist Intel Chipset ####
+
+I have two wireless network cards, blacklist the Intel driver as were using an the atheros chipset.
+
+```
+sudo nano /etc/modprobe.d/blacklist.conf
+blacklist iwlwifi
+```
+
+#### Check If IOMMU Is Enable ###
+
+```
+grep -E "vmx|svm" /proc/cpuinfo
+dmesg | grep -iE "dmar|iommu"
+```
+
+#### Find Hardware ID ####
+
+```
+lspci -nn
+00:00.0 Host bridge [0600]: Intel Corporation 3rd Gen Core processor DRAM Controller [8086:0154] (rev 09)
+00:02.0 VGA compatible controller [0300]: Intel Corporation 3rd Gen Core processor Graphics Controller [8086:0166] (rev 09)
+00:14.0 USB controller [0c03]: Intel Corporation 7 Series/C210 Series Chipset Family USB xHCI Host Controller [8086:1e31] (rev 04)
+00:16.0 Communication controller [0780]: Intel Corporation 7 Series/C216 Chipset Family MEI Controller #1 [8086:1e3a] (rev 04)
+00:19.0 Ethernet controller [0200]: Intel Corporation 82579LM Gigabit Network Connection [8086:1502] (rev 04)
+00:1a.0 USB controller [0c03]: Intel Corporation 7 Series/C216 Chipset Family USB Enhanced Host Controller #2 [8086:1e2d] (rev 04)
+00:1b.0 Audio device [0403]: Intel Corporation 7 Series/C216 Chipset Family High Definition Audio Controller [8086:1e20] (rev 04)
+00:1c.0 PCI bridge [0604]: Intel Corporation 7 Series/C216 Chipset Family PCI Express Root Port 1 [8086:1e10] (rev c4)
+00:1c.1 PCI bridge [0604]: Intel Corporation 7 Series/C210 Series Chipset Family PCI Express Root Port 2 [8086:1e12] (rev c4)
+00:1c.2 PCI bridge [0604]: Intel Corporation 7 Series/C210 Series Chipset Family PCI Express Root Port 3 [8086:1e14] (rev c4)
+00:1c.3 PCI bridge [0604]: Intel Corporation 7 Series/C216 Chipset Family PCI Express Root Port 4 [8086:1e16] (rev c4)
+00:1c.5 PCI bridge [0604]: Intel Corporation 7 Series/C210 Series Chipset Family PCI Express Root Port 6 [8086:1e1a] (rev c4)
+00:1d.0 USB controller [0c03]: Intel Corporation 7 Series/C216 Chipset Family USB Enhanced Host Controller #1 [8086:1e26] (rev 04)
+00:1f.0 ISA bridge [0601]: Intel Corporation QM77 Express Chipset LPC Controller [8086:1e55] (rev 04)
+00:1f.2 RAID bus controller [0104]: Intel Corporation 82801 Mobile SATA Controller [RAID mode] [8086:282a] (rev 04)
+00:1f.3 SMBus [0c05]: Intel Corporation 7 Series/C216 Chipset Family SMBus Controller [8086:1e22] (rev 04)
+02:00.0 Network controller [0280]: Intel Corporation Centrino Advanced-N 6205 [Taylor Peak] [8086:0082] (rev 34)
+0b:00.0 SD Host controller [0805]: O2 Micro, Inc. OZ600FJ0/OZ900FJ0/OZ600FJS SD/MMC Card Reader Controller [1217:8221] (rev 05)
+```
+
+Intel Hardware ID: 8086:0082
+
+#### Enable Hardware ID For IOMMU In Bootloader ####
+
+```
+sudo nano /boot/loader/entries/arch.conf
+title   Arch Linux BTRFS
+linux   /vmlinuz-linux
+initrd  /initramfs-linux.img
+options root=LABEL=ROOT rootflags=subvol=@ rw intel_iommu=on pci-stub.ids=8086:0082
+```
+
+Now we should be able to the WiFi Hardware in our VM for PCI-Passthrough.
+
+Continue to [Part 05 - Underconstruction](../Infrastructure-Part-5)
  
 < To be continued... >
- 
-VM Guest Virtual Router: pfSense or OPNsense or Custom
- 
-VM Guest Automation Server: OpenHAB
- 
+
 VM Guest PBX Server: PIAF
+
+VM Guest Automation Server: OpenHAB
  
 VM Guest TOR Server: TOR (Remote)
  
 VM Guest Fileserver: FreeNAS or ETC.
  
-Continue to [Part 05 - Underconstruction](../Infrastructure-Part-5)
+
