@@ -58,6 +58,7 @@ https://nyifiles.pfsense.org/mirror/downloads/
 
 ```
 sudo wget https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
+sudo gunzip pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
 ```
 
 #### OPNsense ####
@@ -66,6 +67,7 @@ http://mirrors.nycbug.org/pub/opnsense/releases/mirror/
 
 ```
 sudo wget http://mirrors.nycbug.org/pub/opnsense/releases/mirror/OPNsense-17.1.4-OpenSSL-cdrom-amd64.iso.bz2
+sudo bzip2 -d OPNsense-17.1.4-OpenSSL-cdrom-amd64.iso.bz2
 ```
 
 #### PIAF ####
@@ -394,10 +396,6 @@ ip addr
 
 ### Start virt-manager ###
 
-Alt + D then type virt-manager <Enter>
-
-If you added your user to the libvirt and kvm user groups in the prior document it will show up with the vm connection already made. If not you will have to use sudo virt-manager in the console then add the connection manually like below.
-
 ```
 sudo virt-manager
 ```
@@ -537,6 +535,8 @@ Click Finish
 
 Now you should see the full virtual machine settings window.
 
+Click Firmware select UEFI x86_64: /usr/share/ovmf/ovmf_code_x64.bin
+
 ```
 Virtual Network Interface
 Network source: Specify shared device name
@@ -627,16 +627,143 @@ Device model: virtio
 
 Click Finish.
 
-Click button in the top right of window.
-
 We just setup all the virtual machine interfaces and attached them to their corrisponding VLAN bridges for the Virtual Router to handle all the traffic.
 
 Click on CPUs at the left.
 
+```
+CPUs
+  Logical host CPUs: 4
+  Current allocation: 1 - +
+  Maximum allocation: 1 - +
+Configuration
+  X Copy host CPU configuration
+v Topology
+  Manually set CPU topology
+  Sockets: 1 - +
+  Cores: 1 - +
+  Threads: 1 - +
+```
+
 Click the Copy host CPU configuration check box.
+
+Click on Boot Options
+
+```
+Autostart
+  X Start virtual machine on host boot up
+Boot device order
+  X Enable boot menu
+  X IDE CDROM 1
+  X IDE Disk 1
+  NIC :be:ef:50
+  ...
+V Direct kernel boot
+  Enable direct kernel boot
+  Kernel path:
+  Initrd path:
+  Kernel args:
+```
+
+Click on IDE CDROM 1
+
+```
+Virual Disk
+  Sorce path: - Connect
+  Device type: IDE CDROM 1
+  Storage size: -
+  Readonly: X
+  Shareable:
+V Advanced options
+  Disk bus: IDE
+  Serial number:
+  Storage format: raw
+V Performance options
+  Cache mode: Hypervisor default
+  IO mode: Hypervisor default
+```
+
+Click on Connect
+
+```
+Choose Media
+Choose Source Device or File
+  X ISO Image Location
+    Location: Browse
+  CD-ROM or DVD
+    Device Media: No device present
+```
+
+Click on Browse
+
+```
+Choose Storage Volume
+
+default
+Filesystem Directory
+
+iso
+Filesystem Directory 
+
+Size: 145.24 GiB Free / 140.32 GiB in Use
+Location: /var/lib/libvirt/images/iso
+
+Volumes + @ X
+
+Volumes                                   Size         Format
+archlinux-2017.06.01-x86_64.iso           488.00 MiB   iso
+IncrediblePBX13.2.iso                     849.00 MiB   iso
+OPNsense-17.1.4-OpenSSL-cdrom-amd64.iso   858.43 MiB   iso
+pfSense-CE-2.3.4-RELEASE-amd64.iso        626.79 MiB   iso
+```
+
+Click on pfSense or OPNsense iso then click Choose Volume
+
+Click OK
+
+```
+Virual Disk
+  Sorce path: ...irt/images/iso/pfSense...iso Disconnect
+  Device type: IDE CDROM 1
+  Storage size: 858.43 MiB
+  Readonly: X
+  Shareable:
+```
+
+Make sure the IDE CDROM 1 is at the top of the Boot device order.
+
+Click on Display Spice
+
+```
+Spice Server
+  Type: Spice server
+```
+
+Change to VNC server
+
+```
+VNC Server
+  Type: VNC server
+  Listen type: Address
+  Address: All interfaces
+  Port: X Auto
+  Password: 
+  Keymap:
+```
 
 Finally click "Begin Installation" at the top left.
 
+After installation is finished, power off the VM then click on "Boot Options" and change the order "IDE Disk 1" to be first and Disconnect the "IDE CDROM 1" mounted iso.
+ 
+```
+Autostart
+  X Start virtual machine on host boot up
+Boot device order
+  X Enable boot menu
+  X IDE Disk 1
+  X IDE CDROM 1
+  NIC :be:ef:50
+  ...
 
 ### PCI Passthrough For Wireless Access Point ###
  
