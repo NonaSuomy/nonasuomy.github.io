@@ -45,6 +45,11 @@ Stacking performance with CX4 local connection, each port operates at 12 Gb/s, o
 Wirespeed performance across ports
 Store-and-forward switching
 Latency < 10 μ
+Dimensions (H x W x D) 
+Height: 43.6 mm (1.7 in or 1 RU) 
+Width: 440.0 mm (17.4 in)
+Depth: 24 and 48-port PWR: 420.0 mm (16.5 in) 
+Weight Switch 4800G PWR 24-port: 6.0 kg (13.2 lbs)
 AC Rated voltage range 100 - 240 V, 50 - 60 Hz 
 DC-rated voltage range (for RPS) Switch 4800G PWR24-port: -52 to -55 
 Power consumption (max) Switch 4800G PWR 24-port: 93 W, plus up to 370 W for PoE
