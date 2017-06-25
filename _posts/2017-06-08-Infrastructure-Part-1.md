@@ -3,6 +3,8 @@ layout: post
 title: Arch Linux Infrastructure - Brouter Inception - Part 1 - Network Switch VLANs
 ---
 
+![alt text](https://github.com/NonaSuomy/nonasuomy.github.io/blob/master/images/infrastructure/HOTInfrastructureLayoutSW.png "Infrastructure Switch")
+
 # Index #
 
 Part 01 - Network Switch VLANs - You Are Here!
@@ -27,7 +29,30 @@ Part 01 - Network Switch VLANs - You Are Here!
 
 #Switch Hardware#
 
-24 Port P.O.E. Switch H3C 4800G
+Switch H3C 4800G PWR 24-port
+
+![alt text](https://github.com/NonaSuomy/nonasuomy.github.io/blob/master/images/infrastructure/h3cswitch4800g.gif "Switch H3C 4800G PWR 24-port")
+
+```
+Switch 4800G PWR 24-port
+24 10/100/1000 Mb/s with 4 SFP combo interfaces
+10/100/1000 ports with 15.4 W per port maximum; 370 W total PoE power budget without supplemental RPS power
+144 Gb/s full duplex switching capacity
+107.2 Mp/s forwarding rate
+2 expansion slots each supporting up to 2 10-Gigabit interfaces
+10BASE-T/100BASE-TX/1000BASE-T ports configured as auto-MDI/MDIX
+Stacking performance with CX4 local connection, each port operates at 12 Gb/s, or 24 Gb/s full duplex. Total bandwidth is 48 Gb/s using two ports per switch, or 96 Gb/s using four ports per switch.
+Wirespeed performance across ports
+Store-and-forward switching
+Latency < 10 μ
+AC Rated voltage range 100 - 240 V, 50 - 60 Hz 
+DC-rated voltage range (for RPS) Switch 4800G PWR24-port: -52 to -55 
+Power consumption (max) Switch 4800G PWR 24-port: 93 W, plus up to 370 W for PoE
+Operating temperature 0° to 45°C (32° to 113°F) 
+Operating humidity 10% to 90% non-condensing 
+Heat dissipation (max) Switch 4800G PWR 24-port: 316 BTU/hr; excludes heat from PoE
+Reliability 24-port PWR: 44 yrs (389,000 hrs)
+```
 
 Firmware: https://h10145.www1.hpe.com/Downloads/SoftwareReleases.aspx?ProductNumber=JD008A&lang=en&cc=us&prodSeriesId=4177359&SoftwareReleaseUId=21933&SerialNumber=&PurchaseDate=
 ```
