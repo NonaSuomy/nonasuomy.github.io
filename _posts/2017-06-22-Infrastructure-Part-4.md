@@ -37,7 +37,7 @@ startx
 
 ### Open Terminal (urxvt) ###
 
-Alt + <Enter>
+Alt + Enter
 
 ### Make ISO Directory For Hypervisor Media Installs ###
 
@@ -90,7 +90,7 @@ sudo wget http://mirror.rackspace.com/archlinux/iso/2017.06.01/archlinux-2017.06
 
 Grab any other distribution install media you require for your hypervisor...
 
-**Caution:** *you will no longer have interenet access after this part so make sure you have everything you need :)*
+**Caution:** *you will no longer have interenet access after this part until you get the vm router working, so make sure you have everything you need :)*
 
 ## Setup Network VLAN interfaces ##
 
@@ -389,11 +389,202 @@ sudo systemctl start systemd-networkd
 ### Verify Interfaces Have Been Created ###
 
 ```
-ip addr
+ip link
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+    link/ether f0:1f:af:32:66:4f brd ff:ff:ff:ff:ff:ff
+3: brv500: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
+    link/ether 9a:de:fd:00:4c:9c brd ff:ff:ff:ff:ff:ff
+4: brv450: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
+    link/ether b2:40:b2:19:5d:b2 brd ff:ff:ff:ff:ff:ff
+5: brv400: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
+    link/ether 82:f9:79:52:52:f5 brd ff:ff:ff:ff:ff:ff
+6: brv300: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
+    link/ether ce:0c:c4:f6:9b:41 brd ff:ff:ff:ff:ff:ff
+7: brv200: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
+    link/ether 56:9c:3a:04:c4:f8 brd ff:ff:ff:ff:ff:ff
+8: brv100: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
+    link/ether ae:df:f9:a5:92:e9 brd ff:ff:ff:ff:ff:ff
+9: eno1.200@eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master brv200 state UP mode DEFAULT group default qlen 1000
+    link/ether f0:1f:af:32:66:4f brd ff:ff:ff:ff:ff:ff
+10: eno1.300@eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master brv300 state UP mode DEFAULT group default qlen 1000
+    link/ether f0:1f:af:32:66:4f brd ff:ff:ff:ff:ff:ff
+11: eno1.400@eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master brv400 state UP mode DEFAULT group default qlen 1000
+    link/ether f0:1f:af:32:66:4f brd ff:ff:ff:ff:ff:ff
+12: eno1.500@eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master brv500 state UP mode DEFAULT group default qlen 1000
+    link/ether f0:1f:af:32:66:4f brd ff:ff:ff:ff:ff:ff
+13: eno1.450@eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master brv450 state UP mode DEFAULT group default qlen 1000
+    link/ether f0:1f:af:32:66:4f brd ff:ff:ff:ff:ff:ff
+14: eno1.100@eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master brv100 state UP mode DEFAULT group default qlen 1000
+    link/ether f0:1f:af:32:66:4f brd ff:ff:ff:ff:ff:ff
 ```
 
-...
+### Configure qemu.conf and libvirtd.conf ###
 
+Change these settings so your local user can login without sudo.
+
+```
+sudo nano /etc/libvirt/qemu.conf
+
+# The user for QEMU processes run by the system instance. It can be
+# specified as a user name or as a user id. The qemu driver will try to
+# parse this value first as a name and then, if the name doesn't exist,
+# as a user id.
+#
+# Since a sequence of digits is a valid user name, a leading plus sign
+# can be used to ensure that a user id will not be interpreted as a user
+# name.
+#
+# Some examples of valid values are:
+#
+#       user = "qemu"   # A user named "qemu"
+#       user = "+0"     # Super user (uid=0)
+#       user = "100"    # A user named "100" or a user with uid=100
+#
+user = "root"
+
+# The group for QEMU processes run by the system instance. It can be
+# specified in a similar way to user.
+group = "root"
+```
+
+
+```
+sudo nano /etc/libvirt/libvirtd.conf
+
+# Network connectivity controls
+#
+
+# Flag listening for secure TLS connections on the public TCP/IP port.
+# NB, must pass the --listen flag to the libvirtd process for this to
+# have any effect.
+#
+# It is necessary to setup a CA and issue server certificates before
+# using this capability.
+#
+# This is enabled by default, uncomment this to disable it
+listen_tls = 0
+
+#################################################################
+#
+# UNIX socket access controls
+#
+
+# Set the UNIX domain socket group ownership. This can be used to
+# allow a 'trusted' set of users access to management capabilities
+# without becoming root.
+#
+# This is restricted to 'root' by default.
+unix_sock_group = "libvirt"
+
+# Set the UNIX socket permissions for the R/O socket. This is used
+# for monitoring VM status only
+#
+# Default allows any user. If setting group ownership, you may want to
+# restrict this too.
+unix_sock_ro_perms = "0777"
+
+# Set the UNIX socket permissions for the R/W socket. This is used
+# for full management of VMs
+#
+# Default allows only root. If PolicyKit is enabled on the socket,
+# the default will change to allow everyone (eg, 0777)
+#
+# If not using PolicyKit and setting group ownership for access
+# control, then you may want to relax this too.
+unix_sock_rw_perms = "0770"
+
+
+# Set the UNIX socket permissions for the admin interface socket.
+#
+# Default allows only owner (root), do not change it unless you are
+# sure to whom you are exposing the access to.
+#unix_sock_admin_perms = "0700"
+
+# Set the name of the directory in which sockets will be found/created.
+unix_sock_dir = "/var/run/libvirt"
+
+#################################################################
+#
+# Authentication.
+#
+#  - none: do not perform auth checks. If you can connect to the
+#          socket you are allowed. This is suitable if there are
+#          restrictions on connecting to the socket (eg, UNIX
+#          socket permissions), or if there is a lower layer in
+#          the network providing auth (eg, TLS/x509 certificates)
+#
+#  - sasl: use SASL infrastructure. The actual auth scheme is then
+#          controlled from /etc/sasl2/libvirt.conf. For the TCP
+#          socket only GSSAPI & DIGEST-MD5 mechanisms will be used.
+#          For non-TCP or TLS sockets, any scheme is allowed.
+#
+#  - polkit: use PolicyKit to authenticate. This is only suitable
+#            for use on the UNIX sockets. The default policy will
+#            require a user to supply their own password to gain
+#            full read/write access (aka sudo like), while anyone
+#            is allowed read/only access.
+#
+# Set an authentication scheme for UNIX read-only sockets
+# By default socket permissions allow anyone to connect
+#
+# To restrict monitoring of domains you may wish to enable
+# an authentication mechanism here
+auth_unix_ro = "none"
+
+# Set an authentication scheme for UNIX read-write sockets
+# By default socket permissions only allow root. If PolicyKit
+# support was compiled into libvirt, the default will be to
+# use 'polkit' auth.
+#
+# If the unix_sock_rw_perms are changed you may wish to enable
+# an authentication mechanism here
+auth_unix_rw = "none"
+
+
+# Listen for unencrypted TCP connections on the public TCP/IP port.
+# NB, must pass the --listen flag to the libvirtd process for this to
+# have any effect.
+#
+# Using the TCP socket requires SASL authentication by default. Only
+# SASL mechanisms which support data encryption are allowed. This is
+# DIGEST_MD5 and GSSAPI (Kerberos5)
+#
+# This is disabled by default, uncomment this to enable it.
+listen_tcp = 1
+
+# Override the default configuration which binds to all network
+# interfaces. This can be a numeric IPv4/6 address, or hostname
+#
+# If the libvirtd service is started in parallel with network
+# startup (e.g. with systemd), binding to addresses other than
+# the wildcards (0.0.0.0/::) might not be available yet.
+#
+#listen_addr = "192.168.0.1"
+listen_addr = "0.0.0.0"
+
+# Change the authentication scheme for TCP sockets.
+#
+# If you don't enable SASL, then all TCP traffic is cleartext.
+# Don't do this outside of a dev/test scenario. For real world
+# use, always enable SASL and use the GSSAPI or DIGEST-MD5
+# mechanism in /etc/sasl2/libvirt.conf
+#auth_tcp = "sasl"
+auth_tcp = "none"
+```
+
+If you start virt-manager without sudo and it gives you "failed to initialize KVM: Permission denied" error try this:
+
+```
+sudo rmmod kvm_intel
+sudo rmmod kvm
+sudo modprobe kvm
+sudo modprobe kvm_intel
+```
+
+The above commands reload the kvm_intel and kvm kernel modules.
 
 
 ### Start virt-manager ###
