@@ -3,7 +3,7 @@ layout: post
 title: Arch Linux Infrastructure - Brouter Inception - Part 1 - Network Switch VLANs
 ---
 
-![alt text](https://github.com/NonaSuomy/nonasuomy.github.io/blob/master/images/infrastructure/HOTInfrastructureLayoutSW.png "Infrastructure Switch")
+![alt text](images/infrastructure/HOTInfrastructureLayoutSW.png "Infrastructure Switch")
 
 # Index #
 
@@ -31,7 +31,7 @@ Part 01 - Network Switch VLANs - You Are Here!
 
 Switch H3C 4800G PWR 24-port
 
-![alt text](https://github.com/NonaSuomy/nonasuomy.github.io/blob/master/images/infrastructure/h3cswitch4800g.gif "Switch H3C 4800G PWR 24-port")
+![alt text](images/infrastructure/h3cswitch4800g.gif "Switch H3C 4800G PWR 24-port")
 
 ```
 Switch 4800G PWR 24-port
