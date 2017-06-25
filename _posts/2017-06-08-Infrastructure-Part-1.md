@@ -3,7 +3,7 @@ layout: post
 title: Arch Linux Infrastructure - Brouter Inception - Part 1 - Network Switch VLANs
 ---
 
-![alt text](images/infrastructure/HOTInfrastructureLayoutSW.png "Infrastructure Switch")
+![alt text]({{ site.baseurl }}/images/infrastructure/HOTInfrastructureLayoutSW.png "Infrastructure Switch")
 
 # Index #
 
@@ -27,11 +27,11 @@ Part 01 - Network Switch VLANs - You Are Here!
 
 [Part 10 - Underconstruction](../Infrastructure-Part-10)
 
-#Switch Hardware#
+# Switch Hardware #
 
 Switch H3C 4800G PWR 24-port
 
-![alt text](images/infrastructure/h3cswitch4800g.gif "Switch H3C 4800G PWR 24-port")
+![alt text]({{ site.baseurl }}/images/infrastructure/h3cswitch4800g.gif "Switch H3C 4800G PWR 24-port")
 
 ```
 Switch 4800G PWR 24-port
@@ -66,7 +66,7 @@ Boot-Loader: A5500EI-CMW520-R2222P05.bin
 
 You may need to grab both lastest downloads as the bootrom is only in the prior release, you can use the newest boot-loader with it though, don't have to first use the older boot-loader *.bin file.
 
-###Factory Reset###
+### Factory Reset ###
 
 Forgot your login password and want to do a password recovery? Factory reset to default!
 
@@ -177,9 +177,9 @@ Factory U/P
 U:admin
 P:<ENTER> key (blank)
 
-###Firmware Updates###
+### Firmware Updates ###
 
-####FTP Method####
+#### FTP Method ####
 
 1.) Get the files to the switch by using FTP.
 
@@ -236,7 +236,7 @@ The backup boot app is: flash:/someoldversion.bin
 reboot
 ```
 
-####TFTP Method####
+#### TFTP Method ####
 
 TFTP is basically the same
 
@@ -293,7 +293,7 @@ Running Time:
 [4800G ... ]authentication-mode scheme
 ```
 
-###How to enable Web Interface###
+### How to enable Web Interface ###
 
 #### Check if web interface is running ####
 
