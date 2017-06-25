@@ -3,6 +3,8 @@ layout: post
 title: Arch Linux Infrastructure - Brouter Inception - Part 2 - Hypervisor
 ---
 
+![alt text]({{ site.baseurl }}../images/infrastructure/HOTInfrastructureLayoutVM.png "Infrastructure Switch")
+
 # Index #
 
 [Part 01 - Network Switch VLANs](../Infrastructure-Part-1)
