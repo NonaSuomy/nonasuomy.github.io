@@ -957,6 +957,7 @@ Boot device order
   X IDE CDROM 1
   NIC :be:ef:50
   ...
+```
 
 ### PCI Passthrough For Wireless Access Point ###
  
@@ -1017,7 +1018,7 @@ initrd  /initramfs-linux.img
 options root=LABEL=ROOT rootflags=subvol=@ rw intel_iommu=on pci-stub.ids=8086:0082
 ```
 
-Now we should be able to the WiFi Hardware in our VM for PCI-Passthrough.
+Now we should be able to see the WiFi Hardware in our VM for PCI-Passthrough.
 
 < To be continued... >
 
