@@ -444,42 +444,13 @@ Setup a regular user with administration permissions checked.
 
 Wait for install to finish...
 
-Reboot...
+Click Reboot.
 
-```
-setenforce 0
-yum -y install net-tools nano wget tar
-yum -y upgrade --skip-broken
-# decipher your server's IP address
-ifconfig
-# patch grub and ignore errors if your server doesn't use it
-sed -i 's|quiet|quiet net.ifnames=0 biosdevdame=0|' /etc/default/grub
-grub2-mkconfig -o /boot/grub2/grub.cfg
-# for older CentOS/SL 6.7 platforms, perform 3 steps below:
-#wget http://incrediblepbx.com/update-kernel-devel
-#chmod +x update-kernel-devel
-#./update-kernel-devel
-reboot
-```
+The machine will power off.
 
-```
-cd /root
-wget http://incrediblepbx.com/incrediblepbx13-12.2-centos.tar.gz
-tar zxvf incrediblepbx*
-#./create-swapfile-DO
-./IncrediblePBX*
-```
+Click the Light Bulb (Show virtual hardware details).
 
-```
-Make your root password very secure: passwd
-Create admin password for GUI access: /root/admin-pw-change
-Set your correct time zone: /root/timezone-setup
-Create admin password for web apps: htpasswd /etc/pbx/wwwpasswd admin
-Make a copy of your Knock codes: cat /root/knock.FAQ
-Decipher IP address and other info about your server: status
-```
-
-After installation is finished, power off the VM then click on "Boot Options" and change the order "IDE Disk 1" to be first and Disconnect the "IDE CDROM 1" mounted iso.
+Click on "Boot Options" and change the order "IDE Disk 1" to be first and Disconnect the "IDE CDROM 1" mounted iso.
  
 ```
 Autostart
@@ -491,36 +462,78 @@ Boot device order
   NIC :fe:ed:50
   ...
 ```
+Click Apply.
 
-
-
-
-
-
-Click the Light Bulb (Show virtual hardware details).
-
-Click Boot Options
-
-Change the boot order to make IDE Disk 1 first.
-
-```
-Autostart
-   X Start virtual machine on host boot up
-Boot device order
-   X Enable boot menu
-   X IDE Disk 1
-   X IDE CDROM 1
-```
-
-Click IDE CDROM 1
+Click IDE CDROM 1.
 
 ```
 Virtual Disk
-   Source path: /var/lib/libvirt/images/iso/IncrediblePBX13.2.iso   Disconnect
+   Source path: /var/lib/libvirt/images/iso/SL-7.3-x86_64-netinst.iso   Disconnect
 ```
 
 Click Disconnect.
 
 Click Show the graphical console.
 
-Click power on the virtual machine again.
+Click Play button "Power on the virtual machine" again.
+
+You will now be at the login console.
+
+```
+Scientific Linux 7.3 (Nitrogen)
+Kernel 3.10.0-514.26.1.e17.x86_64 on an x86_64
+
+voipserv login:
+```
+
+Type root and the password you setup in the install process.
+
+```
+voipserv login: root
+Password: PlebMast0r
+[root@voipserv ~]#
+```
+
+### Install some tools and updates/patch ###
+
+```
+setenforce 0
+yum -y install net-tools nano wget tar
+yum -y upgrade --skip-broken
+
+# decipher your server's IP address
+ifconfig
+
+# patch grub and ignore errors if your server doesn't use it
+sed -i 's|quiet|quiet net.ifnames=0 biosdevdame=0|' /etc/default/grub
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+# for older CentOS/SL 6.7 platforms, perform 3 steps below:
+#wget http://incrediblepbx.com/update-kernel-devel
+#chmod +x update-kernel-devel
+#./update-kernel-devel
+
+reboot
+```
+
+### Install IncrediblePBX13 ###
+
+```
+cd /root
+wget http://incrediblepbx.com/incrediblepbx13-12.2-centos.tar.gz
+tar zxvf incrediblepbx*
+./create-swapfile-DO
+./IncrediblePBX*
+```
+
+### Finalization ###
+
+```
+Make your root password very secure: passwd
+Create admin password for GUI access: /root/admin-pw-change
+Set your correct time zone: /root/timezone-setup
+Create admin password for web apps: htpasswd /etc/pbx/wwwpasswd admin
+Make a copy of your Knock codes: cat /root/knock.FAQ
+Decipher IP address and other info about your server: status
+```
+
