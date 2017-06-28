@@ -39,6 +39,51 @@ startx
 
 Alt + Enter
 
+**Tip:** If you want your right IP showing in the i3status bar "E: no IP (1000 Mbit/s)" edit /etc/i3status.conf
+```
+sudo nano /etc/i3status.conf 
+```
+
+```
+order += "ipv6"
+order += "disk /"
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "battery all"
+order += "load"
+order += "tztime local"
+
+ethernet _first_ {
+        # if you use %speed, i3status requires root privileges
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
+}
+```
+
+Change to
+
+```
+order += "ipv6"
+order += "disk /"
+order += "wireless _first_"
+order += "ethernet brv200"
+order += "battery all"
+order += "load"
+order += "tztime local"
+
+ethernet brv200 {
+        # if you use %speed, i3status requires root privileges
+        format_up = "E: %ip (10 Gbit/s)"
+        format_down = "E: down"
+}
+```
+
+Now in the i3status bar you should see your IP address getting dhcp inception from the virtual router if it was setup properly and working.
+
+```
+xx##::#x:#xxx:xx#x:#### | 9001 TiB | W: down | E: 192.168.1.100 (10 Gbit/s) | Fully Charged  | 1.18 | 2017-06-28 19:48:50
+```
+
 ### Make ISO Directory For Hypervisor Media Installs ###
 
 ```
