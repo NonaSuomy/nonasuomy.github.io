@@ -728,7 +728,48 @@ Click Finish
 
 Now you should see the full virtual machine settings window.
 
-Click Firmware select UEFI x86_64: /usr/share/ovmf/ovmf_code_x64.bin
+```
+FirewallRouter on QEMU/KVM
+Begin Installation    Cancel Installaion
+
+Overview
+CPUs
+Memory
+Boot Options
+IDE Disk 1
+IDE CDROM 1
+NIC :be:ef:10
+Mouse
+Display Spice
+Sound: ich6
+Console
+Channel spice
+Video QXL
+Controller USB
+USB Redirector 1
+USB Redirector 2
+
+Add Hardware
+
+Basic Details
+   Name: FirewallRouter
+   UUID: xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+   Status: Shutoff (Shut Down)
+   Title:
+   Description:
+Hypervisor Details
+   Hypervisor: KVM
+   Achitecture: x86_64
+   Emulator: /usr/sbin/qemu-system-x86_64
+   Firmware: UEFI x86_64: /usr/share/ovmf/ovmf_code_x64.bin
+   Chipset: i440FX
+   
+Cancel Apply
+```
+
+Click Firmware change BIOS to UEFI x86_64: /usr/share/ovmf/ovmf_code_x64.bin
+
+**Note:** *You only get one chance to change this Firmware field, it will go readonly after you Begin the Installaion.*
 
 ```
 Virtual Network Interface
@@ -959,6 +1000,244 @@ Boot device order
   ...
 ```
 
+```
+pfSense/OPNsense Installer
+
+Welcome
+
+Welcome to pfSense/OPNsense! Would ou like to begin an installation or use th Rscue Shell?
+
+Install   Rescue Shell
+```
+
+Click Install
+
+```
+pfSense/OPNsense Installer
+
+Keymap Selection
+
+The system console driver for pfSense/OPNsense defaults to standard "US" keyboard map.  Other keymaps can be chosen below.
+
+>>> Continue with default keymap
+...
+```
+
+Click Continue with default keymap if that is your correct keymap.
+
+```
+pfSense/OPNsense Installer
+
+Paritioning
+
+How would you like to partition your disk?
+
+Auto (UFS) Guided Disk Setup
+Manual      Manual Disk Setup (experts)
+Shell           Open a shell and parition by hand
+Auto (ZFS) Guided Root-on-ZFS
+
+OK   Cancel
+```
+
+Click on Auto (UFS) Guided Disk Setup.
+
+```
+pfSense/OPNsense Installer
+
+Partition
+
+Would you like to use this entire disk (ada0) for pfSense/OPNsense or partition it to share it with other operating systems?  Using the entire disk will erase any data currently stored there.
+
+Entire Disk   Partition
+```
+
+Click on Entire Disk
+
+```
+pfSense/OPNsense Installer
+
+Partition Scheme
+
+Select a partition scheme for this volume:
+
+APM    Apple Partition Map
+BSD     BSD Labels
+GPT     GUID Partition Table
+MBR    DOS Partitions
+PC98   NEC PC9801 Partition Table
+VTOC8 Sun VTOC8 Partition Table
+
+OK   Cancle
+```
+
+Click GPT GUID Partition Table
+
+```
+pfSense/OPNsense Installer
+
+Partition Editor
+
+Please review the disk setup.  When complete, press the Finish button.
+
+ada0               10 GB     GPT
+    ada0p1       200 MB  efi
+    ada0p2       9.3 GB    freebsd-ufs      /
+    ada0p3       512 MB  freebsd-swap  none
+
+Create   Delete   Modify   Revert   Auto   Finish
+```
+
+Click Finish
+
+Click Confirm
+
+```
+pfSense/OPNsense Installer
+
+Manual Configuration
+
+The installation is now finished.  Before exiting the installer, would you like to open a shell in the new system to make an final manual modifications?
+
+Yes   No
+```
+
+Click No.
+
+```
+pfSense/OPNsense Installer
+
+Complete
+
+Installation of pfSense/OPNsense complete!  Would you like to reboot ino the installed system now?
+
+Reboot   Shell
+```
+
+Click Reboot.
+
+Click the Light Bulb (Show virtual hardware details).
+
+Click Boot Options
+
+Change the boot order to make IDE Disk 1 first.
+
+```
+Autostart
+   X Start virtual machine on host boot up
+Boot device order
+   X Enable boot menu
+   X IDE Disk 1
+   X IDE CDROM 1
+```
+
+Click IDE CDROM 1
+
+```
+Virtual Disk
+   Source path: /var/lib/libvirt/images/iso/pfSense-CE-2.4.0-BETA-amd64-latest.iso Disconnect
+```
+
+Click Disconnect.
+
+Click Show the graphical console.
+
+Click power on the virtual machine again.
+
+```
+Welcome to pfSense 2.4.0-BETA...
+
+No core dumps found.
+...ELF ldconfig path: /lib /usr/lib /usr/lib/compat /usr/local/lib /usr/local/lib/ipsec /usr/local/lib/perl5/5.24/mach/CORE
+32-bit compatibility ldconfig path:
+done.
+uhub0: 2 ports with 2 removable, self powered
+uhub1: 2 ports with 2 removable, self powered
+uhub2: 2 ports with 2 removable, self powered
+Extenal config loader 1.0 is now starting...
+Launching the init system....... done.
+Initializing............................done.
+Starting device manager (devd)...done.
+Loading configuration......done.
+
+Default interfaces not found -- Running interface assignment option.
+vtnet0: link state changed to UP
+vtnet1: link state changed to UP
+
+Valid interfaces are:
+
+vtnet0 42:de:ad:be:ef:10 (down) VirtIO Networking Adapter
+vtnet1 42:de:ad:be:ef:20 (down) VirtIO Networking Adapter
+
+Do VLANs need to be set up first?
+If VLANs will not be used, or only for optional interfaces, it is typical to say no here and use the webConfiguraor to configure VLANs late, if required.
+
+Should VLANs be set up now [y|n]?
+```
+
+Type: n 
+enter
+
+```
+If the names of the interfaces are not known, auto-detection can be used instead.  To use auto-detection, please disconnect all interfaces before pressing 'a' to begin the process.
+
+Enter the WAN interface name or 'a' for auto-detection
+(vtnet0 vtnet1 or a):
+```
+
+Type: vtnet0
+
+```
+Enter the LAN interface name or 'a' for auto-detection
+NOTE: this enables full Firewalling/NAT mode.
+(vtnet1 a or nothing if finished):
+```
+
+Type: vtnet1
+
+```
+Enter the Optional 1 interface name or 'a' for auto-detection
+( a or nothing if finshed):
+```
+
+Push Enter
+
+```
+The interfaces will be assigned as follows:
+
+WAN  -> vtnet0
+LAN   -> vtnet1
+
+Do you want to proceed [y|n]?
+```
+
+Type: y
+
+```
+...done.
+pfSense 2.4.0-BETA amd64 Tue Jun 27 14:43:48 CDT 2017
+Bootup complete
+
+FreeBSD/amd64 (pfSense.localdomain) (ttyv0)
+
+*** Welcome to pfSense 2.4.0-BETA (amd64) on pfSense ***
+
+WAN (wan)  ->  vtnet0  -> v4/DHCP4:  XXX.XXX.XXX.XXX/24
+LAN (lan)  ->  vtnet1  -> v4:  192.168.1.1/24
+
+0) Logout (SSH only)                                 9) pfTop  
+1) Assign Interfaces                                10) Filter Logs
+2) Set interface(s) IP address                 11) Restart webConfigurator
+3) Reset webConfigurator password    12) PHP shell + pfSense tools
+4) Reset to facory defaults                      13) Update from console
+5) Reboot system                                      14) Enable Secure Shell (sshd)
+6) Hal system                                             15) Restore recent configuration
+7) Ping host                                                16) Restore PHP-FPM
+8) Shell
+
+Enter an option:
+```
+
 ### PCI Passthrough For Wireless Access Point ###
  
 ```
@@ -1019,6 +1298,8 @@ options root=LABEL=ROOT rootflags=subvol=@ rw intel_iommu=on pci-stub.ids=8086:0
 ```
 
 Now we should be able to see the WiFi Hardware in our VM for PCI-Passthrough.
+
+
 
 < To be continued... >
 
