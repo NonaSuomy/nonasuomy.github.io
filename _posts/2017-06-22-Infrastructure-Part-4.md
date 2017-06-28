@@ -1011,6 +1011,8 @@ Boot device order
   ...
 ```
 
+Click Show graphical console then click Power on the virtual machine.
+
 ```
 pfSense/OPNsense Installer
 
