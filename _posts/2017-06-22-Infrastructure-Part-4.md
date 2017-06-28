@@ -105,6 +105,8 @@ Grab any other distribution install media you require for your hypervisor...
 
 ## Setup Network VLAN interfaces ##
 
+Heres a bash script to create all the interfaces below, run with ```sudo sh networkcfgs.sh``` [Script Download](https://gist.github.com/NonaSuomy/260059a998181b9fb975fe373eb34ef2)
+
 ### Hardware NIC interface eno1 ###
  
 10-eno1.network
@@ -313,7 +315,7 @@ Name=eno1.450
 Kind=vlan
  
 [VLAN]
-Id=850
+Id=450
 ```
 
 eno1.450.network
