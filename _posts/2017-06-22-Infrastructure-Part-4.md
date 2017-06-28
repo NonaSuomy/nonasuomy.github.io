@@ -56,11 +56,22 @@ sudo pacman -S wget
 
 #### pfSense ####
 
+**Note:** *RELEASE only works with Firmware: BIOS mode not UEFI! :( *
+
 https://nyifiles.pfsense.org/mirror/downloads/
 
 ```
 sudo wget https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
 sudo gunzip pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
+```
+
+**Note:** *pfSense 2.4 BETA works with Firmware: UEFI* 
+
+https://snapshots.pfsense.org/amd64/pfSense_master/installer/?C=M;O=D
+
+```
+sudo wget https://snapshots.pfsense.org/amd64/pfSense_master/installer/pfSense-CE-2.4.0-BETA-amd64-latest.iso.gz
+sudo gunzip pfSense-CE-2.4.0-BETA-amd64-latest.iso.gz
 ```
 
 #### OPNsense ####
