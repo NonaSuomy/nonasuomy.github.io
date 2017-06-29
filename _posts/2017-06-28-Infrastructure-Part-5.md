@@ -17,7 +17,7 @@ title: Arch Linux Infrastructure - VoIP Server - Part 5 - VoIPServer
 
 Part 05 - VoIP Server - You Are Here!
 
-[Part 06 - Underconstruction](../Infrastructure-Part-6)
+[Part 06 - Automation Server](../Infrastructure-Part-6)
 
 [Part 07 - Underconstruction](../Infrastructure-Part-7)
 
@@ -539,3 +539,11 @@ Make a copy of your Knock codes: cat /root/knock.FAQ
 Decipher IP address and other info about your server: status
 ```
 
+
+[Part 06 - Automation Server](../Infrastructure-Part-6)
+
+VM Guest Automation Server: OpenHAB
+ 
+VM Guest TOR Server: TOR (Remote)
+ 
+VM Guest Fileserver: FreeNAS or ETC.
