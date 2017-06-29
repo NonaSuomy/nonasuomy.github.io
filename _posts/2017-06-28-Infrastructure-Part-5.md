@@ -526,6 +526,8 @@ tar zxvf incrediblepbx*
 ./IncrediblePBX*
 ```
 
+The Incredible PBX installer runs unattended so find something to do for the next 30-60 minutes unless you just like watching over 1000 packages install. When the installation is complete, reboot your server and log back in as root. You should be greeted by something like the status of the major apps as well as your free RAM and DISK space and IP.
+
 ### Finalization ###
 
 ```
