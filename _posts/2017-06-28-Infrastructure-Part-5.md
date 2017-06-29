@@ -528,16 +528,470 @@ tar zxvf incrediblepbx*
 
 The Incredible PBX installer runs unattended so find something to do for the next 30-60 minutes unless you just like watching over 1000 packages install. When the installation is complete, reboot your server and log back in as root. You should be greeted by something like the status of the major apps as well as your free RAM and DISK space and IP.
 
-### Finalization ###
+**Note:** *I did two installs on SL73 and with both none of the commands were there below, asterisk -rvvvvvvv wasn' t there, couldn't access the WebGUI, Ran the installer a second time  ```./IncrediblePBX*``` then it downloaded even more stuff and finally I saw it compiling asterisk and then everything seemed to work.
+
+After installation completes you should get some text that says so then asks you to hit enter to reboot if everything went well.
 
 ```
-Make your root password very secure: passwd
-Create admin password for GUI access: /root/admin-pw-change
-Set your correct time zone: /root/timezone-setup
-Create admin password for web apps: htpasswd /etc/pbx/wwwpasswd admin
-Make a copy of your Knock codes: cat /root/knock.FAQ
-Decipher IP address and other info about your server: status
+This update utility goes to IncrediblePBX.com to retrieve the latest updates.
+We test updates before release, but NO WARRANTY EXPRESS OR IMPLIED IS PROVIDED.
+The first 10 updates are free. Calendar year update license is $20 per machine.
+To sign up and make payment using a credit card, go to: http://nerd.bz/QwQkYO
+ 
+To proceed solely at your own risk, press Enter. Otherwise, Ctrl-C to abort.
 ```
+
+Push Enter, more stuff will update and install.
+
+```
+WARNING: Always run Incredible PBX behind a secure hardware-based firewall.
+root@voipserv:~ $
+```
+
+Type: ls
+
+```
+ls
+add-fqdn            del-acct          incrediblefax11.sh                    knock.FAQ        odbcinst.ini          smsblaster                           status7               update-speeddial
+add-ip              DMI               incrediblepbx13-12.2-centos.tar.gz    licenses.sh      perl5                 smsdictator                          timezone-setup        upgrade-asterisk13-to-current-rhel
+admin-pw-change     favicon.ico       IncrediblePBX13-12R.sh                logos-b-gone     pptp-install          smslist.txt                          tm4                   upgrade-asterisk13-to-current-ubuntu
+avantfax-pw-change  GPG-patch         incrediblepbx-install-log-phase1.txt  neorouter-login  pygooglevoice         smsmsg.txt                           tm4-update            webmin-1.791-1.noarch.rpm
+COPYING             iaxmodem-restart  incrediblerestore                     odbc-gen.sh      res_odbc_custom.conf  spandsp-0.0.6-35.1.x86_64.rpm        update-IncrediblePBX  wolfram
+create-swapfile-DO  incrediblebackup  ipchecker                             odbc.ini         smsblast              spandsp-devel-0.0.6-35.1.x86_64.rpm  update-passwords
+```
+
+You should see a lot more files in the /root folder now like above.
+
+### Finalization ###
+
+Make your root password very secure: 
+
+```
+passwd
+Changing password for user root.
+New password:  PlebMast0r
+Retype new password:  PlebMast0r
+passwd: all authentication tokens updated successfully.
+```
+
+Create admin password for GUI access: 
+
+```
+/root/admin-pw-change
+This script changes your admin password for FreePBX 2.11 access.
+ 
+Enter new admin password (MAKE IT SECURE!!):  PlebMast0r2
+
+admin password will be changed to:  PlebMast0r2
+Press ENTER key to continue or Ctrl-C to abort...
+
+Done. Use browser to access FreePBX at http://
+```
+
+Set your correct time zone: 
+
+```
+/root/timezone-setup
+Please identify a location so that time zone rules can be set correctly.
+Please select a continent or ocean.
+1) Africa	     4) Arctic Ocean	 7) Australia	    10) Pacific Ocean
+2) Americas	     5) Asia		 8) Europe
+3) Antarctica	     6) Atlantic Ocean	 9) Indian Ocean
+#?
+Please select a country.
+ 1) Anguilla		  19) Dominican Republic    37) Peru
+ 2) Antigua & Barbuda	  20) Ecuador		    38) Puerto Rico
+ 3) Argentina		  21) El Salvador	    39) St Barthelemy
+ 4) Aruba		  22) French Guiana	    40) St Kitts & Nevis
+ 5) Bahamas		  23) Greenland		    41) St Lucia
+ 6) Barbados		  24) Grenada		    42) St Maarten (Dutch)
+ 7) Belize		  25) Guadeloupe	    43) St Martin (French)
+ 8) Bolivia		  26) Guatemala		    44) St Pierre & Miquelon
+ 9) Brazil		  27) Guyana		    45) St Vincent
+10) Canada		  28) Haiti		    46) Suriname
+11) Caribbean NL	  29) Honduras		    47) Trinidad & Tobago
+12) Cayman Islands	  30) Jamaica		    48) Turks & Caicos Is
+13) Chile		  31) Martinique	    49) United States
+14) Colombia		  32) Mexico		    50) Uruguay
+15) Costa Rica		  33) Montserrat	    51) Venezuela
+16) Cuba		  34) Nicaragua		    52) Virgin Islands (UK)
+17) Curaçao		  35) Panama		    53) Virgin Islands (US)
+18) Dominica		  36) Paraguay
+#? 
+Please select one of the following time zone regions.
+ 1) Newfoundland; Labrador (southeast)	15) Central - NU (Resolute)
+ 2) Atlantic - NS (most areas); PE	16) Central - NU (central)
+ 3) Atlantic - NS (Cape Breton)		17) CST - SK (most areas)
+ 4) Atlantic - New Brunswick		18) CST - SK (midwest)
+ 5) Atlantic - Labrador (most areas)	19) Mountain - AB; BC (E); SK (W)
+ 6) AST - QC (Lower North Shore)	20) Mountain - NU (west)
+ 7) Eastern - ON, QC (most areas)	21) Mountain - NT (central)
+ 8) Eastern - ON, QC (no DST 1967-73)	22) Mountain - NT (west)
+ 9) Eastern - ON (Thunder Bay)		23) MST - BC (Creston)
+10) Eastern - NU (most east areas)	24) MST - BC (Dawson Cr, Ft St John)
+11) Eastern - NU (Pangnirtung)		25) MST - BC (Ft Nelson)
+12) EST - ON (Atikokan); NU (Coral H)	26) Pacific - BC (most areas)
+13) Central - ON (west); Manitoba	27) Pacific - Yukon (south)
+14) Central - ON (Rainy R, Ft Frances)	28) Pacific - Yukon (north)
+#? 
+
+The following information has been given:
+
+	Americas
+	
+
+Therefore TZ='Americas' will be used.
+Local time is now:	
+Universal Time is now:	
+Is the above information OK?
+1) Yes
+2) No
+#? 1
+Updating time zone to Americas for your server...
+Restarting Apache...
+Redirecting to /bin/systemctl restart  httpd.service
+Done.
+```
+
+Create admin password for web apps: 
+
+```
+htpasswd /etc/pbx/wwwpasswd admin
+New password:  PlebMast0r3
+Re-type new password:  PlebMast0r3
+Updating password for user admin
+```
+
+Make a copy of your Knock codes: 
+
+```
+cat /root/knock.FAQ
+Knock ports for access to xxx.xxx.xxx.xxx set to TCP: 1337 1338 1339
+UPnP activation attempted for UDP 5060 and your knock ports above.
+To enable knockd on your server, issue the following commands:
+  chkconfig --level 2345 knockd on
+  service knockd start
+To enable remote access, issue these commands from any remote server:
+nmap -p 1337 xxx.xxx.xxx.xxx && nmap -p 1338 xxx.xxx.xxx.xxx && nmap -p 1339 xxx.xxx.xxx.xxx
+Or install iOS PortKnock or Android DroidKnocker on remote device.
+```
+
+Decipher IP address and other info about your server: 
+
+```
+status
+
+Incredible PBX 13-12.3 for Sci Linux v.7/64
+
+Asterisk: UP          Apache: UP          MariaDB: UP
+SendMail: UP        IPtables: UP         SSH: UP
+LAN port: UP        Fail2Ban: UP         Webmin: UP
+
+RAM: 144M    Sci Linux v.7/64    Disk: 8.8G
+
+Asterisk 13.13.1      Incredible GUI 12.0.39
+
+Private IP: 192.168.1.106
+
+Public IP: XXX.XXX.XXX.XXX
+
+System Time: Thu Jun 29 2017
+```
+
+Open a web browser, we installed chromium and firefox so pick your poison and enter http://192.168.1.106
+
+Click the User/Admin switch at the bottom left to Admin then click Incredible PBX Administration.
+
+Then click Incredible PBX Administration again and login with your admin set password above.
+
+You should now be in and looking at Welcome to Incredible PBX screen with status boxes of your PBX box.
+
+From here it's up to you what you want to do with the box.
+
+### These are items I setup ###
+
+#### OSS End Point Manager ####
+
+This will manage the configuration and firmware of our Hardware VoIP Sets.
+
+Click Admin => Module Admin top left.
+
+Click "Check Online" button.
+
+Scroll down the list to 
+
+```
+Connectivity
+
+ Custom Contexts Stable Not Installed (Available online: 2.11.0.1)  
+ DAHDi Config Stable Schmooze Com Inc GPLv3+ Not Installed (Available online: 2.11.52)  
+ Digium Phones Config 2.11.2.3 Stable Digium GPLv2 Enabled; Not available online  
+ Google Voice/Chan Motif 12.0.4 Stable Schmooze Com Inc GPLv3+ Enabled and up to date  
+ OSS PBX End Point Manager Stable GPLv2+ Not Installed (Available online: 2.11.9)  
+ WebRTC Phone 12.0.2 Stable Schmooze Com Inc GPLv3+ Enabled; Not available online  
+```
+
+Click on OSS PBX End Point Manager
+
+```
+Info
+Changelog
+Previous
+License:	GPLv2+
+Description:	OSS PBX End Point Manager is the free supported PBX Endpoint Manager for FreePBX. It is ***NOT*** supported by Schmoozecom. If you are looking for a supported endpoint manager please look into the Commercial Endpoint Manager by Schmoozecom, INC. The front end gui is hosted at: https://github.com/FreePBX/endpointman The backend configurator is hosted at: https://github.com/provisioner/Provisioner Pull Requests can be made to either of these and are encouraged.
+More info:	Get help for OSS PBX End Point Manager
+Track:	Stable
+Action:	No Action Download and Install
+```
+
+Click Download and Install toggle button.
+
+Click "Process" button on the top right.
+
+```
+Module Administration
+Please confirm the following actions:
+
+Upgrades, installs, enables and disables:
+
+OSS PBX End Point Manager 2.11.9 will be downloaded and installed and switched to the stable track
+```
+
+Click Confirm.
+
+```
+Status
+close
+Please wait while module actions are performed
+
+Upgrading endpointman to 2.11.9 from track stable
+Downloading endpointman 365823 of 365823 (100%)
+
+Installing endpointman
+Untarring..Done
+Endpoint Manager Installer
+Creating Phone Modules Directory
+Moving Auto Provisioner Class
+Creating temp folder
+Creating Brand List Table
+Creating Line List Table
+Creating Global Variables Table
+Locating NMAP + ARP + ASTERISK Executables
+Inserting data into the global vars Table
+Creating mac list Table
+Creating model List Table
+Creating oui List Table
+Creating product List Table
+Creating Template List Table
+Create Custom Configs Table
+Creating symlink to web provisioner
+Update Version Number to 2.11.9
+Generating CSS...Done
+endpointman installed successfully
+```
+
+Click Return.
+
+Click Apply Config highlighted Red at the top.
+
+Click Connectivity
+
+Click OSS Endpoint Addvanced Settings
+
+```
+End Point Configuration Manager
+Advanced Settings
+Settings
+
+OUI Manager
+
+Product Configuration Editor
+
+Import/Export My Devices List
+
+Package Import/Export
+
+IP address of phone server:	
+ Determine for me
+Configuration Type	
+Global Final Config & Firmware Directory	
+/tftpboot/
+Time
+
+Time Zone (like England/London)	
+Time Server (NTP Server)	
+Local Paths
+
+NMAP executable path:	
+/usr/bin/nmap
+ARP executable path:	
+/usr/sbin/arp
+Asterisk executable path:	
+/usr/sbin/asterisk
+Web Directories
+
+Package Server:	
+http://mirror.freepbx.org/provisioner/v3/
+Experimental
+
+Enable FreePBX ARI Module (What?)	
+Enable Debug Mode 	
+Disable Tooltips 	
+Allow Duplicate Extensions 	
+Allow Saving Over Default Configuration Files 	
+Disable TFTP Server Check 	
+Disable Configuration File Backups 	
+Use GITHUB Live Repo (Requires git to be installed) 	
+ Update Globals
+```
+
+You will see this warning at the top of the window, 
+
+```
+Configuration Directory is not a directory or does not exist! Please change the location here: Here
+```
+
+we need to go make this directory.
+
+Go to the terminal of the phone server and type
+
+```
+mkdir /tftpboot
+```
+
+Click refresh on the webpage and now you should see this warning.
+
+
+```
+Configuration Directory is not writable!
+Please change the location: Here
+Or run this command on SSH: 'chown -hR root:asterisk /tftpboot/' then 'chmod g+w /tftpboot/'
+ ```
+
+So do what it says
+
+```
+chown -hR root:asterisk /tftpboot/
+chmod g+w /tftpboot/
+```
+
+Refresh page again and the warnings should now be gone.
+
+```
+IP address of phone server:: 
+```
+
+Click Determine for me.
+
+Fix your Timezone.
+
+```
+Time Zone (like England/London)
+```
+
+Click Update Globals button.
+
+Back to the VoIP Server console.
+
+Edit the TFTP configuration file.
+
+```
+nano /etc/xinetd.d/tftp
+
+# default: off
+# description: The tftp server serves files using the trivial file transfer \
+#	protocol.  The tftp protocol is often used to boot diskless \
+#	workstations, download configuration files to network-aware printers, \
+#	and to start the installation process for some operating systems.
+service tftp
+{
+        socket_type             = dgram
+        protocol                = udp
+        wait                    = yes
+        user                    = root
+        server                  = /usr/sbin/in.tftpd
+        server_args             = -s /tftpboot
+        disable                 = no
+        per_source              = 11
+        cps                     = 100 2
+        flags                   = IPv4
+}
+```
+
+Enable, Start, Status TFTP Service.
+
+```
+systemctl enable tftp
+Created symlink from /etc/systemd/system/sockets.target.wants/tftp.socket to /usr/lib/systemd/system/tftp.socket.
+```
+```
+systemctl start tftp
+```
+```
+systemctl status tftp
+● tftp.service - Tftp Server
+   Loaded: loaded (/usr/lib/systemd/system/tftp.service; indirect; vendor preset: disabled)
+   Active: active (running) since Thu 2017-06-29; 6s ago
+     Docs: man:in.tftpd
+ Main PID: 7653 (in.tftpd)
+   CGroup: /system.slice/tftp.service
+           └─7653 /usr/sbin/in.tftpd -s /var/lib/tftpboot
+
+Jun 29 voipserv.localdomain systemd[1]: Started Tftp Server.
+Jun 29 voipserv.localdomain systemd[1]: Starting Tftp Server...
+```
+
+
+
+#### Google Voice Trunk ####
+
+Setup a [Google Voice Account](https://accounts.google.com/signin/v2/identifier?service=grandcentral&passive=1209600&continue=https%3A%2F%2Fwww.google.com%2Fvoice%2F&followup=https%3A%2F%2Fwww.google.com%2Fvoice%2F&ltmpl=open&flowName=GlifWebSignIn&flowEntry=ServiceLogin).
+
+IMPORTANT: Be sure to enable the Google Chat option as one of your phone destinations in Settings, Voice Setting, Phones. That’s the destination we need for The Incredible PBX to work its magic! Otherwise, all inbound and outbound calls will fail. If you don’t see this option, you may need to call up Gmail and enable Google Chat there first. Then go back to the Google Voice Settings.
+
+While you’re still in [Google Voice](http://google.com/voice) Settings, click on the Calls tab. Make sure your settings match these:
+
+Call Screening – OFF
+Call Presentation – OFF
+Caller ID (In) – Display Caller’s Number
+Caller ID (Out) – Don’t Change Anything
+Do Not Disturb – OFF
+Call Options (Enable Recording) – OFF
+Global Spam Filtering – ON
+
+Click Save Changes once you adjust your settings. Under the Voicemail tab, plug in your email address so you get notified of new voicemails. Down the road, receipt of a Google Voice voicemail will be a big hint that something has come unglued on your PBX.
+
+One final word of caution is in order regardless of your choice of providers: Do NOT use special characters in any provider passwords, or nothing will work!
+
+Now you’re ready to set up your Google Voice trunk in FreePBX. After logging into FreePBX with your browser, click the Connectivity tab and choose Google Voice/Motif. To Add a new Google Voice account, just fill out the form. Do NOT check the third box or incoming calls will never ring!
+
+```
+Google Voice [Motif]
+
+Typical Settings
+
+Google Voice Username: blah@gmail.com
+Google Voice Password: blahbers1010
+Google Voice Phone Number: 9361234567
+Add Trunk: X
+Add Outbound Routes: X
+Send Unanswered to GoogleVoice Voicemail: Not Checked
+
+Advanced Settings
+
+None At This Time
+
+Submit
+```
+
+Click Submit.
+
+IMPORTANT LAST STEP: Google Voice will not work unless you restart Asterisk from the Linux command line at this juncture. Using SSH, log into your server as root and issue the following command: amportal restart.
+
+If you have trouble getting Google Voice to work (especially if you have previously used your Google Voice account from a different IP address), try this [Google Voice Reset Procedure](https://accounts.google.com/DisplayUnlockCaptcha). It usually fixes connectivity problems. If it still doesn’t work, enable [Less Secure Apps using this Google tool] (https://www.google.com/settings/security/lesssecureapps).
+
+#### VoIP.ms Trunk ####
+
 
 
 [Part 06 - Automation Server](../Infrastructure-Part-6)
