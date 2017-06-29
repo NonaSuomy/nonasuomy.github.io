@@ -27,7 +27,7 @@ Part 05 - VoIP Server - You Are Here!
 
 [Part 10 - Underconstruction](../Infrastructure-Part-10)
 
-# Virtual Router Setup #
+# VoIP Server Setup #
 
 ## Start i3-WM ##
 
