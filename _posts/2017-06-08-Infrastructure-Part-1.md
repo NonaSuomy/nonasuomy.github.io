@@ -15,7 +15,7 @@ Part 01 - Network Switch VLANs - You Are Here!
 
 [Part 04 - Virtual Router](../Infrastructure-Part-4)
 
-[Part 05 - Underconstruction](../Infrastructure-Part-5)
+[Part 05 - VoIP Server](../Infrastructure-Part-5)
 
 [Part 06 - Underconstruction](../Infrastructure-Part-6)
 
