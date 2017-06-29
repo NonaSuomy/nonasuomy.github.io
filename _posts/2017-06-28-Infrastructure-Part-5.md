@@ -875,25 +875,11 @@ chown -hR root:asterisk /tftpboot/
 chmod g+w /tftpboot/
 ```
 
-Refresh page again and the warnings should now be gone.
-
-```
-IP address of phone server:: 
-```
-
-Click Determine for me.
-
-Fix your Timezone.
-
-```
-Time Zone (like England/London)
-```
-
-Click Update Globals button.
-
-Back to the VoIP Server console.
-
 Edit the TFTP configuration file.
+
+Change server_args to -s /tftpboot
+
+Change disable to no
 
 ```
 nano /etc/xinetd.d/tftp
@@ -918,28 +904,164 @@ service tftp
 }
 ```
 
-Enable, Start, Status TFTP Service.
+Restart TFTP Service.
 
 ```
-systemctl enable tftp
-Created symlink from /etc/systemd/system/sockets.target.wants/tftp.socket to /usr/lib/systemd/system/tftp.socket.
+service xinetd restart
 ```
-```
-systemctl start tftp
-```
-```
-systemctl status tftp
-● tftp.service - Tftp Server
-   Loaded: loaded (/usr/lib/systemd/system/tftp.service; indirect; vendor preset: disabled)
-   Active: active (running) since Thu 2017-06-29; 6s ago
-     Docs: man:in.tftpd
- Main PID: 7653 (in.tftpd)
-   CGroup: /system.slice/tftp.service
-           └─7653 /usr/sbin/in.tftpd -s /var/lib/tftpboot
 
-Jun 29 voipserv.localdomain systemd[1]: Started Tftp Server.
-Jun 29 voipserv.localdomain systemd[1]: Starting Tftp Server...
+Create a test file to download.
+
 ```
+echo "Test123" > /tftpboot/test.txt
+```
+
+Install TFTP Client
+
+```
+yum install tftp
+```
+
+Test TFTP Server
+
+```
+cd
+tftp 192.168.1.106
+tftp> get test.txt
+tftp> quit
+cat test.txt
+test123
+```
+
+Refresh page again and the warnings should now be gone.
+
+```
+IP address of phone server:: 
+```
+
+Click Determine for me.
+
+Fix your Timezone.
+
+```
+Time Zone (like England/London)
+```
+
+Click Update Globals button.
+
+**Note:** *If you get in the webGUI "Local TFTP Server is not correctly configured" you probably didn't restart the service or have a typo in the config try again.*
+
+##### Grab VoIP Hardware Firmware #####
+
+Click Connectivity menu at the top.
+
+Click OSS Endpoint Package Manager.
+
+Click Check For Updates.
+
+Install the phone firmware you own, were going to install Cisco and Polycom.
+
+```
+Install Polycom
+
+Status Please Wait
+
+Downloading Brand JSON.....Done!
+Downloading Brand Package...Done!
+Checking MD5sum of Package....Done!
+Extracting Tarball........Done!
+Appears to be a valid Provisioner.net JSON file.....Continuing
+Creating Directory Structure for Brand 'Polycom' and Moving Files ...................................................................................................................................................................................................................................................................................................................................... Done!
+Updating Polycom brand data..........
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Done!
+Removing Temporary Files..............Done!
+Return
+```
+
+Click Return.
+
+```
+Install Cisco
+
+Status Please Wait
+
+Downloading Brand JSON.....Done!
+Downloading Brand Package...Done!
+Checking MD5sum of Package....Done!
+Extracting Tarball........Done!
+Appears to be a valid Provisioner.net JSON file.....Continuing
+Creating Directory Structure for Brand 'Cisco/Linksys' and Moving Files ..................................................................................................... Done!
+Updating Cisco/Linksys brand data..........
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Updating Family Lines.................
+--Updating Model Lines................
+Done!
+Removing Temporary Files..............Done!
+
+Return
+```
+
+Click Return.
+
+Click Enable next to all the phone models you have.
+
+Optional: Click Show/Hide Brands/Models Tab and hide all the brands you have never seen before.
+
+##### OSS Endpoint Device List #####
+
+Automatically add devices.
+
+Click Search on Serach or new devices in netmask xxx.xxx.xxx.xxx/24 whatever IP range you have.
+
+```
+ Search Search for new devices in netmask  192.168.1.108/24 X (Use NMAP)
+```
+
+Now you should see your phone sets listed under "Unmanaged Extensions".
+
+Click on the checkboxes next to you phonesets and then click "Add Selected Phones".
+
+Otherwise...
+
+Manual add a device.
+
+```
+MAC Address	Brand	Model of Phone	Line	Extension Number	Template		
+ 	
+0004f2xxxxxx     Polycom  Soundpoint IP 670  1   701 --- 701  Custom...
+ 				
+ 
+ Add	 Reset
+```
+
+Click Add.
 
 
 
@@ -951,6 +1073,7 @@ IMPORTANT: Be sure to enable the Google Chat option as one of your phone destina
 
 While you’re still in [Google Voice](http://google.com/voice) Settings, click on the Calls tab. Make sure your settings match these:
 
+```
 Call Screening – OFF
 Call Presentation – OFF
 Caller ID (In) – Display Caller’s Number
@@ -958,6 +1081,7 @@ Caller ID (Out) – Don’t Change Anything
 Do Not Disturb – OFF
 Call Options (Enable Recording) – OFF
 Global Spam Filtering – ON
+```
 
 Click Save Changes once you adjust your settings. Under the Voicemail tab, plug in your email address so you get notified of new voicemails. Down the road, receipt of a Google Voice voicemail will be a big hint that something has come unglued on your PBX.
 
