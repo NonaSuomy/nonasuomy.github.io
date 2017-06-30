@@ -1223,11 +1223,19 @@ Loading configuration......done.
 Default interfaces not found -- Running interface assignment option.
 vtnet0: link state changed to UP
 vtnet1: link state changed to UP
+vtnet2: link state changed to UP
+vtnet3: link state changed to UP
+vtnet4: link state changed to UP
+vtnet5: link state changed to UP
 
 Valid interfaces are:
 
 vtnet0 42:de:ad:be:ef:10 (down) VirtIO Networking Adapter
 vtnet1 42:de:ad:be:ef:20 (down) VirtIO Networking Adapter
+vtnet2 42:de:ad:be:ef:30 (down) VirtIO Networking Adapter
+vtnet3 42:de:ad:be:ef:40 (down) VirtIO Networking Adapter
+vtnet4 42:de:ad:be:ef:45 (down) VirtIO Networking Adapter
+vtnet5 42:de:ad:be:ef:50 (down) VirtIO Networking Adapter
 
 Do VLANs need to be set up first?
 If VLANs will not be used, or only for optional interfaces, it is typical to say no here and use the webConfiguraor to configure VLANs late, if required.
@@ -1242,7 +1250,7 @@ enter
 If the names of the interfaces are not known, auto-detection can be used instead.  To use auto-detection, please disconnect all interfaces before pressing 'a' to begin the process.
 
 Enter the WAN interface name or 'a' for auto-detection
-(vtnet0 vtnet1 or a):
+(vtnet0 vtnet1 vtnet2 vtnet3 vtnet4 vtnet5 or a):
 ```
 
 Type: vtnet0
@@ -1260,6 +1268,27 @@ Enter the Optional 1 interface name or 'a' for auto-detection
 ( a or nothing if finshed):
 ```
 
+Type: vtnet2
+
+```
+Enter the Optional 2 interface name or 'a' for auto-detection
+( a or nothing if finshed):
+```
+
+Type: vtnet3
+
+```
+Enter the Optional 3 interface name or 'a' for auto-detection
+( a or nothing if finshed):
+```
+
+Type: vtnet4
+
+```
+Enter the Optional 4 interface name or 'a' for auto-detection
+( a or nothing if finshed):
+```
+
 Push Enter
 
 ```
@@ -1267,6 +1296,10 @@ The interfaces will be assigned as follows:
 
 WAN  -> vtnet0
 LAN   -> vtnet1
+OPT1   -> vtnet2
+OPT2   -> vtnet3
+OPT3   -> vtnet4
+OPT4   -> vtnet5
 
 Do you want to proceed [y|n]?
 ```
@@ -1284,6 +1317,10 @@ FreeBSD/amd64 (pfSense.localdomain) (ttyv0)
 
 WAN (wan)  ->  vtnet0  -> v4/DHCP4:  XXX.XXX.XXX.XXX/24
 LAN (lan)  ->  vtnet1  -> v4:  192.168.1.1/24
+OPT1 -> vtnet2
+OPT2 -> vtnet3
+OPT3 -> vtnet4
+OPT4 -> vtnet5
 
 0) Logout (SSH only)                                 9) pfTop  
 1) Assign Interfaces                                10) Filter Logs
@@ -1298,8 +1335,115 @@ LAN (lan)  ->  vtnet1  -> v4:  192.168.1.1/24
 Enter an option:
 ```
 
+From this point you should have internet access on your Hypervisor through the virtual bridge brv200.
+
+Load up the web browser of choice and hit your Virtual Router IP 192.168.1.1 (We're going to change this address now).
+You will have to hit the new IP after this in your browser 10.0.0.1.
+
+Click Interfaces => [LAN]
+
+Change IPv4 address
+
+```
+Static IPv4 configuration
+ IPv4 address 10.0.0.1/24 
+```
+
+Click Save.
+
+Click Services => DHCP => Server
+
+```
+Range   from	            to
+              10.0.0.50    10.0.0.200
+```
+
+I leave 50 address at the start of the range and 54 at the end for DHCP Static use.
+
+Click Save.
+
+Apply changes.
+
+Save any work and reboot your Hypervisor!
+
+```
+startx
+```
+
+You should now have a 10.0.0.51 address or similar on your hypervisor.
+
+Run your browser of choice.
+
+(Alt+d type chromium/firefox/etc)
+
+Hit the new address for the virtual router http://10.0.0.1
+
+Enable all the OPT interfaces.
+
+Interfaces => OPT1,OPT2,OPT3,OPT4
+
+```
+General configuration
+ Enable
+ (Checkmark) Enable Interface
+``` 
+
+```
+OPT1
+Description: IoT
+IPv4 Configuration Type: Static IPv4
+Static IPv4 configuration -  IPv4 address : 10.0.1.1/24
+Save
+
+OPT2
+Description: WiFi Main
+IPv4 Configuration Type: Static IPv4
+Static IPv4 configuration -  IPv4 address : 10.0.2.1/24
+Save
+
+OPT3
+Descripion: WiFi Guest
+IPv4 Configuration Type: Static IPv4
+Static IPv4 configuration -  IPv4 address : 10.13.37.1/24
+Save
+
+OPT4
+Description: Voice
+IPv4 Configuration Type: Static IPv4
+Static IPv4 configuration -  IPv4 address : 10.0.3.1/24
+Save
+```
+
+Apply changes.
+
+Services => DHCP => Server
+
+```
+IoT
+(Checkmark) Enable DHCP server on the IoT interface
+Range from 10.0.1.50 to 10.0.1.200
+Save
+
+WiFiMain
+(Checkmark) Enable DHCP server on the IoT interface
+Range from 10.0.2.50 to 10.0.2.200
+Save
+
+WiFiGuest
+(Checkmark) Enable DHCP server on the IoT interface
+Range from 10.13.37.50 to 10.13.37.200
+Save
+
+Voice
+(Checkmark) Enable DHCP server on the IoT interface
+Range from 10.0.4.50 to 10.0.4.200
+Save
+```
+
 ### PCI Passthrough For Wireless Access Point ###
- 
+
+This section is not yet complete...
+
 ```
 sudo nano /etc/modprobe.d/modprobe.conf
 options kvm_intel nested=1
