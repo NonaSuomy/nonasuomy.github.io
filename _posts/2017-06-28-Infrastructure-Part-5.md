@@ -891,15 +891,15 @@ nano /etc/xinetd.d/tftp
 #	and to start the installation process for some operating systems.
 service tftp
 {
-        socket_type             = dgram
-        protocol                = udp
+        socket_type      = dgram
+        protocol            = udp
         wait                    = yes
-        user                    = root
-        server                  = /usr/sbin/in.tftpd
-        server_args             = -s /tftpboot
-        disable                 = no
-        per_source              = 11
-        cps                     = 100 2
+        user                   = root
+        server                = /usr/sbin/in.tftpd
+        server_args       = -s /tftpboot
+        disable               = no
+        per_source        = 11
+        cps                      = 100 2
         flags                   = IPv4
 }
 ```
@@ -1232,7 +1232,7 @@ https://gist.github.com/NonaSuomy/a62a9a125d61fc5df748066961702ac6
 
 Run the script with init option and when prompted for code, switch to a web browser and paste the link in clipboard, copy code and paste back in console.
 
-Script uses xclip to copy url in into copy/paste buffer.
+Script uses xclip to copy url in into copy/paste buffer (Not actually required, will just complain).
 
 ```
 yum install xclip
@@ -1556,7 +1556,20 @@ amportal restart
 
 **Note:** *I have yet to get OAuth2 methods working. Good Luck!*
 
+##### Error for OAuth2 Methods #####
 
+```
+[2017-06-30 00:09:54] NOTICE[9606]: res_xmpp.c:3890 fetch_access_token: access Token : (null)
+[2017-06-30 00:09:54] WARNING[9606]: res_xmpp.c:3766 xmpp_client_receive: Parsing failure: Hook returned an error.
+[2017-06-30 00:09:54] WARNING[9606]: res_xmpp.c:3763 xmpp_client_receive: Parsing failure: Invalid XML.
+[2017-06-30 00:09:54] WARNING[9606]: res_xmpp.c:3830 xmpp_client_thread: JABBER: socket read error
+[2017-06-30 00:09:54] NOTICE[9606]: res_xmpp.c:3639 xmpp_client_reconnect: Connecting to client token :  <RefreshTokenHere>
+[2017-06-30 00:09:54] NOTICE[9606]: res_xmpp.c:3877 fetch_access_token: Command CURL(https://www.googleapis.com/oauth2/v3/token,client_id=<ClientIDhere>.apps.googleusercontent.com&client_secret=<SecretHere>&refresh_token=<RefreshTokenHere>&grant_type=refresh_token)
+[2017-06-30 00:09:54] NOTICE[9606]: res_xmpp.c:3881 fetch_access_token: Command status : {
+ "error": "unauthorized_client",
+ "error_description": "Unauthorized"
+} 
+```
 
 #### VoIP.ms Trunk ####
 
