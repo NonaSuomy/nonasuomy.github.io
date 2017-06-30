@@ -25,7 +25,7 @@ Part 04 - Virtual Router - You Are Here!
 
 [Part 09 - Underconstruction](../Infrastructure-Part-9)
 
-[Part 10 - Underconstruction](../Infra[Part 05 - VoIP Server](../Infrastructure-Part-5)structure-Part-10)
+[Part 10 - Underconstruction](../Infrastructure-Part-10)
 
 # Virtual Router Setup #
 
@@ -72,7 +72,7 @@ order += "load"
 order += "tztime local"
 
 ethernet brv200 {
-        # if you use %speed, i3status requ[Part 05 - VoIP Server](../Infrastructure-Part-5)ires root privileges
+        # if you use %speed, i3status requires root privileges
         format_up = "E: %ip (10 Gbit/s)"
         format_down = "E: down"
 }
@@ -99,7 +99,7 @@ sudo pacman -S wget
 
 ### Find the latest version ### 
 
-#### pfSense ####[Part 05 - VoIP Server](../Infrastructure-Part-5)
+#### pfSense ####
 
 **Note:** *RELEASE only works with Firmware: BIOS mode not UEFI! :( *
 
@@ -155,7 +155,7 @@ Heres a bash script to create all the interfaces below, run with ```sudo sh netw
 ### Hardware NIC interface eno1 ###
  
 10-eno1.network
- [Part 05 - VoIP Server](../Infrastructure-Part-5)
+
 ```
 sudo nano /etc/systemd/network/10-eno1.network
 [Match]
@@ -186,7 +186,7 @@ Id=100
 
 eno1.100.network
 
-```[Part 05 - VoIP Server](../Infrastructure-Part-5)
+```
 sudo nano /etc/systemd/network/eno1.100.network
 [Match]
 Name=eno1.100
@@ -273,7 +273,7 @@ Kind=vlan
  
 [VLAN]
 Id=300
-```[Part 05 - VoIP Server](../Infrastructure-Part-5)
+```
 
 eno1.300.network
 
@@ -304,7 +304,7 @@ Name=brv300
  
 [Network]
 ```
- [Part 05 - VoIP Server](../Infrastructure-Part-5)
+
 ### GUEST WiFi VLAN 400 ###
 
 eno1.400.netdev
@@ -339,7 +339,7 @@ Name=brv400
 Kind=bridge
 ```
 
-brv400.network[Part 05 - VoIP Server](../Infrastructure-Part-5)
+brv400.network
 
 ```
 sudo nano /etc/systemd/network/brv400.network
@@ -379,7 +379,7 @@ brv450.netdev
 ```
 sudo nano /etc/systemd/network/brv450.netdev
 [NetDev]
-Name=brv450[Part 05 - VoIP Server](../Infrastructure-Part-5)
+Name=brv450
 Kind=bridge
 ```
 
@@ -453,7 +453,7 @@ ip link
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
 2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
     link/ether f0:1f:af:32:66:4f brd ff:ff:ff:ff:ff:ff
-3: brv500: <BROADCAST,MULTICAST,UP,LOWER[Part 05 - VoIP Server](../Infrastructure-Part-5)_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
+3: brv500: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
     link/ether 9a:de:fd:00:4c:9c brd ff:ff:ff:ff:ff:ff
 4: brv450: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
     link/ether b2:40:b2:19:5d:b2 brd ff:ff:ff:ff:ff:ff
@@ -490,7 +490,7 @@ sudo nano /etc/libvirt/qemu.conf
 # specified as a user name or as a user id. The qemu driver will try to
 # parse this value first as a name and then, if the name doesn't exist,
 # as a user id.
-#[Part 05 - VoIP Server](../Infrastructure-Part-5)
+#
 # Since a sequence of digits is a valid user name, a leading plus sign
 # can be used to ensure that a user id will not be interpreted as a user
 # name.
@@ -520,7 +520,7 @@ sudo nano /etc/libvirt/libvirtd.conf
 # have any effect.
 #
 # It is necessary to setup a CA and issue server certificates before
-# using this capability.[Part 05 - VoIP Server](../Infrastructure-Part-5)
+# using this capability.
 #
 # This is enabled by default, uncomment this to disable it
 listen_tls = 0
@@ -624,7 +624,7 @@ listen_tcp = 1
 listen_addr = "0.0.0.0"
 
 # Change the authentication scheme for TCP sockets.
-#[Part 05 - VoIP Server](../Infrastructure-Part-5)
+#
 # If you don't enable SASL, then all TCP traffic is cleartext.
 # Don't do this outside of a dev/test scenario. For real world
 # use, always enable SASL and use the GSSAPI or DIGEST-MD5
@@ -656,7 +656,7 @@ virt-manager should now be on screen...
 Click File => Add Connection...
 
 Hypervisor: QEMU/KVM
-Leave "Connect to remote host" unchecked if o[Part 05 - VoIP Server](../Infrastructure-Part-5)n local hypervisor.
+Leave "Connect to remote host" unchecked if on local hypervisor.
 Autoconnect: Check
 Generated URI: qemu:///system
 
@@ -936,7 +936,7 @@ v Topology
   Cores: 1 - +
   Threads: 1 - +
 ```
-[Part 05 - VoIP Server](../Infrastructure-Part-5)
+
 Click the Copy host CPU configuration check box.
 
 Click on Boot Options
@@ -995,7 +995,7 @@ default
 Filesystem Directory
 
 iso
-Filesystem Directory [Part 05 - VoIP Server](../Infrastructure-Part-5)
+Filesystem Directory
 
 Size: 145.24 GiB Free / 140.32 GiB in Use
 Location: /var/lib/libvirt/images/iso
@@ -1052,7 +1052,7 @@ Autostart
   X Start virtual machine on host boot up
 Boot device order
   X Enable boot menu
-  X IDE Disk 1[Part 05 - VoIP Server](../Infrastructure-Part-5)
+  X IDE Disk 1
   X IDE CDROM 1
   NIC :be:ef:50
   ...
@@ -1134,7 +1134,7 @@ OK   Cancle
 Click GPT GUID Partition Table
 
 ```
-pfSense/OPNsense Installer[Part 05 - VoIP Server](../Infrastructure-Part-5)
+pfSense/OPNsense Installer
 
 Partition Editor
 
