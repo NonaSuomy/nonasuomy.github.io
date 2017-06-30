@@ -1114,6 +1114,187 @@ IMPORTANT LAST STEP: Google Voice will not work unless you restart Asterisk from
 
 If you have trouble getting Google Voice to work (especially if you have previously used your Google Voice account from a different IP address), try this [Google Voice Reset Procedure](https://accounts.google.com/DisplayUnlockCaptcha). It usually fixes connectivity problems. If it still doesn’t work, enable [Less Secure Apps using this Google tool] (https://www.google.com/settings/security/lesssecureapps).
 
+### Google OAUTH way ###
+
+Go to [Google Developer Console](https://console.developers.google.com/apis/) and register a new project. 
+
+In the top menu bar there is a down arrow to create more projects, click it.
+```
+|||     Google APIs   V  <=== Dropdown
+```
+
+Click the + at the right
+
+Or click this link [New Project](https://console.developers.google.com/projectcreate?previousPage=%2Fapis%2Fcredentials%3Fproject&organizationId=0)
+
+```
+New Project
+
+You have 10 projects remaining in your quota. Learn more.
+Project name 
+
+My Project
+Your project ID will be random-name-xxxxxx  Edit
+ Create  Cancel
+```
+
+Choose a name for your project and click Create button.
+
+Click Credentials on left then click "Create credentials"  on the right.
+
+```
+Click OAuth client ID
+Requests user consent so your app can access the user's data
+```
+
+To create an OAuth client ID, you must first set a product name on the consent screen [Button](https://console.developers.google.com/apis/credentials/consent?createClient)
+
+Click the button.
+
+```
+Product name shown to users 
+SomeCreativeName
+```
+
+Click Save.
+
+Click "Other" for Application type.
+
+```
+Name
+AnotherCreativeName
+```
+You will now have your OAuth client ID and client secret.
+
+```
+Here is your client ID
+<clientID>
+Here is your client secret
+<Secret>
+```
+
+Copy client ID and Client Secret. Replace in script the below.
+
+https://gist.github.com/NonaSuomy/a62a9a125d61fc5df748066961702ac6
+
+Run the script with init option and when prompted for code, switch to a web browser and paste the link in clipboard, copy code and paste back in console.
+
+Script uses xclip to copy url in into copy/paste buffer.
+
+```
+yum install xclip
+```
+
+Run script.
+
+```
+sh gistfile1.sh init
+https://accounts.google.com/ServiceLogin?passive=...etc
+```
+
+It will hopefully spit out a large URL, paste it into your web browser of choice.
+
+```
+Google
+
+AnotherCreativeNameGV would like to:
+View your email address	Click for more information
+More info	View your basic profile info	Click for more information
+More info	View and send chat messages	Click for more information
+
+By clicking Allow, you allow this app and Google to use your information in accordance with their respective terms of service and privacy policies. You can change this and other Account Permissions at any time.
+
+Deny Allow
+```
+
+Click Allow
+
+```
+Please copy this code, switch to your application and paste it there:
+<KEY>
+````
+
+Copy the key from the web browser and paste it into the console.
+
+```
+Code? <KEY>
+Done
+```
+
+ Client refresh token will be saved in .gvauth folder. Use this refresh token as your google voice password in Asterisk.
+ 
+ ```
+cat /root/.gvauth/default.refresh_token
+<refreshtoken>
+```
+
+Copy refresh token and paste it in your Motif field called refresh token in Google Voice PIAF GUI settings.
+
+Click Connectivity ==> Google Voice (Motif)
+
+```
+Google Voice [Motif]
+
+Typical Settings
+
+Google Voice Username: blah@gmail.com
+Google Voice Refresh Token: <refreshtoken>
+Google Voice Phone Number: 9361234567
+Add Trunk: X
+Add Outbound Routes: X
+Send Unanswered to GoogleVoice Voicemail: Not Checked
+
+Advanced Settings
+
+None At This Time
+
+Submit
+```
+
+Click your account made on the right.
+
+**Error:** *This module requires Asterisk chan_motif & res_xmpp to be installed and loaded*
+
+Click Admin => Module Admin
+
+Click Google Voice/Chan Motif 12.0.4
+
+```
+Google Voice/Chan Motif 12.0.4 Stable Schmooze Com Inc GPLv3+ Enabled  
+Info
+Changelog
+Publisher:	Schmooze Com Inc
+License:	GPLv3+
+Description:	Manage Google Voice Trunks with Chan Motif
+More info:	Get help for Google Voice/Chan Motif
+Track:	Stable
+Action:	No Action Force Install 12.0.4 Uninstall Remove
+```
+
+Click Force Install.
+
+Click Process
+
+```
+Status
+close
+Please wait while module actions are performed
+
+Downloading and Installing motif
+Downloading motif 26514 of 26514 (100%)
+Installing motif
+Untarring..Done
+Database table for Google Voice/Motif installed
+Updating Route Settings
+Increase username and password size in database
+Generating CSS...Done
+motif installed successfully
+```
+
+Click Apply Config.
+
+Reboot.
+
 #### VoIP.ms Trunk ####
 
 
