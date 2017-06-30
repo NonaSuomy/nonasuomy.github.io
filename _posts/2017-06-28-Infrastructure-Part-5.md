@@ -1069,7 +1069,7 @@ Click Add.
 
 I've tried 3 ways here and only the first way worked.
 
-##### Way 1 Less Secure *Worked* #####
+##### Way 1 - Less Secure *Worked* #####
 
 Less secure apps [page](https://myaccount.google.com/lesssecureapps)
 
@@ -1167,7 +1167,7 @@ amportal restart.
 
 If you have trouble getting Google Voice to work (especially if you have previously used your Google Voice account from a different IP address), try this [Google Voice Reset Procedure](https://accounts.google.com/DisplayUnlockCaptcha). It usually fixes connectivity problems. If it still doesn’t work, enable [Less Secure Apps using this Google tool] (https://www.google.com/settings/security/lesssecureapps).
 
-#### Google OAUTH way 1 ####
+#### Way 2 - Google OAUTH Script ####
 
 Go to [Google Developer Console](https://console.developers.google.com/apis/) and register a new project. 
 
@@ -1314,7 +1314,7 @@ Go to the VoIP Server console and type.
 amportal restart
 ```
 
-#### Google OAUTH way 2 ####
+#### Way 3 Google OAUTH No Script ####
 
 Go to [Google Developer Console](https://console.developers.google.com/apis/) and register a new project. 
 
