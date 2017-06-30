@@ -1067,11 +1067,28 @@ Click Add.
 
 #### Google Voice Trunk ####
 
+I've tried 3 ways here and only the first way worked.
+
+##### Way 1 Less Secure *Worked* #####
+
+Less secure apps [page](https://myaccount.google.com/lesssecureapps)
+
+Turn ON Allow less secure apps.
+
+```
+Allow less secure apps: ON
+Some apps and devices use less secure sign-in technology, which could leave your account vulnerable. You can turn off access for these apps (which we recommend) or choose to use them despite the risks.
+```
+
 Setup a [Google Voice Account](https://accounts.google.com/signin/v2/identifier?service=grandcentral&passive=1209600&continue=https%3A%2F%2Fwww.google.com%2Fvoice%2F&followup=https%3A%2F%2Fwww.google.com%2Fvoice%2F&ltmpl=open&flowName=GlifWebSignIn&flowEntry=ServiceLogin).
 
 IMPORTANT: Be sure to enable the Google Chat option as one of your phone destinations in Settings, Voice Setting, Phones. That’s the destination we need for The Incredible PBX to work its magic! Otherwise, all inbound and outbound calls will fail. If you don’t see this option, you may need to call up Gmail and enable Google Chat there first. Then go back to the Google Voice Settings.
 
 While you’re still in [Google Voice](http://google.com/voice) Settings, click on the Calls tab. Make sure your settings match these:
+
+Click the menu at the left and then click Legacy Google Voice to see these exact options other wise guess at the new options, basically all there.
+
+###### Legacy Google Voice ######
 
 ```
 Call Screening – OFF
@@ -1083,7 +1100,39 @@ Call Options (Enable Recording) – OFF
 Global Spam Filtering – ON
 ```
 
-Click Save Changes once you adjust your settings. Under the Voicemail tab, plug in your email address so you get notified of new voicemails. Down the road, receipt of a Google Voice voicemail will be a big hint that something has come unglued on your PBX.
+###### Current Google Voice ######
+
+```
+Can't find options for Call Presentaion, Caller ID (In), Caller ID (Out)
+
+Phone numbers
+  Do not disurb
+    Turn off message forwarding and send calls to voicemail - Off
+Calls
+  Screen Calls
+    Hear a caller's name when you pick up - Off
+  Incoming call options
+    Record call (4), Switch linked phone (*), Start conference call (5) - Off
+Security
+  Filter spam
+    Calls, messages, and voicemail - On
+```
+
+Legacy
+
+```
+Click Save Changes once you adjust your settings. Under the Voicemail tab, plug in your email address so you get notified of new voicemails. 
+```
+
+Current
+
+```
+Voicemail
+  Get voicemail via email
+    someone@gmail.com - On
+```
+
+Down the road, receipt of a Google Voice voicemail will be a big hint that something has come unglued on your PBX.
 
 One final word of caution is in order regardless of your choice of providers: Do NOT use special characters in any provider passwords, or nothing will work!
 
@@ -1110,11 +1159,15 @@ Submit
 
 Click Submit.
 
-IMPORTANT LAST STEP: Google Voice will not work unless you restart Asterisk from the Linux command line at this juncture. Using SSH, log into your server as root and issue the following command: amportal restart.
+IMPORTANT LAST STEP: Google Voice will not work unless you restart Asterisk from the Linux command line at this juncture. Using SSH, log into your server as root and issue the following command.
+
+```
+amportal restart.
+```
 
 If you have trouble getting Google Voice to work (especially if you have previously used your Google Voice account from a different IP address), try this [Google Voice Reset Procedure](https://accounts.google.com/DisplayUnlockCaptcha). It usually fixes connectivity problems. If it still doesn’t work, enable [Less Secure Apps using this Google tool] (https://www.google.com/settings/security/lesssecureapps).
 
-### Google OAUTH way ###
+#### Google OAUTH way 1 ####
 
 Go to [Google Developer Console](https://console.developers.google.com/apis/) and register a new project. 
 
@@ -1255,45 +1308,255 @@ Click your account made on the right.
 
 **Error:** *This module requires Asterisk chan_motif & res_xmpp to be installed and loaded*
 
-Click Admin => Module Admin
-
-Click Google Voice/Chan Motif 12.0.4
+Go to the VoIP Server console and type.
 
 ```
-Google Voice/Chan Motif 12.0.4 Stable Schmooze Com Inc GPLv3+ Enabled  
-Info
-Changelog
-Publisher:	Schmooze Com Inc
-License:	GPLv3+
-Description:	Manage Google Voice Trunks with Chan Motif
-More info:	Get help for Google Voice/Chan Motif
-Track:	Stable
-Action:	No Action Force Install 12.0.4 Uninstall Remove
+amportal restart
 ```
 
-Click Force Install.
+#### Google OAUTH way 2 ####
 
-Click Process
+Go to [Google Developer Console](https://console.developers.google.com/apis/) and register a new project. 
 
+In the top menu bar there is a down arrow to create more projects, click it.
 ```
-Status
-close
-Please wait while module actions are performed
-
-Downloading and Installing motif
-Downloading motif 26514 of 26514 (100%)
-Installing motif
-Untarring..Done
-Database table for Google Voice/Motif installed
-Updating Route Settings
-Increase username and password size in database
-Generating CSS...Done
-motif installed successfully
+|||     Google APIs   V  <=== Dropdown
 ```
 
-Click Apply Config.
+Click the + at the right
 
-Reboot.
+Or click this link [New Project](https://console.developers.google.com/projectcreate?previousPage=%2Fapis%2Fcredentials%3Fproject&organizationId=0)
+
+```
+New Project
+
+You have 10 projects remaining in your quota. Learn more.
+Project name 
+
+My Project
+Your project ID will be random-name-xxxxxx  Edit
+ Create  Cancel
+```
+
+Choose a name for your project and click Create button.
+
+Click Credentials on left then click "Create credentials"  on the right.
+
+```
+Click OAuth client ID
+Requests user consent so your app can access the user's data
+```
+
+To create an OAuth client ID, you must first set a product name on the consent screen [Button](https://console.developers.google.com/apis/credentials/consent?createClient)
+
+Click the button.
+
+```
+Product name shown to users 
+SomeCreativeName
+```
+
+Click Save.
+
+Click "Web application" for Application type.
+
+```
+Name
+AnotherCreativeName
+
+Authorized JavaScript origins
+For use with requests from a browser. This is the origin URI of the client application. It can't contain a wildcard (http://*.example.com) or a path (http://example.com/subdir). If you're using a nonstandard port, you must include it in the origin URI.
+
+Leave blank...
+
+Authorized redirect URIs
+For use with requests from a web server. This is the path in your application that users are redirected to after they have authenticated with Google. The path will be appended with the authorization code for access. Must have a protocol. Cannot contain URL fragments or relative paths. Cannot be a public IP address.
+
+https://developers.google.com/oauthplayground
+```
+
+You will now have your OAuth client ID and client secret.
+
+```
+Here is your client ID
+<clientID>
+Here is your client secret
+<Secret>
+```
+
+Copy client ID and Client Secret. 
+
+Copy client ID and Client Secret. Replace in script the below.
+
+Go to this site [Google Devoloper OAuth 2.0 Playground](https://developers.google.com/oauthplayground/)
+
+Top right click the Gear icon.
+
+```
+OAuth 2.0 configuration
+
+OAuth flow: Server-side
+
+OAuth endpoints: Google
+
+Authorization endpoint:  https://accounts.google.com/o/oauth2/v2/auth
+
+Token endpoint:  https://www.googleapis.com/oauth2/v4/token
+
+Access token location: Authorization header w/ Bearer prefix
+
+Access type: Offline
+
+Force prompt: Consent Screen
+ 
+(Check) Use your own OAuth credentials
+
+You will need to list the URL https://developers.google.com/oauthplayground as a valid redirect URI in your Google APIs Console's project. Then enter the client ID and secret assigned to a web application on your project below:
+
+OAuth Client ID:  <Client ID we got from the last step>.apps.googleusercontent.com
+
+OAuth Client secret:  <Client secret we got from the last step>
+
+Note: Your credentials will be sent to our server as we need to proxy the request. Your credentials will not be logged.
+
+Close
+```
+
+After entering the Client ID and Client secret.
+
+Click close.
+
+At the left hand menu...
+
+##### Step 1 Select & authorize APIs ##### 
+
+```
+Step 1 Select & authorize APIs
+
+Select the scope for the APIs you would like to access or input your own OAuth scopes below. Then click the "Authorize APIs" button.
+
+Input your own scopes: https://www.googleapis.com/auth/googletalk Auhorize APIs
+```
+
+Do not pick anything from the list click on the entry box at the bottom of the list and type
+
+```
+https://www.googleapis.com/auth/googletalk
+```
+
+Click "Authorize APIs" button.
+
+```
+Google
+
+Choose an account
+to continue to SomeCreativeNameApp
+
+someone@gmail.com
+
+Use another account
+```
+
+Click your google voice account email address under Choose an account or type it in with "Use another account".
+
+```
+Google
+
+Hi someone
+  someone@gmail.com
+  
+SomeCreativeNameApp wants to
+  View and send chat messages
+  
+Allow SomeCreativeNameApp to do this?
+By clicking Allow, you allow this app to use your information in accordance to their terms of service and privacy policies. You can remove this or any other app connected to your account in My Account
+
+Cancel Allow
+```
+
+Click Allow.
+
+Now Step 2 Loads
+
+##### Step 2 Exchange authorization code for tokens #####
+
+```
+Step 2 Exchange authorization code for tokens
+Once you got the Authorization Code from Step 1 click the Exchange authorization code for tokens button, you will get a refresh and an access token which is required to access OAuth protected resources.
+
+Authorization code:  <Auth Code Key>
+
+Exchange authorization code for tokens
+
+Refresh token:  Refresh token
+
+Access token:  Access token
+
+Refresh access token
+
+(Unchecked) Auto-refresh the token before it expires.
+
+The access token will expire in seconds.
+
+The access token has expired.
+
+Note: The OAuth Playground does not store refresh tokens, but as refresh tokens never expire, user should go to their Google Account Authorized Access page if they would like to manually revoke them.
+```
+
+Click "Exchange authorization code for tokens"
+
+Step 2 will generate some numbers and collapse, open up Step 2 again and copy the Refresh token.
+
+```
+Refresh token: <RefreshToken>
+
+Access token:  <AccessToken>
+
+(Unchecked) Auto-refresh the token before it expires.
+
+The access token will expire in 3236 seconds.
+
+Note: The OAuth Playground does not store refresh tokens, but as refresh tokens never expire, user should go to their Google Account Authorized Access page if they would like to manually revoke them.
+```
+
+Copy refresh token and paste it in your Motif field called refresh token in Google Voice PIAF GUI settings.
+
+**Note:** *If you only have a password field you probably didn't choose OAuth2 when you installed PIAF.*
+
+Click Connectivity ==> Google Voice (Motif)
+
+```
+Google Voice [Motif]
+
+Typical Settings
+
+Google Voice Username: blah@gmail.com
+Google Voice Refresh Token: <refreshtoken>
+Google Voice Phone Number: 9361234567
+Add Trunk: X
+Add Outbound Routes: X
+Send Unanswered to GoogleVoice Voicemail: Not Checked
+
+Advanced Settings
+
+None At This Time
+
+Submit
+```
+
+Click your account made on the right.
+
+**Error:** *This module requires Asterisk chan_motif & res_xmpp to be installed and loaded*
+
+Go to the VoIP Server console and type.
+
+```
+amportal restart
+```
+
+**Note:** *I have yet to get OAuth2 methods working. Good Luck!*
+
+
 
 #### VoIP.ms Trunk ####
 
