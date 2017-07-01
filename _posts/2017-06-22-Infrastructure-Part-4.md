@@ -1437,8 +1437,21 @@ Save
 Voice
 (Checkmark) Enable DHCP server on the IoT interface
 Range from 10.0.4.50 to 10.0.4.200
+Additional Options Advanced - Show Additional BOOTP/DHCP Options
+Number: 128 Type: Text Value: VLAN-A=500;
+Number: 66 Type: Text Value: 10.0.4.254
+Number: 160 Type: Text Value: ftp://<username>:<password>@10.0.4.254
+Save
+DHCP Static Mappings for this interface.
++
+Static DHCP Mapping
+MAC address: 42:de:ad:be:a7:50
+IP address: 10.0.4.254
+Description: VoIP Server
 Save
 ```
+
+
 
 ### PCI Passthrough For Wireless Access Point ###
 
