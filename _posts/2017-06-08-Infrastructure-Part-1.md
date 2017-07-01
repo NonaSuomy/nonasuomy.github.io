@@ -485,7 +485,7 @@ flash:/3comoscfg.cfg exists, overwrite? [Y/N]:y
  [4800G-GigabitEthernet1/0/4]stp edged-port enable
  ```
  
- #### If 2 Hardware AP's are required (no multi SSID support)####
+ #### If 2 Hardware AP's are required (no multi SSID support) ####
 
 
 ##### Main Access Point Port #####
@@ -518,7 +518,7 @@ flash:/3comoscfg.cfg exists, overwrite? [Y/N]:y
 [4800G-GigabitEthernet1/0/5]stp edged-port enable
 ``` 
  
- ### Add rest of the ports to LAN VLAN 200###
+ ### Add rest of the ports to LAN VLAN 200 ###
  
  ```
  interface range GigabitEthernet1/0/6 to GigabitEthernet1/0/24
