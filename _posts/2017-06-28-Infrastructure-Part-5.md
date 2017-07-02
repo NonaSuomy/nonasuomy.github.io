@@ -1288,6 +1288,88 @@ sudo nano /var/www/html/ucs.xml
 </PHONE_IMAGES>
 ```
 
+Customize ringtones, backgrounds, voicemail, vm ext
+
+Click Edit File Configurations for: $mac.cfg
+
+File Configuration Editor For: $mac.cfg
+
+```
+<?xml version="1.0" standalone="yes"?> 
+<!-- Default Master SIP Configuration File--> 
+<!-- $RCSfile: 000000000000.cfg,v $ $Revision: 1.14.22.4 $ --> 
+<!--
+#################PROVISIONER.NET#################
+# This Configuration file was generated from the Provisioner.net Library by {$provisioner_processor_info}
+# Generated on: {$provisioner_generated_timestamp}
+# 
+#
+# Provisioner Information Follows:
+# Brand Revision Timestamp: {$provisioner_brand_timestamp}
+# Family Revision Timestamp: {$provisioner_family_timestamp}
+#
+##################################################
+-->
+<APPLICATION
+	APP_FILE_PATH="sip.ld"
+	CONFIG_FILES="{$createdFiles}" 
+	MISC_FILES="" 
+	LOG_FILE_DIRECTORY="/logs" 
+	OVERRIDES_DIRECTORY="/overrides" 
+	CONTACTS_DIRECTORY="/contacts" 
+	LICENSE_DIRECTORY="/licenses"> 
+</APPLICATION>
+<PHONE_CONFIG>	
+  <ALL
+    msg.mwi.1.subscribe="701"
+    msg.mwi.1.callBack="*97"
+    msg.mwi.1.callBackMode="contact"
+    sampled_audio saf.1="" saf.2="ALongTimeAgo8.wav" saf.3="Warble.wav" saf.4="SoundPointIPWelcome.wav" saf.5="LoudRing.wav" saf.6="" saf.7="" saf.8="" saf.9="" saf.10="" saf.11="" saf.12="" saf.13="" saf.14="" saf.15="" saf.16="" saf.17="" saf.18="" saf.19="" saf.20="" saf.21="" saf.22="" saf.23="" saf.24=""
+    np.normal.ringing.calls.tonePattern="ringer15"
+    up.backlight.timeout="10"
+    upgrade.custom.server.url="http://10.10.10.254/ucs.xml"
+  />
+</PHONE_CONFIG>
+```
+
+Then you should see a custom config in the drop down.
+
+Select Alternative File Configurations for overrides/$mac.cfg <phonemac_randomnumber>
+
+Click Edit File Configurations for: overrides/$mac-phone.cfg 
+
+File Configuration Editor For: $mac-phone.cfg
+
+```
+<?xml version="1.0" standalone="yes"?>
+<!--
+#################PROVISIONER.NET#################
+# This Configuration file was generated from the Provisioner.net Library by {$provisioner_processor_info}
+# Generated on: {$provisioner_generated_timestamp}
+# 
+# Provisioner Information Follows:
+# Brand Revision Timestamp: {$provisioner_brand_timestamp}
+# Family Revision Timestamp: {$provisioner_family_timestamp}
+#
+##################################################
+-->
+<PHONE_CONFIG>	
+  <ALL
+    msg.mwi.1.subscribe="701"
+    msg.mwi.1.callBack="*97"
+    msg.mwi.1.callBackMode="contact"
+    sampled_audio saf.1="" saf.2="ALongTimeAgo8.wav" saf.3="Warble.wav" saf.4="SoundPointIPWelcome.wav" saf.5="LoudRing.wav" saf.6="" saf.7="" saf.8="" saf.9="" saf.10="" saf.11="" saf.12="" saf.13="" saf.14="" saf.15="" saf.16="" saf.17="" saf.18="" saf.19="" saf.20="" saf.21="" saf.22="" saf.23="" saf.24=""
+    np.normal.ringing.calls.tonePattern="ringer15"
+    up.backlight.timeout="10"
+    upgrade.custom.server.url="http://10.10.10.254/ucs.xml"
+  />
+</PHONE_CONFIG>
+```
+
+Then you should see a custom config in the drop down.
+
+Select Alternative File Configurations for overrides/$mac-phone.cfg <phonemac_randomnumber>
+
 #### Google Voice Trunk ####
 
 I've tried 3 ways here and only the first way worked.
