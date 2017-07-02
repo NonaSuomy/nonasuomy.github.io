@@ -817,13 +817,16 @@ Global Final Config & Firmware Directory: /tftpboot/
 
 Time
 
-Time Zone (like England/London)	
+Time Zone (like England/London): Americas
 Time Server (NTP Server): 10.0.5.1	
 
 Local Paths
 
+Note: Used for searching for phones:
 NMAP executable path: /usr/bin/nmap
+Note: Used for adding phones:
 ARP executable path: /usr/sbin/arp
+Note: Used for rebooting phones:
 Asterisk executable path: /usr/sbin/asterisk
 
 Web Directories
@@ -832,19 +835,65 @@ Package Server:	http://mirror.freepbx.org/provisioner/v3/
 
 Experimental
 
+Note: Voicemail recording module, allows users to edit specific settings that you define:
 (Checkmark) Enable FreePBX ARI Module (What?)	
 Enable Debug Mode 	
 Disable Tooltips 	
 Allow Duplicate Extensions 	
 Allow Saving Over Default Configuration Files 	
+Note: If you haven't setup the tftp server yet check this box before hitting update globals:
 Disable TFTP Server Check 	
 Disable Configuration File Backups 	
 (Checkmark) Use GITHUB Live Repo (Requires git to be installed) 	
 GIT Branch: Master
+
 Update Globals
 ```
 
-You will see this warning at the top of the window, 
+#### Setup ####
+
+```
+IP address of phone server:: 
+```
+
+Click Determine for me or set your VoIPServer IP:  10.0.5.254
+
+Configuration Type: File (TFTP/FTP)	
+Global Final Config & Firmware Directory: /tftpboot/
+
+Fix your Timezone to where ever you are.
+
+```
+Time Zone (like England/London)
+```
+
+Time Server (NTP Server): 10.0.5.1
+
+I set my time server to the virtual router so everything is in sync with it.
+
+Note: Voicemail recording module, allows users to edit specific settings that you define:
+
+Make sure nmap is installed, all the other tools should be default installed (arp,asterisk)
+
+Just type ```nmap``` in the VoIP Server console and see if it shows up otherwise:
+
+```
+yum install nmap
+```
+
+Note: Voicemail recording module, allows users to edit specific settings that you define:
+
+(Checkmark) Enable FreePBX ARI Module (What?)
+
+Note: If you haven't setup the tftp server yet check this box before hitting update globals:
+
+Disable TFTP Server Check (Note: I never checked this but the creator said it causes apache to lockup if you don't and after you reboot it will be checked if you dont have tftp setup maybe because tftp was already installed.)
+
+(Checkmark) Use GITHUB Live Repo (Requires git to be installed) 	
+
+GIT Branch: Master
+
+You may see this warning at the top of the window:
 
 ```
 Configuration Directory is not a directory or does not exist! Please change the location here: Here
@@ -891,15 +940,15 @@ nano /etc/xinetd.d/tftp
 service tftp
 {
         socket_type      = dgram
-        protocol            = udp
-        wait                    = yes
-        user                   = root
-        server                = /usr/sbin/in.tftpd
-        server_args       = -s /tftpboot
-        disable               = no
-        per_source        = 11
-        cps                      = 100 2
-        flags                   = IPv4
+        protocol         = udp
+        wait             = yes
+        user             = root
+        server           = /usr/sbin/in.tftpd
+        server_args      = -s /tftpboot
+        disable          = no
+        per_source       = 11
+        cps              = 100 2
+        flags            = IPv4
 }
 ```
 
@@ -1096,18 +1145,6 @@ chown -R asterisk. SomeCustom.wav
 /var/www/html/admin/modules/_ep_phone_modules/endpoint/overrides
 ```
 
-```
-IP address of phone server:: 
-```
-
-Click Determine for me.
-
-Fix your Timezone.
-
-```
-Time Zone (like England/London)
-```
-
 Click Update Globals button.
 
 **Note:** *If you get in the webGUI "Local TFTP Server is not correctly configured" you probably didn't restart the service or have a typo in the config try again.*
@@ -1197,14 +1234,19 @@ Click Install Firmware if the option exist for the phones.
 
 Optional: Click Show/Hide Brands/Models Tab and hide all the brands you have never seen before.
 
+##### OUI Manager #####
+
+Add the first 6 hex values of your phones MAC address if not already there.
+
+
 ##### OSS Endpoint Device List #####
 
 Automatically add devices.
 
-Click Search on Serach or new devices in netmask xxx.xxx.xxx.xxx/24 whatever IP range you have.
+Click Search on Serach or new devices in netmask 10.0.5.254/24 whatever IP range you have check use nmap.
 
 ```
- Search Search for new devices in netmask  192.168.1.108/24 X (Use NMAP)
+ Search Search for new devices in netmask: 10.0.5.254/24 X(Use NMAP)
 ```
 
 Now you should see your phone sets listed under "Unmanaged Extensions".
@@ -1226,7 +1268,11 @@ MAC Address	Brand	Model of Phone	Line	Extension Number	Template
 
 Click Add.
 
-Polycom sets add this file
+Then change the phones models to the correct models.
+
+Try to reboot phones from OSS options.
+
+Polycom sets add this file if you can't get DHCP Options working.
 
 ```
 sudo nano /var/www/html/ucs.xml
@@ -1236,7 +1282,7 @@ sudo nano /var/www/html/ucs.xml
   <REVISION ID="">
     <PHONE_IMAGE>
       <VERSION>4.0.11.0583</VERSION>
-      <PATH>ftp://sipphone:456@10.10.10.254/</PATH>
+      <PATH>ftp://PlcmSpIp:PlcmSpIp@10.10.10.254/</PATH>
     </PHONE_IMAGE>
   </REVISION>
 </PHONE_IMAGES>
