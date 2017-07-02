@@ -811,38 +811,37 @@ Import/Export My Devices List
 
 Package Import/Export
 
-IP address of phone server:	
- Determine for me
-Configuration Type	
-Global Final Config & Firmware Directory	
-/tftpboot/
+IP address of phone server: 10.0.5.254 Determine for me
+Configuration Type: File (TFTP/FTP)	
+Global Final Config & Firmware Directory: /tftpboot/
+
 Time
 
 Time Zone (like England/London)	
-Time Server (NTP Server)	
+Time Server (NTP Server): 10.0.5.1	
+
 Local Paths
 
-NMAP executable path:	
-/usr/bin/nmap
-ARP executable path:	
-/usr/sbin/arp
-Asterisk executable path:	
-/usr/sbin/asterisk
+NMAP executable path: /usr/bin/nmap
+ARP executable path: /usr/sbin/arp
+Asterisk executable path: /usr/sbin/asterisk
+
 Web Directories
 
-Package Server:	
-http://mirror.freepbx.org/provisioner/v3/
+Package Server:	http://mirror.freepbx.org/provisioner/v3/
+
 Experimental
 
-Enable FreePBX ARI Module (What?)	
+(Checkmark) Enable FreePBX ARI Module (What?)	
 Enable Debug Mode 	
 Disable Tooltips 	
 Allow Duplicate Extensions 	
 Allow Saving Over Default Configuration Files 	
 Disable TFTP Server Check 	
 Disable Configuration File Backups 	
-Use GITHUB Live Repo (Requires git to be installed) 	
- Update Globals
+(Checkmark) Use GITHUB Live Repo (Requires git to be installed) 	
+GIT Branch: Master
+Update Globals
 ```
 
 You will see this warning at the top of the window, 
@@ -934,6 +933,168 @@ test123
 ```
 
 Refresh page again and the warnings should now be gone.
+
+We're going to setup FTP as well for the Polycom Phonesets.
+
+Back to the console of the VoIP Server.
+
+```
+nano /etc/vsftpd/vsftpd.conf
+
+# Example config file /etc/vsftpd/vsftpd.conf
+#
+# The default compiled in settings are fairly paranoid. This sample file
+# loosens things up a bit, to make the ftp daemon more usable.
+# Please see vsftpd.conf.5 for all compiled in defaults.
+#
+# READ THIS: This example file is NOT an exhaustive list of vsftpd options.
+# Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd's
+# capabilities.
+#
+# Allow anonymous FTP? (Beware - allowed by default if you comment this out).
+anonymous_enable=NO
+#
+# Uncomment this to allow local users to log in.
+local_enable=YES
+#
+# Uncomment this to enable any form of FTP write command.
+write_enable=NO
+#
+# Default umask for local users is 077. You may wish to change this to 022,
+# if your users expect that (022 is used by most other ftpd's)
+local_umask=022
+#
+# Uncomment this to allow the anonymous FTP user to upload files. This only
+# has an effect if the above global write enable is activated. Also, you will
+# obviously need to create a directory writable by the FTP user.
+#anon_upload_enable=YES
+#
+# Uncomment this if you want the anonymous FTP user to be able to create
+# new directories.
+#anon_mkdir_write_enable=YES
+#
+# Activate directory messages - messages given to remote users when they
+# go into a certain directory.
+dirmessage_enable=YES
+#
+# The target log file can be vsftpd_log_file or xferlog_file.
+# This depends on setting xferlog_std_format parameter
+xferlog_enable=YES
+#
+# Make sure PORT transfer connections originate from port 20 (ftp-data).
+connect_from_port_20=YES
+#
+# If you want, you can arrange for uploaded anonymous files to be owned by
+# a different user. Note! Using "root" for uploaded files is not
+# recommended!
+#chown_uploads=YES
+#chown_username=whoever
+#
+# The name of log file when xferlog_enable=YES and xferlog_std_format=YES
+# WARNING - changing this filename affects /etc/logrotate.d/vsftpd.log
+xferlog_file=/var/log/xferlog
+#
+# Switches between logging into vsftpd_log_file and xferlog_file files.
+# NO writes to vsftpd_log_file, YES to xferlog_file
+xferlog_std_format=NO
+#
+# You may change the default value for timing out an idle session.
+#idle_session_timeout=600
+#
+# You may change the default value for timing out a data connection.
+#data_connection_timeout=120
+#
+# It is recommended that you define on your system a unique user which the
+# ftp server can use as a totally isolated and unprivileged user.
+#nopriv_user=ftpsecure
+#
+# Enable this and the server will recognise asynchronous ABOR requests. Not
+# recommended for security (the code is non-trivial). Not enabling it,
+# however, may confuse older FTP clients.
+#async_abor_enable=YES
+#
+# By default the server will pretend to allow ASCII mode but in fact ignore
+# the request. Turn on the below options to have the server actually do ASCII
+# mangling on files when in ASCII mode.
+# Beware that on some FTP servers, ASCII support allows a denial of service
+# attack (DoS) via the command "SIZE /big/file" in ASCII mode. vsftpd
+# predicted this attack and has always been safe, reporting the size of the
+# raw file.
+# ASCII mangling is a horrible feature of the protocol.
+#ascii_upload_enable=YES
+#ascii_download_enable=YES
+#
+# You may fully customise the login banner string:
+#ftpd_banner=Welcome to blah FTP service.
+#
+# You may specify a file of disallowed anonymous e-mail addresses. Apparently
+# useful for combatting certain DoS attacks.
+#deny_email_enable=YES
+# (default follows)
+#banned_email_file=/etc/vsftpd/banned_emails
+#
+# You may specify an explicit list of local users to chroot() to their home
+# directory. If chroot_local_user is YES, then this list becomes a list of
+# users to NOT chroot().
+chroot_local_user=YES
+chroot_list_enable=YES
+# (default follows)
+chroot_list_file=/etc/vsftpd/chroot_list
+#
+# You may activate the "-R" option to the builtin ls. This is disabled by
+# default to avoid remote users being able to cause excessive I/O on large
+# sites. However, some broken FTP clients such as "ncftp" and "mirror" assume
+# the presence of the "-R" option, so there is a strong case for enabling it.
+#ls_recurse_enable=YES
+#
+# When "listen" directive is enabled, vsftpd runs in standalone mode and
+# listens on IPv4 sockets. This directive cannot be used in conjunction
+# with the listen_ipv6 directive.
+listen=YES
+#
+# This directive enables listening on IPv6 sockets. To listen on IPv4 and IPv6
+# sockets, you must run two copies of vsftpd with two configuration files.
+# Make sure, that one of the listen options is commented !!
+#listen_ipv6=YES
+
+pam_service_name=vsftpd
+userlist_enable=YES
+userlist_deny=NO
+tcp_wrappers=YES
+#hide_file=*
+```
+
+mkdir /var/ftp/sip - Make the FTP directory for the user.
+chown asterisk:asterisk /var/ftp/sip - Make asterisk the owner and group of the folder.
+useradd - Add a user.
+-G asterisk - Set user into asterisk group.
+-d /var/ftp/sip - Set user directory to the FTP directory.
+/bin/false - Disable login for this user.
+PlcmSpIp - Default username for the phones FTP account.
+
+```
+mkdir /var/ftp/sip
+chown -R asterisk:asterisk /var/ftp/sip
+chmod -R 0755 /var/ftp/sip
+useradd -G asterisk -d /var/ftp/sip -s /bin/false PlcmSpIp
+passwd PlcmSpIp
+```
+
+Show results.
+
+```
+cat /etc/passwd
+PlcmSpIp:x:501:501::/var/ftp/sip:/bin/false
+groups PlcmSpIp
+PlcmSpIp : PlcmSpIp
+chkconfig vsftpd on
+service vsftpd start
+nano /var/log/xferlog
+:/var/www/html/admin/modules/_ep_phone_modules/endpoint
+chown -R asterisk. SomeCustom.jpg
+chown -R asterisk. SomeCustom.wav
+/var/www/html/admin/modules/_ep_phone_modules/endpoint/overrides
+```
 
 ```
 IP address of phone server:: 
@@ -1032,6 +1193,8 @@ Click Return.
 
 Click Enable next to all the phone models you have.
 
+Click Install Firmware if the option exist for the phones.
+
 Optional: Click Show/Hide Brands/Models Tab and hide all the brands you have never seen before.
 
 ##### OSS Endpoint Device List #####
@@ -1063,7 +1226,21 @@ MAC Address	Brand	Model of Phone	Line	Extension Number	Template
 
 Click Add.
 
+Polycom sets add this file
 
+```
+sudo nano /var/www/html/ucs.xml
+
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<PHONE_IMAGES>
+  <REVISION ID="">
+    <PHONE_IMAGE>
+      <VERSION>4.0.11.0583</VERSION>
+      <PATH>ftp://sipphone:456@10.10.10.254/</PATH>
+    </PHONE_IMAGE>
+  </REVISION>
+</PHONE_IMAGES>
+```
 
 #### Google Voice Trunk ####
 
