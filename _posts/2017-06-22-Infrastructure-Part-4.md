@@ -1436,11 +1436,11 @@ Save
 
 Voice
 (Checkmark) Enable DHCP server on the IoT interface
-Range from 10.0.4.50 to 10.0.4.200
+Range from 10.0.5.50 to 10.0.5.200
 Additional Options Advanced - Show Additional BOOTP/DHCP Options
 Number: 128 Type: Text Value: VLAN-A=500;
-Number: 66 Type: Text Value: 10.0.4.254
-Number: 160 Type: Text Value: ftp://<username>:<password>@10.0.4.254
+Number: 66 Type: Text Value: 10.0.5.254
+Number: 160 Type: Text Value: ftp://PlcmSpIp:PlcmSpIp@10.0.5.254
 Save
 DHCP Static Mappings for this interface.
 +
