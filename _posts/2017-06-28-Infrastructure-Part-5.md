@@ -2149,6 +2149,136 @@ Register String
 <6DigitUser#>:<password>@atlanta1.voip.ms:5060
 ```
 
+### Ring Group ###
+
+Click Applications => Ring Groups.
+
+Click Add Ring Group.
+
+```
+Ring All Phones (600)
+
+Edit Ring Group
+
+Group Description: Ring All Phones
+Ring Strategy: ringall
+Ring Time (max 300 sec): 20
+
+Extension List:	
+701
+702
+703
+704
+705
+706
+707
+
+Extension Quick Pick: (pick extension)
+Announcement: None
+Play Music On Hold? Ring
+CID Name Prefix:	
+Alert Info:	
+Ignore CF Settings:	
+Skip Busy Agent:	
+Enable Call Pickup:	
+Confirm Calls:	
+Remote Announce: Default
+Too-Late Announce: Default
+
+Change External CID Configuration
+
+Mode: Default	
+Fixed CID Value:	
+
+Call Recording
+
+Record Calls: Dont Care
+
+Destination if no answer: Extensions <701> Den
+```
+
+### Inbound Routes ###
+
+Click Connectivity => Inbound Routes.
+
+Click Add Incoming Route.
+
+```
+Route: CatchAll
+
+Edit Incoming Route
+
+Description: CatchAll
+DID Number:	
+CallerID Number:	
+CID Priority Route:	
+
+Options
+
+Alert Info:	
+CID name prefix:	
+Music On Hold:	Default
+Signal RINGING:	
+Reject Reverse Charges:	
+Pause Before Answer:	
+
+Privacy
+
+Privacy Manager: No
+
+Call Recording
+
+Note that the meaning of these options has changed. Please read the wiki for futher information on these changes.
+
+Call Recording:	Don't Care
+
+Fax Detect
+
+Detect Faxes:	No
+Set Destination
+
+Ring Groups
+Ring All Phones <600>
+
+Submit    Clear Destination & Submit
+```
+
+### Outbound Routes ###
+
+Click Connectivity => Outbound Routes.
+
+You should see the google trunk here we made earlier that's all we need.
+
+```
+usergmailcom etc...
+```
+
+### CID Superfecta ###
+
+#### KODI Notification ####
+
+### Setup VoiceMail On A Single Extension ###
+
+Setup VoiceMail on the extension you set your ring group to end on.
+
+Click Applications => Extensions.
+
+```
+Voicemail
+
+Status: Enabled
+Voicemail Password: 888
+Require From Same Extension: no
+Email Address: user@domain.com
+Pager Email Address:	
+Email Attachment: yes
+Play CID: no
+Play Envelope: no
+Delete Voicemail: no
+VM Options:
+VM Context: default
+```
+
 [Part 06 - Automation Server](../Infrastructure-Part-6)
 
 VM Guest Automation Server: OpenHAB
