@@ -1282,7 +1282,7 @@ sudo nano /var/www/html/ucs.xml
   <REVISION ID="">
     <PHONE_IMAGE>
       <VERSION>4.0.11.0583</VERSION>
-      <PATH>ftp://PlcmSpIp:PlcmSpIp@10.10.10.254/</PATH>
+      <PATH>http://10.10.10.254/firmware/</PATH>
     </PHONE_IMAGE>
   </REVISION>
 </PHONE_IMAGES>
@@ -1369,6 +1369,193 @@ File Configuration Editor For: $mac-phone.cfg
 Then you should see a custom config in the drop down.
 
 Select Alternative File Configurations for overrides/$mac-phone.cfg <phonemac_randomnumber>
+
+If you don't want to deal with OSS Endpoint, just toss this file in your ftp folder.
+
+```
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PHONE_CONFIG>
+  <PHONE_LOCAL
+    bg.hiRes.color.selection="3,6"
+    feature.urlDialing.enabled="0"
+    np.normal.ringing.calls.tonePattern="ringer15"
+    tcpIpApp.sntp.address="10.0.5.1"
+    tcpIpApp.sntp.gmtOffset="-18000"
+    up.backlight.onIntensity="0"
+    up.backlight.timeout="5"
+    upgrade.custom.server.url="http://10.10.10.254/ucs.xml"
+    bg.hiRes.color.bm.6.name="BravestWarrior.jpg"
+    msg.mwi.1.callBack="*97"
+    msg.mwi.1.callBackMode="contact"
+    msg.mwi.1.subscribe="701"
+    reg.1.address="701"
+    reg.1.auth.userId="701"
+    reg.1.displayName="Den 701"
+    reg.1.label="701"
+    reg.1.auth.password="GenericPlebz&lotPassword01"
+    saf.1="ALongTimeAgo8.wav"
+    saf.2="Warble.wav"
+    saf.3="SoundPointIPWelcome.wav"
+    saf.4="LoudRing.wav"
+    voIpProt.server.1.address="10.10.10.254"
+    voIpProt.server.1.expires="600"
+  />
+</PHONE_CONFIG>
+```
+
+###### Custom Backgrounds ######
+
+Here's a quick sample ringtone and background directory: [customize](../customize)
+
+yum install imagemagick
+
+```
+mogrify -resize 50% *.png      # keep image aspect ratio
+mogrify -resize 320x160 *.png  # keep image aspect ratio
+mogrify -resize 320x160! *.png # don't keep image aspect ratio
+mogrify -resize x160 *.png     # don't keep image aspect ratio
+mogrify -resize 320x *.png     # don't keep image aspect ratio
+```
+
+Polycom phones do not support progressive or multiscan JPEG images. Phones
+running SIP 3.2.x or earlier cannot display JPEG images with .jpe or .jfif extensions.
+To use this type of image, change the extension to .jpg.
+
+SoundPoint IP 550, 560, 650, and 670 320 x 160 pixels
+
+SoundPoint IP 550, 560, 650, and 670 only support jpg & bmp not png.
+
+Larger images will be cropped smaller images will be centered with a colour background.
+
+```
+Phone model Optimal idle display  Image Size (In Pixels)  Color Depth
+SoundPoint IP 32x/33x             87 x 11 pixels           monochrome (1-bit)
+SoundPoint IP 430                 94 x 23 pixels           monochrome
+SoundPoint IP 450                 170 x 73 pixels          4-bit grayscale or monochrome
+SoundPoint IP 550/560/650         213 x 111 pixels         4-bit grayscale or monochrome
+SoundPoint IP 670                 213 x 111 pixels         12-bit color
+SoundStation IP 5000/6000         240 x 32 pixels          32-bit grayscale or monochrome
+SoundStation IP 7000              255 x 75 pixels          32-bit grayscale or monochrome
+```
+
+All phones on a network will use the 000000000000.cfg master configuration file
+unless the <ethernet-address>.cfg master configuration file associated with their
+ethernet address exists on the network. If you would like a phone to use the
+000000000000.cfg file, be sure that the associated <ethernet-address>.cfg file
+does not exist on the provisioning server.
+
+```
+sudo nano /var/ftp/sip/000000000000.cfg
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PHONE_CONFIG>
+  <PHONE_LOCAL
+    up.backlight.onIntensity="0"
+    up.backlight.timeout="5"
+    bg.hiRes.color.selection="3,6"
+    bg.hiRes.color.bm.6.name="BravestWarrior.jpg"
+  />
+</PHONE_CONFIG>
+```
+
+This turns the phones backlight off and timesout at 5 seconds, Sets the default background to slot 6 which slot 6 is defined to BravestWarrior.jpg. 
+
+###### Custom Audio (Ringtones) ######
+
+You can add custom ringtones to your phone, and you can apply custom ringtones to specific contacts or phone lines. The phones support the following .wav file formats: G.711u-law, G.711a-law, G.722, G.729AB, Lin16, and iLBC.
+
+Audio files should have a .wav extension name. It will be stored in the phone's flash memory and a copy will be made to the provisioning server. If you select a URL, the phone will download the audio file from that URL. You can save a maximum of 24 audio files or until the phone runs out of memory.
+
+You can set a custom ringtone as the welcome sound in the Welcome Sound drop down box and for incoming calls using the Ring Type drop down box. To apply custom ringtones to specific contacts, on your phone, go to Menu > Features > Contact Directory, select a contact, press the Edit soft key, and choose Ring Type.
+
+To apply a custom ringtone to a line, on your phone, go to Utilities > Soft Key & Line Key Configuration, select the line you wish to apply the custom ringtone to, and choose a ringtone type using the Edit Speed Dial Contact options.
+
+Note: If you configure an unsupported audio file, the phone will use the default ringtone.
+
+For ringtones it seems to work well when using ftp. You can edit the ipmid.conf sampled_audio section as follows: <sampled_audio saf.1="" saf.2="ringtone/ringtone1.wav" . . .
+
+Documents state you should use the following formats: "mono 8 kHz G.711 A-Law L16/160008 (16-bit, 16 kHz sampling rate, mono)
+
+To get the file format correct, use SOX:
+
+```
+sox original1.wav -c 1 -r 8000 -U /var/ftp/sip/ringtone1.wav 
+```
+
+**Note:** *Increase your logging level to see if there are errors on the audio file format.*
+
+Trim can trim off and shorten audio from the audio file to make a suitable ring tone sized sample.
+
+Syntax : sox old.wav new.wav trim [SECOND TO START] [SECONDS DURATION].
+
+SECOND TO START – Starting point in the voice file.
+SECONDS DURATION – Duration of voice file to remove.
+
+The command below will extract first 10 seconds from input.wav and stored it in output.wav
+
+```
+sox input.wav output.wav trim 0 10
+```
+
+###### If you want to convert an MP3 with sox for a ringtone you have to rebuild it with MP3 support. ######
+
+Installing SoX with MP3 Support on Scientific Linux or how to fix error: sox formats: no handler for file extension "mp3"
+
+```
+Default SoX installation from yum doesn’t have mp3 handler:
+
+AUDIO FILE FORMATS: 8svx aif aifc aiff aiffc al amb au avr caf cdda cdr cvs cvsd dat dvms f4 f8 fap flac fssd gsm hcom htk ima ircam la lpc lpc10 lu mat mat4 mat5 maud nist ogg paf prc pvf raw s1 s2 s3 s4 sb sd2 sds sf sl smp snd sndfile sndr sndt sou sox sph sw txw u1 u2 u3 u4 ub ul uw vms voc vorbis vox w64 wav wavpcm wv wve xa xi
+PLAYLIST FORMATS: m3u pls
+AUDIO DEVICE DRIVERS: alsa ao oss ossdsp
+If you already have SoX installed form yum you need remove it:
+
+# yum remove sox
+
+You will need to install the rpmforge repo.
+
+Then install gcc-c++ libmad libmad-devel libid3tag libid3tag-devel lame lame-devel flac-devel libvorbis-devel packages:
+
+# yum install gcc-c++ libmad libmad-devel libid3tag libid3tag-devel lame lame-devel flac-devel libvorbis-devel
+
+Create /usr/local/src/SoX directory, download, extract sox from sources:
+
+# mkdir /usr/local/src/SoX
+# cd /usr/local/src/SoX/
+# wget http://softlayer-dal.dl.sourceforge.net/project/sox/sox/14.4.2/sox-14.4.2.tar.gz
+# tar xvfz sox-14.4.2.tar.gz
+# cd sox-14.4.2
+# ./configure
+
+After running ./configure you should see in output:
+
+OPTIONAL FILE FORMATS
+amrnb.....................no
+amrwb.....................no
+flac......................yes
+gsm.......................yes (in-tree)
+lpc10.....................yes (in-tree)
+mp2/mp3...................yes
+id3tag....................yes  
+lame......................yes 
+lame id3tag...............yes
+dlopen lame...............no
+mad.......................yes
+dlopen mad................no
+twolame...................no
+oggvorbis.................yes
+opus......................no
+sndfile...................no
+wavpack...................no
+Finlay run:
+
+# make -s
+# make install
+That’s it. Now your new compiled sox with mp3 support in /usr/local/bin/ folder.
+
+You can add /usr/local/sbin to the PATH:
+
+# export PATH=$PATH:/usr/local/bin
+```
 
 #### Google Voice Trunk ####
 
