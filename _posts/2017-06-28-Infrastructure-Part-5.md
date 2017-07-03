@@ -1479,8 +1479,29 @@ Documents state you should use the following formats: "mono 8 kHz G.711 A-Law L1
 To get the file format correct, use SOX:
 
 ```
-sox original1.wav -c 1 -r 8000 -U /var/ftp/sip/ringtone1.wav 
+sox original1.wav -V AlongTimeAgo.wav -e mu-law -c1 -t .wav -r 8000 -U /var/ftp/sip/ALongTimeAgo8.wav resample
 ```
+
+Sample ringtone config.
+
+```
+sudo nano /var/ftp/sip/000000000000.cfg
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PHONE_CONFIG>
+  <PHONE_LOCAL
+    np.normal.ringing.calls.tonePattern="ringer15"
+    saf.1=""
+    saf.2="ALongTimeAgo8.wav"
+    saf.3="Warble.wav"
+    saf.4="SoundPointIPWelcome.wav"
+    saf.5="LoudRing.wav"
+  />
+</PHONE_CONFIG>
+```
+**Note:** *saf.1="" seems to overlap with existing tone 14 and won't upload to phone?...*
+
+This says choose ringer 15th in the list where the custom ringtones start to be the default ringtone.
 
 **Note:** *Increase your logging level to see if there are errors on the audio file format.*
 
