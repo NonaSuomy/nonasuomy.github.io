@@ -1370,7 +1370,29 @@ Then you should see a custom config in the drop down.
 
 Select Alternative File Configurations for overrides/$mac-phone.cfg <phonemac_randomnumber>
 
-If you don't want to deal with OSS Endpoint, just toss this file in your ftp folder.
+### No OSS Endpoint Manager ###
+
+Dump the latest and greatest firmware from here into the ftp folder /var/ftp/sip/ or web folder /var/www/html/firmware/.
+The dhcp option 160 points to the ftp for firmware, refer back to the virtual router documentation for that, pointing to usc.xml uses the web folder for updating firmware.
+
+```
+cd /var/ftp/sip
+```
+
+http://support.polycom.com/content/support/North_America/USA/en/support/voice/soundpoint_ip/soundpoint_ip670.html
+
+Grab Polycom UC Software 4.0.12 for VVX Business Media Phones and SoundStructure [Split] or newer.
+
+```
+sudo wget http://downloads.polycom.com/voice/voip/uc/Polycom-UC-Software-4-0-12-rts12-release-sig-split.zip
+unzip Polycom-UC-Software-4-0-12-rts12-release-sig-split.zip
+```
+
+There's some sample backgrounds and ringtones in this package as well as the firmware.
+
+**Note:** *Polycom sets look in the sip.var file for the version number to update to.*
+
+If you don't want to deal with OSS Endpoint, just toss this configuration file in your ftp folder.
 
 ```
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -2086,7 +2108,46 @@ amportal restart
 
 #### VoIP.ms Trunk ####
 
+Click Connectivity => Trunks
 
+Edit Trunk
+
+General Settings
+
+```
+Trunk Name: VoIPms
+Outbound CallerID: <TenDigitPhone#>
+CID Options: Allow any CID	
+```
+
+Outgoing Settings
+
+PEER Details
+
+```
+username=<6DigitUser#>
+type=peer
+trustrpid=yes
+sendrpid=yes
+secret=<password>
+qualify=yes
+nat=yes&force_rport,comedia
+insecure=port,invite
+host=atlanta1.voip.ms
+fromuser=
+disallow=all
+context=from-trunk
+canreinvite=nonat
+allow=ulaw
+```
+
+Incoming Settings
+
+Register String
+
+```
+<6DigitUser#>:<password>@atlanta1.voip.ms:5060
+```
 
 [Part 06 - Automation Server](../Infrastructure-Part-6)
 
