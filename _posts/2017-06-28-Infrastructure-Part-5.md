@@ -983,7 +983,14 @@ test123
 
 Refresh page again and the warnings should now be gone.
 
-We're going to setup FTP as well for the Polycom Phonesets.
+If you want to use ftp change:
+
+**Note:** *Do the directions below in the console before changing this, otherwise you won't be able to set it.*
+
+```
+Configuration Type: File (TFTP/FTP)	
+Global Final Config & Firmware Directory: /var/ftp/sip/
+```
 
 Back to the console of the VoIP Server.
 
@@ -1107,10 +1114,10 @@ listen=YES
 #listen_ipv6=YES
 
 pam_service_name=vsftpd
+userlist_deny=YES
 userlist_enable=YES
-userlist_deny=NO
 tcp_wrappers=YES
-#hide_file=*
+hide_file=*
 ```
 
 mkdir /var/ftp/sip - Make the FTP directory for the user.
@@ -1120,29 +1127,124 @@ useradd - Add a user.
 -d /var/ftp/sip - Set user directory to the FTP directory.
 /bin/false - Disable login for this user.
 PlcmSpIp - Default username for the phones FTP account.
+chown - Make asterisk the owner of the directory recursively.
+chmod - Make directory writable. (If you get error in webGUI about "Directory Not Writable".
 
 ```
 mkdir /var/ftp/sip
+useradd -G asterisk -d /var/ftp/sip -s /bin/nologin PlcmSpIp
+passwd PlcmSpIp
 chown -R asterisk:asterisk /var/ftp/sip
 chmod -R 0755 /var/ftp/sip
-useradd -G asterisk -d /var/ftp/sip -s /bin/false PlcmSpIp
-passwd PlcmSpIp
 ```
 
 Show results.
 
 ```
 cat /etc/passwd
-PlcmSpIp:x:501:501::/var/ftp/sip:/bin/false
+PlcmSpIp:x:501:501::/var/ftp/sip:/bin/nologin
 groups PlcmSpIp
-PlcmSpIp : PlcmSpIp
-chkconfig vsftpd on
-service vsftpd start
+PlcmSpIp : PlcmSpIp asterisk
+systemctl enable vsftpd
+systemctl start vsftpd
+systemctl status vsftpd
+```
+
+Test FTP connection.
+
+```
+ftp -nv 10.0.5.254
+user 
+331 Please specify the password.
+Password:
+230 Login successful.
+ls
+```
+
+If you get:
+
+```
+500 OOPS: vsftpd: refusing to run with writable root inside chroot()
+Login failed.
+```
+
+Change the directory we specified to readonly
+
+**Note:** *Don't do chmod or OSS Endpoint can't write firmware here.*
+
+```
+chmod a-w /var/ftp/sip
+```
+
+ or change /etc/vsftpd/vsftpd.conf
+
+```
+allow_writeable_chroot=YES
+```
+
+If you can enter a username but not password with a 530 Login incorrect.
+
+```
+530 Login incorrect.
+Login failed.
+```
+
+Few things to check
+
+```
+nano /etc/pam.d/vsftpd
+
+#%PAM-1.0
+session    optional     pam_keyinit.so    force revoke
+auth       required    pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
+auth	   required     pam_shells.so
+auth	   include	password-auth
+account    include	password-auth
+session    required     pam_loginuid.so
+session    include	password-auth
+```
+
+Comment out the line:
+
+```
+#auth       required    pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
+```
+
+Other distros may use 
+
+```
+pam_service_name=ftp
+```
+
+Instead of
+
+```
+pam_service_name=vsftpd
+```
+
+By default vsFTPd uses the file /etc/pam.d/vsftpd. This file by default requires FTP users to have a shell listed in /etc/shells and requires them not to be listed in /etc/ftpusers. If you check those 2 things your probably find what the problem is.  You shouldn't have to comment out that line in the pam file.
+
+```
+nano /etc/shells
+
+/bin/sh
+/bin/bash
+/sbin/nologin
+/usr/bin/sh
+/usr/bin/bash
+/usr/sbin/nologin
+/bin/tcsh
+/bin/csh
+/bin/ksh
+/bin/rksh
+```
+
+A common used shell that was not in my list is "/bin/false" you may be using this with your user account.
+
+Check the FTP Log for more information.
+
+```
 nano /var/log/xferlog
-:/var/www/html/admin/modules/_ep_phone_modules/endpoint
-chown -R asterisk. SomeCustom.jpg
-chown -R asterisk. SomeCustom.wav
-/var/www/html/admin/modules/_ep_phone_modules/endpoint/overrides
 ```
 
 Click Update Globals button.
@@ -1230,9 +1332,29 @@ Click Return.
 
 Click Enable next to all the phone models you have.
 
-Click Install Firmware if the option exist for the phones.
+Click Install Firmware if the option exist for the phones you have.
+
+```
+Downloading firmware...Done!
+Checking MD5sum of Package...Matches!
+Installing Firmware...
+Done!
+Return
+```
 
 Optional: Click Show/Hide Brands/Models Tab and hide all the brands you have never seen before.
+
+Now you should be able to see the firmware in the tftp or ftp folder.
+
+```
+ls /var/ftp/sip
+```
+
+or 
+
+```
+ls /tftpboot
+```
 
 ##### OUI Manager #####
 
@@ -1269,8 +1391,6 @@ MAC Address	Brand	Model of Phone	Line	Extension Number	Template
 Click Add.
 
 Then change the phones models to the correct models.
-
-Try to reboot phones from OSS options.
 
 Polycom sets add this file if you can't get DHCP Options working.
 
@@ -1405,7 +1525,7 @@ If you don't want to deal with OSS Endpoint, just toss this configuration file i
     tcpIpApp.sntp.gmtOffset="-18000"
     up.backlight.onIntensity="0"
     up.backlight.timeout="5"
-    upgrade.custom.server.url="http://10.10.10.254/ucs.xml"
+    upgrade.custom.server.url="http://10.0.5.254/ucs.xml"
     bg.hiRes.color.bm.6.name="BravestWarrior.jpg"
     msg.mwi.1.callBack="*97"
     msg.mwi.1.callBackMode="contact"
@@ -1419,7 +1539,7 @@ If you don't want to deal with OSS Endpoint, just toss this configuration file i
     saf.2="Warble.wav"
     saf.3="SoundPointIPWelcome.wav"
     saf.4="LoudRing.wav"
-    voIpProt.server.1.address="10.10.10.254"
+    voIpProt.server.1.address="10.0.5.254"
     voIpProt.server.1.expires="600"
   />
 </PHONE_CONFIG>
@@ -1432,11 +1552,18 @@ Here's a quick sample ringtone and background directory: [customize](../customiz
 yum install imagemagick
 
 ```
-mogrify -resize 50% *.png      # keep image aspect ratio
-mogrify -resize 320x160 *.png  # keep image aspect ratio
-mogrify -resize 320x160! *.png # don't keep image aspect ratio
-mogrify -resize x160 *.png     # don't keep image aspect ratio
-mogrify -resize 320x *.png     # don't keep image aspect ratio
+cd /var/ftp/sip
+```
+
+mogrify -resize 50% \*.jpg          # keep image aspect ratio
+mogrify -resize 320x160 \*.jpg  # keep image aspect ratio
+mogrify -resize 320x160! \*.jpg # don't keep image aspect ratio
+mogrify -resize x160 \*.jpg         # don't keep image aspect ratio
+mogrify -resize 320x \*.jpg         # don't keep image aspect ratio
+
+```
+mogrify -resize 320x160! *.jpg
+chown asterisk:asterisk *.jpg
 ```
 
 Polycom phones do not support progressive or multiscan JPEG images. Phones
@@ -1502,6 +1629,8 @@ To get the file format correct, use SOX:
 
 ```
 sox original1.wav -V AlongTimeAgo.wav -e mu-law -c1 -t .wav -r 8000 -U /var/ftp/sip/ALongTimeAgo8.wav resample
+cp AlongTimeAgo.wav /var/ftp/sip/
+chown asterisk:asterisk /var/ftp/sip/AlongTimeAgo.wav
 ```
 
 Sample ringtone config.
