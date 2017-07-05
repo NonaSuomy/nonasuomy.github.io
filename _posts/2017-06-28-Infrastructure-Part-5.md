@@ -710,6 +710,459 @@ From here it's up to you what you want to do with the box.
 
 ### These are items I setup ###
 
+### Enable PJSIP ###
+
+Settings => Advanced Settings
+
+Dialplan and Operational
+SIP Channel Driver: Both (Hit the little checkmark at the end of the field to save)
+
+Click Apply Config.
+
+**Note:** *The Asterisk channel driver to use for SIP. The default is both for Asterisk 12 and higher. For Asterisk 11 and lower the default will be chan_sip. If only one is compiled into asterisk, FreePBX will auto detect and change this value if set wrong. The chan_pjsip channel driver is considered "experimental" with known issues and does not work on Asterisk 11 or lower. Default Value: both, Internal Name: ASTSIPDRIVER*
+
+This was not set to the Default Value for me.
+
+### Extension ###-
+
+Click Applications => Extensions
+
+Device
+
+Device: Generic PJSIP Device
+
+Click Submit.
+
+Add PJSIP Extension
+
+Add Extension
+
+```
+User Extension: 701
+Display Name: 701
+CID Num Alias:
+SIP Alias:
+```
+
+Extension Options
+
+```
+Queue State Detection: Use State
+Outbound CID:
+Asterisk Dial Options: tr (Unchecked) Override
+
+Ring Time: Default
+Call Forward Ring Time: Default
+Outbound Concurrency Limit: 3
+Call Waiting: Enable
+Internal Auto Answer: Disable
+Call Screening: Disable
+Pinless Dialing: Disable
+Emergency CID:
+```
+
+Assigned DID/CID
+
+```
+DID Description:
+Add Inbound DID:
+Add Inbound CID:
+```
+
+Device Options
+
+```
+This device uses PJSIP technology listening on 0.0.0.0:5060
+
+Change SIP Driver: Change to CHAN_SIP Driver  (Ignore)
+
+Secret: <RandomGeneratedPassword>
+DTMF Signaling: RFC 4733
+
+Transport: Auto
+```
+
+Call Camp-On Services
+
+```
+Forcing default settings:
+Caller Policy: Generic Device
+Callee Policy: Generic Device
+```
+
+Default Group Inclusion
+
+```
+Default Directory: Exclude
+```
+
+Paging and Intercom
+
+```
+Intercom Override: Reject
+```
+
+Recording Options
+
+```
+Inbound External Calls: Don't Care
+Outbound External Calls: Don't Care
+Inbound Internal Calls: Don't Care
+Outbound Internal Calls: Don't Care
+On Demand Recording: Disable
+Record Priority Policy: 10
+```
+
+User Manager Settings
+
+```
+Link to a Default User:	 Create New User
+Username: (Unchecked) Use Custom Username
+Password: <RandomDigits>
+```
+
+Voicemail
+
+```
+Status: Enabled
+Voicemail Password: 1234	
+Require From Same Extension: no
+Email Address: your@email.address
+Pager Email Address:
+Email Attachment: yes
+Play CID: yes
+Play Envelope: no
+Delete Voicemail: no
+VM Options:
+VM Context: default
+```
+
+DTLS
+
+```
+Enable DTLS: No
+Use Certificate: default
+DTLS Verify: Fingerprint
+DTLS Setup: Act/Pass
+DTLS Rekey Interval: 0
+```
+
+VmX Locater
+
+```
+VmX Locater™: Disabled
+Use When: (Unchecked) unavailable (Unchecked) busy (Unchecked) temp
+Voicemail Instructions:	(Checked) Standard Voicemail prompts.
+
+
+Press 0: (Checked) Go To Operator
+Press 1:	
+Press 2:	
+```
+
+Optional Destinations
+
+```
+No Answer: Unavail Voicemail if Enabled
+  CID Prefix:
+Busy: Busy Voicemail if Enabled
+  CID Prefix:
+Not Reachable: Unavail Voicemail if Enabled	
+  CID Prefix:
+```
+
+Click Submit
+
+Click Apply Config
+
+Add more extensions if need be.
+
+### Ring Group ###
+
+Click Applications => Ring Groups.
+
+Click Add Ring Group.
+
+Add Ring Group
+
+```
+Ring-Group Number: 600
+Group Description: Ring All Phones
+Ring Strategy: ringall
+Ring Time (max 300 sec): 20
+
+Extension List:	
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+
+Extension Quick Pick: (pick extension)
+Announcement: None
+Play Music On Hold? Ring
+CID Name Prefix:	
+Alert Info:	
+Ignore CF Settings: (Unchecked)
+Skip Busy Agent: (Unchecked)
+Enable Call Pickup: (Unchecked)
+Confirm Calls: (Unchecked)
+Remote Announce: Default
+Too-Late Announce: Default
+```
+
+Change External CID Configuration
+
+```
+Mode: Default	
+Fixed CID Value:
+```
+
+Call Recording
+
+Record Calls: Dont Care
+
+Destination if no answer: 
+
+```
+Extensions <701> 701
+```
+
+#### VoIP.ms Trunk ####
+
+Setup a trunk, I use http://voip.ms
+
+Click Connectivity => Trunks
+
+Click Add Trunk.
+
+Add Trunk
+
+General Settings
+
+```
+Trunk Name: VoIPms
+Outbound CallerID: <TenDigitPhone#>
+CID Options: Allow any CID
+Maximum Channels:
+Asterisk Trunk Dial Options: (Unchecked)Override
+Continue if Busy: (Unchecked) Check to always try next trunk
+Disable Trunk:	(Uncheck)
+```
+
+Dialed Number Manipulation Rules
+
+```
+(prepend) +  prefix |  match pattern    insert  remove
++ Add More Dial Pattern Fields  Clear all Fields
+Dial Rules Wizards:
+Outbound Dial Prefix:
+```
+
+Outgoing Settings
+
+```
+Trunk Name: VoIPMS
+
+PEER Details:
+
+username=<6DigitUser#>
+type=peer
+trustrpid=yes
+sendrpid=yes
+secret=<password>
+qualify=yes
+nat=yes
+insecure=invite
+host=atlanta1.voip.ms
+fromuser=
+disallow=all
+context=from-trunk
+canreinvite=nonat
+allow=ulaw
+```
+
+Incoming Settings
+
+```
+USER Context:	
+USER Details:
+
+Leave boxs blank.
+```
+
+Registration
+
+Register String:
+
+```
+<6DigitUser#>:<password>@atlanta1.voip.ms:5060
+```
+
+Submit Changes  Duplicate Trunk
+
+Click Submit Changes.
+
+Click Apply Config
+
+### Outbound Routes ###
+
+Click Connectivity => Outbound Routes
+
+Click Add Route
+
+Route Settings
+
+```
+Route Name: VoIPMS
+Route CID: (Unchecked) Override Extension
+Route Password:	
+Route Type: (Unchecked) Emergency  (Unchecked) Intra-Company
+Music On Hold?	default
+Time Group: ---Permanent Route---
+Route Position: ---No Change---
+```
+
+Additional Settings
+
+Note that the meaning of these options has changed. [Please read the wiki for futher information on these changes.](http://wiki.freepbx.org/display/F2/Call+Recording+walk+through)
+
+```
+Call Recording:	Don't Care
+PIN Set: None
+```
+
+Dial Patterns that will use this Route
+
+```
+(prepend) +  prefix | [NXXNXXXXXX  /  CallerID]  insert  remove
+(prepend) +  prefix | [NXXXXXX  /  CallerID]  insert  remove
+(prepend) +  prefix | [match pattern /  CallerID]  insert  remove
++ Add More Dial Pattern Fields
+Dial patterns wizards:	(pick one)
+Export Dialplans as CSV: Export
+```
+
+Trunk Sequence for Matched Routes
+
+```
+0 VoIPMS
+1 
+```
+
+Optional Destination on Congestion
+
+```
+Normal Congestion
+```
+
+Submit Changes  Duplicate Route
+
+Click Submit Changes
+
+Click Apply Config
+
+### Inbound Routes ###
+
+Click Connectivity => Inbound Routes
+
+Click Add Incoming Route
+
+Add Incoming Route
+
+```
+Description: VoIPMS
+DID Number: <YOURTELEPHONENUMBERHERE>
+CallerID Number:
+CID Priority Route:
+```
+
+Options
+
+```
+Alert Info:
+CID name prefix:
+Music On Hold: Default
+Signal RINGING:	
+Reject Reverse Charges:	
+Pause Before Answer:
+```
+
+Privacy
+```
+Privacy Manager: No
+```
+
+Call Recording
+
+Note that the meaning of these options has changed. [Please read the wiki for futher information on these changes.](http://wiki.freepbx.org/display/F2/Call+Recording+walk+through)
+
+```
+Call Recording:	Don't Care
+```
+
+CID Lookup Source
+
+```
+Source:	 None
+```
+
+Fax Detect
+
+```
+Detect Faxes:	No
+```
+
+Superfecta CID Lookup
+
+```
+Enable CID Superfecta:	
+Scheme:	 All
+```
+
+Set Destination
+
+```
+Ring Groups : Ring All Phones <600>
+```
+
+Submit    Clear Destination & Submit
+
+Click Submit.
+
+Click Apply Config.
+
+### Setup VoiceMail On A Single Extension ###
+
+Setup VoiceMail on the extension you set your ring group to end on. (Note we already did this in extensions but just in case.)
+
+Click Applications => Extensions.
+
+Click ext 701
+
+Require From Same Extension: no
+
+```
+Voicemail
+
+Status: Enabled
+Voicemail Password: 888
+Require From Same Extension: no
+Email Address: user@domain.com
+Pager Email Address:	
+Email Attachment: yes
+Play CID: no
+Play Envelope: no
+Delete Voicemail: no
+VM Options:
+VM Context: default
+```
+
 #### OSS End Point Manager ####
 
 This will manage the configuration and firmware of our Hardware VoIP Sets.
@@ -1210,7 +1663,7 @@ Comment out the line:
 #auth       required    pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
 ```
 
-Other distros may use 
+Other may need to use 
 
 ```
 pam_service_name=ftp
@@ -1490,7 +1943,7 @@ Then you should see a custom config in the drop down.
 
 Select Alternative File Configurations for overrides/$mac-phone.cfg <phonemac_randomnumber>
 
-### No OSS Endpoint Manager ###
+### No OSS Endpoint Manager No Problem ###
 
 Dump the latest and greatest firmware from here into the ftp folder /var/ftp/sip/ or web folder /var/www/html/firmware/.
 The dhcp option 160 points to the ftp for firmware, refer back to the virtual router documentation for that, pointing to usc.xml uses the web folder for updating firmware.
@@ -1650,6 +2103,7 @@ sudo nano /var/ftp/sip/000000000000.cfg
   />
 </PHONE_CONFIG>
 ```
+
 **Note:** *saf.1="" seems to overlap with existing tone 14 and won't upload to phone?...*
 
 This says choose ringer 15th in the list where the custom ringtones start to be the default ringtone.
@@ -2235,98 +2689,7 @@ amportal restart
 } 
 ```
 
-#### VoIP.ms Trunk ####
-
-Click Connectivity => Trunks
-
-Edit Trunk
-
-General Settings
-
-```
-Trunk Name: VoIPms
-Outbound CallerID: <TenDigitPhone#>
-CID Options: Allow any CID	
-```
-
-Outgoing Settings
-
-PEER Details
-
-```
-username=<6DigitUser#>
-type=peer
-trustrpid=yes
-sendrpid=yes
-secret=<password>
-qualify=yes
-nat=yes&force_rport,comedia
-insecure=port,invite
-host=atlanta1.voip.ms
-fromuser=
-disallow=all
-context=from-trunk
-canreinvite=nonat
-allow=ulaw
-```
-
-Incoming Settings
-
-Register String
-
-```
-<6DigitUser#>:<password>@atlanta1.voip.ms:5060
-```
-
-### Ring Group ###
-
-Click Applications => Ring Groups.
-
-Click Add Ring Group.
-
-```
-Ring All Phones (600)
-
-Edit Ring Group
-
-Group Description: Ring All Phones
-Ring Strategy: ringall
-Ring Time (max 300 sec): 20
-
-Extension List:	
-701
-702
-703
-704
-705
-706
-707
-
-Extension Quick Pick: (pick extension)
-Announcement: None
-Play Music On Hold? Ring
-CID Name Prefix:	
-Alert Info:	
-Ignore CF Settings:	
-Skip Busy Agent:	
-Enable Call Pickup:	
-Confirm Calls:	
-Remote Announce: Default
-Too-Late Announce: Default
-
-Change External CID Configuration
-
-Mode: Default	
-Fixed CID Value:	
-
-Call Recording
-
-Record Calls: Dont Care
-
-Destination if no answer: Extensions <701> Den
-```
-
-### Inbound Routes ###
+### Google Voice Inbound Routes ###
 
 Click Connectivity => Inbound Routes.
 
@@ -2335,7 +2698,7 @@ Click Add Incoming Route.
 ```
 Route: CatchAll
 
-Edit Incoming Route
+Add Incoming Route
 
 Description: CatchAll
 DID Number:	
@@ -2372,7 +2735,7 @@ Ring All Phones <600>
 Submit    Clear Destination & Submit
 ```
 
-### Outbound Routes ###
+### Google Voice Outbound Routes ###
 
 Click Connectivity => Outbound Routes.
 
@@ -2382,31 +2745,9 @@ You should see the google trunk here we made earlier that's all we need.
 usergmailcom etc...
 ```
 
-### CID Superfecta ###
+## CID Superfecta ##
 
-#### KODI Notification ####
-
-### Setup VoiceMail On A Single Extension ###
-
-Setup VoiceMail on the extension you set your ring group to end on.
-
-Click Applications => Extensions.
-
-```
-Voicemail
-
-Status: Enabled
-Voicemail Password: 888
-Require From Same Extension: no
-Email Address: user@domain.com
-Pager Email Address:	
-Email Attachment: yes
-Play CID: no
-Play Envelope: no
-Delete Voicemail: no
-VM Options:
-VM Context: default
-```
+### KODI Notification ###
 
 [Part 06 - Automation Server](../Infrastructure-Part-6)
 
