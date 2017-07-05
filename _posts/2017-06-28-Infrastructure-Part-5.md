@@ -721,6 +721,196 @@ Click Apply Config.
 
 This was not set to the Default Value for me.
 
+Restart Asterisk if you change ports ie sip_chan (5061,etc) => pjsip (5060) otherwise the phones may not register.
+
+```
+amportal restart
+```
+
+Confirm ports with:
+
+SIP Port
+
+```
+ CLI > sip show settings
+ 
+ Global Settings:
+----------------
+  UDP Bindaddress:        0.0.0.0:5061
+  TCP SIP Bindaddress:    Disabled
+  TLS SIP Bindaddress:    Disabled
+  Videosupport:           No
+  Textsupport:            No
+  Ignore SDP sess. ver.:  No
+  AutoCreate Peer:        Off
+  Match Auth Username:    No
+  Allow unknown access:   Yes
+  Allow subscriptions:    Yes
+  Allow overlap dialing:  Yes
+  Allow promisc. redir:   No
+  Enable call counters:   No
+  SIP domain support:     No
+  Path support :          No
+  Realm. auth:            No
+  Our auth realm          asterisk
+  Use domains as realms:  No
+  Call to non-local dom.: Yes
+  URI user is phone no:   No
+  Always auth rejects:    Yes
+  Direct RTP setup:       No
+  User Agent:             FPBX-12.0.74(13.13.1)
+  SDP Session Name:       Asterisk PBX 13.13.1
+  SDP Owner Name:         root
+  Reg. context:           (not set)
+  Regexten on Qualify:    No
+  Trust RPID:             No
+  Send RPID:              No
+  Legacy userfield parse: No
+  Send Diversion:         Yes
+  Caller ID:              Unknown
+  From: Domain:           
+  Record SIP history:     Off
+  Auth. Failure Events:   Off
+  T.38 support:           No
+  T.38 EC mode:           Unknown
+  T.38 MaxDtgrm:          4294967295
+  SIP realtime:           Disabled
+  Qualify Freq :          60000 ms
+  Q.850 Reason header:    No
+  Store SIP_CAUSE:        No
+
+Network QoS Settings:
+---------------------------
+  IP ToS SIP:             CS3
+  IP ToS RTP audio:       EF
+  IP ToS RTP video:       AF41
+  IP ToS RTP text:        CS0
+  802.1p CoS SIP:         4
+  802.1p CoS RTP audio:   5
+  802.1p CoS RTP video:   6
+  802.1p CoS RTP text:    5
+  Jitterbuffer enabled:   No
+
+Network Settings:
+---------------------------
+  SIP address remapping:  Disabled
+  Externhost:             <none>
+  Externaddr:             (null)
+  Externrefresh:          10
+  Localnet:               10.10.10.0/255.255.255.0
+
+Global Signalling Settings:
+---------------------------
+  Codecs:                 (ulaw|alaw|gsm|g726)
+  Relax DTMF:             No
+  RFC2833 Compensation:   No
+  Symmetric RTP:          Yes
+  Compact SIP headers:    No
+  RTP Keepalive:          0 (Disabled)
+  RTP Timeout:            30 
+  RTP Hold Timeout:       300 
+  MWI NOTIFY mime type:   application/simple-message-summary
+  DNS SRV lookup:         Yes
+  Pedantic SIP support:   Yes
+  Reg. min duration       60 secs
+  Reg. max duration:      3600 secs
+  Reg. default duration:  120 secs
+  Sub. min duration       60 secs
+  Sub. max duration:      3600 secs
+  Outbound reg. timeout:  20 secs
+  Outbound reg. attempts: 0
+  Outbound reg. retry 403:No
+  Notify ringing state:   Yes
+    Include CID:          No
+  Notify hold state:      Yes
+  SIP Transfer mode:      open
+  Max Call Bitrate:       384 kbps
+  Auto-Framing:           No
+  Outb. proxy:            <not set> 
+  Session Timers:         Accept
+  Session Refresher:      uas
+  Session Expires:        1800 secs
+  Session Min-SE:         90 secs
+  Timer T1:               500
+  Timer T1 minimum:       100
+  Timer B:                32000
+  No premature media:     Yes
+  Max forwards:           70
+
+Default Settings:
+-----------------
+  Allowed transports:     UDP
+  Outbound transport:	  UDP
+  Context:                from-sip-external
+  Record on feature:      automon
+  Record off feature:     automon
+  Force rport:            Yes
+  DTMF:                   rfc2833
+  Qualify:                0
+  Keepalive:              0
+  Use ClientCode:         No
+  Progress inband:        No
+  Language:               
+  Tone zone:              <Not set>
+  MOH Interpret:          default
+  MOH Suggest:            
+  Voice Mail Extension:   *97
+```
+ 
+ PJSIP Port
+ 
+ ```
+ 
+ CLI > pjsip show transports
+ 
+ Transport:  <TransportId........>  <Type>  <cos>  <tos>  <BindAddress....................>
+==========================================================================================
+
+Transport:  0.0.0.0-udp               udp      0      0  0.0.0.0:5060
+```
+
+Verbose
+
+```
+CLI > pjsip show transport 0.0.0.0-udp 
+ 
+ Transport:  <TransportId........>  <Type>  <cos>  <tos>  <BindAddress....................>
+==========================================================================================
+
+Transport:  0.0.0.0-udp               udp      0      0  0.0.0.0:5060
+
+ ParameterName              : ParameterValue
+ =====================================================
+ allow_reload               : false
+ async_operations           : 1
+ bind                       : 0.0.0.0:5060
+ ca_list_file               : 
+ ca_list_path               : 
+ cert_file                  : 
+ cipher                     : 
+ cos                        : 0
+ domain                     : 
+ external_media_address     : 
+ external_signaling_address : 
+ external_signaling_port    : 0
+ local_net                  : 10.10.10.0/255.255.255.0
+ method                     : unspecified
+ password                   : 
+ priv_key_file              : 
+ protocol                   : udp
+ require_client_cert        : No
+ tos                        : 0
+ verify_client              : No
+ verify_server              : No
+ websocket_write_timeout    : 100
+```
+
+Further debug with:
+
+```
+CLI > sip set debug on
+```
+
 ### Extension ###
 
 Click Applications => Extensions
