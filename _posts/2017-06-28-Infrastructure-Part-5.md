@@ -708,8 +708,6 @@ You should now be in and looking at Welcome to Incredible PBX screen with status
 
 From here it's up to you what you want to do with the box.
 
-### These are items I setup ###
-
 ### Enable PJSIP ###
 
 Settings => Advanced Settings
@@ -723,7 +721,7 @@ Click Apply Config.
 
 This was not set to the Default Value for me.
 
-### Extension ###-
+### Extension ###
 
 Click Applications => Extensions
 
@@ -1311,8 +1309,10 @@ IP address of phone server::
 
 Click Determine for me or set your VoIPServer IP:  10.0.5.254
 
-Configuration Type: File (TFTP/FTP)	
+```
+Configuration Type: File (TFTP/FTP)
 Global Final Config & Firmware Directory: /tftpboot/
+```
 
 Fix your Timezone to where ever you are.
 
@@ -1574,13 +1574,21 @@ hide_file=*
 ```
 
 mkdir /var/ftp/sip - Make the FTP directory for the user.
+
 chown asterisk:asterisk /var/ftp/sip - Make asterisk the owner and group of the folder.
+
 useradd - Add a user.
+
 -G asterisk - Set user into asterisk group.
+
 -d /var/ftp/sip - Set user directory to the FTP directory.
+
 /bin/false - Disable login for this user.
+
 PlcmSpIp - Default username for the phones FTP account.
+
 chown - Make asterisk the owner of the directory recursively.
+
 chmod - Make directory writable. (If you get error in webGUI about "Directory Not Writable".
 
 ```
