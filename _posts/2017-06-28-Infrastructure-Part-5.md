@@ -528,7 +528,7 @@ tar zxvf incrediblepbx*
 
 The Incredible PBX installer runs unattended so find something to do for the next 30-60 minutes unless you just like watching over 1000 packages install. When the installation is complete, reboot your server and log back in as root. You should be greeted by something like the status of the major apps as well as your free RAM and DISK space and IP.
 
-**Note:** *I did two installs on SL73 and with both none of the commands were there below, asterisk -rvvvvvvv wasn' t there, couldn't access the WebGUI, Ran the installer a second time  ```./IncrediblePBX*``` then it downloaded even more stuff and finally I saw it compiling asterisk and then everything seemed to work.
+**Note:** *I did two installs on SL73 and with both none of the commands were there below, asterisk -rvvvvvvv wasn' t there, couldn't access the WebGUI, Ran the installer a second time  ```./IncrediblePBX*``` then it downloaded even more stuff and finally I saw it compiling asterisk and then everything seemed to work.*
 
 After installation completes you should get some text that says so then asks you to hit enter to reboot if everything went well.
 
