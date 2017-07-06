@@ -1451,7 +1451,58 @@ Description: VoIP Server
 Save
 ```
 
+Apply Changes
 
+Click Firewall => Rules = Each one of your network tabs.
+
+For instance IoT
+
+```
+Proto	Source	Description	
+No interfaces rules are currently defined. All incoming connections on this interface will be blocked until you add a pass rule.
+Move selected rule to end, Delete selected rule, add new rule
+```
+
+Click Add new rule.
+
+For now we are just going to make a wide open blanket rule, we should lock this down when we finish setting up all our gear.
+
+```
+Firewall: Rules
+
+Edit Firewall rule	full help
+
+Action: Pass   
+Disabled: Disable this rule
+Interface: HOT  
+TCP/IP Version: IPv4  
+Protocol: any  
+Source / Invert: (Unchecked)	
+Source: any 
+Source: Advanced
+Destination / Invert: (Unchecked)
+Destination: any 
+Destination port range from: any to: any 
+Log (Unchecked) Log packets that are handled by this rule
+Category:	
+Description: All the things.
+
+Advanced features
+
+Source OS: Any 
+No XMLRPC Sync: (Unchecked)
+Schedule: none  
+Gateway: default 
+Advanced Options	Show/Hide
+ 	 
+Save  Cancel
+```
+
+Click Save
+
+Click Apply changes.
+
+Repeat for the rest of the interfaces we made, otherwise their respected networks won't pass any traffic.
 
 ### PCI Passthrough For Wireless Access Point ###
 
