@@ -57,6 +57,7 @@ Grab whatever the latest ISO is: https://www.archlinux.org/download/
 
 ```
 sudo wget http://mirror.rackspace.com/archlinux/iso/2017.07.01/archlinux-2017.07.01-x86_64.iso
+```
 
 ### Verify Interfaces Have Been Created ###
 
@@ -537,28 +538,8 @@ UUID:               117c3f13-d9a0-41ab-889e-6c4208e43489
 Node size:          16384
 Sector size:        4096
 Filesystem size:    35.46GiB
-Block group profiles:  X Start virtual machine on host boot up
-359
-Boot device order
-360
-  X Enable boot menu
-361
-  X IDE CDROM 1
-362
-  X IDE DISK 1
-363
-     NIC :fe:ed:30
-364
-```     
-365
-​
-366
-Make sure the IDE CDROM 1 is at the top of the Boot device order like above.
-367
-​
-368
-Click Apply.
-  Data:             single            8.00MiB
+Block group profiles: 
+Data:             single            8.00MiB
   Metadata:         DUP               1.00GiB
   System:           DUP               8.00MiB
 SSD detected:       no
@@ -620,26 +601,6 @@ cowspace       tmpfs     256M   12M  245M   5% /run/archiso/cowspace
 /dev/loop0     squashfs  399M  399M     0 100% /run/archiso/sfs/airootfs
 airootfs       overlay   256M   12M  245M   5% /
 tmpfs          tmpfs     499M     0  499M   0% /dev/shm  X Start virtual machine on host boot up
-359
-Boot device order
-360
-  X Enable boot menu
-361
-  X IDE CDROM 1
-362
-  X IDE DISK 1
-363
-     NIC :fe:ed:30
-364
-```     
-365
-​
-366
-Make sure the IDE CDROM 1 is at the top of the Boot device order like above.
-367
-​
-368
-Click Apply.
 tmpfs          tmpfs     499M     0  499M   0% /sys/fs/cgroup
 tmpfs          tmpfs     499M     0  499M   0% /tmp
 tmpfs          tmpfs     499M  1.5M  497M   1% /etc/pacman.d/gnupg
@@ -672,27 +633,6 @@ root@archiso ~ # pacstrap /mnt base base-devel btrfs-progs dosfstools bash-compl
    34) pcmciautils  35) perl  36) procps-ng  37) psmisc  38) reiserfsprogs  39) s-nail
    40) sed  41) shadow  42) sysfsutils  43) systemd-sysvcompat  44) tar  45) texinfo
    46) usbutils  47) util-linux  48) vi  49) which  50) xfsprogs  X Start virtual machine on host boot up
-359
-Boot device order
-360
-  X Enable boot menu
-361
-  X IDE CDROM 1
-362
-  X IDE DISK 1
-363
-     NIC :fe:ed:30
-364
-```     
-365
-​
-366
-Make sure the IDE CDROM 1 is at the top of the Boot device order like above.
-367
-​
-368
-Click Apply.
-
 Enter a selection (default=all): 
 :: There are 25 members in group base-devel:
 :: Repository core
@@ -796,27 +736,7 @@ Total Installed Size:  947.09 MiB
  libmnl-1.0.4-1-x86_64         10.5 KiB  2.56M/s 00:00 [############################] 100%
  libnftnl-1.0.7-1-x86_64       59.9 KiB  19.5M/s 00:00 [############################] 100%
  libnl-3.3.0-1-x86_64         354.9 KiB  11.6M/s 00:00 [############################] 100%
- libusb-1.0.21-2-x86_64        54.1 KiB  17.6M/s 00:00 [#####  X Start virtual machine on host boot up
-359
-Boot device order
-360
-  X Enable boot menu
-361
-  X IDE CDROM 1
-362
-  X IDE DISK 1
-363
-     NIC :fe:ed:30
-364
-```     
-365
-​
-366
-Make sure the IDE CDROM 1 is at the top of the Boot device order like above.
-367
-​
-368
-Click Apply.#######################] 100%
+ libusb-1.0.21-2-x86_64        54.1 KiB  17.6M/s 00:00 [############################] 100%
  libpcap-1.8.1-2-x86_64       216.9 KiB  10.6M/s 00:00 [############################] 100%
  iptables-1.6.1-1-x86_64      327.4 KiB  11.8M/s 00:00 [############################] 100%
  zlib-1:1.2.11-1-x86_64        86.4 KiB  14.1M/s 00:00 [############################] 100%
@@ -1699,5 +1619,185 @@ Login from another system on the network.
 ssh plebuser@10.0.3.42
 plebuser@10.0.3.42's password: PlebMast0r
 ```
+
+Install yaourt.
+
+```
+sudo pacman -S yaourt
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for plebuser: PlebMast0r 
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (3) package-query-1.8-1  yajl-2.1.0-1
+             yaourt-1.8.1-1
+
+Total Download Size:   0.18 MiB
+Total Installed Size:  1.02 MiB
+
+:: Proceed with installation? [Y/n] y
+:: Retrieving packages...
+ yajl-2.1.0-1-x86_64       31.2 KiB   203K/s 00:00 100%
+ package-query-1.8-1...    36.7 KiB   262K/s 00:00 100%
+ yaourt-1.8.1-1-any       116.1 KiB   806K/s 00:00 100%
+(3/3) checking keys in keyring                     100%
+(3/3) checking package integrity                   100%
+(3/3) loading package files                        100%
+(3/3) checking for file conflicts                  100%
+(3/3) checking available disk space                100%
+:: Processing package changes...
+(1/3) installing yajl                              100%
+(2/3) installing package-query                     100%
+(3/3) installing yaourt                            100%
+Optional dependencies for yaourt
+    aurvote: vote for favorite packages from AUR
+    customizepkg: automatically modify PKGBUILD during
+    install/upgrade
+    rsync: retrieve PKGBUILD from official repositories
+:: Running post-transaction hooks...
+(1/1) Arming ConditionNeedsUpdate...
+```
+
+Install openhab
+
+```
+yaourt openhab
+1 aur/openhab-addons 1.8.3-1 (Out of Date) (4) (0.49)
+    openHAB automation addons
+2 aur/openhab-beta 2.2.0_20170706-1 (2) (0.03)
+    openHAB2 open source home automation software
+3 aur/openhab-runtime 1.8.3-2 (Out of Date) (9) (0.15)
+    openHAB automation runtime
+4 aur/openhab2 2.1.0-1 (1) (0.60)
+    openHAB2 open source home automation software
+==> Enter n° of packages to be installed (ex: 1 2 3 or 1-3)
+==> -------------------------------------------------------
+==> 2
+```
+
+Type 2 to install the beta.
+
+```
+openhab-beta 2.2.0_20170706-1  (2017-07-06 18:50)
+( Unsupported package: Potentially dangerous ! )
+==> Edit PKGBUILD ? [Y/n] ("A" to abort)
+==> ------------------------------------
+==> n
+```
+
+Type n
+
+```
+==> openhab-beta dependencies:
+ - java-runtime-headless>=8 (building from AUR)
+ - unzip (package found) [makedepend]
+
+
+==> Continue building openhab-beta ? [Y/n]
+==> --------------------------------------
+==>y 
+```
+
+Type y
+
+```
+==> Building and installing package
+==> Install or build missing dependencies for openhab-beta:
+[sudo] password for plebuser: PlebMast0r
+```
+
+Type your password.
+
+```
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (5) java-runtime-common-2-2  nspr-4.15-1
+             nss-3.31-3  jre8-openjdk-headless-8.u131-1
+             unzip-6.0-12
+
+Total Download Size:    27.54 MiB
+Total Installed Size:  101.60 MiB
+
+:: Proceed with installation? [Y/n] y
+```
+
+Type y
+
+```
+==> Starting pkgver()...
+==> Updated version: openhab-beta 2.2.0_20170706-1
+==> Entering fakeroot environment...
+==> Starting package()...
+==> Tidying install...
+  -> Removing libtool files...
+  -> Purging unwanted files...
+  -> Removing static library files...
+  -> Stripping unneeded symbols from binaries and libraries...
+  -> Compressing man and info pages...
+==> Checking for packaging issue...
+==> Creating package "openhab-beta"...
+  -> Generating .PKGINFO file...
+  -> Generating .BUILDINFO file...
+  -> Generating .MTREE file...
+  -> Compressing package...
+==> Leaving fakeroot environment.
+==> Finished making: openhab-beta 2.2.0_20170706-1 (Thu Jul  6 16:34:41 UTC 2017)
+==> Cleaning up...
+
+==> Continue installing openhab-beta ? [Y/n]
+==> [v]iew package contents [c]heck package with namcap
+==> ---------------------------------------------------
+==> y
+```
+
+Type y
+
+```
+[sudo] password for plebuser: 
+loading packages...
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (1) openhab-beta-2.2.0_20170706-1
+
+Total Installed Size:  57.52 MiB
+
+:: Proceed with installation? [Y/n] y
+(1/1) checking keys in keyring                     100%
+(1/1) checking package integrity                   100%
+(1/1) loading package files                        100%
+(1/1) checking for file conflicts                  100%
+(1/1) checking available disk space                100%
+:: Processing package changes...
+(1/1) installing openhab-beta                      100%
+:: Running post-transaction hooks...
+(1/1) Arming ConditionNeedsUpdate...
+==> Packages no longer required by any installed package:
+    unzip
+```
+
+OpenHAB should now be installed in /opt/openhab/ enable and start it.
+
+```
+sudo systemctl enable openhab
+[sudo] password for plebuser: 
+Created symlink /etc/systemd/system/multi-user.target.wants/openhab.service → /usr/lib/systemd/system/openhab.service.
+sudo systemctl start openhab
+```
+
+In a webbrowser on the same network, hit http://10.0.3.42:8080 you should now be at the OpenHAB WebGUI.
+
+http://docs.openhab.org/configuration/packages.html
+
+You get 4 Options click Expert Package to install everything.
+
+
 
 Continue to [Part 07 - NASferatu](../Infrastructure-Part-7)
