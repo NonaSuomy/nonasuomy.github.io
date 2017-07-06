@@ -13,7 +13,7 @@ title: Arch Linux Infrastructure - VoIP Server - Part 5 - VoIPServer
 
 [Part 03 - Hypervisor OS Setup](../Infrastructure-Part-3)
 
-[Part 04 - Virtual Router ](../Infrastructure-Part-5)
+[Part 04 - Virtual Router ](../Infrastructure-Part-4)
 
 Part 05 - VoIP Server - You Are Here!
 
