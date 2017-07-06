@@ -2945,9 +2945,86 @@ usergmailcom etc...
 
 ## CID Superfecta ##
 
-### KODI Notification ###
+Admin => Module Admin
 
-[Part 06 - Automation Server](../Infrastructure-Part-6)
+Click CID Superfecta.
+
+```
+CID Superfecta 2.11.17 Stable POSSA GPLv2+ Enabled  
+Info
+Changelog
+Publisher:	POSSA
+License:	GPLv2+
+Description:	CID Superfecta for FreePBX
+More info:	https://github.com/POSSA/Caller-ID-Superfecta
+Track:	Stable
+Action:	No Action Enable Uninstall Remove
+```
+
+Click Enable
+
+Click Process
+
+```
+Module Administration
+Please confirm the following actions:
+
+Upgrades, installs, enables and disables:
+
+CID Superfecta 2.11.17 will be enabled
+Confirm	Cancel
+```
+
+Click Confirm.
+
+```
+Status
+close
+Please wait while module actions are performed
+
+Enabling superfecta
+superfecta enabled successfully
+Return
+```
+
+Click Return.
+
+Click Apply Config.
+
+Click Admin => CID Superfecta.
+
+Click Default.
+
+Play with options.
+
+**Note:** *Some of these cause massive long delays for the people calling you, to a point where they think they didn't call the right number.*
+
+### CID Superfecta KODI Notification ###
+
+Click Admin => CID Superfecta.
+
+Click Default.
+
+Click Send To KODI or XBMC.
+
+```
+Send to KODI
+
+Hosts? 10.20.30.35
+Port? 8080
+UserName? osmc
+PassWord? osmc
+Mode? Json RPC: For XBMC v12(Frodo), KODI v13 and up.	
+Change Volume?	
+Pause PlayBack?	(Check)
+Notification Time? 20
+Format Incoming Number?	(132) 456-7890
+```
+
+In KODI make sure webserver IP is right, enabled and set to port 8080 with the right username/password.
+
+
+Continue to [Part 06 - Automation Server](../Infrastructure-Part-6)
 
 VM Guest Automation Server: OpenHAB
  
