@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Arch Linux Infrastructure - Automation Server - Part 5 - Everybody Get's Sensored!
+title: Arch Linux Infrastructure - Automation Server - Part 6 - Everybody Get's Sensored!
 ---
 
 ![alt text]({{ site.baseurl }}../images/infrastructure/HOTInfrastructureLayoutIoT.png "Infrastructure Switch")
@@ -1797,6 +1797,404 @@ In a webbrowser on the same network, hit http://10.0.3.42:8080 you should now be
 http://docs.openhab.org/configuration/packages.html
 
 You get 4 Options click Expert Package to install everything.
+
+### MQTT ###
+
+nano /opt/openhab/conf/services/mqtt.cfg
+################################# MQTT Transport ######################################
+#
+# Define your MQTT broker connections here for use in the MQTT Binding or MQTT
+# Persistence bundles. Replace <broker> with a id you choose.
+#
+
+# URL to the MQTT broker, e.g. tcp://localhost:1883 or ssl://localhost:8883
+broker.url=tcp://localhost:1883
+
+# Optional. Client id (max 23 chars) to use when connecting to the broker.
+# If not provided a default one is generated.
+broker.clientId=OpenHAB2
+
+# Optional. User id to authenticate with the broker.
+broker.user=USER
+
+# Optional. Password to authenticate with the broker.
+broker.pwd=PASS
+
+# Optional. Set the quality of service level for sending messages to this broker.
+# Possible values are 0 (Deliver at most once),1 (Deliver at least once) or 2
+# (Deliver exactly once). Defaults to 0.
+#broker.qos=<qos>
+
+# Optional. True or false. Defines if the broker should retain the messages sent to
+# it. Defaults to false.
+#broker.retain=<retain>
+
+# Optional. True or false. Defines if messages are published asynchronously or
+# synchronously. Defaults to true.
+#broker.async=<async>
+
+# Optional. Defines the last will and testament that is sent when this client goes offline
+# Format: topic:message:qos:retained <br/>
+#broker.lwt=<last will definition>
+
+### Sitemap ###
+
+demo.sitemap
+
+```
+sitemap demo label="Main Menu"
+{
+	Frame {
+		Group item=gFF label="First Floor" icon="firstfloor"
+		Group item=gGF label="Ground Floor" icon="groundfloor"
+		Group item=gC label="Cellar" icon="cellar"	
+		Text item=gG label="Garage" icon="garage" {
+			Text item=Weather_Temps
+			Text item=Weather_Humis
+			Text item=Weather_Baros
+			Text item=Switch2
+			Switch item=GarageDoorRelay1
+			Text item=Switch1
+			Switch item=Relay1 mappings=[ON="Go!"]
+			Text item=Available
+		}
+		Group item=Garden icon="garden"
+		Group item=HCSR icon="temperature"
+	}
+	Frame label="ESP-Radio Control" {
+                Switch item=PlayerCTRL mappings=[1='<<',2=Mute,3=Resume,4=Stop,5=Unmute,6='>>']
+		Selection item=ESPRadio_Station mappings=[0=Lounge, 1=Chill, 2=Boost, 3=Indie]
+		Slider item=ESPVolume
+		Text item=icyname
+		Text item=icystreamtitle
+		Text item=icygenre
+		Text item=icyurl
+		Text item=icybitrate
+		Text item=icysr                
+	}
+}
+```
+
+transform
+
+switchb.map 
+
+```
+nano /opt/openhab/conf/switchb.map 
+
+0=Idle
+1=Pushed!
+UNDEFINED=Unknown
+-=Unknown
+```
+
+switchoo.map 
+
+```
+nano /opt/openhab/conf/switchoo.map 
+
+0=Offline
+1=Online
+UNDEFINED=Unknown
+-=Unknown
+```
+
+switchs.map 
+
+```
+nano /opt/openhab/conf/switchs.map 
+0=Closed
+1=Open
+2=Closing
+3=Opening
+4=Ajar
+UNDEFINED=Unknown
+-=Unknown
+```
+
+### Garage Door System ###
+
+demo.items
+
+```
+nano /opt/openhab/conf/items/demo.items
+
+Number Weather_Temps 			"Temperature [%.1f °C]" 			<temperature> 	(gG) {mqtt="<[broker:hq/garage/temperature:state:default]"}
+Number Weather_Humis 			"Humidity [%.1f %%]" 				<water> 	(gG) {mqtt="<[broker:hq/garage/humidity:state:default]"}
+Number Weather_Baros 			"Barometer [%.1f hPa]" 				<barometer> 	(gG) {mqtt="<[broker:hq/garage/barometer:state:default]"}
+Number Switch2 				"Door State [MAP(switchs.map):%s]" 		<garagedoor> 	(gG) {mqtt="<[broker:hq/garage/switch1:state:default]"}
+Rollershutter GarageDoorRelay1 		"Door Status [%d %%]"  				<garagedoor> 	(gG) {mqtt=">[broker:hq/garage/cmd:command:*:default],<[broker:hq/garage/position:state:default]",autoupdate="false"}
+Number Switch1 				"Door Action State [MAP(switchb.map):%s]" 	<garagedoor> 	(gG) {mqtt="<[broker:hq/garage/relay1:state:default]"}
+Switch Relay1 				"Door Action"					<garagedoor> 	(gG) {mqtt=">[broker:hq/garage/relay1:command:ON:1],>[broker:hq/garage/relay1:command:OFF:0]"}
+Number Available			"I2C Module [MAP(switchoo.map):%s]"		<network>	(gG) {mqtt="<[broker:hq/garage/available:state:default]"}
+```
+
+demo.rules
+
+```
+var Number counter = 1
+var Timer timer = null
+
+//variables to store current state of shutter
+var Number shutterOldState = 50
+var Number shutterLastUp = 0
+var Number shutterLastDown = 0
+
+//URL to be called as HTPP GET. Up and Down start moving shutting either until completely moved or until Stop called.
+var String shutterDownActionUrl = "http://localhost:8080/?shutter=down"
+var String shutterUpActionUrl = "http://localhost:8080/?shutter=up"
+var String shutterStopActionUrl = "http://localhost:8080/?shutter=halt"
+// Port used to be set to 90?
+//time in ms needed to completely open and close shutter, respectively
+var Number SHUTTER_FULL_UP_TIME = 20000
+var Number SHUTTER_FULL_DOWN_TIME = 20000
+
+rule "Shutter Save Old State Rule"
+when
+    Item GarageDoorRelay1 changed    
+then
+    shutterOldState = previousState as DecimalType
+end
+
+rule "TTS GDS Action"
+when
+  Item Switch2 changed
+then
+  var doorState = Switch2.state
+  var doorStateLast = 5
+if ( doorState != doorStateLast ){
+  doorStateLast = doorState
+  if (Switch2.state.toString.matches("0")){
+    executeCommandLine("/opt/openhab/conf/scripts/webradioclitts.sh Hello-Family-Your-garage-door-is-closed.")
+  }
+  if (Switch2.state.toString.matches("1")){
+    executeCommandLine("/opt/openhab/conf/scripts/webradioclitts.sh Hello-Family-Your-garage-door-is-open.")
+  }    
+  if (Switch2.state.toString.matches("2")){
+    executeCommandLine("/opt/openhab/conf/scripts/webradioclitts.sh Hello-Family-Your-garage-door-is-closing.")
+  }    
+  if (Switch2.state.toString.matches("3")){
+    executeCommandLine("/opt/openhab/conf/scripts/webradioclitts.sh Hello-Family-Your-garage-door-is-opening.")
+  }    
+  if (Switch2.state.toString.matches("4")){
+    executeCommandLine("/opt/openhab/conf/scripts/webradioclitts.sh Hello-Family-Your-garage-door-is-ajar.")
+  }
+}
+end
+
+rule "Shutter Control Rule"
+when
+    Item GarageDoorRelay1 received command 
+then
+    if(receivedCommand != null){
+        var Number upTime = now.millis - shutterLastUp
+        var Number downTime = now.millis - shutterLastDown
+        switch(receivedCommand.toString.upperCase) {
+            case "STOP" :{ 
+                var Number newState = -1
+                if(upTime < downTime && upTime < SHUTTER_FULL_UP_TIME) {
+                    //last action was up and still going UP.
+                    //0% is open!               
+                    var Number percentMoved =  ((upTime) * 100 / SHUTTER_FULL_UP_TIME).intValue 
+                    newState = shutterOldState - percentMoved
+                    println("shutterOldState: " + shutterOldState + " UP: " + percentMoved + "% in " + upTime/1000 + "sec. Now: " + newState+ "%" )
+                } else if(upTime > downTime && downTime < SHUTTER_FULL_DOWN_TIME) {
+                    //last action was down and still going DOWN.
+                    //100% is closed!
+                    var Number percentMoved = ((downTime) * 100 / SHUTTER_FULL_DOWN_TIME).intValue
+                    newState = shutterOldState + percentMoved
+                    println("shutterOldState: " + shutterOldState + "% DOWN: " + percentMoved + "% in " + downTime/1000 + "sec. Now: " + newState+ "%" )
+                }
+                if(newState > 0 && newState < 100) {
+                    //postUpdate(GarageDoorRelay1, newState)
+                    if(shutterStopActionUrl != null){
+			//publish(String brokerName, String topic, String message)
+                        //sendHttpGetRequest(shutterStopActionUrl)
+			publish("broker", "hq/garage/relay1", "1")
+                    }
+                }
+            }           
+            case "UP" : {
+                if(upTime < SHUTTER_FULL_UP_TIME) {
+                    //still going up. ignore.
+                } else {
+                    shutterLastUp = now.millis
+                    if(shutterUpActionUrl != null){
+			//publish(String brokerName, String topic, String message)
+                        //sendHttpGetRequest(shutterUpActionUrl)
+			publish("broker", "hq/garage/relay1", "1")
+                    }
+                }
+            }
+            case "DOWN":{
+                if(downTime < SHUTTER_FULL_DOWN_TIME) {
+                    //still going up. ignore.
+                } else {
+                    shutterLastDown = now.millis
+                    if(shutterDownActionUrl != null){
+			publish("broker", "hq/garage/relay1/", "1")
+                        //sendHttpGetRequest(shutterDownActionUrl)
+                    }
+                }
+            }
+        }
+    }
+end
+```
+
+Scripts
+
+```
+nano /opt/openhab/conf/scripts/webradioclitts.sh
+
+#!/bin/bash
+#         Script: webradioclitts.sh
+#        Contact: nonasuomy.github.io
+#    Description: ESP-Radio + online google tts + offline pico2wave
+#           Date: 20170426
+#   Dependancies: cURL (_POST url to ESP-Radio) https://www.archlinux.org/packages/community/x86_64/curl/
+#                 svox-pico-bin [pico2wave] (popt sox (sox-dsd-git)) https://aur.archlinux.org/packages/svox-pico-bin/
+#                 (Optional alternative tts engine) espeak (libpulse portaudio) https://www.archlinux.org/packages/community/x86_64/espeak/
+#                 [mpg123] (alsa-lib libltdl (libtool) libpulse https://www.archlinux.org/packages/extra/x86_64/mpg123/
+#                 vorbis-tools [ogg123] (curl flac libao libvorbis) https://www.archlinux.org/packages/extra/x86_64/vorbis-tools/
+#                 sox [play] (file gsm lame libltdl (libtool) libpng libsndfile opencore-amr wavpack)
+#                 (Optional if you don't want to use sox:play above.) alsa-utils [aplay] 
+#                 iputils [ping] (libcap openssl sysfsutils) https://www.archlinux.org/packages/core/x86_64/iputils/	 
+
+#Testing sudo ./webradioclitts.sh hello-there-how-are-you (dashes required by web tts api)
+
+# Settings:
+
+webradio="10.0.3.33"
+openhab="10.0.3.52:8080"
+
+# Checks to see if we have a WAN connection.
+
+online=false
+if [[ $(ping -q -c1 8.8.8.8 > /dev/null 2>&1; echo $?) -eq 0 ]]; then
+  online=true
+else
+  online=false
+fi
+
+# Play a pre-notification sound (Some systems don't have the default sound files.)
+
+# WebRadio send notification sound.
+
+onlinewebradio=false
+
+if [[ $(ping -q -c1 $webradio > /dev/null 2>&1; echo $?) -eq 0 ]]; then
+  # Add one of the sound files below to openhab's static web folder /opt/openhab/conf/html/glass.mp3 etc.
+  /usr/bin/curl --data "station="$openhab"/static/barking.mp3" $webradio > /dev/null 2>&1
+  onlinewebradio=true
+else
+  # Sound files: https://cgit.freedesktop.org/sound-theme-freedesktop/tree/stereo
+  #/usr/bin/ogg123 -q /usr/share/sounds/freedesktop/stereo/dialog-information.oga
+
+  # Sound files: https://github.com/GNOME/gnome-control-center/tree/master/panels/sound/data/sounds
+  /usr/bin/ogg123 -q /usr/share/sounds/gnome/default/alert/glass.ogg
+
+  # Sound files: http://packages.ubuntu.com/source/trusty/all/ubuntu-touch-sounds
+  #/usr/bin/ogg123 -q /usr/share/sounds/ubuntu/notifications/Mallet.ogg
+
+  onlinewebradio=false
+fi
+
+# Delay allow time for notification to play on WebRadio.
+sleep 2
+
+# Send text to speech to WebRadio.
+vartts=$1
+log_file="ttslog.txt"
+
+# Check for text to send to TTS engines.
+if [[ -n "$vartts" ]]; then
+  # Write to log file for debugging.
+  echo "$( date +%s ) $vartts" >> ${log_file}
+  # If we are online then use online TTS services, if not use local resources.
+  if [ $online == true ]; then
+    if [ $onlinewebradio == true ]; then
+      /usr/bin/curl --data "station=api.voicerss.org/?f=32khz_16bit_stereo%26key=<KEY>%26hl=en-us%26src="$vartts $webradio > /dev/null 2>&1
+      #http://$webradio/?station='http://translate.google.com/translate_tts?client=tw-ob&ie=UTF-8&tl=en&q='$vartts > /dev/null 2>&1
+      echo "/usr/bin/curl --data station=api.voicerss.org/?f=32khz_16bit_stereo%26key=<KEY>%26hl=en-us%26src="$vartts $webradio >> ${log_file} #> /dev/null 2>&1
+      #echo "/usr/bin/curl http://$webradio/?station='http://translate.google.com/translate_tts?client=tw-ob&ie=UTF-8&tl=en&q=$vartts'" >> ${log_file} #> /dev/null 2>&1
+    else
+      /usr/bin/mpg123 "http://translate.google.com/translate_tts?client=tw-ob&ie=UTF-8&tl=en&q=$vartts" > /dev/null 2>&1
+    fi
+  else
+    pico2wave -w /opt/openhab/conf/html/tts.wav "$vartts"
+    if [ $onlinewebradio == true ]; then
+      /usr/bin/curl --data "station="$openhab"/static/tts.wav" $webradio > /dev/null 2>&1
+    else
+      play tts.wav > /dev/null 2>&1
+    fi
+    # Alternative wav player.
+    #aplay tts.wav > /dev/null 2>&1
+    
+    # Alternative TTS
+    #echo "$reminder" | /usr/bin/espeak
+  fi
+else
+  echo "Argument error, require some text!"
+fi
+```
+
+### ESPRadio ###
+
+Web radio and Text To Speech Notifications.
+
+demo.items
+
+```
+/* String PlayerCTRL "<table border='0' cellspacing='0' cellpadding='0'><tr>[%s]</tr></table>" */
+/* Switch item=PlayerCTRL mappings=[1=" Play ", 2=Pause, 3=Stop, 4=Prev, 5=Next] */
+Number PlayerCTRL		   "" <player>
+Number ESPRadio_Station            "Preset"      <network>     { mqtt=">[broker:espradio:command:*:preset=${command}]" }
+Dimmer ESPVolume                   "Volume [%s %%]" <soundvolume> { mqtt=">[broker:espradio:command:*:volume=${command}],<[broker:espradio/volume:state:default]", autoupdate="false" }
+/* String Nowplaying   		   "Now playing: [%s]" <keyring>   { mqtt="<[broker:espradio/nowplaying:state:default]" } */
+String icyname   		   "Station: [%s]" <keyring>   { mqtt="<[broker:espradio/icy/name:state:default]" }
+String icystreamtitle              "Track: [%s]" <keyring>   { mqtt="<[broker:espradio/icy/streamtitle:state:default]" }
+String icygenre   		   "Genre: [%s]" <keyring>   { mqtt="<[broker:espradio/icy/genre:state:default]" }
+String icyurl                      "URL: [%s]" <keyring>   { mqtt="<[broker:espradio/icy/url:state:default]" }
+String icycontenttype              "Content-Type: [%s]" <keyring>   { mqtt="<[broker:espradio/icy/contenttype:state:default]" }
+String icybitrate   		   "Bitrate: [%s]" <keyring>   { mqtt="<[broker:espradio/icy/bitrate:state:default]" }
+String icysr    		   "SR: [%s]" <keyring>   { mqtt="<[broker:espradio/icy/sr:state:default]" }
+```
+
+demo.rules
+
+```
+rule "Player Controls"
+        when
+                Item PlayerCTRL received command
+        then
+                if(PlayerCTRL.state == 1)
+                {
+                        publish("broker","espradio","downpreset=1")
+                }
+                if(PlayerCTRL.state == 2)
+                {
+                        publish("broker","espradio","mute")
+                }
+                if(PlayerCTRL.state == 3)
+                {
+                        publish("broker","espradio","resume")
+                }
+                if(PlayerCTRL.state == 4)
+                {
+                        publish("broker","espradio","stop")
+                }           
+                if(PlayerCTRL.state == 5)
+                {
+                        publish("broker","espradio","unmute")
+                }
+                if(PlayerCTRL.state == 6)
+                {
+                        publish("broker","espradio","uppreset=1")
+                }
+		PlayerCTRL.postUpdate(NULL)
+end
+```
 
 
 
