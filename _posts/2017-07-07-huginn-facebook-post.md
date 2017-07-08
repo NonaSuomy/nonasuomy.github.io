@@ -104,6 +104,7 @@ facebookaccesstoken: {AccessTokenString}
 **Note:** *Be careful re-hitting the explorer generation page for tokens as it may de-validate your current token and you will be pulling out your hair wondering why your last token is not working.*
 
 ```
+{% raw %}
 FaceBookGraphAPI Details
 Type: Post Agent
 Schedule: Never
@@ -134,6 +135,7 @@ Options:
   "emit_events": "false",
   "no_merge": "false"
 }
+{% endraw %}
 ```
 
 **Note:** *Facebook says this is not secure because your AppID can now be seen by anyone that has access to the app, but if your the only one that has access deal with it however you see fit. They say you should use appID and appSecret*
