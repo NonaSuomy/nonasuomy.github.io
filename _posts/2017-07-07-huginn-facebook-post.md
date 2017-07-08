@@ -4,9 +4,7 @@ title: Automation - Huginn - Facebook Page Post
 ---
 
 ![alt text](https://github.com/huginn/huginn/raw/master/public/android-chrome-144x144.png "Huginn")
-
-
-This what I did to post to Facebook with the Post Agent,
+# How to post to Facebook with the Post Agent #
 
 https://developers.facebook.com/apps/
 
@@ -67,7 +65,7 @@ Find your Facebook Page ID
 
 Generate an Access Token.
 
-you can do this from the terminal:
+You can do this from the terminal:
 
 ```
 curl -X GET /oauth/access_token
