@@ -2489,7 +2489,7 @@ IMPORTANT LAST STEP: Google Voice will not work unless you restart Asterisk from
 amportal restart.
 ```
 
-If you have trouble getting Google Voice to work (especially if you have previously used your Google Voice account from a different IP address), try this [Google Voice Reset Procedure](https://accounts.google.com/DisplayUnlockCaptcha). It usually fixes connectivity problems. If it still doesn’t work, enable [Less Secure Apps using this Google tool] (https://www.google.com/settings/security/lesssecureapps).
+If you have trouble getting Google Voice to work (especially if you have previously used your Google Voice account from a different IP address), try this [Google Voice Reset Procedure](https://accounts.google.com/DisplayUnlockCaptcha). It usually fixes connectivity problems. If it still doesn’t work, enable [Less Secure Apps using this Google tool](https://www.google.com/settings/security/lesssecureapps).
 
 #### Way 2 - Google OAUTH Script ####
 
@@ -2552,7 +2552,7 @@ Here is your client secret
 
 Copy client ID and Client Secret. Replace in script the below.
 
-https://gist.github.com/NonaSuomy/a62a9a125d61fc5df748066961702ac6
+[GIST](https://gist.github.com/NonaSuomy/a62a9a125d61fc5df748066961702ac6)
 
 Run the script with init option and when prompted for code, switch to a web browser and paste the link in clipboard, copy code and paste back in console.
 
@@ -2643,6 +2643,7 @@ amportal restart
 Go to [Google Developer Console](https://console.developers.google.com/apis/) and register a new project. 
 
 In the top menu bar there is a down arrow to create more projects, click it.
+
 ```
 |||     Google APIs   V  <=== Dropdown
 ```
@@ -2827,7 +2828,7 @@ The access token has expired.
 Note: The OAuth Playground does not store refresh tokens, but as refresh tokens never expire, user should go to their Google Account Authorized Access page if they would like to manually revoke them.
 ```
 
-Click "Exchange authorization code for tokens"
+Click "Exchange authorization code for tokens".
 
 Step 2 will generate some numbers and collapse, open up Step 2 again and copy the Refresh token.
 
