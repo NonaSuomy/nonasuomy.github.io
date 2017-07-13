@@ -59,7 +59,7 @@ Heat dissipation (max) Switch 4800G PWR 24-port: 316 BTU/hr; excludes heat from 
 Reliability 24-port PWR: 44 yrs (389,000 hrs)
 ```
 
-Firmware: [https://h10145.www1.hpe.com/Downloads/SoftwareReleases.aspx?ProductNumber=JD008A&lang=en&cc=us&prodSeriesId=4177359&SoftwareReleaseUId=21933&SerialNumber=&PurchaseDate=]
+Firmware: [Download](https://h10145.www1.hpe.com/Downloads/SoftwareReleases.aspx?ProductNumber=JD008A&lang=en&cc=us&prodSeriesId=4177359&SoftwareReleaseUId=21933&SerialNumber=&PurchaseDate=)
 
 ```
 Version as of writing: 
