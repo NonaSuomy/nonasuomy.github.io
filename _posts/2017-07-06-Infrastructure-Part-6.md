@@ -452,9 +452,9 @@ root@archiso ~ # ping google.ca
 ...
 ```
 
-If it doesn't work you possible forgot to add 
-
 Working!
+
+If it doesn't work you possible forgot to add the routes to your virtual router.
 
 ## Refresh pacman ##
 
@@ -1796,9 +1796,9 @@ sudo systemctl start openhab
 
 In a webbrowser on the same network, hit http://10.0.3.42:8080 you should now be at the OpenHAB WebGUI.
 
-http://docs.openhab.org/configuration/packages.html
+[http://docs.openhab.org/configuration/packages.html](http://docs.openhab.org/configuration/packages.html)
 
-You get 4 Options click Expert Package to install everything.
+You get 4 Options, click Expert Package to install everything.
 
 ### MQTT ###
 
