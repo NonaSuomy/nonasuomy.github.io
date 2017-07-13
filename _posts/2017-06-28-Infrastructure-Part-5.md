@@ -19,7 +19,7 @@ Part 05 - VoIP Server - You Are Here!
 
 [Part 06 - Automation Server](../Infrastructure-Part-6)
 
-[Part 07 - Underconstruction](../Infrastructure-Part-7)
+[Part 07 - NAS](../Infrastructure-Part-7)
 
 [Part 08 - Underconstruction](../Infrastructure-Part-8)
 
