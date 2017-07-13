@@ -33,7 +33,7 @@ Like living on the razors edge, how about an Arch Linux Hypervisor (These steps 
 
 ## USB Install ##
 
-Grab whatever the latest ISO is: http://mirror.rackspace.com/archlinux/iso/2017.06.01/archlinux-2017.06.01-x86_64.iso
+Grab whatever the latest ISO is: [archlinux-2017.06.01-x86_64.iso](http://mirror.rackspace.com/archlinux/iso/2017.06.01/archlinux-2017.06.01-x86_64.iso)
 
 ### Find USB Drive ###
 
