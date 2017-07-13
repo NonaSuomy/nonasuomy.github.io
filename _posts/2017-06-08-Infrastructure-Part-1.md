@@ -466,27 +466,27 @@ flash:/3comoscfg.cfg exists, overwrite? [Y/N]:y
 [4800G-GigabitEthernet1/0/3]broadcast-suppression pps 3000
 [4800G-GigabitEthernet1/0/3]undo jumboframe enable
 [4800G-GigabitEthernet1/0/3]stp edged-port enable
- ```
- 
- ### Setup WiFi Main & Guest Access Point Port ###
- 
- #### If AP does multi SSID's ####
- ```
- [4800G]interface GigabitEthernet1/0/4
- [4800G-GigabitEthernet1/0/4]port link-mode bridge
- [4800G-GigabitEthernet1/0/4]port link-type hybrid
- [4800G-GigabitEthernet1/0/4]undo port hybrid vlan 1
- [4800G-GigabitEthernet1/0/4]port hybrid vlan 400 450 tagged
- [4800G-GigabitEthernet1/0/4]port hybrid vlan 200 untagged
- [4800G-GigabitEthernet1/0/4]port hybrid pvid vlan 200
- [4800G-GigabitEthernet1/0/4]broadcast-suppression pps 3000
- [4800G-GigabitEthernet1/0/4]undo jumboframe enable
- [4800G-GigabitEthernet1/0/4]poe enable
- [4800G-GigabitEthernet1/0/4]stp edged-port enable
- ```
- 
- #### If 2 Hardware AP's are required (no multi SSID support) ####
+```
 
+### Setup WiFi Main & Guest Access Point Port ###
+
+#### If AP does multi SSID's ####
+
+```
+[4800G]interface GigabitEthernet1/0/4
+[4800G-GigabitEthernet1/0/4]port link-mode bridge
+[4800G-GigabitEthernet1/0/4]port link-type hybrid
+[4800G-GigabitEthernet1/0/4]undo port hybrid vlan 1
+[4800G-GigabitEthernet1/0/4]port hybrid vlan 400 450 tagged
+[4800G-GigabitEthernet1/0/4]port hybrid vlan 200 untagged
+[4800G-GigabitEthernet1/0/4]port hybrid pvid vlan 200
+[4800G-GigabitEthernet1/0/4]broadcast-suppression pps 3000
+[4800G-GigabitEthernet1/0/4]undo jumboframe enable
+[4800G-GigabitEthernet1/0/4]poe enable
+[4800G-GigabitEthernet1/0/4]stp edged-port enable
+```
+ 
+#### If 2 Hardware AP's are required (no multi SSID support) ####
 
 ##### Main Access Point Port #####
 
@@ -516,21 +516,21 @@ flash:/3comoscfg.cfg exists, overwrite? [Y/N]:y
 [4800G-GigabitEthernet1/0/5]undo jumboframe enable
 [4800G-GigabitEthernet1/0/5]poe enable
 [4800G-GigabitEthernet1/0/5]stp edged-port enable
-``` 
+```
  
- ### Add rest of the ports to LAN VLAN 200 ###
- 
- ```
- interface range GigabitEthernet1/0/6 to GigabitEthernet1/0/24
- port link-mode bridge
- port link-type hybrid
- undo port hybrid vlan 1
- port hybrid vlan 200 untagged
- port hybrid pvid vlan 200
- voice vlan 600 enable
- broadcast-suppression pps 3000
- undo jumboframe enable
- stp edged-port enable
- ```
+### Add rest of the ports to LAN VLAN 200 ###
+
+```
+interface range GigabitEthernet1/0/6 to GigabitEthernet1/0/24
+port link-mode bridge
+port link-type hybrid
+undo port hybrid vlan 1
+port hybrid vlan 200 untagged
+port hybrid pvid vlan 200
+voice vlan 600 enable
+broadcast-suppression pps 3000
+undo jumboframe enable
+stp edged-port enable
+```
 
 Continue to [Part 02 - Hypervisor OS Install](../Infrastructure-Part-2)
