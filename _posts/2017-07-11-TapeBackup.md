@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Arch Linux Infrastructure - Automation Server - Extra - Tape Backup
+title: Arch Linux Infrastructure - NAS Server - Extra - Tape Backup
 ---
 
-![alt text]({{ site.baseurl }}../images/infrastructure/HOTInfrastructureLayoutIoT.png "Infrastructure Switch")
+![alt text]({{ site.baseurl }}../images/infrastructure/HOTInfrastructureLayoutTAP.png "Tape Library")
 
 [https://forums.freenas.org/index.php?threads/tape-backup-setup-freenas-bacula.30376/](https://forums.freenas.org/index.php?threads/tape-backup-setup-freenas-bacula.30376/)
 
