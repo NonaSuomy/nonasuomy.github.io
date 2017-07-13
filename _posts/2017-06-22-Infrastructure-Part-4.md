@@ -39,7 +39,7 @@ startx
 
 Alt + Enter
 
-**Tip:** If you want your right IP showing in the i3status bar "E: no IP (1000 Mbit/s)" edit /etc/i3status.conf
+**Tip:** *If you want your right IP showing in the i3status bar "E: no IP (1000 Mbit/s)" edit /etc/i3status.conf*
 ```
 sudo nano /etc/i3status.conf 
 ```
@@ -101,7 +101,7 @@ sudo pacman -S wget
 
 #### pfSense ####
 
-**Note:** *RELEASE only works with Firmware: BIOS mode not UEFI! :( *
+**Note:** *RELEASE only works with Firmware: BIOS mode not UEFI!* :(
 
 https://nyifiles.pfsense.org/mirror/downloads/
 
@@ -110,7 +110,7 @@ sudo wget https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.3.4-RELEASE
 sudo gunzip pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
 ```
 
-**Note:** *pfSense 2.4 BETA works with Firmware: UEFI* 
+**Note:** *pfSense 2.4 BETA works with Firmware: UEFI.* 
 
 https://snapshots.pfsense.org/amd64/pfSense_master/installer/?C=M;O=D
 
@@ -146,7 +146,7 @@ sudo wget http://mirror.rackspace.com/archlinux/iso/2017.06.01/archlinux-2017.06
 
 Grab any other distribution install media you require for your hypervisor...
 
-**Caution:** *you will no longer have interenet access after this part until you get the vm router working, so make sure you have everything you need :)*
+**Caution:** *you will no longer have interenet access after this part until you get the vm router working, so make sure you have everything you need. :)*
 
 ## Setup Network VLAN interfaces ##
 
@@ -437,7 +437,7 @@ Name=brv500
 
 ### Enable systemd-networkd Service ###
 
-**Note:** *Don't enable and start this if you still need to setup your virtual router*
+**Note:** *Don't enable and start this if you still need to setup your virtual router.*
 
 ```
 sudo systemctl enable systemd-networkd
@@ -837,7 +837,7 @@ Device model: virtio
 MAC address: X 42:de:ad:be:ef:10
 ```
 
-**Note:** *Changing the MAC to something you can recognise makes it easier to sort out in the VM Virtual Router we will see that :10 and know it's for our wan connection and is vlan 100 :20 is our LAN VLAN 200 etc.
+**Note:** *Changing the MAC to something you can recognise makes it easier to sort out in the VM Virtual Router we will see that :10 and know it's for our wan connection and is vlan 100 :20 is our LAN VLAN 200 etc.*
 
 Click Apply.
 
@@ -939,7 +939,7 @@ v Topology
 
 Click the Copy host CPU configuration check box.
 
-Click on Boot Options
+Click on Boot Options.
 
 ```
 Autostart
@@ -957,7 +957,7 @@ V Direct kernel boot
   Kernel args:
 ```
 
-Click on IDE CDROM 1
+Click on IDE CDROM 1.
 
 ```
 Virual Disk
@@ -975,7 +975,7 @@ V Performance options
   IO mode: Hypervisor default
 ```
 
-Click on Connect
+Click on Connect.
 
 ```
 Choose Media
@@ -986,7 +986,7 @@ Choose Source Device or File
     Device Media: No device present
 ```
 
-Click on Browse
+Click on Browse.
 
 ```
 Choose Storage Volume
@@ -1009,9 +1009,9 @@ OPNsense-17.1.4-OpenSSL-cdrom-amd64.iso   858.43 MiB   iso
 pfSense-CE-2.3.4-RELEASE-amd64.iso        626.79 MiB   iso
 ```
 
-Click on pfSense or OPNsense iso then click Choose Volume
+Click on pfSense or OPNsense iso then click Choose Volume.
 
-Click OK
+Click OK.
 
 ```
 Virual Disk
@@ -1024,14 +1024,14 @@ Virual Disk
 
 Make sure the IDE CDROM 1 is at the top of the Boot device order.
 
-Click on Display Spice
+Click on Display Spice.
 
 ```
 Spice Server
   Type: Spice server
 ```
 
-Change to VNC server
+Change to VNC server.
 
 ```
 VNC Server
@@ -1070,7 +1070,7 @@ Welcome to pfSense/OPNsense! Would ou like to begin an installation or use th Rs
 Install   Rescue Shell
 ```
 
-Click Install
+Click Install.
 
 ```
 pfSense/OPNsense Installer
@@ -1112,7 +1112,7 @@ Would you like to use this entire disk (ada0) for pfSense/OPNsense or partition 
 Entire Disk   Partition
 ```
 
-Click on Entire Disk
+Click on Entire Disk.
 
 ```
 pfSense/OPNsense Installer
@@ -1131,7 +1131,7 @@ VTOC8 Sun VTOC8 Partition Table
 OK   Cancle
 ```
 
-Click GPT GUID Partition Table
+Click GPT GUID Partition Table.
 
 ```
 pfSense/OPNsense Installer
@@ -1148,9 +1148,9 @@ ada0               10 GB     GPT
 Create   Delete   Modify   Revert   Auto   Finish
 ```
 
-Click Finish
+Click Finish.
 
-Click Confirm
+Click Confirm.
 
 ```
 pfSense/OPNsense Installer
@@ -1178,7 +1178,7 @@ Click Reboot.
 
 Click the Light Bulb (Show virtual hardware details).
 
-Click Boot Options
+Click Boot Options.
 
 Change the boot order to make IDE Disk 1 first.
 
@@ -1191,7 +1191,7 @@ Boot device order
    X IDE CDROM 1
 ```
 
-Click IDE CDROM 1
+Click IDE CDROM 1.
 
 ```
 Virtual Disk
@@ -1340,9 +1340,9 @@ From this point you should have internet access on your Hypervisor through the v
 Load up the web browser of choice and hit your Virtual Router IP 192.168.1.1 (We're going to change this address now).
 You will have to hit the new IP after this in your browser 10.0.0.1.
 
-Click Interfaces => [LAN]
+Click Interfaces => [LAN].
 
-Change IPv4 address
+Change IPv4 address.
 
 ```
 Static IPv4 configuration
@@ -1351,7 +1351,7 @@ Static IPv4 configuration
 
 Click Save.
 
-Click Services => DHCP => Server
+Click Services => DHCP => Server.
 
 ```
 Range   from	            to
@@ -1380,7 +1380,7 @@ Hit the new address for the virtual router http://10.0.0.1
 
 Enable all the OPT interfaces.
 
-Interfaces => OPT1,OPT2,OPT3,OPT4
+Interfaces => OPT1,OPT2,OPT3,OPT4.
 
 ```
 General configuration
@@ -1416,7 +1416,7 @@ Save
 
 Apply changes.
 
-Services => DHCP => Server
+Services => DHCP => Server.
 
 ```
 IoT
@@ -1451,7 +1451,7 @@ Description: VoIP Server
 Save
 ```
 
-Apply Changes
+Apply Changes.
 
 Click Firewall => Rules = Each one of your network tabs.
 
@@ -1498,7 +1498,7 @@ Advanced Options	Show/Hide
 Save  Cancel
 ```
 
-Click Save
+Click Save.
 
 Click Apply changes.
 
@@ -1553,7 +1553,7 @@ lspci -nn
 0b:00.0 SD Host controller [0805]: O2 Micro, Inc. OZ600FJ0/OZ900FJ0/OZ600FJS SD/MMC Card Reader Controller [1217:8221] (rev 05)
 ```
 
-Intel Hardware ID: 8086:0082
+**Intel Hardware ID: 8086:0082**
 
 #### Enable Hardware ID For IOMMU In Bootloader ####
 
