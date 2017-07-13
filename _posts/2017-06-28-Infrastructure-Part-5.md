@@ -1329,7 +1329,7 @@ Click Apply Config.
 
 ### Setup VoiceMail On A Single Extension ###
 
-Setup VoiceMail on the extension you set your ring group to end on. (Note we already did this in extensions but just in case.)
+Setup VoiceMail on the extension you set your ring group to end on. (**Note:** *We already did this in extensions but just in case.*)
 
 Click Applications => Extensions.
 
@@ -1516,7 +1516,7 @@ Time Server (NTP Server): 10.0.5.1
 
 I set my time server to the virtual router so everything is in sync with it.
 
-Note: Voicemail recording module, allows users to edit specific settings that you define:
+**Note:** *Scan for phones:*
 
 Make sure nmap is installed, all the other tools should be default installed (arp,asterisk).
 
@@ -1526,11 +1526,11 @@ Just type ```nmap``` in the VoIP Server console and see if it shows up otherwise
 yum install nmap
 ```
 
-Note: Voicemail recording module, allows users to edit specific settings that you define:
+**Note:** *Voicemail recording module, allows users to edit specific settings that you define:*
 
 (Checkmark) Enable FreePBX ARI Module (What?)
 
-Note: If you haven't setup the tftp server yet check this box before hitting update globals:
+**Note:** *If you haven't setup the tftp server yet check this box before hitting update globals:*
 
 Disable TFTP Server Check (**Note:** *I never checked this but the creator said it causes apache to lockup if you don't and after you reboot it will be checked if you dont have tftp setup maybe because tftp was already installed.*)
 
@@ -2278,7 +2278,7 @@ You can set a custom ringtone as the welcome sound in the Welcome Sound drop dow
 
 To apply a custom ringtone to a line, on your phone, go to Utilities > Soft Key & Line Key Configuration, select the line you wish to apply the custom ringtone to, and choose a ringtone type using the Edit Speed Dial Contact options.
 
-Note: If you configure an unsupported audio file, the phone will use the default ringtone.
+**Note:** *If you configure an unsupported audio file, the phone will use the default ringtone.*
 
 For ringtones it seems to work well when using ftp. You can edit the ipmid.conf sampled_audio section as follows: <sampled_audio saf.1="" saf.2="ringtone/ringtone1.wav" . . .
 
