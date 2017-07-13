@@ -49,9 +49,12 @@ wifi-menu
 ## Setup & Install ##
 
 Turn off Nano’s word wrap default :S
-# nano ~/.nanorc
+
+```
+nano ~/.nanorc
+
 set nowrap
-Exit - Ctrl+X, Save - Y, File - <Enter>.
+```
 
 ### Install sudo (May already be installed) ###
 
@@ -101,6 +104,14 @@ exit
 Arch Linux 4.11.6-1ARCH (tty1)
 login: plebuser
 cd
+```
+
+Turn off Nano’s word wrap default again for this use :S
+
+```
+nano ~/.nanorc
+
+set nowrap
 ```
 
 ### Install Virtual Machine Packages ###
