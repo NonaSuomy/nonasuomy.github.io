@@ -53,7 +53,7 @@ cd /var/lib/libvirt/images/iso
 
 **Note:** *This won't work for a UEFI install use manual install of Scientific Linux 7.*
 
-https://sourceforge.net/projects/pbxinaflash/files/
+[(https://sourceforge.net/projects/pbxinaflash/files/](https://sourceforge.net/projects/pbxinaflash/files/)
 
 ```
 sudo wget https://downloads.sourceforge.net/project/pbxinaflash/IncrediblePBX13-12%20with%20Incredible%20PBX%20GUI/IncrediblePBX13.2.iso
