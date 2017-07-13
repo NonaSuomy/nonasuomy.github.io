@@ -19,7 +19,7 @@ title: Arch Linux Infrastructure - Automation Server - Part 6 - Everybody Get's 
 
 Part 06 - Automation Server - You Are Here!
 
-[Part 07 - Underconstruction](../Infrastructure-Part-7)
+[Part 07 - NAS](../Infrastructure-Part-7)
 
 [Part 08 - Underconstruction](../Infrastructure-Part-8)
 
