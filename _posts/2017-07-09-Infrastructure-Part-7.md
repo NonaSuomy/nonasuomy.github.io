@@ -21,7 +21,7 @@ title: Arch Linux Infrastructure - NAS - Part 7 - NASferatu
 
 Part 07 - NAS - You Are Here!
 
-[Part 08 - Underconstruction](../Infrastructure-Part-8)
+[Part 08 - TOR](../Infrastructure-Part-8)
 
 [Part 09 - Underconstruction](../Infrastructure-Part-9)
 
@@ -29,15 +29,19 @@ Part 07 - NAS - You Are Here!
 
 # NASferatu #
 
+## Optional: Tape Backup ##
+
+[Tape Backup](../TapeBackup)
+
 ## Setup USB For Install ##
 
 Download FreeNAS.
 
-http://www.freenas.org/download-freenas-release/
+[http://www.freenas.org/download-freenas-release/](http://www.freenas.org/download-freenas-release/)
 
 At the time of writing this.
 
-https://download.freenas.org/11/latest/x64/FreeNAS-11.0-U1.iso
+[https://download.freenas.org/11/latest/x64/FreeNAS-11.0-U1.iso](https://download.freenas.org/11/latest/x64/FreeNAS-11.0-U1.iso)
 
 Write FreeNAS to an 8GB USB Drive.
 
@@ -73,3 +77,4 @@ Insert 8GB USB Drive into NAS System and boot.
 
 We need a system with at least 8GB of RAM as well.
 
+Continue to [Part 08 - TOR](../Infrastructure-Part-8).
