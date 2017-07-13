@@ -2201,4 +2201,10 @@ rule "Player Controls"
 end
 ```
 
+## Extras ##
+
+[Huginn Facebook Posting](../huginn-facebook-post)
+
+## Next Part ##
+
 Continue to [Part 07 - NASferatu](../Infrastructure-Part-7)
