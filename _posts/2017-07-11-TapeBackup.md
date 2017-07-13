@@ -155,7 +155,11 @@ Device {
 }
 ```
 
-Show library parameters.
+## Testing Tape Autochangers ##
+
+### Show Autochange Information ###
+
+**chio**
 
 ```
 chio params
@@ -164,7 +168,22 @@ chio params
 /dev/ch0: current picker: 0         
 ```
 
+**mtx**
+
+```
+mtx -f /dev/pass2 inquiry                                                                                      
+Product Type: Medium Changer                                                                                                        
+Vendor ID: 'IBM     '                                                                                                               
+Product ID: '33614LX         '                                                                                                      
+Revision: '0029'                                                                                                                    
+Attached Changer API: No       
+```
+
+### Show Tape Information ###
+
 Show the tape library scan in tape library memory.
+
+**chio**
 
 ```
 chio status -a
@@ -215,13 +234,7 @@ drive 0: <ACCESS> sense: <0x00/0x00> voltag: <:0> avoltag: <:0> source: <> intad
 drive 1: <ACCESS> sense: <0x00/0x00> voltag: <:0> avoltag: <:0> source: <> intaddr: <129> scsi: <?:?>  
 ```
 
-Tell tape autochanger to move tape from a slot to a drive.
-
-```
-chio move slot 0 drive 0
-```
-
-mtx way to show tape library status of slots etc.
+**mtx**
 
 ```
 mtx -f /dev/pass2 status                                                                                       
@@ -268,16 +281,19 @@ Data Transfer Element 1:Empty
       Storage Element 38 IMPORT/EXPORT:Empty       
 ```
 
-Show tape library stats.
+### Move Tape In Library ###
+
+Tell tape autochanger to move tape from a slot to a drive or slot to slot etc.
+
+**chio**
+
+Move slot 0 to drive 0 (self explanitory)
 
 ```
-mtx -f /dev/pass2 inquiry                                                                                      
-Product Type: Medium Changer                                                                                                        
-Vendor ID: 'IBM     '                                                                                                               
-Product ID: '33614LX         '                                                                                                      
-Revision: '0029'                                                                                                                    
-Attached Changer API: No       
+chio move slot 0 drive 0
 ```
+
+**mtx**
 
 Load storage element 13 into tape drive 0 and 1 for a test.
 
@@ -288,7 +304,9 @@ mtx -f /dev/pass2 load 29 1
 Loading media from Storage Element 13 into drive 1...done 
 ```
 
-Write test to media. ??????????????????????????????????????????????? HOW DO I TAPE!? None of this works.
+### Write Test To Tape ###
+
+? HOW DO I TAPE!? None of this works yet... Access denied.
 
 ```
 btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/pass0                                           
@@ -296,27 +314,39 @@ Tape block granularity is 1024 bytes.
 btape: butil.c:290 Using device: "/dev/pass0" for writing.
 ```
 
+### Unload Tape From Drive ###
+
+**chio**
+
 ```
-sudo /usr/local/sbin/mtx-changer /dev/pass2 load 1 /dev/nsa0 0
+chio move drive 0 slot 0
 ```
 
-Unload tape from drive
+**mtx**
 
 ```
 mtx -f /dev/pass2 unload 13 0
 Unloading drive 0 into Storage Element 13...done
 ```
 
-mtx moving tapes between slots and changer ports.
+### Move Tapes Between Slots ###
+
+**chio**
 
 ```
+chio move slot 0 slot 14
+```
+
+**mtx**
+
 mtx -f <sg device> transfer <source slot> <destination slot>
 
+```
 mtx -f /dev/pass2 transfer 13 2
 mtx -f /dev/pass2 status
 ```
 
-SCSI Tape Error list.
+### SCSI Tape Error list ###
 
 ```
 Sense Key (Hex)	Meaning
