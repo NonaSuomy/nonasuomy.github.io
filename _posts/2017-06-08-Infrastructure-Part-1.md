@@ -417,9 +417,9 @@ The current configuration will be written to the device. Are you sure? [Y/N]:y
 Please input the file name(*.cfg)[flash:/3comoscfg.cfg]
 (To leave the existing filename unchanged, press the enter key):
 flash:/3comoscfg.cfg exists, overwrite? [Y/N]:y
- Validating file. Please wait...................
- The current configuration is saved to the active main board successfully.
- Configuration is saved to device successfully.
+Validating file. Please wait...................
+The current configuration is saved to the active main board successfully.
+Configuration is saved to device successfully.
 ```
 
 ### Setup Voice ###
