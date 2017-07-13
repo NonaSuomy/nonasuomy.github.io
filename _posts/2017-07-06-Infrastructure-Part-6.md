@@ -53,7 +53,7 @@ cd /var/lib/libvirt/images/iso
 
 **Note:** *We're doing a UEFI install lastest versions of Arch install media support this.*
 
-Grab whatever the latest ISO is: https://www.archlinux.org/download/
+Grab whatever the latest ISO is: [https://www.archlinux.org/download/](https://www.archlinux.org/download/)
 
 ```
 sudo wget http://mirror.rackspace.com/archlinux/iso/2017.07.01/archlinux-2017.07.01-x86_64.iso
@@ -106,7 +106,7 @@ virt-manager should now be on screen...
 
 You should be connected to your hypervisor.
 
-Click File => New Virtual Machine
+Click File => New Virtual Machine.
 
 ```
 New VM
@@ -122,7 +122,7 @@ Choose how you would like to install the operating system
 * Import existing disk image
 ```
 
-Choose local install media and click Forward
+Choose local install media and click Forward.
 
 ```
 New VM
@@ -139,7 +139,7 @@ OS type: -
 Version: -
 ```
 
-Click Browse
+Click Browse.
 
 You should see the iso storage pool on the left, click it.
 
@@ -160,7 +160,7 @@ CPUs: 1 - +
 Up to 4 available
 ```
 
-Click Forward
+Click Forward.
 
 ```
 New VM
@@ -175,7 +175,7 @@ Enable storage for this virtual machine
   Manage...
 ```
 
-Click Forward
+Click Forward.
 
 ```
 New VM
@@ -200,11 +200,11 @@ Click the checkmark on "Customize configuration before install".
 
 Click the "Network selection" drop down arrow.
 
-Click the Dropdown Box and select "Specify shared device name"
+Click the Dropdown Box and select "Specify shared device name".
 
 Bridge name: brv300
 
-Click Finish
+Click Finish.
 
 Now you should see the full virtual machine settings window.
 
@@ -247,7 +247,7 @@ Hypervisor Details
 Cancel Apply
 ```
 
-Click Firmware change BIOS to UEFI x86_64: /usr/share/ovmf/ovmf_code_x64.bin
+Click Firmware change BIOS to UEFI x86_64: /usr/share/ovmf/ovmf_code_x64.bin.
 
 **Note:** *You only get one chance to change this Firmware field, it will go readonly after you Begin the Installaion.*
 
@@ -269,7 +269,7 @@ v Topology
 
 Click the Copy host CPU configuration check box.
 
-Click on Boot Options
+Click on Boot Options.
 
 ```
 Autostart
@@ -287,7 +287,7 @@ V Direct kernel boot
   Kernel args:
 ```
 
-Click on IDE CDROM 1
+Click on IDE CDROM 1.
 
 ```
 Virual Disk
@@ -305,7 +305,7 @@ V Performance options
   IO mode: Hypervisor default
 ```
 
-Click on Connect
+Click on Connect.
 
 ```
 Choose Media
@@ -316,7 +316,7 @@ Choose Source Device or File
     Device Media: No device present
 ```
 
-Click on Browse
+Click on Browse.
 
 ```
 Choose Storage Volume
@@ -339,9 +339,9 @@ OPNsense-17.1.4-OpenSSL-cdrom-amd64.iso   858.43 MiB   iso
 pfSense-CE-2.3.4-RELEASE-amd64.iso        626.79 MiB   iso
 ```
 
-Click on Arch Linux iso then click Choose Volume
+Click on Arch Linux iso then click Choose Volume.
 
-Click OK
+Click OK.
 
 ```
 Virual Disk
@@ -352,7 +352,7 @@ Virual Disk
   Shareable:
 ```
 
-Click Boot Options
+Click Boot Options.
 
 ```
 Autostart
@@ -368,7 +368,7 @@ Make sure the IDE CDROM 1 is at the top of the Boot device order like above.
 
 Click Apply.
 
-Click on NIC :xx:xx:50
+Click on NIC :xx:xx:50.
 
 ```
 Virtual Network Interface
@@ -382,7 +382,7 @@ Click Apply.
 
 We just setup this virtual machine interface so that is uses the Automation VLAN bridge setup prior.
 
-Click on Display Spice
+Click on Display Spice.
 
 ```
 Spice Server
@@ -394,7 +394,7 @@ Spice Server
   Keymap:
 ```
 
-Change to VNC server
+Change to VNC server.
 
 ```
 VNC Server
@@ -412,18 +412,18 @@ Finally click "Begin Installation" at the top left.
 
 After the VM boots ...
 
-Push Enter on Arch Linux archiso x86_64 UEFI CD
+Push Enter on Arch Linux archiso x86_64 UEFI CD.
 
 We're going to use UEFI make sure your hardware bios is setup for UEFI (Ideally you wouldn't see the entry above if you didn't boot with UEFI).
 
-After boot double check UEFI
+After boot double check UEFI.
 
 ```
 root@archiso ~ # mount | egrep efi
 efivarfs on /sys/firmware/efi/efivars type efivarfs (rw,nosuid,nodev,noexec,relatime)
 ```
 
-Find your network port name
+Find your network port name.
 
 ```
 root@archiso ~ # ip link
@@ -433,9 +433,11 @@ root@archiso ~ # ip link
     link/ether 42:de:ad:fe:ed:30 brd ff:ff:ff:ff:ff:ff
 ```
 
-On this hardware it is called ens3
+On this hardware it is called ens3.
 
+```
 root@archiso ~ # ip addr show ens3
+```
 
 We should see something like inet 10.0.3.50/24 if you setup the virtual router properly it should be dishing out DHCP addresses.
 
@@ -613,7 +615,7 @@ tmpfs          tmpfs     100M     0  100M   0% /run/user/0
 
 ### Pacstrap All The Things To /mnt ###
 
-Installing: base base-devel btrfs-progs dosfstools bash-completion
+Installing: base base-devel btrfs-progs dosfstools bash-completion efibootmgr
 
 ```
 root@archiso ~ # pacstrap /mnt base base-devel btrfs-progs dosfstools bash-completion efibootmgr
@@ -1492,7 +1494,7 @@ root@archiso ~ # reboot
 
 In the Show virtual hardware details:
 
-Click Boot Options
+Click Boot Options.
 
 ```
 Autostart
@@ -1526,13 +1528,13 @@ Let's setup a DHCP Static Address for this server.
 
 On the Virtual Router WebGUI.
 
-Services => DHCP => Server
+Services => DHCP => Server.
 
 Click IOT Tab.
 
-Scroll down to the bottom to DHCP Static Mappings for this interface..
+Scroll down to the bottom to DHCP Static Mappings for this interface.
 
-Click +
+Click +.
 
 ```
 Static DHCP Mapping
@@ -1664,7 +1666,7 @@ Optional dependencies for yaourt
 (1/1) Arming ConditionNeedsUpdate...
 ```
 
-Install openhab
+Install openhab.
 
 ```
 yaourt openhab
@@ -1800,7 +1802,9 @@ You get 4 Options click Expert Package to install everything.
 
 ### MQTT ###
 
+```
 nano /opt/openhab/conf/services/mqtt.cfg
+
 ################################# MQTT Transport ######################################
 #
 # Define your MQTT broker connections here for use in the MQTT Binding or MQTT
@@ -1836,6 +1840,7 @@ broker.pwd=PASS
 # Optional. Defines the last will and testament that is sent when this client goes offline
 # Format: topic:message:qos:retained <br/>
 #broker.lwt=<last will definition>
+```
 
 ### Sitemap ###
 
@@ -2195,7 +2200,5 @@ rule "Player Controls"
 		PlayerCTRL.postUpdate(NULL)
 end
 ```
-
-
 
 Continue to [Part 07 - NASferatu](../Infrastructure-Part-7)
