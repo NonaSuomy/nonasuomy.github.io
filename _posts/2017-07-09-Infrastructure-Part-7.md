@@ -29,10 +29,6 @@ Part 07 - NAS - You Are Here!
 
 # NASferatu #
 
-## Optional: Tape Backup ##
-
-[Tape Backup](../TapeBackup)
-
 ## Setup USB For Install ##
 
 Download FreeNAS.
@@ -76,5 +72,11 @@ Insert 8GB USB Drive into NAS System and boot.
 **Note:** *In the BIOS settings, you should make this USB Drive your default boot option as this is the only drive we need for the OS, so we don't consume precious SATA ports that we can use for mass stroage.*
 
 We need a system with at least 8GB of RAM as well.
+
+## Extras ##
+
+[Tape Backup](../TapeBackup)
+
+## Next Part ##
 
 Continue to [Part 08 - TOR](../Infrastructure-Part-8).
