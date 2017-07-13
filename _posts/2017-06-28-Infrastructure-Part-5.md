@@ -51,7 +51,7 @@ cd /var/lib/libvirt/images/iso
 
 #### PIAF ####
 
-**Note:** *This won't work for a UEFI install use manual install of Scientific Linux 7*
+**Note:** *This won't work for a UEFI install use manual install of Scientific Linux 7.*
 
 https://sourceforge.net/projects/pbxinaflash/files/
 
@@ -61,7 +61,7 @@ sudo wget https://downloads.sourceforge.net/project/pbxinaflash/IncrediblePBX13-
 
 #### Scientific Linux 7 ####
 
-http://ftp1.scientificlinux.org/linux/scientific/7x/x86_64/iso/
+(http://ftp1.scientificlinux.org/linux/scientific/7x/x86_64/iso/)[http://ftp1.scientificlinux.org/linux/scientific/7x/x86_64/iso/]
 
 ```
 sudo wget http://ftp1.scientificlinux.org/linux/scientific/7x/x86_64/iso/SL-7.3-x86_64-netinst.iso
@@ -114,7 +114,7 @@ virt-manager should now be on screen...
 
 You should be connected to your hypervisor.
 
-Click File => New Virtual Machine
+Click File => New Virtual Machine.
 
 ```
 New VM
@@ -130,7 +130,7 @@ Choose how you would like to install the operating system
 * Import existing disk image
 ```
 
-Choose local install media and click Forward
+Choose local install media and click Forward.
 
 ```
 New VM
@@ -147,7 +147,7 @@ OS type: -
 Version: -
 ```
 
-Click Browse
+Click Browse.
 
 You should see the iso storage pool on the left, click it.
 
@@ -168,7 +168,7 @@ CPUs: 1 - +
 Up to 4 available
 ```
 
-Click Forward
+Click Forward.
 
 ```
 New VM
@@ -183,7 +183,7 @@ Enable storage for this virtual machine
   Manage...
 ```
 
-Click Forward
+Click Forward.
 
 ```
 New VM
@@ -208,11 +208,11 @@ Click the checkmark on "Customize configuration before install".
 
 Click the "Network selection" drop down arrow.
 
-Click the Dropdown Box and select "Specify shared device name"
+Click the Dropdown Box and select "Specify shared device name".
 
 Bridge name: brv500
 
-Click Finish
+Click Finish.
 
 Now you should see the full virtual machine settings window.
 
@@ -255,7 +255,7 @@ Hypervisor Details
 Cancel Apply
 ```
 
-Click Firmware change BIOS to UEFI x86_64: /usr/share/ovmf/ovmf_code_x64.bin
+Click Firmware change BIOS to UEFI x86_64: /usr/share/ovmf/ovmf_code_x64.bin.
 
 **Note:** *You only get one chance to change this Firmware field, it will go readonly after you Begin the Installaion.*
 
@@ -277,7 +277,7 @@ v Topology
 
 Click the Copy host CPU configuration check box.
 
-Click on Boot Options
+Click on Boot Options.
 
 ```
 Autostart
@@ -295,7 +295,7 @@ V Direct kernel boot
   Kernel args:
 ```
 
-Click on IDE CDROM 1
+Click on IDE CDROM 1.
 
 ```
 Virual Disk
@@ -313,7 +313,7 @@ V Performance options
   IO mode: Hypervisor default
 ```
 
-Click on Connect
+Click on Connect.
 
 ```
 Choose Media
@@ -324,7 +324,7 @@ Choose Source Device or File
     Device Media: No device present
 ```
 
-Click on Browse
+Click on Browse.
 
 ```
 Choose Storage Volume
@@ -347,9 +347,9 @@ OPNsense-17.1.4-OpenSSL-cdrom-amd64.iso   858.43 MiB   iso
 pfSense-CE-2.3.4-RELEASE-amd64.iso        626.79 MiB   iso
 ```
 
-Click on Scientific Linux iso then click Choose Volume
+Click on Scientific Linux iso then click Choose Volume.
 
-Click OK
+Click OK.
 
 ```
 Virual Disk
@@ -362,7 +362,7 @@ Virual Disk
 
 Make sure the IDE CDROM 1 is at the top of the Boot device order.
 
-Click on NIC :xx:xx:50
+Click on NIC :xx:xx:50.
 
 ```
 Virtual Network Interface
@@ -376,7 +376,7 @@ Click Apply.
 
 We just setup this virtual machine interface so that is uses the Voice VLAN bridge setup prior.
 
-Click on Display Spice
+Click on Display Spice.
 
 ```
 Spice Server
@@ -388,7 +388,7 @@ Spice Server
   Keymap:
 ```
 
-Change to VNC server
+Change to VNC server.
 
 ```
 VNC Server
@@ -710,10 +710,12 @@ From here it's up to you what you want to do with the box.
 
 ### Enable PJSIP ###
 
-Settings => Advanced Settings
+Settings => Advanced Settings.
 
+```
 Dialplan and Operational
 SIP Channel Driver: Both (Hit the little checkmark at the end of the field to save)
+```
 
 Click Apply Config.
 
@@ -913,7 +915,7 @@ CLI > sip set debug on
 
 ### Extension ###
 
-Click Applications => Extensions
+Click Applications => Extensions.
 
 Device
 
@@ -921,9 +923,9 @@ Device: Generic PJSIP Device
 
 Click Submit.
 
-Add PJSIP Extension
+Add PJSIP Extension.
 
-Add Extension
+Add Extension.
 
 ```
 User Extension: 701
@@ -1059,9 +1061,9 @@ Not Reachable: Unavail Voicemail if Enabled
   CID Prefix:
 ```
 
-Click Submit
+Click Submit.
 
-Click Apply Config
+Click Apply Config.
 
 Add more extensions if need be.
 
@@ -1071,7 +1073,7 @@ Click Applications => Ring Groups.
 
 Click Add Ring Group.
 
-Add Ring Group
+Add Ring Group.
 
 ```
 Ring-Group Number: 600
@@ -1104,7 +1106,7 @@ Remote Announce: Default
 Too-Late Announce: Default
 ```
 
-Change External CID Configuration
+Change External CID Configuration.
 
 ```
 Mode: Default	
@@ -1123,7 +1125,7 @@ Extensions <701> 701
 
 #### VoIP.ms Trunk ####
 
-Setup a trunk, I use http://voip.ms
+Setup a trunk, I use http://voip.ms.
 
 Click Connectivity => Trunks
 
@@ -1192,17 +1194,17 @@ Register String:
 <6DigitUser#>:<password>@atlanta1.voip.ms:5060
 ```
 
-Submit Changes  Duplicate Trunk
+Submit Changes Duplicate Trunk.
 
 Click Submit Changes.
 
-Click Apply Config
+Click Apply Config.
 
 ### Outbound Routes ###
 
-Click Connectivity => Outbound Routes
+Click Connectivity => Outbound Routes.
 
-Click Add Route
+Click Add Route.
 
 Route Settings
 
@@ -1249,19 +1251,19 @@ Optional Destination on Congestion
 Normal Congestion
 ```
 
-Submit Changes  Duplicate Route
+Submit Changes  Duplicate Route.
 
-Click Submit Changes
+Click Submit Changes.
 
-Click Apply Config
+Click Apply Config.
 
 ### Inbound Routes ###
 
-Click Connectivity => Inbound Routes
+Click Connectivity => Inbound Routes.
 
-Click Add Incoming Route
+Click Add Incoming Route.
 
-Add Incoming Route
+Add Incoming Route.
 
 ```
 Description: VoIPMS
@@ -1331,7 +1333,7 @@ Setup VoiceMail on the extension you set your ring group to end on. (Note we alr
 
 Click Applications => Extensions.
 
-Click ext 701
+Click ext 701.
 
 Require From Same Extension: no
 
@@ -1372,7 +1374,7 @@ Connectivity
  WebRTC Phone 12.0.2 Stable Schmooze Com Inc GPLv3+ Enabled; Not available online  
 ```
 
-Click on OSS PBX End Point Manager
+Click on OSS PBX End Point Manager.
 
 ```
 Info
@@ -1435,9 +1437,9 @@ Click Return.
 
 Click Apply Config highlighted Red at the top.
 
-Click Connectivity
+Click Connectivity.
 
-Click OSS Endpoint Addvanced Settings
+Click OSS Endpoint Addvanced Settings.
 
 ```
 End Point Configuration Manager
@@ -1516,7 +1518,7 @@ I set my time server to the virtual router so everything is in sync with it.
 
 Note: Voicemail recording module, allows users to edit specific settings that you define:
 
-Make sure nmap is installed, all the other tools should be default installed (arp,asterisk)
+Make sure nmap is installed, all the other tools should be default installed (arp,asterisk).
 
 Just type ```nmap``` in the VoIP Server console and see if it shows up otherwise:
 
@@ -1530,7 +1532,7 @@ Note: Voicemail recording module, allows users to edit specific settings that yo
 
 Note: If you haven't setup the tftp server yet check this box before hitting update globals:
 
-Disable TFTP Server Check (Note: I never checked this but the creator said it causes apache to lockup if you don't and after you reboot it will be checked if you dont have tftp setup maybe because tftp was already installed.)
+Disable TFTP Server Check (**Note:** *I never checked this but the creator said it causes apache to lockup if you don't and after you reboot it will be checked if you dont have tftp setup maybe because tftp was already installed.*)
 
 (Checkmark) Use GITHUB Live Repo (Requires git to be installed) 	
 
@@ -1542,7 +1544,7 @@ You may see this warning at the top of the window:
 Configuration Directory is not a directory or does not exist! Please change the location here: Here
 ```
 
-we need to go make this directory.
+We need to go make this directory.
 
 Go to the terminal of the phone server and type
 
@@ -1559,7 +1561,7 @@ Please change the location: Here
 Or run this command on SSH: 'chown -hR root:asterisk /tftpboot/' then 'chmod g+w /tftpboot/'
  ```
 
-So do what it says
+Do what it says.
 
 ```
 chown -hR root:asterisk /tftpboot/
@@ -1570,7 +1572,7 @@ Edit the TFTP configuration file.
 
 Change server_args to -s /tftpboot
 
-Change disable to no
+Change disable to no.
 
 ```
 nano /etc/xinetd.d/tftp
@@ -1607,13 +1609,13 @@ Create a test file to download.
 echo "Test123" > /tftpboot/test.txt
 ```
 
-Install TFTP Client
+Install TFTP Client.
 
 ```
 yum install tftp
 ```
 
-Test TFTP Server
+Test TFTP Server.
 
 ```
 cd
@@ -1819,7 +1821,7 @@ If you get:
 Login failed.
 ```
 
-Change the directory we specified to readonly
+Change the directory we specified to readonly.
 
 **Note:** *Don't do chmod or OSS Endpoint can't write firmware here.*
 
@@ -1840,7 +1842,7 @@ If you can enter a username but not password with a 530 Login incorrect.
 Login failed.
 ```
 
-Few things to check
+Few things to check.
 
 ```
 nano /etc/pam.d/vsftpd
@@ -1861,13 +1863,13 @@ Comment out the line:
 #auth       required    pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
 ```
 
-Other may need to use 
+Other may need to use :
 
 ```
 pam_service_name=ftp
 ```
 
-Instead of
+Instead of:
 
 ```
 pam_service_name=vsftpd
@@ -2024,7 +2026,7 @@ Click Search on Serach or new devices in netmask 10.0.5.254/24 whatever IP range
 
 Now you should see your phone sets listed under "Unmanaged Extensions".
 
-Click on the checkboxes next to you phonesets and then click "Add Selected Phones".
+Click on the checkboxes next to you phone sets and then click "Add Selected Phones".
 
 Otherwise...
 
@@ -2200,7 +2202,13 @@ If you don't want to deal with OSS Endpoint, just toss this configuration file i
 
 Here's a quick sample ringtone and background directory: [customize](../customize)
 
+Install image manipulation tool imagemagick.
+
+```
 yum install imagemagick
+```
+
+Create FTP directory if not already made.
 
 ```
 cd /var/ftp/sip
@@ -2315,7 +2323,7 @@ Syntax : sox old.wav new.wav trim [SECOND TO START] [SECONDS DURATION].
 SECOND TO START – Starting point in the voice file.
 SECONDS DURATION – Duration of voice file to remove.
 
-The command below will extract first 10 seconds from input.wav and stored it in output.wav
+The command below will extract first 10 seconds from input.wav and stored it in output.wav.
 
 ```
 sox input.wav output.wav trim 0 10
@@ -2323,7 +2331,7 @@ sox input.wav output.wav trim 0 10
 
 ###### If you want to convert an MP3 with sox for a ringtone you have to rebuild it with MP3 support. ######
 
-Installing SoX with MP3 Support on Scientific Linux or how to fix error: sox formats: no handler for file extension "mp3"
+Installing SoX with MP3 Support on Scientific Linux or how to fix error: sox formats: no handler for file extension "mp3".
 
 ```
 Default SoX installation from yum doesn’t have mp3 handler:
@@ -2492,7 +2500,7 @@ In the top menu bar there is a down arrow to create more projects, click it.
 |||     Google APIs   V  <=== Dropdown
 ```
 
-Click the + at the right
+Click the + at the right.
 
 Or click this link [New Project](https://console.developers.google.com/projectcreate?previousPage=%2Fapis%2Fcredentials%3Fproject&organizationId=0)
 
@@ -2576,7 +2584,7 @@ By clicking Allow, you allow this app and Google to use your information in acco
 Deny Allow
 ```
 
-Click Allow
+Click Allow.
 
 ```
 Please copy this code, switch to your application and paste it there:
@@ -2599,7 +2607,7 @@ cat /root/.gvauth/default.refresh_token
 
 Copy refresh token and paste it in your Motif field called refresh token in Google Voice PIAF GUI settings.
 
-Click Connectivity ==> Google Voice (Motif)
+Click Connectivity ==> Google Voice (Motif).
 
 ```
 Google Voice [Motif]
@@ -2639,7 +2647,7 @@ In the top menu bar there is a down arrow to create more projects, click it.
 |||     Google APIs   V  <=== Dropdown
 ```
 
-Click the + at the right
+Click the + at the right.
 
 Or click this link [New Project](https://console.developers.google.com/projectcreate?previousPage=%2Fapis%2Fcredentials%3Fproject&organizationId=0)
 
@@ -2663,7 +2671,7 @@ Click OAuth client ID
 Requests user consent so your app can access the user's data
 ```
 
-To create an OAuth client ID, you must first set a product name on the consent screen [Button](https://console.developers.google.com/apis/credentials/consent?createClient)
+To create an OAuth client ID, you must first set a product name on the consent screen. [Button](https://console.developers.google.com/apis/credentials/consent?createClient)
 
 Click the button.
 
@@ -2754,7 +2762,7 @@ Select the scope for the APIs you would like to access or input your own OAuth s
 Input your own scopes: https://www.googleapis.com/auth/googletalk Auhorize APIs
 ```
 
-Do not pick anything from the list click on the entry box at the bottom of the list and type
+Do not pick anything from the list click on the entry box at the bottom of the list and type.
 
 ```
 https://www.googleapis.com/auth/googletalk
@@ -2792,7 +2800,7 @@ Cancel Allow
 
 Click Allow.
 
-Now Step 2 Loads
+Now Step 2 Loads.
 
 ##### Step 2 Exchange authorization code for tokens #####
 
@@ -2945,7 +2953,7 @@ usergmailcom etc...
 
 ## CID Superfecta ##
 
-Admin => Module Admin
+Admin => Module Admin.
 
 Click CID Superfecta.
 
@@ -2961,9 +2969,9 @@ Track:	Stable
 Action:	No Action Enable Uninstall Remove
 ```
 
-Click Enable
+Click Enable.
 
-Click Process
+Click Process.
 
 ```
 Module Administration
@@ -3023,11 +3031,4 @@ Format Incoming Number?	(132) 456-7890
 
 In KODI make sure webserver IP is right, enabled and set to port 8080 with the right username/password.
 
-
 Continue to [Part 06 - Automation Server](../Infrastructure-Part-6)
-
-VM Guest Automation Server: OpenHAB
- 
-VM Guest TOR Server: TOR (Remote)
- 
-VM Guest Fileserver: FreeNAS or ETC.
