@@ -1272,7 +1272,7 @@ Autochanger {
   Name = "IBM3361-4LX Library"
   Device = UltiumLTO300, UltiumLTO301
   Changer Device = /dev/pass2
-  Changer Command = "/usr/local/bacula/sbin/mtx -f %c %o %S %a %d"
+  Changer Command = "/usr/pbi/bacula-sd-amd64/share/bacula/mtx-changer %c %o %S %a %d"
                     # %c = changer device
                     # %o = command (unload|load|loaded|list|slots)
                     # %S = slot index (1-based)
@@ -1894,6 +1894,30 @@ We should be in file 5. I am at file 5. This is correct!
 *
 ```
 
+### Test: Autochanger ###
+
+This will fill up a tape and overflow into the next tape in sequence, Unload tape and reload the next tape.
+
+```
+root@bacula-sd_1:/ # btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
+Tape block granularity is 1024 bytes.
+btape: butil.c:290 Using device: "/dev/sa0" for writing.
+btape: btape.c:477 open device "UltiumLTO300" (/dev/sa0): OK
+*auto
+```
+
+### Test: Fill ###
+
+This will fill up a tape and overflow into the next tape in sequence, Unload tape and reload the next tape.
+
+```
+root@bacula-sd_1:/ # btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
+Tape block granularity is 1024 bytes.
+btape: butil.c:290 Using device: "/dev/sa0" for writing.
+btape: btape.c:477 open device "UltiumLTO300" (/dev/sa0): OK
+*fill
+```
+
 ### Final Configuration ###
 
 ```
@@ -1923,7 +1947,7 @@ Autochanger {
   Name = "IBM3361-4LX Library"
   Device = UltiumLTO300, UltiumLTO301
   Changer Device = /dev/pass2
-  Changer Command = "/usr/local/sbin/mtx -f %c %o %S %a %d"
+  Changer Command = "/usr/pbi/bacula-sd-amd64/share/bacula/mtx-changer %c %o %S %a %d"
                     # %c = changer device
                     # %o = command (unload|load|loaded|list|slots)
                     # %S = slot index (1-based)
@@ -1939,6 +1963,7 @@ Device {
   AlwaysOpen     = yes;
   RemovableMedia = yes;
   Random Access = no;
+  Autochanger = Yes
   Drive Index = 0;
   Alert Command = "sh -c '/usr/local/sbin/tapeinfo -f /dev/sa0 | /$
 
@@ -1959,6 +1984,7 @@ Device {
   AlwaysOpen      = yes;
   RemovableMedia  = yes;
   Random Access = no;
+  Autochanger = Yes
   Drive Index = 1;
   Alert Command = "sh -c '/usr/local/sbin/tapeinfo -f /dev/sa1 | /$
   
@@ -1970,8 +1996,23 @@ Device {
   Fast Forward Space File = yes
   TWO EOF = yes
 }
+```
 
+### Copy Configuration To Default Location ###
 
+You could make a systemlink or copy this file over to the default location then you won't have to specify the btape -c command it will just auto use the default configuration file.
+
+```
+cp /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /usr/pbi/bacula-sd-amd64/etc/bacula/bacula-sd.conf 
+ 
+ The complete path from outside the jail is /mnt/<dataSet>/jails/bacula-sd_1/usr/pbi/bacula-sd-amd64/etc/bacula/bacula-sd.conf
+```
+
+or systemlink
+
+```
+ln -s /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /usr/pbi/bacula-sd-amd64/etc/bacula/bacula-sd.conf 
+```
 
 ### SCSI Tape Error list ###
 
