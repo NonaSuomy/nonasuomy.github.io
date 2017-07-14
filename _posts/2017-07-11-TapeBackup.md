@@ -10,6 +10,13 @@ title: Arch Linux Infrastructure - NAS Server - Extra - Tape Backup
 [http://www.freshports.org/search.php?query=bareos](http://www.freshports.org/search.php?query=bareos)
 
 ```
+jls
+
+jexec 1 /bin/tcsh
+```
+
+
+```
 bareos client was installed                                                     
                                                                                 
 1) Sample files are installed in /usr/local/etc/bareos/bareos-fd.d/ and         
@@ -305,6 +312,42 @@ Loading media from Storage Element 13 into drive 1...done
 ```
 
 ### Write Test To Tape ###
+
+First load a tape into both drives.
+
+```
+mtx -f /dev/pass2 load 13 0
+mtx -f /dev/pass2 load 29 1
+```
+
+**Note:** *Tape Drive 0 was sa1 and tape drive 1 was sa0.*
+
+Rewind the tapes.
+
+```
+mt -f /dev/sa0 rewind
+mt -f /dev/sa1 rewind
+
+mt -f /dev/sa0 weof
+mt -f /dev/sa1 weof
+
+mt -f /dev/sa0 rewind
+mt -f /dev/sa1 rewind
+```
+
+Write to tape with tar.
+
+```
+tar cf /dev/sa0 /usr/pbi/bacula-sd-amd64/
+tar cf /dev/sa1 /usr/pbi/bacula-sd-amd64/
+```
+
+Read back data from tape.
+
+```
+tar tf /dev/sa0
+tar tf /dev/sa1
+```
 
 ? HOW DO I TAPE!? None of this works yet... Access denied.
 
