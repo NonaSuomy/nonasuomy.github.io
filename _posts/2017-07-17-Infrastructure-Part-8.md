@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Arch Linux Infrastructure - NAS - Part 8 - TOR
+title: Arch Linux Infrastructure - TOR - Part 8 - The Onion Router
 ---
 
 ![alt text]({{ site.baseurl }}../images/infrastructure/HOTInfrastructureLayoutTOR.png "TOR")
