@@ -17,7 +17,7 @@ After setting up your FreeNAS box properly.
 
 Hit the website http://FreenasIP
 
-Click Plugs.
+Click Plugins on the top menu.
 
 Click bacula-sd - Network backup solution (server) - 5.2.12_3.
 
