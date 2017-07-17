@@ -2313,7 +2313,747 @@ btape: btape.c:2417 01:35:14: Error during test.
 
 ```
 
-Failure...
+Failure... I didn't have a tape in hand slot 2
+
+Changed a few settings (spool settings above as well)
+
+```
+btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
+Tape block granularity is 1024 bytes.
+btape: butil.c:290 Using device: "/dev/sa0" for writing.
+btape: btape.c:477 open device "UltiumLTO300" (/dev/sa0): OK
+*fill
+
+This command simulates Bacula writing to a tape.
+It requires either one or two blank tapes, which it
+will label and write.
+
+If you have an autochanger configured, it will use
+the tapes that are in slots 1 and 2, otherwise, you will
+be prompted to insert the tapes when necessary.
+
+It will print a status approximately
+every 322 MB, and write an EOF every 10.73 G.  If you have
+selected the simple test option, after writing the first tape
+it will rewind it and re-read the last block written.
+
+If you have selected the multiple tape test, when the first tape
+fills, it will ask for a second, and after writing a few more 
+blocks, it will stop.  Then it will begin re-reading the
+two tapes.
+
+This may take a long time -- hours! ...
+
+Do you want to run the simplified test (s) with one tape
+or the complete multiple tape (m) test: (s/m) m
+Multiple tape test selected.
+Wrote Volume label for volume "TestVolume1".
+Wrote Start of Session label.
+02:05:26 Begin writing Bacula records to first tape ...
+Wrote block=5000, file,blk=1,4999 VolBytes=655,228,928 rate=54.60 MB/s
+Wrote block=10000, file,blk=1,9999 VolBytes=1,310,588,928 rate=62.40 MB/s
+Wrote block=15000, file,blk=1,14999 VolBytes=1,965,948,928 rate=59.57 MB/s
+Wrote block=20000, file,blk=1,19999 VolBytes=2,621,308,928 rate=59.57 MB/s
+Wrote block=25000, file,blk=1,24999 VolBytes=3,276,668,928 rate=61.82 MB/s
+Wrote block=30000, file,blk=1,29999 VolBytes=3,932,028,928 rate=61.43 MB/s
+Wrote block=35000, file,blk=1,34999 VolBytes=4,587,388,928 rate=62.84 MB/s
+Wrote block=40000, file,blk=1,39999 VolBytes=5,242,748,928 rate=63.16 MB/s
+Wrote block=45000, file,blk=1,44999 VolBytes=5,898,108,928 rate=64.10 MB/s
+Wrote block=50000, file,blk=1,49999 VolBytes=6,553,468,928 rate=64.24 MB/s
+Wrote block=55000, file,blk=1,54999 VolBytes=7,208,828,928 rate=64.94 MB/s
+Wrote block=60000, file,blk=1,59999 VolBytes=7,864,188,928 rate=64.46 MB/s
+Wrote block=65000, file,blk=1,64999 VolBytes=8,519,548,928 rate=64.54 MB/s
+Wrote block=70000, file,blk=1,69999 VolBytes=9,174,908,928 rate=65.07 MB/s
+Wrote block=75000, file,blk=1,74999 VolBytes=9,830,268,928 rate=64.67 MB/s
+Wrote block=80000, file,blk=1,79999 VolBytes=10,485,628,928 rate=63.93 MB/s
+Wrote block=85000, file,blk=2,3080 VolBytes=11,140,988,928 rate=62.58 MB/s
+Wrote block=90000, file,blk=2,8080 VolBytes=11,796,348,928 rate=62.08 MB/s
+Wrote block=95000, file,blk=2,13080 VolBytes=12,451,708,928 rate=61.94 MB/s
+Wrote block=100000, file,blk=2,18080 VolBytes=13,107,068,928 rate=62.11 MB/s
+Wrote block=105000, file,blk=2,23080 VolBytes=13,762,428,928 rate=62.55 MB/s
+Wrote block=110000, file,blk=2,28080 VolBytes=14,417,788,928 rate=62.68 MB/s
+Wrote block=115000, file,blk=2,33080 VolBytes=15,073,148,928 rate=62.54 MB/s
+Wrote block=120000, file,blk=2,38080 VolBytes=15,728,508,928 rate=62.91 MB/s
+Wrote block=125000, file,blk=2,43080 VolBytes=16,383,868,928 rate=63.25 MB/s
+Wrote block=130000, file,blk=2,48080 VolBytes=17,039,228,928 rate=63.57 MB/s
+Wrote block=135000, file,blk=2,53080 VolBytes=17,694,588,928 rate=63.87 MB/s
+Wrote block=140000, file,blk=2,58080 VolBytes=18,349,948,928 rate=63.93 MB/s
+Wrote block=145000, file,blk=2,63080 VolBytes=19,005,308,928 rate=64.20 MB/s
+Wrote block=150000, file,blk=2,68080 VolBytes=19,660,668,928 rate=64.04 MB/s
+Wrote block=155000, file,blk=2,73080 VolBytes=20,316,028,928 rate=64.29 MB/s
+Wrote block=160000, file,blk=2,78080 VolBytes=20,971,388,928 rate=64.32 MB/s
+Wrote block=165000, file,blk=3,1161 VolBytes=21,626,748,928 rate=63.98 MB/s
+Wrote block=170000, file,blk=3,6161 VolBytes=22,282,108,928 rate=63.66 MB/s
+Wrote block=175000, file,blk=3,11161 VolBytes=22,937,468,928 rate=63.89 MB/s
+Wrote block=180000, file,blk=3,16161 VolBytes=23,592,828,928 rate=64.11 MB/s
+Wrote block=185000, file,blk=3,21161 VolBytes=24,248,188,928 rate=64.14 MB/s
+Wrote block=190000, file,blk=3,26161 VolBytes=24,903,548,928 rate=64.35 MB/s
+Wrote block=195000, file,blk=3,31161 VolBytes=25,558,908,928 rate=64.05 MB/s
+Wrote block=200000, file,blk=3,36161 VolBytes=26,214,268,928 rate=63.93 MB/s
+Wrote block=205000, file,blk=3,41161 VolBytes=26,869,628,928 rate=64.12 MB/s
+Wrote block=210000, file,blk=3,46161 VolBytes=27,524,988,928 rate=64.31 MB/s
+Wrote block=215000, file,blk=3,51161 VolBytes=28,180,348,928 rate=64.48 MB/s
+Wrote block=220000, file,blk=3,56161 VolBytes=28,835,708,928 rate=64.50 MB/s
+Wrote block=225000, file,blk=3,61161 VolBytes=29,491,068,928 rate=63.97 MB/s
+Wrote block=230000, file,blk=3,66161 VolBytes=30,146,428,928 rate=64.14 MB/s
+Wrote block=235000, file,blk=3,71161 VolBytes=30,801,788,928 rate=64.17 MB/s
+Wrote block=240000, file,blk=3,76161 VolBytes=31,457,148,928 rate=64.32 MB/s
+Wrote block=245000, file,blk=3,81161 VolBytes=32,112,508,928 rate=64.48 MB/s
+Wrote block=250000, file,blk=4,4242 VolBytes=32,767,868,928 rate=63.50 MB/s
+Wrote block=255000, file,blk=4,9242 VolBytes=33,423,228,928 rate=63.78 MB/s
+Wrote block=260000, file,blk=4,14242 VolBytes=34,078,588,928 rate=63.69 MB/s
+Wrote block=265000, file,blk=4,19242 VolBytes=34,733,948,928 rate=63.38 MB/s
+Wrote block=270000, file,blk=4,24242 VolBytes=35,389,308,928 rate=63.64 MB/s
+Wrote block=275000, file,blk=4,29242 VolBytes=36,044,668,928 rate=63.57 MB/s
+Wrote block=280000, file,blk=4,34242 VolBytes=36,700,028,928 rate=63.49 MB/s
+Wrote block=285000, file,blk=4,39242 VolBytes=37,355,388,928 rate=63.52 MB/s
+Wrote block=290000, file,blk=4,44242 VolBytes=38,010,748,928 rate=63.66 MB/s
+Wrote block=295000, file,blk=4,49242 VolBytes=38,666,108,928 rate=63.80 MB/s
+Wrote block=300000, file,blk=4,54242 VolBytes=39,321,468,928 rate=63.73 MB/s
+Wrote block=305000, file,blk=4,59242 VolBytes=39,976,828,928 rate=63.75 MB/s
+Wrote block=310000, file,blk=4,64242 VolBytes=40,632,188,928 rate=63.58 MB/s
+Wrote block=315000, file,blk=4,69242 VolBytes=41,287,548,928 rate=63.81 MB/s
+Wrote block=320000, file,blk=4,74242 VolBytes=41,942,908,928 rate=63.74 MB/s
+Wrote block=325000, file,blk=4,79242 VolBytes=42,598,268,928 rate=63.76 MB/s
+02:16:40 Flush block, write EOF
+Wrote block=330000, file,blk=5,2323 VolBytes=43,253,628,928 rate=63.60 MB/s
+Wrote block=335000, file,blk=5,7323 VolBytes=43,908,988,928 rate=63.72 MB/s
+Wrote block=340000, file,blk=5,12323 VolBytes=44,564,348,928 rate=63.84 MB/s
+Wrote block=345000, file,blk=5,17323 VolBytes=45,219,708,928 rate=63.86 MB/s
+Wrote block=350000, file,blk=5,22323 VolBytes=45,875,068,928 rate=63.98 MB/s
+Wrote block=355000, file,blk=5,27323 VolBytes=46,530,428,928 rate=64.09 MB/s
+Wrote block=360000, file,blk=5,32323 VolBytes=47,185,788,928 rate=64.19 MB/s
+Wrote block=365000, file,blk=5,37323 VolBytes=47,841,148,928 rate=64.21 MB/s
+Wrote block=370000, file,blk=5,42323 VolBytes=48,496,508,928 rate=64.23 MB/s
+Wrote block=375000, file,blk=5,47323 VolBytes=49,151,868,928 rate=64.08 MB/s
+Wrote block=380000, file,blk=5,52323 VolBytes=49,807,228,928 rate=64.01 MB/s
+Wrote block=385000, file,blk=5,57323 VolBytes=50,462,588,928 rate=63.79 MB/s
+Wrote block=390000, file,blk=5,62323 VolBytes=51,117,948,928 rate=63.73 MB/s
+Wrote block=395000, file,blk=5,67323 VolBytes=51,773,308,928 rate=63.83 MB/s
+Wrote block=400000, file,blk=5,72323 VolBytes=52,428,668,928 rate=63.70 MB/s
+Wrote block=405000, file,blk=5,77323 VolBytes=53,084,028,928 rate=63.80 MB/s
+Wrote block=410000, file,blk=6,404 VolBytes=53,739,388,928 rate=63.44 MB/s
+Wrote block=415000, file,blk=6,5404 VolBytes=54,394,748,928 rate=63.24 MB/s
+Wrote block=420000, file,blk=6,10404 VolBytes=55,050,108,928 rate=63.27 MB/s
+Wrote block=425000, file,blk=6,15404 VolBytes=55,705,468,928 rate=63.37 MB/s
+Wrote block=430000, file,blk=6,20404 VolBytes=56,360,828,928 rate=63.25 MB/s
+Wrote block=435000, file,blk=6,25404 VolBytes=57,016,188,928 rate=63.21 MB/s
+Wrote block=440000, file,blk=6,30404 VolBytes=57,671,548,928 rate=63.30 MB/s
+Wrote block=445000, file,blk=6,35404 VolBytes=58,326,908,928 rate=63.05 MB/s
+Wrote block=450000, file,blk=6,40404 VolBytes=58,982,268,928 rate=63.08 MB/s
+Wrote block=455000, file,blk=6,45404 VolBytes=59,637,628,928 rate=63.17 MB/s
+Wrote block=460000, file,blk=6,50404 VolBytes=60,292,988,928 rate=63.20 MB/s
+Wrote block=465000, file,blk=6,55404 VolBytes=60,948,348,928 rate=63.35 MB/s
+Wrote block=470000, file,blk=6,60404 VolBytes=61,603,708,928 rate=63.44 MB/s
+Wrote block=475000, file,blk=6,65404 VolBytes=62,259,068,928 rate=63.46 MB/s
+Wrote block=480000, file,blk=6,70404 VolBytes=62,914,428,928 rate=63.54 MB/s
+Wrote block=485000, file,blk=6,75404 VolBytes=63,569,788,928 rate=63.63 MB/s
+Wrote block=490000, file,blk=6,80404 VolBytes=64,225,148,928 rate=63.52 MB/s
+Wrote block=495000, file,blk=7,3485 VolBytes=64,880,508,928 rate=63.29 MB/s
+Wrote block=500000, file,blk=7,8485 VolBytes=65,535,868,928 rate=63.38 MB/s
+Wrote block=505000, file,blk=7,13485 VolBytes=66,191,228,928 rate=63.46 MB/s
+Wrote block=510000, file,blk=7,18485 VolBytes=66,846,588,928 rate=63.48 MB/s
+Wrote block=515000, file,blk=7,23485 VolBytes=67,501,948,928 rate=63.50 MB/s
+Wrote block=520000, file,blk=7,28485 VolBytes=68,157,308,928 rate=63.34 MB/s
+Wrote block=525000, file,blk=7,33485 VolBytes=68,812,668,928 rate=63.24 MB/s
+Wrote block=530000, file,blk=7,38485 VolBytes=69,468,028,928 rate=63.32 MB/s
+Wrote block=535000, file,blk=7,43485 VolBytes=70,123,388,928 rate=63.28 MB/s
+Wrote block=540000, file,blk=7,48485 VolBytes=70,778,748,928 rate=63.30 MB/s
+Wrote block=545000, file,blk=7,53485 VolBytes=71,434,108,928 rate=63.21 MB/s
+Wrote block=550000, file,blk=7,58485 VolBytes=72,089,468,928 rate=63.34 MB/s
+Wrote block=555000, file,blk=7,63485 VolBytes=72,744,828,928 rate=63.31 MB/s
+Wrote block=560000, file,blk=7,68485 VolBytes=73,400,188,928 rate=63.27 MB/s
+Wrote block=565000, file,blk=7,73485 VolBytes=74,055,548,928 rate=63.29 MB/s
+Wrote block=570000, file,blk=7,78485 VolBytes=74,710,908,928 rate=63.36 MB/s
+Wrote block=575000, file,blk=8,1566 VolBytes=75,366,268,928 rate=63.27 MB/s
+Wrote block=580000, file,blk=8,6566 VolBytes=76,021,628,928 rate=63.19 MB/s
+Wrote block=585000, file,blk=8,11566 VolBytes=76,676,988,928 rate=63.26 MB/s
+Wrote block=590000, file,blk=8,16566 VolBytes=77,332,348,928 rate=63.23 MB/s
+Wrote block=595000, file,blk=8,21566 VolBytes=77,987,708,928 rate=63.14 MB/s
+Wrote block=600000, file,blk=8,26566 VolBytes=78,643,068,928 rate=63.16 MB/s
+Wrote block=605000, file,blk=8,31566 VolBytes=79,298,428,928 rate=63.08 MB/s
+Wrote block=610000, file,blk=8,36566 VolBytes=79,953,788,928 rate=63.20 MB/s
+Wrote block=615000, file,blk=8,41566 VolBytes=80,609,148,928 rate=63.17 MB/s
+Wrote block=620000, file,blk=8,46566 VolBytes=81,264,508,928 rate=63.14 MB/s
+Wrote block=625000, file,blk=8,51566 VolBytes=81,919,868,928 rate=63.16 MB/s
+Wrote block=630000, file,blk=8,56566 VolBytes=82,575,228,928 rate=63.22 MB/s
+Wrote block=635000, file,blk=8,61566 VolBytes=83,230,588,928 rate=63.24 MB/s
+Wrote block=640000, file,blk=8,66566 VolBytes=83,885,948,928 rate=63.21 MB/s
+Wrote block=645000, file,blk=8,71566 VolBytes=84,541,308,928 rate=63.27 MB/s
+Wrote block=650000, file,blk=8,76566 VolBytes=85,196,668,928 rate=63.34 MB/s
+Wrote block=655000, file,blk=8,81566 VolBytes=85,852,028,928 rate=63.35 MB/s
+02:28:03 Flush block, write EOF
+Wrote block=660000, file,blk=9,4647 VolBytes=86,507,388,928 rate=63.28 MB/s
+Wrote block=665000, file,blk=9,9647 VolBytes=87,162,748,928 rate=63.34 MB/s
+Wrote block=670000, file,blk=9,14647 VolBytes=87,818,108,928 rate=63.36 MB/s
+Wrote block=675000, file,blk=9,19647 VolBytes=88,473,468,928 rate=63.42 MB/s
+Wrote block=680000, file,blk=9,24647 VolBytes=89,128,828,928 rate=63.43 MB/s
+Wrote block=685000, file,blk=9,29647 VolBytes=89,784,188,928 rate=63.49 MB/s
+Wrote block=690000, file,blk=9,34647 VolBytes=90,439,548,928 rate=63.46 MB/s
+Wrote block=695000, file,blk=9,39647 VolBytes=91,094,908,928 rate=63.48 MB/s
+Wrote block=700000, file,blk=9,44647 VolBytes=91,750,268,928 rate=63.53 MB/s
+Wrote block=705000, file,blk=9,49647 VolBytes=92,405,628,928 rate=63.59 MB/s
+Wrote block=710000, file,blk=9,54647 VolBytes=93,060,988,928 rate=63.65 MB/s
+Wrote block=715000, file,blk=9,59647 VolBytes=93,716,348,928 rate=63.66 MB/s
+Wrote block=720000, file,blk=9,64647 VolBytes=94,371,708,928 rate=63.72 MB/s
+Wrote block=725000, file,blk=9,69647 VolBytes=95,027,068,928 rate=63.64 MB/s
+Wrote block=730000, file,blk=9,74647 VolBytes=95,682,428,928 rate=63.74 MB/s
+Wrote block=735000, file,blk=9,79647 VolBytes=96,337,788,928 rate=63.71 MB/s
+Wrote block=740000, file,blk=10,2728 VolBytes=96,993,148,928 rate=63.56 MB/s
+Wrote block=745000, file,blk=10,7728 VolBytes=97,648,508,928 rate=63.61 MB/s
+Wrote block=750000, file,blk=10,12728 VolBytes=98,303,868,928 rate=63.54 MB/s
+Wrote block=755000, file,blk=10,17728 VolBytes=98,959,228,928 rate=63.51 MB/s
+Wrote block=760000, file,blk=10,22728 VolBytes=99,614,588,928 rate=63.57 MB/s
+Wrote block=765000, file,blk=10,27728 VolBytes=100,269,948,928 rate=63.62 MB/s
+Wrote block=770000, file,blk=10,32728 VolBytes=100,925,308,928 rate=63.63 MB/s
+Wrote block=775000, file,blk=10,37728 VolBytes=101,580,668,928 rate=63.68 MB/s
+Wrote block=780000, file,blk=10,42728 VolBytes=102,236,028,928 rate=63.69 MB/s
+Wrote block=785000, file,blk=10,47728 VolBytes=102,891,388,928 rate=63.78 MB/s
+Wrote block=790000, file,blk=10,52728 VolBytes=103,546,748,928 rate=63.72 MB/s
+Wrote block=795000, file,blk=10,57728 VolBytes=104,202,108,928 rate=63.69 MB/s
+Wrote block=800000, file,blk=10,62728 VolBytes=104,857,468,928 rate=63.74 MB/s
+Wrote block=805000, file,blk=10,67728 VolBytes=105,512,828,928 rate=63.79 MB/s
+Wrote block=810000, file,blk=10,72728 VolBytes=106,168,188,928 rate=63.84 MB/s
+Wrote block=815000, file,blk=10,77728 VolBytes=106,823,548,928 rate=63.69 MB/s
+Wrote block=820000, file,blk=11,809 VolBytes=107,478,908,928 rate=63.63 MB/s
+Wrote block=825000, file,blk=11,5809 VolBytes=108,134,268,928 rate=63.68 MB/s
+Wrote block=830000, file,blk=11,10809 VolBytes=108,789,628,928 rate=63.69 MB/s
+Wrote block=835000, file,blk=11,15809 VolBytes=109,444,988,928 rate=63.74 MB/s
+Wrote block=840000, file,blk=11,20809 VolBytes=110,100,348,928 rate=63.75 MB/s
+Wrote block=845000, file,blk=11,25809 VolBytes=110,755,708,928 rate=63.79 MB/s
+Wrote block=850000, file,blk=11,30809 VolBytes=111,411,068,928 rate=63.77 MB/s
+Wrote block=855000, file,blk=11,35809 VolBytes=112,066,428,928 rate=63.74 MB/s
+Wrote block=860000, file,blk=11,40809 VolBytes=112,721,788,928 rate=63.82 MB/s
+Wrote block=865000, file,blk=11,45809 VolBytes=113,377,148,928 rate=63.80 MB/s
+Wrote block=870000, file,blk=11,50809 VolBytes=114,032,508,928 rate=63.81 MB/s
+Wrote block=875000, file,blk=11,55809 VolBytes=114,687,868,928 rate=63.85 MB/s
+Wrote block=880000, file,blk=11,60809 VolBytes=115,343,228,928 rate=63.90 MB/s
+Wrote block=885000, file,blk=11,65809 VolBytes=115,998,588,928 rate=63.87 MB/s
+Wrote block=890000, file,blk=11,70809 VolBytes=116,653,948,928 rate=63.88 MB/s
+Wrote block=895000, file,blk=11,75809 VolBytes=117,309,308,928 rate=63.92 MB/s
+Wrote block=900000, file,blk=11,80809 VolBytes=117,964,668,928 rate=63.93 MB/s
+Wrote block=905000, file,blk=12,3890 VolBytes=118,620,028,928 rate=63.80 MB/s
+Wrote block=910000, file,blk=12,8890 VolBytes=119,275,388,928 rate=63.85 MB/s
+Wrote block=915000, file,blk=12,13890 VolBytes=119,930,748,928 rate=63.89 MB/s
+Wrote block=920000, file,blk=12,18890 VolBytes=120,586,108,928 rate=63.93 MB/s
+Wrote block=925000, file,blk=12,23890 VolBytes=121,241,468,928 rate=63.94 MB/s
+Wrote block=930000, file,blk=12,28890 VolBytes=121,896,828,928 rate=63.88 MB/s
+Wrote block=935000, file,blk=12,33890 VolBytes=122,552,188,928 rate=63.86 MB/s
+Wrote block=940000, file,blk=12,38890 VolBytes=123,207,548,928 rate=63.90 MB/s
+Wrote block=945000, file,blk=12,43890 VolBytes=123,862,908,928 rate=63.94 MB/s
+Wrote block=950000, file,blk=12,48890 VolBytes=124,518,268,928 rate=63.95 MB/s
+Wrote block=955000, file,blk=12,53890 VolBytes=125,173,628,928 rate=63.99 MB/s
+Wrote block=960000, file,blk=12,58890 VolBytes=125,828,988,928 rate=63.87 MB/s
+Wrote block=965000, file,blk=12,63890 VolBytes=126,484,348,928 rate=63.91 MB/s
+Wrote block=970000, file,blk=12,68890 VolBytes=127,139,708,928 rate=63.85 MB/s
+Wrote block=975000, file,blk=12,73890 VolBytes=127,795,068,928 rate=63.83 MB/s
+Wrote block=980000, file,blk=12,78890 VolBytes=128,450,428,928 rate=63.84 MB/s
+02:39:04 Flush block, write EOF
+Wrote block=985000, file,blk=13,1971 VolBytes=129,105,788,928 rate=63.81 MB/s
+Wrote block=990000, file,blk=13,6971 VolBytes=129,761,148,928 rate=63.85 MB/s
+Wrote block=995000, file,blk=13,11971 VolBytes=130,416,508,928 rate=63.83 MB/s
+Wrote block=1000000, file,blk=13,16971 VolBytes=131,071,868,928 rate=63.78 MB/s
+Wrote block=1005000, file,blk=13,21971 VolBytes=131,727,228,928 rate=63.75 MB/s
+Wrote block=1010000, file,blk=13,26971 VolBytes=132,382,588,928 rate=63.79 MB/s
+Wrote block=1015000, file,blk=13,31971 VolBytes=133,037,948,928 rate=63.83 MB/s
+Wrote block=1020000, file,blk=13,36971 VolBytes=133,693,308,928 rate=63.84 MB/s
+Wrote block=1025000, file,blk=13,41971 VolBytes=134,348,668,928 rate=63.88 MB/s
+Wrote block=1030000, file,blk=13,46971 VolBytes=135,004,028,928 rate=63.92 MB/s
+Wrote block=1035000, file,blk=13,51971 VolBytes=135,659,388,928 rate=63.89 MB/s
+Wrote block=1040000, file,blk=13,56971 VolBytes=136,314,748,928 rate=63.90 MB/s
+Wrote block=1045000, file,blk=13,61971 VolBytes=136,970,108,928 rate=63.94 MB/s
+Wrote block=1050000, file,blk=13,66971 VolBytes=137,625,468,928 rate=63.98 MB/s
+Wrote block=1055000, file,blk=13,71971 VolBytes=138,280,828,928 rate=64.01 MB/s
+Wrote block=1060000, file,blk=13,76971 VolBytes=138,936,188,928 rate=64.05 MB/s
+Wrote block=1065000, file,blk=14,52 VolBytes=139,591,548,928 rate=64.06 MB/s
+Wrote block=1070000, file,blk=14,5052 VolBytes=140,246,908,928 rate=64.03 MB/s
+Wrote block=1075000, file,blk=14,10052 VolBytes=140,902,268,928 rate=64.04 MB/s
+Wrote block=1080000, file,blk=14,15052 VolBytes=141,557,628,928 rate=64.08 MB/s
+Wrote block=1085000, file,blk=14,20052 VolBytes=142,212,988,928 rate=64.08 MB/s
+Wrote block=1090000, file,blk=14,25052 VolBytes=142,868,348,928 rate=64.15 MB/s
+Wrote block=1095000, file,blk=14,30052 VolBytes=143,523,708,928 rate=64.18 MB/s
+Wrote block=1100000, file,blk=14,35052 VolBytes=144,179,068,928 rate=64.22 MB/s
+Wrote block=1105000, file,blk=14,40052 VolBytes=144,834,428,928 rate=64.22 MB/s
+Wrote block=1110000, file,blk=14,45052 VolBytes=145,489,788,928 rate=64.12 MB/s
+Wrote block=1115000, file,blk=14,50052 VolBytes=146,145,148,928 rate=64.12 MB/s
+Wrote block=1120000, file,blk=14,55052 VolBytes=146,800,508,928 rate=64.18 MB/s
+Wrote block=1125000, file,blk=14,60052 VolBytes=147,455,868,928 rate=64.13 MB/s
+Wrote block=1130000, file,blk=14,65052 VolBytes=148,111,228,928 rate=64.08 MB/s
+Wrote block=1135000, file,blk=14,70052 VolBytes=148,766,588,928 rate=64.04 MB/s
+Wrote block=1140000, file,blk=14,75052 VolBytes=149,421,948,928 rate=64.07 MB/s
+Wrote block=1145000, file,blk=14,80052 VolBytes=150,077,308,928 rate=64.05 MB/s
+Wrote block=1150000, file,blk=15,3133 VolBytes=150,732,668,928 rate=63.92 MB/s
+Wrote block=1155000, file,blk=15,8133 VolBytes=151,388,028,928 rate=63.90 MB/s
+Wrote block=1160000, file,blk=15,13133 VolBytes=152,043,388,928 rate=63.93 MB/s
+Wrote block=1165000, file,blk=15,18133 VolBytes=152,698,748,928 rate=63.97 MB/s
+Wrote block=1170000, file,blk=15,23133 VolBytes=153,354,108,928 rate=63.97 MB/s
+Wrote block=1175000, file,blk=15,28133 VolBytes=154,009,468,928 rate=64.01 MB/s
+Wrote block=1180000, file,blk=15,33133 VolBytes=154,664,828,928 rate=63.99 MB/s
+Wrote block=1185000, file,blk=15,38133 VolBytes=155,320,188,928 rate=64.02 MB/s
+Wrote block=1190000, file,blk=15,43133 VolBytes=155,975,548,928 rate=64.05 MB/s
+Wrote block=1195000, file,blk=15,48133 VolBytes=156,630,908,928 rate=64.00 MB/s
+Wrote block=1200000, file,blk=15,53133 VolBytes=157,286,268,928 rate=63.96 MB/s
+Wrote block=1205000, file,blk=15,58133 VolBytes=157,941,628,928 rate=63.99 MB/s
+Wrote block=1210000, file,blk=15,63133 VolBytes=158,596,988,928 rate=63.97 MB/s
+Wrote block=1215000, file,blk=15,68133 VolBytes=159,252,348,928 rate=63.93 MB/s
+Wrote block=1220000, file,blk=15,73133 VolBytes=159,907,708,928 rate=63.96 MB/s
+Wrote block=1225000, file,blk=15,78133 VolBytes=160,563,068,928 rate=63.96 MB/s
+Wrote block=1230000, file,blk=16,1214 VolBytes=161,218,428,928 rate=63.95 MB/s
+Wrote block=1235000, file,blk=16,6214 VolBytes=161,873,788,928 rate=63.90 MB/s
+Wrote block=1240000, file,blk=16,11214 VolBytes=162,529,148,928 rate=63.91 MB/s
+Wrote block=1245000, file,blk=16,16214 VolBytes=163,184,508,928 rate=63.94 MB/s
+Wrote block=1250000, file,blk=16,21214 VolBytes=163,839,868,928 rate=63.97 MB/s
+Wrote block=1255000, file,blk=16,26214 VolBytes=164,495,228,928 rate=63.95 MB/s
+Wrote block=1260000, file,blk=16,31214 VolBytes=165,150,588,928 rate=63.91 MB/s
+Wrote block=1265000, file,blk=16,36214 VolBytes=165,805,948,928 rate=63.82 MB/s
+Wrote block=1270000, file,blk=16,41214 VolBytes=166,461,308,928 rate=63.85 MB/s
+Wrote block=1275000, file,blk=16,46214 VolBytes=167,116,668,928 rate=63.83 MB/s
+Wrote block=1280000, file,blk=16,51214 VolBytes=167,772,028,928 rate=63.84 MB/s
+Wrote block=1285000, file,blk=16,56214 VolBytes=168,427,388,928 rate=63.87 MB/s
+Wrote block=1290000, file,blk=16,61214 VolBytes=169,082,748,928 rate=63.90 MB/s
+Wrote block=1295000, file,blk=16,66214 VolBytes=169,738,108,928 rate=63.85 MB/s
+Wrote block=1300000, file,blk=16,71214 VolBytes=170,393,468,928 rate=63.84 MB/s
+Wrote block=1305000, file,blk=16,76214 VolBytes=171,048,828,928 rate=63.87 MB/s
+Wrote block=1310000, file,blk=16,81214 VolBytes=171,704,188,928 rate=63.87 MB/s
+02:50:16 Flush block, write EOF
+Wrote block=1315000, file,blk=17,4295 VolBytes=172,359,548,928 rate=63.78 MB/s
+Wrote block=1320000, file,blk=17,9295 VolBytes=173,014,908,928 rate=63.79 MB/s
+Wrote block=1325000, file,blk=17,14295 VolBytes=173,670,268,928 rate=63.82 MB/s
+Wrote block=1330000, file,blk=17,19295 VolBytes=174,325,628,928 rate=63.80 MB/s
+Wrote block=1335000, file,blk=17,24295 VolBytes=174,980,988,928 rate=63.83 MB/s
+Wrote block=1340000, file,blk=17,29295 VolBytes=175,636,348,928 rate=63.86 MB/s
+Wrote block=1345000, file,blk=17,34295 VolBytes=176,291,708,928 rate=63.87 MB/s
+Wrote block=1350000, file,blk=17,39295 VolBytes=176,947,068,928 rate=63.90 MB/s
+Wrote block=1355000, file,blk=17,44295 VolBytes=177,602,428,928 rate=63.93 MB/s
+Wrote block=1360000, file,blk=17,49295 VolBytes=178,257,788,928 rate=63.96 MB/s
+Wrote block=1365000, file,blk=17,54295 VolBytes=178,913,148,928 rate=63.96 MB/s
+Wrote block=1370000, file,blk=17,59295 VolBytes=179,568,508,928 rate=63.99 MB/s
+Wrote block=1375000, file,blk=17,64295 VolBytes=180,223,868,928 rate=63.99 MB/s
+Wrote block=1380000, file,blk=17,69295 VolBytes=180,879,228,928 rate=64.02 MB/s
+Wrote block=1385000, file,blk=17,74295 VolBytes=181,534,588,928 rate=64.05 MB/s
+Wrote block=1390000, file,blk=17,79295 VolBytes=182,189,948,928 rate=64.03 MB/s
+Wrote block=1395000, file,blk=18,2376 VolBytes=182,845,308,928 rate=63.99 MB/s
+Wrote block=1400000, file,blk=18,7376 VolBytes=183,500,668,928 rate=63.95 MB/s
+Wrote block=1405000, file,blk=18,12376 VolBytes=184,156,028,928 rate=63.89 MB/s
+Wrote block=1410000, file,blk=18,17376 VolBytes=184,811,388,928 rate=63.86 MB/s
+Wrote block=1415000, file,blk=18,22376 VolBytes=185,466,748,928 rate=63.84 MB/s
+Wrote block=1420000, file,blk=18,27376 VolBytes=186,122,108,928 rate=63.84 MB/s
+Wrote block=1425000, file,blk=18,32376 VolBytes=186,777,468,928 rate=63.87 MB/s
+Wrote block=1430000, file,blk=18,37376 VolBytes=187,432,828,928 rate=63.88 MB/s
+Wrote block=1435000, file,blk=18,42376 VolBytes=188,088,188,928 rate=63.86 MB/s
+Wrote block=1440000, file,blk=18,47376 VolBytes=188,743,548,928 rate=63.82 MB/s
+Wrote block=1445000, file,blk=18,52376 VolBytes=189,398,908,928 rate=63.85 MB/s
+Wrote block=1450000, file,blk=18,57376 VolBytes=190,054,268,928 rate=63.86 MB/s
+Wrote block=1455000, file,blk=18,62376 VolBytes=190,709,628,928 rate=63.88 MB/s
+Wrote block=1460000, file,blk=18,67376 VolBytes=191,364,988,928 rate=63.87 MB/s
+Wrote block=1465000, file,blk=18,72376 VolBytes=192,020,348,928 rate=63.87 MB/s
+Wrote block=1470000, file,blk=18,77376 VolBytes=192,675,708,928 rate=63.90 MB/s
+Wrote block=1475000, file,blk=19,457 VolBytes=193,331,068,928 rate=63.86 MB/s
+Wrote block=1480000, file,blk=19,5457 VolBytes=193,986,428,928 rate=63.85 MB/s
+Wrote block=1485000, file,blk=19,10457 VolBytes=194,641,788,928 rate=63.85 MB/s
+Wrote block=1490000, file,blk=19,15457 VolBytes=195,297,148,928 rate=63.88 MB/s
+Wrote block=1495000, file,blk=19,20457 VolBytes=195,952,508,928 rate=63.91 MB/s
+Wrote block=1500000, file,blk=19,25457 VolBytes=196,607,868,928 rate=63.93 MB/s
+Wrote block=1505000, file,blk=19,30457 VolBytes=197,263,228,928 rate=63.90 MB/s
+Wrote block=1510000, file,blk=19,35457 VolBytes=197,918,588,928 rate=63.94 MB/s
+Wrote block=1515000, file,blk=19,40457 VolBytes=198,573,948,928 rate=63.91 MB/s
+Wrote block=1520000, file,blk=19,45457 VolBytes=199,229,308,928 rate=63.89 MB/s
+Wrote block=1525000, file,blk=19,50457 VolBytes=199,884,668,928 rate=63.92 MB/s
+Wrote block=1530000, file,blk=19,55457 VolBytes=200,540,028,928 rate=63.94 MB/s
+Wrote block=1535000, file,blk=19,60457 VolBytes=201,195,388,928 rate=63.95 MB/s
+Wrote block=1540000, file,blk=19,65457 VolBytes=201,850,748,928 rate=63.97 MB/s
+Wrote block=1545000, file,blk=19,70457 VolBytes=202,506,108,928 rate=64.00 MB/s
+Wrote block=1550000, file,blk=19,75457 VolBytes=203,161,468,928 rate=63.92 MB/s
+Wrote block=1555000, file,blk=19,80457 VolBytes=203,816,828,928 rate=63.95 MB/s
+Wrote block=1560000, file,blk=20,3538 VolBytes=204,472,188,928 rate=63.91 MB/s
+Wrote block=1565000, file,blk=20,8538 VolBytes=205,127,548,928 rate=63.94 MB/s
+Wrote block=1570000, file,blk=20,13538 VolBytes=205,782,908,928 rate=63.92 MB/s
+Wrote block=1575000, file,blk=20,18538 VolBytes=206,438,268,928 rate=63.91 MB/s
+Wrote block=1580000, file,blk=20,23538 VolBytes=207,093,628,928 rate=63.93 MB/s
+Wrote block=1585000, file,blk=20,28538 VolBytes=207,748,988,928 rate=63.96 MB/s
+Wrote block=1590000, file,blk=20,33538 VolBytes=208,404,348,928 rate=63.90 MB/s
+Wrote block=1595000, file,blk=20,38538 VolBytes=209,059,708,928 rate=63.89 MB/s
+Wrote block=1600000, file,blk=20,43538 VolBytes=209,715,068,928 rate=63.85 MB/s
+Wrote block=1605000, file,blk=20,48538 VolBytes=210,370,428,928 rate=63.84 MB/s
+Wrote block=1610000, file,blk=20,53538 VolBytes=211,025,788,928 rate=63.85 MB/s
+Wrote block=1615000, file,blk=20,58538 VolBytes=211,681,148,928 rate=63.89 MB/s
+Wrote block=1620000, file,blk=20,63538 VolBytes=212,336,508,928 rate=63.89 MB/s
+Wrote block=1625000, file,blk=20,68538 VolBytes=212,991,868,928 rate=63.71 MB/s
+Wrote block=1630000, file,blk=20,73538 VolBytes=213,647,228,928 rate=63.75 MB/s
+Wrote block=1635000, file,blk=20,78538 VolBytes=214,302,588,928 rate=63.78 MB/s
+03:01:31 Flush block, write EOF
+Wrote block=1640000, file,blk=21,1619 VolBytes=214,957,948,928 rate=63.78 MB/s
+Wrote block=1645000, file,blk=21,6619 VolBytes=215,613,308,928 rate=63.75 MB/s
+Wrote block=1650000, file,blk=21,11619 VolBytes=216,268,668,928 rate=63.73 MB/s
+Wrote block=1655000, file,blk=21,16619 VolBytes=216,924,028,928 rate=63.72 MB/s
+Wrote block=1660000, file,blk=21,21619 VolBytes=217,579,388,928 rate=63.73 MB/s
+Wrote block=1665000, file,blk=21,26619 VolBytes=218,234,748,928 rate=63.75 MB/s
+Wrote block=1670000, file,blk=21,31619 VolBytes=218,890,108,928 rate=63.77 MB/s
+Wrote block=1675000, file,blk=21,36619 VolBytes=219,545,468,928 rate=63.80 MB/s
+Wrote block=1680000, file,blk=21,41619 VolBytes=220,200,828,928 rate=63.82 MB/s
+Wrote block=1685000, file,blk=21,46619 VolBytes=220,856,188,928 rate=63.84 MB/s
+Wrote block=1690000, file,blk=21,51619 VolBytes=221,511,548,928 rate=63.85 MB/s
+Wrote block=1695000, file,blk=21,56619 VolBytes=222,166,908,928 rate=63.84 MB/s
+Wrote block=1700000, file,blk=21,61619 VolBytes=222,822,268,928 rate=63.86 MB/s
+Wrote block=1705000, file,blk=21,66619 VolBytes=223,477,628,928 rate=63.83 MB/s
+Wrote block=1710000, file,blk=21,71619 VolBytes=224,132,988,928 rate=63.81 MB/s
+Wrote block=1715000, file,blk=21,76619 VolBytes=224,788,348,928 rate=63.84 MB/s
+Wrote block=1720000, file,blk=21,81619 VolBytes=225,443,708,928 rate=63.84 MB/s
+Wrote block=1725000, file,blk=22,4700 VolBytes=226,099,068,928 rate=63.77 MB/s
+Wrote block=1730000, file,blk=22,9700 VolBytes=226,754,428,928 rate=63.80 MB/s
+Wrote block=1735000, file,blk=22,14700 VolBytes=227,409,788,928 rate=63.80 MB/s
+Wrote block=1740000, file,blk=22,19700 VolBytes=228,065,148,928 rate=63.83 MB/s
+Wrote block=1745000, file,blk=22,24700 VolBytes=228,720,508,928 rate=63.79 MB/s
+Wrote block=1750000, file,blk=22,29700 VolBytes=229,375,868,928 rate=63.83 MB/s
+Wrote block=1755000, file,blk=22,34700 VolBytes=230,031,228,928 rate=63.86 MB/s
+Wrote block=1760000, file,blk=22,39700 VolBytes=230,686,588,928 rate=63.86 MB/s
+Wrote block=1765000, file,blk=22,44700 VolBytes=231,341,948,928 rate=63.85 MB/s
+Wrote block=1770000, file,blk=22,49700 VolBytes=231,997,308,928 rate=63.84 MB/s
+Wrote block=1775000, file,blk=22,54700 VolBytes=232,652,668,928 rate=63.81 MB/s
+Wrote block=1780000, file,blk=22,59700 VolBytes=233,308,028,928 rate=63.79 MB/s
+Wrote block=1785000, file,blk=22,64700 VolBytes=233,963,388,928 rate=63.81 MB/s
+Wrote block=1790000, file,blk=22,69700 VolBytes=234,618,748,928 rate=63.78 MB/s
+Wrote block=1795000, file,blk=22,74700 VolBytes=235,274,108,928 rate=63.77 MB/s
+Wrote block=1800000, file,blk=22,79700 VolBytes=235,929,468,928 rate=63.74 MB/s
+Wrote block=1805000, file,blk=23,2781 VolBytes=236,584,828,928 rate=63.66 MB/s
+Wrote block=1810000, file,blk=23,7781 VolBytes=237,240,188,928 rate=63.68 MB/s
+Wrote block=1815000, file,blk=23,12781 VolBytes=237,895,548,928 rate=63.71 MB/s
+Wrote block=1820000, file,blk=23,17781 VolBytes=238,550,908,928 rate=63.73 MB/s
+Wrote block=1825000, file,blk=23,22781 VolBytes=239,206,268,928 rate=63.73 MB/s
+Wrote block=1830000, file,blk=23,27781 VolBytes=239,861,628,928 rate=63.75 MB/s
+Wrote block=1835000, file,blk=23,32781 VolBytes=240,516,988,928 rate=63.78 MB/s
+Wrote block=1840000, file,blk=23,37781 VolBytes=241,172,348,928 rate=63.80 MB/s
+Wrote block=1845000, file,blk=23,42781 VolBytes=241,827,708,928 rate=63.73 MB/s
+Wrote block=1850000, file,blk=23,47781 VolBytes=242,483,068,928 rate=63.76 MB/s
+Wrote block=1855000, file,blk=23,52781 VolBytes=243,138,428,928 rate=63.74 MB/s
+Wrote block=1860000, file,blk=23,57781 VolBytes=243,793,788,928 rate=63.72 MB/s
+Wrote block=1865000, file,blk=23,62781 VolBytes=244,449,148,928 rate=63.70 MB/s
+Wrote block=1870000, file,blk=23,67781 VolBytes=245,104,508,928 rate=63.71 MB/s
+Wrote block=1875000, file,blk=23,72781 VolBytes=245,759,868,928 rate=63.75 MB/s
+Wrote block=1880000, file,blk=23,77781 VolBytes=246,415,228,928 rate=63.75 MB/s
+Wrote block=1885000, file,blk=24,862 VolBytes=247,070,588,928 rate=63.72 MB/s
+Wrote block=1890000, file,blk=24,5862 VolBytes=247,725,948,928 rate=63.65 MB/s
+Wrote block=1895000, file,blk=24,10862 VolBytes=248,381,308,928 rate=63.67 MB/s
+Wrote block=1900000, file,blk=24,15862 VolBytes=249,036,668,928 rate=63.69 MB/s
+Wrote block=1905000, file,blk=24,20862 VolBytes=249,692,028,928 rate=63.64 MB/s
+Wrote block=1910000, file,blk=24,25862 VolBytes=250,347,388,928 rate=63.68 MB/s
+Wrote block=1915000, file,blk=24,30862 VolBytes=251,002,748,928 rate=63.67 MB/s
+Wrote block=1920000, file,blk=24,35862 VolBytes=251,658,108,928 rate=63.66 MB/s
+Wrote block=1925000, file,blk=24,40862 VolBytes=252,313,468,928 rate=63.68 MB/s
+Wrote block=1930000, file,blk=24,45862 VolBytes=252,968,828,928 rate=63.70 MB/s
+Wrote block=1935000, file,blk=24,50862 VolBytes=253,624,188,928 rate=63.67 MB/s
+Wrote block=1940000, file,blk=24,55862 VolBytes=254,279,548,928 rate=63.66 MB/s
+Wrote block=1945000, file,blk=24,60862 VolBytes=254,934,908,928 rate=63.67 MB/s
+Wrote block=1950000, file,blk=24,65862 VolBytes=255,590,268,928 rate=63.69 MB/s
+Wrote block=1955000, file,blk=24,70862 VolBytes=256,245,628,928 rate=63.69 MB/s
+Wrote block=1960000, file,blk=24,75862 VolBytes=256,900,988,928 rate=63.71 MB/s
+Wrote block=1965000, file,blk=24,80862 VolBytes=257,556,348,928 rate=63.75 MB/s
+03:12:50 Flush block, write EOF
+Wrote block=1970000, file,blk=25,3943 VolBytes=258,211,708,928 rate=63.72 MB/s
+Wrote block=1975000, file,blk=25,8943 VolBytes=258,867,068,928 rate=63.72 MB/s
+Wrote block=1980000, file,blk=25,13943 VolBytes=259,522,428,928 rate=63.71 MB/s
+Wrote block=1985000, file,blk=25,18943 VolBytes=260,177,788,928 rate=63.69 MB/s
+Wrote block=1990000, file,blk=25,23943 VolBytes=260,833,148,928 rate=63.64 MB/s
+Wrote block=1995000, file,blk=25,28943 VolBytes=261,488,508,928 rate=63.66 MB/s
+Wrote block=2000000, file,blk=25,33943 VolBytes=262,143,868,928 rate=63.67 MB/s
+Wrote block=2005000, file,blk=25,38943 VolBytes=262,799,228,928 rate=63.69 MB/s
+Wrote block=2010000, file,blk=25,43943 VolBytes=263,454,588,928 rate=63.66 MB/s
+Wrote block=2015000, file,blk=25,48943 VolBytes=264,109,948,928 rate=63.68 MB/s
+Wrote block=2020000, file,blk=25,53943 VolBytes=264,765,308,928 rate=63.66 MB/s
+Wrote block=2025000, file,blk=25,58943 VolBytes=265,420,668,928 rate=63.68 MB/s
+Wrote block=2030000, file,blk=25,63943 VolBytes=266,076,028,928 rate=63.62 MB/s
+Wrote block=2035000, file,blk=25,68943 VolBytes=266,731,388,928 rate=63.65 MB/s
+Wrote block=2040000, file,blk=25,73943 VolBytes=267,386,748,928 rate=63.63 MB/s
+Wrote block=2045000, file,blk=25,78943 VolBytes=268,042,108,928 rate=63.62 MB/s
+Wrote block=2050000, file,blk=26,2024 VolBytes=268,697,468,928 rate=63.59 MB/s
+Wrote block=2055000, file,blk=26,7024 VolBytes=269,352,828,928 rate=63.58 MB/s
+Wrote block=2060000, file,blk=26,12024 VolBytes=270,008,188,928 rate=63.59 MB/s
+Wrote block=2065000, file,blk=26,17024 VolBytes=270,663,548,928 rate=63.53 MB/s
+Wrote block=2070000, file,blk=26,22024 VolBytes=271,318,908,928 rate=63.55 MB/s
+Wrote block=2075000, file,blk=26,27024 VolBytes=271,974,268,928 rate=63.57 MB/s
+Wrote block=2080000, file,blk=26,32024 VolBytes=272,629,628,928 rate=63.59 MB/s
+Wrote block=2085000, file,blk=26,37024 VolBytes=273,284,988,928 rate=63.59 MB/s
+Wrote block=2090000, file,blk=26,42024 VolBytes=273,940,348,928 rate=63.57 MB/s
+Wrote block=2095000, file,blk=26,47024 VolBytes=274,595,708,928 rate=63.60 MB/s
+Wrote block=2100000, file,blk=26,52024 VolBytes=275,251,068,928 rate=63.58 MB/s
+Wrote block=2105000, file,blk=26,57024 VolBytes=275,906,428,928 rate=63.55 MB/s
+Wrote block=2110000, file,blk=26,62024 VolBytes=276,561,788,928 rate=63.54 MB/s
+Wrote block=2115000, file,blk=26,67024 VolBytes=277,217,148,928 rate=63.56 MB/s
+Wrote block=2120000, file,blk=26,72024 VolBytes=277,872,508,928 rate=63.57 MB/s
+Wrote block=2125000, file,blk=26,77024 VolBytes=278,527,868,928 rate=63.59 MB/s
+Wrote block=2130000, file,blk=27,105 VolBytes=279,183,228,928 rate=63.55 MB/s
+Wrote block=2135000, file,blk=27,5105 VolBytes=279,838,588,928 rate=63.55 MB/s
+Wrote block=2140000, file,blk=27,10105 VolBytes=280,493,948,928 rate=63.54 MB/s
+Wrote block=2145000, file,blk=27,15105 VolBytes=281,149,308,928 rate=63.56 MB/s
+Wrote block=2150000, file,blk=27,20105 VolBytes=281,804,668,928 rate=63.54 MB/s
+Wrote block=2155000, file,blk=27,25105 VolBytes=282,460,028,928 rate=63.53 MB/s
+Wrote block=2160000, file,blk=27,30105 VolBytes=283,115,388,928 rate=63.55 MB/s
+Wrote block=2165000, file,blk=27,35105 VolBytes=283,770,748,928 rate=63.52 MB/s
+Wrote block=2170000, file,blk=27,40105 VolBytes=284,426,108,928 rate=63.51 MB/s
+Wrote block=2175000, file,blk=27,45105 VolBytes=285,081,468,928 rate=63.53 MB/s
+Wrote block=2180000, file,blk=27,50105 VolBytes=285,736,828,928 rate=63.53 MB/s
+Wrote block=2185000, file,blk=27,55105 VolBytes=286,392,188,928 rate=63.55 MB/s
+Wrote block=2190000, file,blk=27,60105 VolBytes=287,047,548,928 rate=63.57 MB/s
+Wrote block=2195000, file,blk=27,65105 VolBytes=287,702,908,928 rate=63.59 MB/s
+Wrote block=2200000, file,blk=27,70105 VolBytes=288,358,268,928 rate=63.61 MB/s
+Wrote block=2205000, file,blk=27,75105 VolBytes=289,013,628,928 rate=63.61 MB/s
+Wrote block=2210000, file,blk=27,80105 VolBytes=289,668,988,928 rate=63.60 MB/s
+Wrote block=2215000, file,blk=28,3186 VolBytes=290,324,348,928 rate=63.50 MB/s
+Wrote block=2220000, file,blk=28,8186 VolBytes=290,979,708,928 rate=63.51 MB/s
+Wrote block=2225000, file,blk=28,13186 VolBytes=291,635,068,928 rate=63.53 MB/s
+Wrote block=2230000, file,blk=28,18186 VolBytes=292,290,428,928 rate=63.51 MB/s
+Wrote block=2235000, file,blk=28,23186 VolBytes=292,945,788,928 rate=63.53 MB/s
+Wrote block=2240000, file,blk=28,28186 VolBytes=293,601,148,928 rate=63.50 MB/s
+Wrote block=2245000, file,blk=28,33186 VolBytes=294,256,508,928 rate=63.52 MB/s
+Wrote block=2250000, file,blk=28,38186 VolBytes=294,911,868,928 rate=63.54 MB/s
+Wrote block=2255000, file,blk=28,43186 VolBytes=295,567,228,928 rate=63.56 MB/s
+Wrote block=2260000, file,blk=28,48186 VolBytes=296,222,588,928 rate=63.56 MB/s
+Wrote block=2265000, file,blk=28,53186 VolBytes=296,877,948,928 rate=63.58 MB/s
+Wrote block=2270000, file,blk=28,58186 VolBytes=297,533,308,928 rate=63.60 MB/s
+Wrote block=2275000, file,blk=28,63186 VolBytes=298,188,668,928 rate=63.62 MB/s
+Wrote block=2280000, file,blk=28,68186 VolBytes=298,844,028,928 rate=63.63 MB/s
+Wrote block=2285000, file,blk=28,73186 VolBytes=299,499,388,928 rate=63.62 MB/s
+Wrote block=2290000, file,blk=28,78186 VolBytes=300,154,748,928 rate=63.63 MB/s
+03:24:11 Flush block, write EOF
+Wrote block=2295000, file,blk=29,1267 VolBytes=300,810,108,928 rate=63.60 MB/s
+Wrote block=2300000, file,blk=29,6267 VolBytes=301,465,468,928 rate=63.58 MB/s
+Wrote block=2305000, file,blk=29,11267 VolBytes=302,120,828,928 rate=63.60 MB/s
+Wrote block=2310000, file,blk=29,16267 VolBytes=302,776,188,928 rate=63.58 MB/s
+Wrote block=2315000, file,blk=29,21267 VolBytes=303,431,548,928 rate=63.57 MB/s
+Wrote block=2320000, file,blk=29,26267 VolBytes=304,086,908,928 rate=63.57 MB/s
+Wrote block=2325000, file,blk=29,31267 VolBytes=304,742,268,928 rate=63.59 MB/s
+Wrote block=2330000, file,blk=29,36267 VolBytes=305,397,628,928 rate=63.57 MB/s
+Wrote block=2335000, file,blk=29,41267 VolBytes=306,052,988,928 rate=63.57 MB/s
+Wrote block=2340000, file,blk=29,46267 VolBytes=306,708,348,928 rate=63.57 MB/s
+Wrote block=2345000, file,blk=29,51267 VolBytes=307,363,708,928 rate=63.59 MB/s
+Wrote block=2350000, file,blk=29,56267 VolBytes=308,019,068,928 rate=63.61 MB/s
+Wrote block=2355000, file,blk=29,61267 VolBytes=308,674,428,928 rate=63.63 MB/s
+Wrote block=2360000, file,blk=29,66267 VolBytes=309,329,788,928 rate=63.60 MB/s
+Wrote block=2365000, file,blk=29,71267 VolBytes=309,985,148,928 rate=63.62 MB/s
+Wrote block=2370000, file,blk=29,76267 VolBytes=310,640,508,928 rate=63.64 MB/s
+Wrote block=2375000, file,blk=29,81267 VolBytes=311,295,868,928 rate=63.64 MB/s
+Wrote block=2380000, file,blk=30,4348 VolBytes=311,951,228,928 rate=63.59 MB/s
+Wrote block=2385000, file,blk=30,9348 VolBytes=312,606,588,928 rate=63.60 MB/s
+Wrote block=2390000, file,blk=30,14348 VolBytes=313,261,948,928 rate=63.59 MB/s
+Wrote block=2395000, file,blk=30,19348 VolBytes=313,917,308,928 rate=63.58 MB/s
+Wrote block=2400000, file,blk=30,24348 VolBytes=314,572,668,928 rate=63.58 MB/s
+Wrote block=2405000, file,blk=30,29348 VolBytes=315,228,028,928 rate=63.60 MB/s
+Wrote block=2410000, file,blk=30,34348 VolBytes=315,883,388,928 rate=63.62 MB/s
+Wrote block=2415000, file,blk=30,39348 VolBytes=316,538,748,928 rate=63.63 MB/s
+Wrote block=2420000, file,blk=30,44348 VolBytes=317,194,108,928 rate=63.65 MB/s
+Wrote block=2425000, file,blk=30,49348 VolBytes=317,849,468,928 rate=63.65 MB/s
+Wrote block=2430000, file,blk=30,54348 VolBytes=318,504,828,928 rate=63.67 MB/s
+Wrote block=2435000, file,blk=30,59348 VolBytes=319,160,188,928 rate=63.56 MB/s
+Wrote block=2440000, file,blk=30,64348 VolBytes=319,815,548,928 rate=63.58 MB/s
+Wrote block=2445000, file,blk=30,69348 VolBytes=320,470,908,928 rate=63.59 MB/s
+Wrote block=2450000, file,blk=30,74348 VolBytes=321,126,268,928 rate=63.57 MB/s
+Wrote block=2455000, file,blk=30,79348 VolBytes=321,781,628,928 rate=63.58 MB/s
+Wrote block=2460000, file,blk=31,2429 VolBytes=322,436,988,928 rate=63.52 MB/s
+Wrote block=2465000, file,blk=31,7429 VolBytes=323,092,348,928 rate=63.53 MB/s
+Wrote block=2470000, file,blk=31,12429 VolBytes=323,747,708,928 rate=63.51 MB/s
+Wrote block=2475000, file,blk=31,17429 VolBytes=324,403,068,928 rate=63.50 MB/s
+Wrote block=2480000, file,blk=31,22429 VolBytes=325,058,428,928 rate=63.48 MB/s
+Wrote block=2485000, file,blk=31,27429 VolBytes=325,713,788,928 rate=63.50 MB/s
+Wrote block=2490000, file,blk=31,32429 VolBytes=326,369,148,928 rate=63.49 MB/s
+Wrote block=2495000, file,blk=31,37429 VolBytes=327,024,508,928 rate=63.47 MB/s
+Wrote block=2500000, file,blk=31,42429 VolBytes=327,679,868,928 rate=63.46 MB/s
+Wrote block=2505000, file,blk=31,47429 VolBytes=328,335,228,928 rate=63.45 MB/s
+Wrote block=2510000, file,blk=31,52429 VolBytes=328,990,588,928 rate=63.47 MB/s
+Wrote block=2515000, file,blk=31,57429 VolBytes=329,645,948,928 rate=63.47 MB/s
+Wrote block=2520000, file,blk=31,62429 VolBytes=330,301,308,928 rate=63.49 MB/s
+Wrote block=2525000, file,blk=31,67429 VolBytes=330,956,668,928 rate=63.49 MB/s
+Wrote block=2530000, file,blk=31,72429 VolBytes=331,612,028,928 rate=63.51 MB/s
+Wrote block=2535000, file,blk=31,77429 VolBytes=332,267,388,928 rate=63.50 MB/s
+Wrote block=2540000, file,blk=32,510 VolBytes=332,922,748,928 rate=63.47 MB/s
+Wrote block=2545000, file,blk=32,5510 VolBytes=333,578,108,928 rate=63.45 MB/s
+Wrote block=2550000, file,blk=32,10510 VolBytes=334,233,468,928 rate=63.45 MB/s
+Wrote block=2555000, file,blk=32,15510 VolBytes=334,888,828,928 rate=63.43 MB/s
+Wrote block=2560000, file,blk=32,20510 VolBytes=335,544,188,928 rate=63.45 MB/s
+Wrote block=2565000, file,blk=32,25510 VolBytes=336,199,548,928 rate=63.46 MB/s
+Wrote block=2570000, file,blk=32,30510 VolBytes=336,854,908,928 rate=63.48 MB/s
+Wrote block=2575000, file,blk=32,35510 VolBytes=337,510,268,928 rate=63.48 MB/s
+Wrote block=2580000, file,blk=32,40510 VolBytes=338,165,628,928 rate=63.44 MB/s
+Wrote block=2585000, file,blk=32,45510 VolBytes=338,820,988,928 rate=63.46 MB/s
+Wrote block=2590000, file,blk=32,50510 VolBytes=339,476,348,928 rate=63.46 MB/s
+Wrote block=2595000, file,blk=32,55510 VolBytes=340,131,708,928 rate=63.48 MB/s
+Wrote block=2600000, file,blk=32,60510 VolBytes=340,787,068,928 rate=63.46 MB/s
+Wrote block=2605000, file,blk=32,65510 VolBytes=341,442,428,928 rate=63.45 MB/s
+Wrote block=2610000, file,blk=32,70510 VolBytes=342,097,788,928 rate=63.46 MB/s
+Wrote block=2615000, file,blk=32,75510 VolBytes=342,753,148,928 rate=63.47 MB/s
+Wrote block=2620000, file,blk=32,80510 VolBytes=343,408,508,928 rate=63.46 MB/s
+03:35:41 Flush block, write EOF
+Wrote block=2625000, file,blk=33,3591 VolBytes=344,063,868,928 rate=63.41 MB/s
+Wrote block=2630000, file,blk=33,8591 VolBytes=344,719,228,928 rate=63.42 MB/s
+Wrote block=2635000, file,blk=33,13591 VolBytes=345,374,588,928 rate=63.42 MB/s
+Wrote block=2640000, file,blk=33,18591 VolBytes=346,029,948,928 rate=63.44 MB/s
+Wrote block=2645000, file,blk=33,23591 VolBytes=346,685,308,928 rate=63.42 MB/s
+Wrote block=2650000, file,blk=33,28591 VolBytes=347,340,668,928 rate=63.44 MB/s
+Wrote block=2655000, file,blk=33,33591 VolBytes=347,996,028,928 rate=63.43 MB/s
+Wrote block=2660000, file,blk=33,38591 VolBytes=348,651,388,928 rate=63.44 MB/s
+Wrote block=2665000, file,blk=33,43591 VolBytes=349,306,748,928 rate=63.46 MB/s
+Wrote block=2670000, file,blk=33,48591 VolBytes=349,962,108,928 rate=63.46 MB/s
+Wrote block=2675000, file,blk=33,53591 VolBytes=350,617,468,928 rate=63.48 MB/s
+Wrote block=2680000, file,blk=33,58591 VolBytes=351,272,828,928 rate=63.46 MB/s
+Wrote block=2685000, file,blk=33,63591 VolBytes=351,928,188,928 rate=63.49 MB/s
+Wrote block=2690000, file,blk=33,68591 VolBytes=352,583,548,928 rate=63.47 MB/s
+Wrote block=2695000, file,blk=33,73591 VolBytes=353,238,908,928 rate=63.48 MB/s
+Wrote block=2700000, file,blk=33,78591 VolBytes=353,894,268,928 rate=63.49 MB/s
+Wrote block=2705000, file,blk=34,1672 VolBytes=354,549,628,928 rate=63.48 MB/s
+Wrote block=2710000, file,blk=34,6672 VolBytes=355,204,988,928 rate=63.46 MB/s
+Wrote block=2715000, file,blk=34,11672 VolBytes=355,860,348,928 rate=63.47 MB/s
+Wrote block=2720000, file,blk=34,16672 VolBytes=356,515,708,928 rate=63.48 MB/s
+Wrote block=2725000, file,blk=34,21672 VolBytes=357,171,068,928 rate=63.47 MB/s
+Wrote block=2730000, file,blk=34,26672 VolBytes=357,826,428,928 rate=63.48 MB/s
+Wrote block=2735000, file,blk=34,31672 VolBytes=358,481,788,928 rate=63.50 MB/s
+Wrote block=2740000, file,blk=34,36672 VolBytes=359,137,148,928 rate=63.48 MB/s
+Wrote block=2745000, file,blk=34,41672 VolBytes=359,792,508,928 rate=63.50 MB/s
+Wrote block=2750000, file,blk=34,46672 VolBytes=360,447,868,928 rate=63.49 MB/s
+Wrote block=2755000, file,blk=34,51672 VolBytes=361,103,228,928 rate=63.50 MB/s
+Wrote block=2760000, file,blk=34,56672 VolBytes=361,758,588,928 rate=63.52 MB/s
+Wrote block=2765000, file,blk=34,61672 VolBytes=362,413,948,928 rate=63.52 MB/s
+Wrote block=2770000, file,blk=34,66672 VolBytes=363,069,308,928 rate=63.54 MB/s
+Wrote block=2775000, file,blk=34,71672 VolBytes=363,724,668,928 rate=63.55 MB/s
+Wrote block=2780000, file,blk=34,76672 VolBytes=364,380,028,928 rate=63.56 MB/s
+Wrote block=2785000, file,blk=34,81672 VolBytes=365,035,388,928 rate=63.58 MB/s
+Wrote block=2790000, file,blk=35,4753 VolBytes=365,690,748,928 rate=63.56 MB/s
+Wrote block=2795000, file,blk=35,9753 VolBytes=366,346,108,928 rate=63.56 MB/s
+Wrote block=2800000, file,blk=35,14753 VolBytes=367,001,468,928 rate=63.56 MB/s
+Wrote block=2805000, file,blk=35,19753 VolBytes=367,656,828,928 rate=63.55 MB/s
+Wrote block=2810000, file,blk=35,24753 VolBytes=368,312,188,928 rate=63.53 MB/s
+Wrote block=2815000, file,blk=35,29753 VolBytes=368,967,548,928 rate=63.54 MB/s
+Wrote block=2820000, file,blk=35,34753 VolBytes=369,622,908,928 rate=63.55 MB/s
+Wrote block=2825000, file,blk=35,39753 VolBytes=370,278,268,928 rate=63.56 MB/s
+Wrote block=2830000, file,blk=35,44753 VolBytes=370,933,628,928 rate=63.55 MB/s
+Wrote block=2835000, file,blk=35,49753 VolBytes=371,588,988,928 rate=63.57 MB/s
+Wrote block=2840000, file,blk=35,54753 VolBytes=372,244,348,928 rate=63.57 MB/s
+Wrote block=2845000, file,blk=35,59753 VolBytes=372,899,708,928 rate=63.59 MB/s
+Wrote block=2850000, file,blk=35,64753 VolBytes=373,555,068,928 rate=63.59 MB/s
+Wrote block=2855000, file,blk=35,69753 VolBytes=374,210,428,928 rate=63.60 MB/s
+Wrote block=2860000, file,blk=35,74753 VolBytes=374,865,788,928 rate=63.62 MB/s
+Wrote block=2865000, file,blk=35,79753 VolBytes=375,521,148,928 rate=63.63 MB/s
+Wrote block=2870000, file,blk=36,2834 VolBytes=376,176,508,928 rate=63.61 MB/s
+Wrote block=2875000, file,blk=36,7834 VolBytes=376,831,868,928 rate=63.58 MB/s
+Wrote block=2880000, file,blk=36,12834 VolBytes=377,487,228,928 rate=63.58 MB/s
+Wrote block=2885000, file,blk=36,17834 VolBytes=378,142,588,928 rate=63.58 MB/s
+Wrote block=2890000, file,blk=36,22834 VolBytes=378,797,948,928 rate=63.59 MB/s
+Wrote block=2895000, file,blk=36,27834 VolBytes=379,453,308,928 rate=63.58 MB/s
+Wrote block=2900000, file,blk=36,32834 VolBytes=380,108,668,928 rate=63.57 MB/s
+Wrote block=2905000, file,blk=36,37834 VolBytes=380,764,028,928 rate=63.55 MB/s
+Wrote block=2910000, file,blk=36,42834 VolBytes=381,419,388,928 rate=63.54 MB/s
+Wrote block=2915000, file,blk=36,47834 VolBytes=382,074,748,928 rate=63.56 MB/s
+Wrote block=2920000, file,blk=36,52834 VolBytes=382,730,108,928 rate=63.54 MB/s
+Wrote block=2925000, file,blk=36,57834 VolBytes=383,385,468,928 rate=63.55 MB/s
+Wrote block=2930000, file,blk=36,62834 VolBytes=384,040,828,928 rate=63.55 MB/s
+Wrote block=2935000, file,blk=36,67834 VolBytes=384,696,188,928 rate=63.55 MB/s
+Wrote block=2940000, file,blk=36,72834 VolBytes=385,351,548,928 rate=63.56 MB/s
+Wrote block=2945000, file,blk=36,77834 VolBytes=386,006,908,928 rate=63.57 MB/s
+03:46:50 Flush block, write EOF
+Wrote block=2950000, file,blk=37,915 VolBytes=386,662,268,928 rate=63.52 MB/s
+Wrote block=2955000, file,blk=37,5915 VolBytes=387,317,628,928 rate=63.49 MB/s
+Wrote block=2960000, file,blk=37,10915 VolBytes=387,972,988,928 rate=63.50 MB/s
+Wrote block=2965000, file,blk=37,15915 VolBytes=388,628,348,928 rate=63.51 MB/s
+Wrote block=2970000, file,blk=37,20915 VolBytes=389,283,708,928 rate=63.52 MB/s
+Wrote block=2975000, file,blk=37,25915 VolBytes=389,939,068,928 rate=63.48 MB/s
+Wrote block=2980000, file,blk=37,30915 VolBytes=390,594,428,928 rate=63.50 MB/s
+Wrote block=2985000, file,blk=37,35915 VolBytes=391,249,788,928 rate=63.49 MB/s
+Wrote block=2990000, file,blk=37,40915 VolBytes=391,905,148,928 rate=63.49 MB/s
+Wrote block=2995000, file,blk=37,45915 VolBytes=392,560,508,928 rate=63.51 MB/s
+Wrote block=3000000, file,blk=37,50915 VolBytes=393,215,868,928 rate=63.52 MB/s
+Wrote block=3005000, file,blk=37,55915 VolBytes=393,871,228,928 rate=63.53 MB/s
+Wrote block=3010000, file,blk=37,60915 VolBytes=394,526,588,928 rate=63.55 MB/s
+Wrote block=3015000, file,blk=37,65915 VolBytes=395,181,948,928 rate=63.55 MB/s
+Wrote block=3020000, file,blk=37,70915 VolBytes=395,837,308,928 rate=63.54 MB/s
+Wrote block=3025000, file,blk=37,75915 VolBytes=396,492,668,928 rate=63.53 MB/s
+Wrote block=3030000, file,blk=37,80915 VolBytes=397,148,028,928 rate=63.53 MB/s
+Wrote block=3035000, file,blk=38,3996 VolBytes=397,803,388,928 rate=63.49 MB/s
+Wrote block=3040000, file,blk=38,8996 VolBytes=398,458,748,928 rate=63.47 MB/s
+Wrote block=3045000, file,blk=38,13996 VolBytes=399,114,108,928 rate=63.46 MB/s
+Wrote block=3050000, file,blk=38,18996 VolBytes=399,769,468,928 rate=63.47 MB/s
+Wrote block=3055000, file,blk=38,23996 VolBytes=400,424,828,928 rate=63.48 MB/s
+Wrote block=3060000, file,blk=38,28996 VolBytes=401,080,188,928 rate=63.50 MB/s
+Wrote block=3065000, file,blk=38,33996 VolBytes=401,735,548,928 rate=63.48 MB/s
+Wrote block=3070000, file,blk=38,38996 VolBytes=402,390,908,928 rate=63.47 MB/s
+Wrote block=3075000, file,blk=38,43996 VolBytes=403,046,268,928 rate=63.48 MB/s
+Wrote block=3080000, file,blk=38,48996 VolBytes=403,701,628,928 rate=63.49 MB/s
+Wrote block=3085000, file,blk=38,53996 VolBytes=404,356,988,928 rate=63.49 MB/s
+Wrote block=3090000, file,blk=38,58996 VolBytes=405,012,348,928 rate=63.49 MB/s
+Wrote block=3095000, file,blk=38,63996 VolBytes=405,667,708,928 rate=63.45 MB/s
+Wrote block=3100000, file,blk=38,68996 VolBytes=406,323,068,928 rate=63.44 MB/s
+Wrote block=3105000, file,blk=38,73996 VolBytes=406,978,428,928 rate=63.45 MB/s
+Wrote block=3110000, file,blk=38,78996 VolBytes=407,633,788,928 rate=63.46 MB/s
+Wrote block=3115000, file,blk=39,2077 VolBytes=408,289,148,928 rate=63.41 MB/s
+Wrote block=3120000, file,blk=39,7077 VolBytes=408,944,508,928 rate=63.43 MB/s
+Wrote block=3125000, file,blk=39,12077 VolBytes=409,599,868,928 rate=63.44 MB/s
+Wrote block=3130000, file,blk=39,17077 VolBytes=410,255,228,928 rate=63.45 MB/s
+Wrote block=3135000, file,blk=39,22077 VolBytes=410,910,588,928 rate=63.46 MB/s
+Wrote block=3140000, file,blk=39,27077 VolBytes=411,565,948,928 rate=63.47 MB/s
+Wrote block=3145000, file,blk=39,32077 VolBytes=412,221,308,928 rate=63.48 MB/s
+Wrote block=3150000, file,blk=39,37077 VolBytes=412,876,668,928 rate=63.49 MB/s
+Wrote block=3155000, file,blk=39,42077 VolBytes=413,532,028,928 rate=63.48 MB/s
+Wrote block=3160000, file,blk=39,47077 VolBytes=414,187,388,928 rate=63.49 MB/s
+Wrote block=3165000, file,blk=39,52077 VolBytes=414,842,748,928 rate=63.47 MB/s
+Wrote block=3170000, file,blk=39,57077 VolBytes=415,498,108,928 rate=63.42 MB/s
+Wrote block=3175000, file,blk=39,62077 VolBytes=416,153,468,928 rate=63.40 MB/s
+Wrote block=3180000, file,blk=39,67077 VolBytes=416,808,828,928 rate=63.42 MB/s
+Wrote block=3185000, file,blk=39,72077 VolBytes=417,464,188,928 rate=63.38 MB/s
+Wrote block=3190000, file,blk=39,77077 VolBytes=418,119,548,928 rate=63.38 MB/s
+Wrote block=3195000, file,blk=40,158 VolBytes=418,774,908,928 rate=63.38 MB/s
+Wrote block=3200000, file,blk=40,5158 VolBytes=419,430,268,928 rate=63.34 MB/s
+Wrote block=3205000, file,blk=40,10158 VolBytes=420,085,628,928 rate=63.33 MB/s
+Wrote block=3210000, file,blk=40,15158 VolBytes=420,740,988,928 rate=63.34 MB/s
+Wrote block=3215000, file,blk=40,20158 VolBytes=421,396,348,928 rate=63.33 MB/s
+Wrote block=3220000, file,blk=40,25158 VolBytes=422,051,708,928 rate=63.34 MB/s
+Wrote block=3225000, file,blk=40,30158 VolBytes=422,707,068,928 rate=63.35 MB/s
+Wrote block=3230000, file,blk=40,35158 VolBytes=423,362,428,928 rate=63.36 MB/s
+Wrote block=3235000, file,blk=40,40158 VolBytes=424,017,788,928 rate=63.38 MB/s
+17-Jul 03:56 btape JobId 0: End of Volume "TestVolume1" at 40:42112 on device "UltiumLTO300" (/dev/sa0). Write of 131072 bytes got 0.
+btape: btape.c:2714 Last block at: 40:42111 this_dev_block_num=42112
+btape: btape.c:2749 End of tape 42:0. Volume Bytes=424,273,903,616. Write rate = 63.35 MB/s
+17-Jul 03:57 btape JobId 0: End of medium on Volume "TestVolume1" Bytes=424,273,903,616 Blocks=3,236,953 at 17-Jul-2017 03:57.
+17-Jul 03:57 btape JobId 0: 3307 Issuing autochanger "unload slot 1, drive 0" command.
+17-Jul 03:57 btape JobId 0: 3304 Issuing autochanger "load slot 2, drive 0" command.
+17-Jul 03:58 btape JobId 0: 3305 Autochanger "load slot 2, drive 0", status is OK.
+Wrote Volume label for volume "TestVolume2".
+17-Jul 03:58 btape JobId 0: Wrote label to prelabeled Volume "TestVolume2" on device "UltiumLTO300" (/dev/sa0)
+17-Jul 03:58 btape JobId 0: New volume "TestVolume2" mounted on device "UltiumLTO300" (/dev/sa0) at 17-Jul-2017 03:58.
+btape: btape.c:2320 Wrote 1000 blocks on second tape. Done.
+Done writing 0 records ...
+Wrote End of Session label.
+btape: btape.c:2389 Wrote state file last_block_num1=42111 last_block_num2=1001
+btape: btape.c:2407 
+
+03:58:47 Done filling tapes at 0:1003. Now beginning re-read of first tape ...
+btape: btape.c:2485 Enter do_unfill
+17-Jul 03:58 btape JobId 0: 3307 Issuing autochanger "unload slot 2, drive 0" command.
+17-Jul 03:59 btape JobId 0: 3304 Issuing autochanger "load slot 1, drive 0" command.
+17-Jul 03:59 btape JobId 0: 3305 Autochanger "load slot 1, drive 0", status is OK.
+17-Jul 03:59 btape JobId 0: Ready to read from volume "TestVolume1" on device "UltiumLTO300" (/dev/sa0).
+Rewinding.
+Reading the first 10000 records from 0:0.
+10000 records read now at 1:2502
+Reposition from 1:2502 to 40:42111
+Reading block 42111.
+
+The last block of the first tape matches.
+
+17-Jul 04:01 btape JobId 0: 3307 Issuing autochanger "unload slot 1, drive 0" command.
+17-Jul 04:02 btape JobId 0: 3304 Issuing autochanger "load slot 2, drive 0" command.
+17-Jul 04:02 btape JobId 0: 3305 Autochanger "load slot 2, drive 0", status is OK.
+17-Jul 04:02 btape JobId 0: Ready to read from volume "TestVolume2" on device "UltiumLTO300" (/dev/sa0).
+Reposition from 0:0 to 0:1
+Reading block 1.
+
+The first block on the second tape matches.
+
+Reposition from 0:2 to 0:1001
+Reading block 1001.
+
+The last block on the second tape matches. Test succeeded.
+
+*
+```
+
+It worked, w00t!
 
 ### SCSI Tape Error list ###
 
