@@ -39,7 +39,7 @@ root@freenas:~ # jls
    JID  IP Address      Hostname                      Path
      1                  bacula-sd_1                   /mnt/HQ/jails/bacula-sd_1
      2                  bareos-fd_1                   /mnt/HQ/jails/bareos-fd_1
-     3                  nextcloud_2                   /mnt/HQ/jails/nextcloud_1
+     3                  nextcloud_1                   /mnt/HQ/jails/nextcloud_1
      4                  transmission_1                /mnt/HQ/jails/transmission_1
 ```
 
@@ -159,7 +159,7 @@ camcontrol devlist
 <SanDisk U3 Cruzer Micro 8.02>     at scbus9 target 0 lun 0 (pass6,da0)
 ```
 
-If your autochanger is missing and alls you see is the tape drives rescan the scsi bus or just reboot the FreeNAS box.
+If your autochanger is missing and all you see is the tape drives rescan the scsi bus or just reboot the FreeNAS box.
 
 **Note:** *Tape unit should be powered up before FreeNAS box.*
 
