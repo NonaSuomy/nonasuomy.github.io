@@ -1456,10 +1456,10 @@ Device {
 
 ### Test Bacula Configs ###
 
-**Note:** *This will fail if you have not loaded a tape in the drive.*
+**Note:** *These tests will fail if you have not loaded a tape in the drive.*
 
 ```
-root@bacula-sd_2:/ # btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
+root@bacula-sd_1:/ # btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
 Tape block granularity is 1024 bytes.
 btape: butil.c:290 Using device: "/dev/sa0" for writing.
 btape: btape.c:477 open device "UltiumLTO300" (/dev/sa0): OK
@@ -1469,6 +1469,8 @@ btape: btape.c:477 open device "UltiumLTO300" (/dev/sa0): OK
 At the asterisk type test then push enter.
 
 ### Test: Test (Single Files Write/Read) Again! ###
+
+**Note:** *These tests will fail if you have not loaded a tape in the drive.*
 
 ```
 *test
@@ -1797,6 +1799,8 @@ Device {
 
 You could make a systemlink or copy this file over to the default location then you won't have to specify the btape -c command it will just auto use the default configuration file.
 
+**Note:** *These tests will fail if you have not loaded a tape in the drive.*
+
 ```
 cp /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /usr/pbi/bacula-sd-amd64/etc/bacula/bacula-sd.conf 
  
@@ -1810,6 +1814,8 @@ ln -s /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /usr/pbi/bacula-sd-amd64/
 ```
 
 ### Test: Test (Single Files Write/Read) Again! ###
+
+**Note:** *These tests will fail if you have not loaded a tape in the drive.*
 
 ```
 root@bacula-sd_1:/ # btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
@@ -1980,6 +1986,8 @@ We should be in file 5. I am at file 5. This is correct!
 
 Test drive 2.
 
+**Note:** *These tests will fail if you have not loaded a tape in the drive.*
+
 ```
 root@bacula-sd_1:/ # btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa1
 Tape block granularity is 1024 bytes.
@@ -2149,7 +2157,9 @@ We should be in file 5. I am at file 5. This is correct!
 
 ### Test: Autochanger ###
 
-This will fill up a tape and overflow into the next tape in sequence, Unload tape and reload the next tape.
+This "auto" test will use the autochanger to take a tape out of the drive and put it back in.
+
+**Note:** *These tests will fail if you have not loaded a tape in the drive.*
 
 ```
 root@bacula-sd_1:/ # btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
@@ -2157,7 +2167,7 @@ Tape block granularity is 1024 bytes.
 btape: butil.c:290 Using device: "/dev/sa0" for writing.
 btape: btape.c:477 open device "UltiumLTO300" (/dev/sa0): OK
 *auto
-root@bacula-sd_2:/usr/pbi/bacula-sd-amd64/etc # btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
+root@bacula-sd_1:/usr/pbi/bacula-sd-amd64/etc # btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
 Tape block granularity is 1024 bytes.
 btape: butil.c:290 Using device: "/dev/sa0" for writing.
 btape: btape.c:477 open device "UltiumLTO300" (/dev/sa0): OK
@@ -2190,6 +2200,8 @@ The test autochanger worked!!
 ### Test: Fill ###
 
 This will fill up a tape and overflow into the next tape in sequence, Unload tape and reload the next tape.
+
+**Note:** *These tests will fail if you have not loaded a tape in the drive.*
 
 ```
 root@bacula-sd_1:/ # btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
@@ -2313,9 +2325,13 @@ btape: btape.c:2417 01:35:14: Error during test.
 
 ```
 
-Failure... I didn't have a tape in hand slot 2
+Failure... I didn't have a tape in hand slot 2 (I wasn't aware of the magical two "Hand Slots" in the unit which are tagged with the first 2 slots before the actual magazine cartrige slots.
 
-Changed a few settings (spool settings above as well)
+```
+mtx -f /dev/pass2 transfer 4 2
+```
+
+Changed a few settings (spool settings above as well) attempt to incress write speed, helped a bit ~+10MB/s.
 
 ```
 btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
@@ -3054,6 +3070,10 @@ The last block on the second tape matches. Test succeeded.
 ```
 
 It worked, w00t!
+
+Now we just have to figure out how to use bacula for backup jobs!
+
+To be continued...
 
 ### SCSI Tape Error list ###
 
