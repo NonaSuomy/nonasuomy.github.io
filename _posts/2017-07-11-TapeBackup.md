@@ -3,7 +3,7 @@ layout: post
 title: Arch Linux Infrastructure - NAS Server - Extra - Tape Backup
 ---
 
-![alt text]({{ site.baseurl }}../images/infrastructure/HOTInfrastructureLayoutTAP.png "Tape Library")
+![alt text]({{ site.baseurl }}../images/infrastructure/LTO10GenChart.png "Tape Library")
 
 [https://forums.freenas.org/index.php?threads/tape-backup-setup-freenas-bacula.30376/](https://forums.freenas.org/index.php?threads/tape-backup-setup-freenas-bacula.30376/)
 
