@@ -63,6 +63,88 @@ stop_cmd=':'
 
 ```
 
+### camcontrol ###
+
+```
+root@freenas:~ # camcontrol 
+usage:  camcontrol <command>  [device id][generic args][command args]
+        camcontrol devlist    [-b] [-v]
+        camcontrol periphlist [dev_id][-n dev_name] [-u unit]
+        camcontrol tur        [dev_id][generic args]
+        camcontrol inquiry    [dev_id][generic args] [-D] [-S] [-R]
+        camcontrol identify   [dev_id][generic args] [-v]
+        camcontrol reportluns [dev_id][generic args] [-c] [-l] [-r report]
+        camcontrol readcap    [dev_id][generic args] [-b] [-h] [-H] [-N]
+                              [-q] [-s]
+        camcontrol start      [dev_id][generic args]
+        camcontrol stop       [dev_id][generic args]
+        camcontrol load       [dev_id][generic args]
+        camcontrol eject      [dev_id][generic args]
+        camcontrol reprobe    [dev_id][generic args]
+        camcontrol rescan     <all | bus[:target:lun]>
+        camcontrol reset      <all | bus[:target:lun]>
+        camcontrol defects    [dev_id][generic args] <-f format> [-P][-G]
+                              [-q][-s][-S offset][-X]
+        camcontrol modepage   [dev_id][generic args] <-m page | -l>
+                              [-P pagectl][-e | -b][-d]
+        camcontrol cmd        [dev_id][generic args]
+                              <-a cmd [args] | -c cmd [args]>
+                              [-d] [-f] [-i len fmt|-o len fmt [args]] [-r fmt]
+        camcontrol smpcmd     [dev_id][generic args]
+                              <-r len fmt [args]> <-R len fmt [args]>
+        camcontrol smprg      [dev_id][generic args][-l]
+        camcontrol smppc      [dev_id][generic args] <-p phy> [-l]
+                              [-o operation][-d name][-m rate][-M rate]
+                              [-T pp_timeout][-a enable|disable]
+                              [-A enable|disable][-s enable|disable]
+                              [-S enable|disable]
+        camcontrol smpphylist [dev_id][generic args][-l][-q]
+        camcontrol smpmaninfo [dev_id][generic args][-l]
+        camcontrol debug      [-I][-P][-T][-S][-X][-c]
+                              <all|bus[:target[:lun]]|off>
+        camcontrol tags       [dev_id][generic args] [-N tags] [-q] [-v]
+        camcontrol negotiate  [dev_id][generic args] [-a][-c]
+                              [-D <enable|disable>][-M mode][-O offset]
+                              [-q][-R syncrate][-v][-T <enable|disable>]
+                              [-U][-W bus_width]
+        camcontrol format     [dev_id][generic args][-q][-r][-w][-y]
+        camcontrol sanitize   [dev_id][generic args]
+                              [-a overwrite|block|crypto|exitfailure]
+                              [-c passes][-I][-P pattern][-q][-U][-r][-w]
+                              [-y]
+        camcontrol idle       [dev_id][generic args][-t time]
+        camcontrol standby    [dev_id][generic args][-t time]
+        camcontrol sleep      [dev_id][generic args]
+        camcontrol apm        [dev_id][generic args][-l level]
+        camcontrol aam        [dev_id][generic args][-l level]
+        camcontrol fwdownload [dev_id][generic args] <-f fw_image> [-q]
+                              [-s][-y]
+        camcontrol security   [dev_id][generic args]
+                              <-d pwd | -e pwd | -f | -h pwd | -k pwd>
+                              [-l <high|maximum>] [-q] [-s pwd] [-T timeout]
+                              [-U <user|master>] [-y]
+        camcontrol hpa        [dev_id][generic args] [-f] [-l] [-P] [-p pwd]
+                              [-q] [-s max_sectors] [-U pwd] [-y]
+        camcontrol persist    [dev_id][generic args] <-i action|-o action>
+                              [-a][-I tid][-k key][-K sa_key][-p][-R rtp]
+                              [-s scope][-S][-T type][-U]
+        camcontrol attrib     [dev_id][generic args] <-r action|-w attr>
+                              [-a attr_num][-c][-e elem][-F form1,form1]
+                              [-p part][-s start][-T type][-V vol]
+        camcontrol opcodes    [dev_id][generic args][-o opcode][-s SA]
+                              [-N][-T]
+        camcontrol zone       [dev_id][generic args]<-c cmd> [-a] [-l LBA]
+                              [-o rep_opts] [-P print_opts]
+        camcontrol epc        [dev_id][generic_args]<-c cmd> [-d] [-D] [-e]
+                              [-H] [-p power_cond] [-P] [-r rst_src] [-s]
+                              [-S power_src] [-T timer]
+        camcontrol timestamp  [dev_id][generic_args] <-r [-f format|-m|-U]>|
+                              <-s <-f format -T time | -U >>
+                              
+        camcontrol help
+```
+
+
 Check to see if the tape auto changer is showing.
 
 ```
@@ -82,8 +164,42 @@ If your autochanger is missing and alls you see is the tape drives rescan the sc
 **Note:** *Tape unit should be powered up before FreeNAS box.*
 
 ```
-camcontrol rescan all
+root@freenas:~ # camcontrol devlist
+
+<IBM ULTRIUM-TD3 88M0>             at scbus2 target 0 lun 0 (pass0,sa0)
+<IBM ULTRIUM-TD3 88M0>             at scbus3 target 0 lun 0 (pass1,sa1)
+<WDC WD30EFRX-68EUZN0 80.00A80>    at scbus4 target 1 lun 0 (pass3,ada0)
+<WDC WD30EFRX-68EUZN0 82.00A82>    at scbus5 target 0 lun 0 (pass4,ada1)
+<WDC WD30EFRX-68EUZN0 82.00A82>    at scbus5 target 1 lun 0 (pass5,ada2)
+<SanDisk U3 Cruzer Micro 8.02>     at scbus9 target 0 lun 0 (pass6,da0)
 ```
+
+Rescan SCSI BUS 3 Target 0 LUN 1.
+
+**Note:** *Using "all" took ~20 mins to run so it was much better to directly scan the bus we want.*
+
+camcontrol rescan     <all | bus[:target:lun]>
+
+```
+camcontrol rescan 3:0:1
+Re-scan of 3:0:1 was successful
+```
+
+Check again if the autochanger showed up.
+
+```
+root@freenas:~ # camcontrol devlist
+
+<IBM ULTRIUM-TD3 88M0>             at scbus2 target 0 lun 0 (sa1,pass1)
+<IBM ULTRIUM-TD3 88M0>             at scbus3 target 0 lun 0 (sa0,pass0)
+<IBM 33614LX 0029>                 at scbus3 target 0 lun 1 (ch0,pass2)
+<WDC WD30EFRX-68EUZN0 80.00A80>    at scbus4 target 1 lun 0 (pass3,ada0)
+<WDC WD30EFRX-68EUZN0 82.00A82>    at scbus5 target 0 lun 0 (pass4,ada1)
+<WDC WD30EFRX-68EUZN0 82.00A82>    at scbus5 target 1 lun 0 (pass5,ada2)
+<SanDisk U3 Cruzer Micro 8.02>     at scbus9 target 0 lun 0 (pass6,da0)
+```
+
+If you can't find the right SCSI BUS # just reboot FreeNAS with the tape unit already on and it should turn up.
 
 Install mtx (control SCSI media	changer	devices)
 
@@ -1105,49 +1221,66 @@ drive 1: <ACCESS> sense: <0x00/0x00> voltag: <:0> avoltag: <:0> source: <> intad
 
 **mtx**
 
+Data Transfer Element 0 is tape drive 1 LTO (IBM Gen 3) Address 0x80.
+
+Data Transfer Element 1 is tape drive 2 LTO (IBM Gen 3) Address 0x81.
+
+Storage Element 1 is hand 1 UNIVERSAL Slots 1 - 1 Address 0x0 - 0x0
+
+Storage Element 2 is hand 2 PassThru Fixed Slots UNIVERSAL Slots 1 - 2 Address 0x100 - 0x101
+
+Storage Element 3 is Left Load Ports LTO Slots 1 - 18 Address 0x500 - 0x511.
+
+...
+
+Storage Element 20 is Right Load Ports LTO Slots 19 - 36 Address 0x512 - 0x523.
+
+...
+
 ```
-mtx -f /dev/pass2 status                                                                                       
-  Storage Changer /dev/pass2:2 Drives, 38 Slots ( 36 Import/Export )                                                                
-Data Transfer Element 0:Empty                                                                                                       
-Data Transfer Element 1:Empty                                                                                                       
-      Storage Element 1:Empty                                                                                                       
-      Storage Element 2:Empty                                                                                                       
-      Storage Element 3 IMPORT/EXPORT:Full :VolumeTag=UN0101L3                                                                      
-      Storage Element 4 IMPORT/EXPORT:Empty                                                                                         
-      Storage Element 5 IMPORT/EXPORT:Empty                                                                                         
-      Storage Element 6 IMPORT/EXPORT:Empty                                                                                         
-      Storage Element 7 IMPORT/EXPORT:Empty                                                                                         
-      Storage Element 8 IMPORT/EXPORT:Empty                                                                                         
-      Storage Element 9 IMPORT/EXPORT:Empty                                                                                         
-      Storage Element 10 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 11 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 12 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 13 IMPORT/EXPORT:Full :VolumeTag=UN0102L3                                                                     
-      Storage Element 14 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 15 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 16 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 17 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 18 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 19 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 20 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 21 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 22 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 23 IMPORT/EXPORT:Full                                                                                         
-      Storage Element 24 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 25 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 26 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 27 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 28 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 29 IMPORT/EXPORT:Full :VolumeTag=UN0103L3                                                                     
-      Storage Element 30 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 31 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 32 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 33 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 34 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 35 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 36 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 37 IMPORT/EXPORT:Empty                                                                                        
-      Storage Element 38 IMPORT/EXPORT:Empty       
+root@bacula-sd_1:/ # mtx -f /dev/pass2 status
+  Storage Changer /dev/pass2:2 Drives, 38 Slots ( 36 Import/Export )
+Data Transfer Element 0:Empty
+Data Transfer Element 1:Empty
+      Storage Element 1:Empty
+      Storage Element 2:Empty
+      Storage Element 3 IMPORT/EXPORT:Full :VolumeTag=UN0101L3                        
+      Storage Element 4 IMPORT/EXPORT:Full :VolumeTag=UN0102L3                        
+      Storage Element 5 IMPORT/EXPORT:Full :VolumeTag=UN0103L3                        
+      Storage Element 6 IMPORT/EXPORT:Full 
+      Storage Element 7 IMPORT/EXPORT:Empty
+      Storage Element 8 IMPORT/EXPORT:Empty
+      Storage Element 9 IMPORT/EXPORT:Empty
+      Storage Element 10 IMPORT/EXPORT:Empty
+      Storage Element 11 IMPORT/EXPORT:Empty
+      Storage Element 12 IMPORT/EXPORT:Empty
+      Storage Element 13 IMPORT/EXPORT:Empty
+      Storage Element 14 IMPORT/EXPORT:Empty
+      Storage Element 15 IMPORT/EXPORT:Empty
+      Storage Element 16 IMPORT/EXPORT:Empty
+      Storage Element 17 IMPORT/EXPORT:Empty
+      Storage Element 18 IMPORT/EXPORT:Empty
+      Storage Element 19 IMPORT/EXPORT:Empty
+      Storage Element 20 IMPORT/EXPORT:Empty
+      Storage Element 21 IMPORT/EXPORT:Empty
+      Storage Element 22 IMPORT/EXPORT:Empty
+      Storage Element 23 IMPORT/EXPORT:Empty
+      Storage Element 24 IMPORT/EXPORT:Empty
+      Storage Element 25 IMPORT/EXPORT:Empty
+      Storage Element 26 IMPORT/EXPORT:Empty
+      Storage Element 27 IMPORT/EXPORT:Empty
+      Storage Element 28 IMPORT/EXPORT:Empty
+      Storage Element 29 IMPORT/EXPORT:Empty
+      Storage Element 30 IMPORT/EXPORT:Empty
+      Storage Element 31 IMPORT/EXPORT:Empty
+      Storage Element 32 IMPORT/EXPORT:Empty
+      Storage Element 33 IMPORT/EXPORT:Empty
+      Storage Element 34 IMPORT/EXPORT:Empty
+      Storage Element 35 IMPORT/EXPORT:Empty
+      Storage Element 36 IMPORT/EXPORT:Empty
+      Storage Element 37 IMPORT/EXPORT:Empty
+      Storage Element 38 IMPORT/EXPORT:Empty
+
 ```
 
 ### Move Tape In Library ###
@@ -1167,9 +1300,9 @@ chio move slot 0 drive 0
 Load storage element 13 into tape drive 0 and 1 for a test.
 
 ```
-mtx -f /dev/pass2 load 13 0                                                                                    
+mtx -f /dev/pass2 load 3 0                                                                                    
 Loading media from Storage Element 13 into drive 0...done
-mtx -f /dev/pass2 load 29 1                                                                                    
+mtx -f /dev/pass2 load 4 1                                                                                    
 Loading media from Storage Element 13 into drive 1...done 
 ```
 
@@ -1178,8 +1311,8 @@ Loading media from Storage Element 13 into drive 1...done
 First load a tape into both drives.
 
 ```
-mtx -f /dev/pass2 load 13 0
-mtx -f /dev/pass2 load 29 1
+mtx -f /dev/pass2 load 3 0
+mtx -f /dev/pass2 load 4 1
 ```
 
 **Note:** *Tape Drive 0 was sa1 and tape drive 1 was sa0.*
@@ -1216,14 +1349,14 @@ tar tf /dev/sa1
 **chio**
 
 ```
-chio move drive 0 slot 0
+chio move drive 0 slot 3
 ```
 
 **mtx**
 
 ```
-mtx -f /dev/pass2 unload 13 0
-Unloading drive 0 into Storage Element 13...done
+mtx -f /dev/pass2 unload 3 0
+Unloading drive 0 into Storage Element 3...done
 ```
 
 ### Move Tapes Between Slots ###
@@ -1239,7 +1372,7 @@ chio move slot 0 slot 14
 mtx -f <sg device> transfer <source slot> <destination slot>
 
 ```
-mtx -f /dev/pass2 transfer 13 2
+mtx -f /dev/pass2 transfer 3 5
 mtx -f /dev/pass2 status
 ```
 
@@ -1322,6 +1455,8 @@ Device {
 ```
 
 ### Test Bacula Configs ###
+
+**Note:** *This will fail if you have not loaded a tape in the drive.*
 
 ```
 root@bacula-sd_2:/ # btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
@@ -1545,14 +1680,14 @@ This seems to fix that warning message at the end.
 Add this to both tape devices in 
 
 ```
-nano /mnt/HQ/jails/bacula-sd_2/usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf
+nano /mnt/HQ/jails/bacula-sd_1/usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf
 
   # as recommended by btape
   Offline On Unmount = no
   Hardware End of Medium = no
   BSF at EOM             = yes
   Backward Space Record = no
-  Fast Forward Space File = no
+  Fast Forward Space File = yes
   TWO EOF = yes
 ```
 
@@ -1904,6 +2039,34 @@ Tape block granularity is 1024 bytes.
 btape: butil.c:290 Using device: "/dev/sa0" for writing.
 btape: btape.c:477 open device "UltiumLTO300" (/dev/sa0): OK
 *auto
+root@bacula-sd_2:/usr/pbi/bacula-sd-amd64/etc # btape -c /usr/pbi/bacula-sd-amd64/etc/bacula-sd.9103.conf /dev/sa0
+Tape block granularity is 1024 bytes.
+btape: butil.c:290 Using device: "/dev/sa0" for writing.
+btape: btape.c:477 open device "UltiumLTO300" (/dev/sa0): OK
+*auto 
+
+Ah, I see you have an autochanger configured.
+To test the autochanger you must have a blank tape
+ that I can write on in Slot 1.
+
+Do you wish to continue with the Autochanger test? (y/n): y
+
+
+=== Autochanger test ===
+
+3301 Issuing autochanger "loaded" command.
+Slot 1 loaded. I am going to unload it.
+3302 Issuing autochanger "unload 1 0" command.
+unload status=OK 0
+3303 Issuing autochanger "load 1 0" command.
+3303 Autochanger "load 1 0" status is OK.
+btape: btape.c:477 open device "UltiumLTO300" (/dev/sa0): OK
+btape: btape.c:1571 Rewound "UltiumLTO300" (/dev/sa0)
+btape: btape.c:1578 Wrote EOF to "UltiumLTO300" (/dev/sa0)
+
+The test autochanger worked!!
+
+*
 ```
 
 ### Test: Fill ###
@@ -1916,6 +2079,69 @@ Tape block granularity is 1024 bytes.
 btape: butil.c:290 Using device: "/dev/sa0" for writing.
 btape: btape.c:477 open device "UltiumLTO300" (/dev/sa0): OK
 *fill
+
+This command simulates Bacula writing to a tape.
+It requires either one or two blank tapes, which it
+will label and write.
+
+If you have an autochanger configured, it will use
+the tapes that are in slots 1 and 2, otherwise, you will
+be prompted to insert the tapes when necessary.
+
+It will print a status approximately
+every 322 MB, and write an EOF every 1.000 G.  If you have
+selected the simple test option, after writing the first tape
+it will rewind it and re-read the last block written.
+
+If you have selected the multiple tape test, when the first tape
+fills, it will ask for a second, and after writing a few more 
+blocks, it will stop.  Then it will begin re-reading the
+two tapes.
+
+This may take a long time -- hours! ...
+
+Do you want to run the simplified test (s) with one tape
+or the complete multiple tape (m) test: (s/m) m
+Multiple tape test selected.
+Wrote Volume label for volume "TestVolume1".
+Wrote Start of Session label.
+23:02:07 Begin writing Bacula records to first tape ...
+Wrote block=5000, file,blk=1,4999 VolBytes=322,495,488 rate=53.74 MB/s
+Wrote block=10000, file,blk=1,9999 VolBytes=645,055,488 rate=53.75 MB/s
+Wrote block=15000, file,blk=1,14999 VolBytes=967,615,488 rate=56.91 MB/s
+Wrote block=20000, file,blk=2,4499 VolBytes=1,290,175,488 rate=53.75 MB/s
+Wrote block=25000, file,blk=2,9499 VolBytes=1,612,735,488 rate=55.61 MB/s
+Wrote block=30000, file,blk=2,14499 VolBytes=1,935,295,488 rate=56.92 MB/s
+23:02:42 Flush block, write EOF
+Wrote block=35000, file,blk=3,3999 VolBytes=2,257,855,488 rate=55.06 MB/s
+Wrote block=40000, file,blk=3,8999 VolBytes=2,580,415,488 rate=52.66 MB/s
+Wrote block=45000, file,blk=3,13999 VolBytes=2,902,975,488 rate=54.77 MB/s
+Wrote block=50000, file,blk=4,3499 VolBytes=3,225,535,488 rate=51.19 MB/s
+Wrote block=55000, file,blk=4,8499 VolBytes=3,548,095,488 rate=51.42 MB/s
+Wrote block=60000, file,blk=4,13499 VolBytes=3,870,655,488 rate=50.26 MB/s
+23:03:25 Flush block, write EOF
+Wrote block=65000, file,blk=5,2999 VolBytes=4,193,215,488 rate=49.91 MB/s
+Wrote block=70000, file,blk=5,7999 VolBytes=4,515,775,488 rate=50.73 MB/s
+Wrote block=75000, file,blk=5,12999 VolBytes=4,838,335,488 rate=51.47 MB/s
+Wrote block=80000, file,blk=6,2499 VolBytes=5,160,895,488 rate=51.09 MB/s
+Wrote block=85000, file,blk=6,7499 VolBytes=5,483,455,488 rate=52.22 MB/s
+Wrote block=90000, file,blk=6,12499 VolBytes=5,806,015,488 rate=52.78 MB/s
+23:03:59 Flush block, write EOF
+Wrote block=95000, file,blk=7,1999 VolBytes=6,128,575,488 rate=52.38 MB/s
+Wrote block=100000, file,blk=7,6999 VolBytes=6,451,135,488 rate=52.87 MB/s
+Wrote block=105000, file,blk=7,11999 VolBytes=6,773,695,488 rate=52.91 MB/s
+Wrote block=110000, file,blk=8,1499 VolBytes=7,096,255,488 rate=52.95 MB/s
+Wrote block=115000, file,blk=8,6499 VolBytes=7,418,815,488 rate=52.24 MB/s
+Wrote block=120000, file,blk=8,11499 VolBytes=7,741,375,488 rate=53.02 MB/s
+23:04:35 Flush block, write EOF
+Wrote block=125000, file,blk=9,999 VolBytes=8,063,935,488 rate=53.05 MB/s
+Wrote block=130000, file,blk=9,5999 VolBytes=8,386,495,488 rate=52.09 MB/s
+Wrote block=135000, file,blk=9,10999 VolBytes=8,709,055,488 rate=52.46 MB/s
+Wrote block=140000, file,blk=10,499 VolBytes=9,031,615,488 rate=52.81 MB/s
+Wrote block=145000, file,blk=10,5499 VolBytes=9,354,175,488 rate=51.68 MB/s
+Wrote block=150000, file,blk=10,10499 VolBytes=9,676,735,488 rate=51.47 MB/s
+23:05:18 Flush block, write EOF
+
 ```
 
 ### Final Configuration ###
