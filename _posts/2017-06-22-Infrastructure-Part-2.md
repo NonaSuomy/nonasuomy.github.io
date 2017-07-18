@@ -197,6 +197,10 @@ mkfs.fat 4.1 (2017-01-24)
 
 ### Format ROOT Partition ###
 
+Chose BTRFS or EXT4, one or the other not both!
+
+**BTRFS**
+
 ```
 root@archiso ~ # mkfs.btrfs -f -L ROOT /dev/sda3
 btrfs-progs v4.11
@@ -219,21 +223,39 @@ Devices:
     1   285.55GiB  /dev/sda3
 ```
 
-### Format SWAP Partition & Turn It On ###
+**EXT4**
+
+```
+root@archiso ~ # mkfs.btrfs -L ROOT /dev/sda3
+```
+
+### Format SWAP Partition ###
 
 ```
 root@archiso ~ # mkswap -L SWAP /dev/sda2                                  :(
 mkswap: /dev/sda2: warning: wiping old swap signature.
 Setting up swapspace version 1, size = 12 GiB (12884897792 bytes)
 LABEL=SWAP, UUID=9689b746-3b09-4b3f-a871-497cb7d43651
+```
+
+### Turn SWAP On ###
+
+```
 root@archiso ~ # swapon /dev/sda2
+```
+
+### Checkout SWAP Space ###
+
+```
 root@archiso ~ # free -h
               total        used        free      shared  buff/cache   available
 Mem:           7.7G        119M        7.2G        122M        326M        7.2G
 Swap:           11G          0B         11G
 ```
 
-### Create BTRFS Mountpoints ###
+### Create Mountpoints ###
+
+**BTRFS**
 
 ```
 root@archiso ~ # mount /dev/sda3 /mnt
@@ -246,7 +268,6 @@ root@archiso /mnt # btrfs sub create @snapshots
 Create subvolume './@snapshots'
 root@archiso /mnt # ls
 @  @home  @snapshots
-
 ```
 
 ### Mount BTRFS Filesystem ###
@@ -280,9 +301,19 @@ tmpfs          tmpfs     787M     0  787M   0% /run/user/0
 /dev/sda1      vfat      549M  4.0K  549M   1% /mnt/boot
 ```
 
+**EXT4**
+
+```
+root@archiso ~ # mount /dev/sda3 /mnt
+root@archiso ~ # mkdir -p /mnt/boot
+root@archiso ~ # mount /dev/sda1 /mnt/boot/
+```
+
 ### Pacstrap All The Things To /mnt ###
 
 Installing: base base-devel btrfs-progs dosfstools bash-completion
+
+**Note:** *Skip btrfs-progs for EXT4 setup...*
 
 ```
 root@archiso ~ # pacstrap /mnt base base-devel btrfs-progs dosfstools bash-completion
@@ -841,6 +872,8 @@ Server = http://repo.archlinux.fr/$arch
 
 ### Edit Mkinitcpio For BTRFS Changes ###
 
+**Note:** *Skip this for EXT4 setup...*
+
 ```
 [root@archiso /]# nano -w /etc/mkinitcpio.conf
 # vim:set ft=sh
@@ -912,6 +945,8 @@ HOOKS="base udev autodetect modconf block btrfs filesystems keyboard"
 ```
 
 ### Regenerate initramfs ###
+
+**Note:** *Skip this for EXT4 setup...*
 
 ```
 [root@archiso /]# mkinitcpio -p linux
@@ -1005,6 +1040,18 @@ linux    /vmlinuz-linux
 initrd   /initramfs-linux.img
 options  root=PARTLABEL=ROOT rw rootflags=subvol=@
 ```
+
+#### EXT4 Install ####
+
+```
+[root@archiso loader]# cd entries/
+[root@archiso entries]# nano -w arch.conf
+title    Arch Linux
+linux    /vmlinuz-linux
+initrd   /initramfs-linux.img
+options  root=PARTLABEL=ROOT rw
+```
+
 
 ### Install efibootmgr ###
 
