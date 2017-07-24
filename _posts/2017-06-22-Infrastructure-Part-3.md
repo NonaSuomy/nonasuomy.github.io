@@ -135,6 +135,18 @@ sudo systemctl enable sshd
 sudo systemctl start sshd
 ```
 
+### Edit sshd Config ###
+
+```
+sudo nano /etc/ssh/sshd_config
+```
+
+Find PermitRootLogin and change it to yes.
+
+```
+PermitRootLogin yes
+```
+
 ### Enable libvirtd Service ###
 
 ```
