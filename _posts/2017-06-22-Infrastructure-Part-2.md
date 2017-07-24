@@ -190,12 +190,31 @@ sr0     11:0    1  1024M  0 rom
 
 ### Format EFI Partition ###
 
+**No Label**
+
+```
+root@archiso ~ # mkfs.vfat -F32 /dev/sda1
+```
+
+**Use Label**
+
 ```
 root@archiso ~ # mkfs.vfat -F 32 -n EFI /dev/sda1
 mkfs.fat 4.1 (2017-01-24)
 ```
 
 ### Format SWAP Partition ###
+
+**No Label**
+
+```
+root@archiso ~ # mkswap /dev/sda2                                  :(
+mkswap: /dev/sda2: warning: wiping old swap signature.
+Setting up swapspace version 1, size = 12 GiB (12884897792 bytes)
+LABEL=SWAP, UUID=9689b746-3b09-4b3f-a871-497cb7d43651
+```
+
+**Use Label**
 
 ```
 root@archiso ~ # mkswap -L SWAP /dev/sda2                                  :(
