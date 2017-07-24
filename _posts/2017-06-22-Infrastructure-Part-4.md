@@ -103,7 +103,7 @@ sudo pacman -S wget
 
 **Note:** *RELEASE only works with Firmware: BIOS mode not UEFI!* :(
 
-https://nyifiles.pfsense.org/mirror/downloads/
+[https://nyifiles.pfsense.org/mirror/downloads/](https://nyifiles.pfsense.org/mirror/downloads/)
 
 ```
 sudo wget https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
@@ -112,7 +112,7 @@ sudo gunzip pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
 
 **Note:** *pfSense 2.4 BETA works with Firmware: UEFI.* 
 
-https://snapshots.pfsense.org/amd64/pfSense_master/installer/?C=M;O=D
+[https://snapshots.pfsense.org/amd64/pfSense_master/installer/?C=M;O=D](https://snapshots.pfsense.org/amd64/pfSense_master/installer/?C=M;O=D)
 
 ```
 sudo wget https://snapshots.pfsense.org/amd64/pfSense_master/installer/pfSense-CE-2.4.0-BETA-amd64-latest.iso.gz
@@ -121,7 +121,8 @@ sudo gunzip pfSense-CE-2.4.0-BETA-amd64-latest.iso.gz
 
 #### OPNsense ####
 
-http://mirrors.nycbug.org/pub/opnsense/releases/mirror/
+[http://mirrors.nycbug.org/pub/opnsense/releases/mirror/](
+http://mirrors.nycbug.org/pub/opnsense/releases/mirror/)
 
 ```
 sudo wget http://mirrors.nycbug.org/pub/opnsense/releases/mirror/OPNsense-17.1.4-OpenSSL-cdrom-amd64.iso.bz2
@@ -130,7 +131,7 @@ sudo bzip2 -d OPNsense-17.1.4-OpenSSL-cdrom-amd64.iso.bz2
 
 #### PIAF ####
 
-https://sourceforge.net/projects/pbxinaflash/files/
+[https://sourceforge.net/projects/pbxinaflash/files/](https://sourceforge.net/projects/pbxinaflash/files/)
 
 ```
 sudo wget https://downloads.sourceforge.net/project/pbxinaflash/IncrediblePBX13-12%20with%20Incredible%20PBX%20GUI/IncrediblePBX13.2.iso
@@ -138,7 +139,7 @@ sudo wget https://downloads.sourceforge.net/project/pbxinaflash/IncrediblePBX13-
 
 #### Arch Linux ####
 
-http://mirror.rackspace.com/archlinux/iso/
+[http://mirror.rackspace.com/archlinux/iso/](http://mirror.rackspace.com/archlinux/iso/)
 
 ```
 sudo wget http://mirror.rackspace.com/archlinux/iso/2017.06.01/archlinux-2017.06.01-x86_64.iso
