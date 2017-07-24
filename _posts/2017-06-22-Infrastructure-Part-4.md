@@ -654,12 +654,17 @@ sudo virt-manager
 
 virt-manager should now be on screen...
 
+**Note:** *If we don't connect to 0.0.0.0 (local machine) it will make the vm but you won't be able to see the vnc session.*
+
 Click File => Add Connection...
 
 Hypervisor: QEMU/KVM
-Leave "Connect to remote host" unchecked if on local hypervisor.
+X Connect to remote host
+Method: SSH
+Username: root
+Hostname: 0.0.0.0
 Autoconnect: Check
-Generated URI: qemu:///system
+Generated URI: qemu+ssh://root@0.0.0.0/system
 
 Click Connect
 
