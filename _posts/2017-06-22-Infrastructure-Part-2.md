@@ -195,14 +195,48 @@ root@archiso ~ # mkfs.vfat -F 32 -n EFI /dev/sda1
 mkfs.fat 4.1 (2017-01-24)
 ```
 
+### Format SWAP Partition ###
+
+```
+root@archiso ~ # mkswap -L SWAP /dev/sda2                                  :(
+mkswap: /dev/sda2: warning: wiping old swap signature.
+Setting up swapspace version 1, size = 12 GiB (12884897792 bytes)
+LABEL=SWAP, UUID=9689b746-3b09-4b3f-a871-497cb7d43651
+```
+
+### Turn SWAP On ###
+
+```
+root@archiso ~ # swapon /dev/sda2
+```
+
+### Checkout SWAP Space ###
+
+```
+root@archiso ~ # free -h
+              total        used        free      shared  buff/cache   available
+Mem:           7.7G        119M        7.2G        122M        326M        7.2G
+Swap:           11G          0B         11G
+```
+
 ### Format ROOT Partition ###
 
 Chose BTRFS or EXT4, one or the other not both!
 
 **BTRFS**
 
+**No Label**
+```
+root@archiso ~ # mkfs.btrfs -f /dev/sda3
+```
+
+**Use Label**
+
 ```
 root@archiso ~ # mkfs.btrfs -f -L ROOT /dev/sda3
+```
+
+```
 btrfs-progs v4.11
 See http://btrfs.wiki.kernel.org for more information.
  
@@ -226,31 +260,7 @@ Devices:
 **EXT4**
 
 ```
-root@archiso ~ # mkfs.btrfs -L ROOT /dev/sda3
-```
-
-### Format SWAP Partition ###
-
-```
-root@archiso ~ # mkswap -L SWAP /dev/sda2                                  :(
-mkswap: /dev/sda2: warning: wiping old swap signature.
-Setting up swapspace version 1, size = 12 GiB (12884897792 bytes)
-LABEL=SWAP, UUID=9689b746-3b09-4b3f-a871-497cb7d43651
-```
-
-### Turn SWAP On ###
-
-```
-root@archiso ~ # swapon /dev/sda2
-```
-
-### Checkout SWAP Space ###
-
-```
-root@archiso ~ # free -h
-              total        used        free      shared  buff/cache   available
-Mem:           7.7G        119M        7.2G        122M        326M        7.2G
-Swap:           11G          0B         11G
+root@archiso ~ # mkfs.ext4 -f /dev/sda3
 ```
 
 ### Create Mountpoints ###
@@ -778,6 +788,14 @@ pacstrap /mnt base btrfs-progs dosfstools bash-completion  35.58s user 11.38s sy
 
 ### Generate FSTAB ###
 
+**Use UUID**
+
+```
+root@archiso ~ # genfstab -U /mnt >> /mnt/etc/fstab
+```
+
+**Note:** Can't get this working on some older Dell BIOS so we will be using -U for now.
+
 ```
 root@archiso ~ # genfstab -Lp /mnt >> /mnt/etc/fstab
 ```
@@ -995,7 +1013,7 @@ passwd: password updated successfully
 Install to mounted EFI /boot folder.
 
 ```
-[root@archiso /]# bootctl --path=/boot install
+[root@archiso /]# bootctl install
 Created "boot/EFI".
 Created "boot/EFI/systemd".
 Created "boot/EFI/BOOT".
@@ -1032,6 +1050,19 @@ editor  0
 If booting a btrfs subvolume as root, amend the options line with ```rootflags=subvol=<root subvolume>```. 
 In the example below, root has been mounted as a btrfs subvolume called 'ROOT' (e.g.  ```mount -o subvol=ROOT /dev/sdxY /mnt``` ):
 
+**Use Device Name**
+
+```
+[root@archiso loader]# cd entries/
+[root@archiso entries]# nano -w arch.conf
+title    Arch Linux BTRFS
+linux    /vmlinuz-linux
+initrd   /initramfs-linux.img
+options  root=/dev/sda3 rw rootflags=subvol=@
+```
+
+**Use Label Not Working ?**
+
 ```
 [root@archiso loader]# cd entries/
 [root@archiso entries]# nano -w arch.conf
@@ -1043,6 +1074,19 @@ options  root=PARTLABEL=ROOT rw rootflags=subvol=@
 
 #### EXT4 Install ####
 
+**Use Device Name**
+
+```
+[root@archiso loader]# cd entries/
+[root@archiso entries]# nano -w arch.conf
+title    Arch Linux
+linux    /vmlinuz-linux
+initrd   /initramfs-linux.img
+options  root=/dev/sda3 rw
+```
+
+**Use Label Not working ?**
+
 ```
 [root@archiso loader]# cd entries/
 [root@archiso entries]# nano -w arch.conf
@@ -1051,7 +1095,6 @@ linux    /vmlinuz-linux
 initrd   /initramfs-linux.img
 options  root=PARTLABEL=ROOT rw
 ```
-
 
 ### Install efibootmgr ###
 
