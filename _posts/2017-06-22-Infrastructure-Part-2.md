@@ -346,6 +346,9 @@ Installing: base base-devel btrfs-progs dosfstools bash-completion
 
 ```
 root@archiso ~ # pacstrap /mnt base base-devel btrfs-progs dosfstools bash-completion
+```
+
+```
 ==> Creating install root at /mnt
 ==> Installing packages to /mnt
 :: Synchronizing package databases...
