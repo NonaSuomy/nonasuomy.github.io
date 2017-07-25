@@ -1346,6 +1346,25 @@ From this point you should have internet access on your Hypervisor through the v
 Load up the web browser of choice and hit your Virtual Router IP 192.168.1.1 (We're going to change this address now).
 You will have to hit the new IP after this in your browser 10.0.0.1.
 
+**Note:** *There is a glitch in the network drivers for VM where we have to disable all the hardware offloading, otherwise you will be able to ping stuff (8.8.8.8 google.com) but you won't be able to actually hit a website.*
+
+Click System => Advanced => Networking.
+
+There are 3 checkmarks here we have to make sure are checked!
+
+```
+Network Interfaces
+  Device polling: (Unchecked)
+  Hardware Checksum Offloading: (Checked)
+  Hardware TCP Segmentation Offloading (Checked)
+  Hardware Large Receive Offloading (Checked)
+  ARP Handling: (Unchecked)
+```
+
+The only one for me unchecked that required checking was "Hardware Checksum Offloading".
+
+Carry on...
+
 Click Interfaces => [LAN].
 
 Change IPv4 address.
@@ -1480,7 +1499,7 @@ Edit Firewall rule	full help
 
 Action: Pass   
 Disabled: Disable this rule
-Interface: HOT  
+Interface: IoT  
 TCP/IP Version: IPv4  
 Protocol: any  
 Source / Invert: (Unchecked)	
