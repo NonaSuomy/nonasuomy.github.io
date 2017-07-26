@@ -125,7 +125,7 @@ sudo pacman -S libvirt virt-manager qemu qemu-arch-extra dmidecode ovmf openssh 
 ### Add User To Virtual Machine Groups ###
 
 ```
-sudo usermod -a -G kvm,libvirt nonasuomy
+sudo usermod -a -G kvm,libvirt plebuser
 ```
 
 ### Enable sshd Service ###
