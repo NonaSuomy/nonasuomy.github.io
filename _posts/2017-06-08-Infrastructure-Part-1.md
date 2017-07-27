@@ -285,7 +285,7 @@ Running Time:
 ```
 
 
-### Basic Switch Configuration ###
+### Switch Configuration ###
 
 ```
 <4800G>system-view
@@ -297,6 +297,45 @@ Running Time:
 [4800G ... ] authentication-mode scheme
 [4800G]user-interface vty 0 15
 [4800G ... ]authentication-mode scheme
+```
+
+### Setup VLAN ###
+
+The primary two ports on the switch we need to setup are ports 1/0/1 and 1/0/2, 1/0/1 is the WAN port untagged vlan 500 and 1/0/2 is the trunk port for the hypervisor one of the required VLANs for it is 600 for general LAN traffic. The rest of the VLANs are for virtual machines (PBX, Automation, etc) which will be connected by virtual bridges. Port 1/0/3 is our emergency test port for the WAN, Unplug trunk and plug in a test machine to see if the WAN is functioning properly.
+
+```
+<4800G>system-view
+System View: return to User View with Ctrl+Z.
+[4800G]vlan 100
+[4800G-vlan100]description WAN 0100 VLAN
+[4800G-vlan100]port GigabitEthernet 1/0/1 to GigabitEthernet 1/0/3
+[4800G-vlan100]vlan 200
+[4800G-vlan200]description LAN 0200 VLAN
+[4800G-vlan200]port GigabitEthernet 1/0/4 to GigabitEthernet 1/0/24
+[4800G-vlan200]vlan 222
+[4800G-vlan222]description Default 0222 VLAN
+[4800G-vlan222]vlan 300
+[4800G-vlan300]description Automation 0300 VLAN
+[4800G-vlan300]vlan 400
+[4800G-vlan400]description WiFi 0400 VLAN
+[4800G-vlan400]vlan 450
+[4800G-vlan450]description Guest Wifi 0450 VLAN
+[4800G-vlan450]vlan 555
+[4800G-vlan555]description TOR 0555 VLAN
+[4800G-vlan555]vlan 500
+[4800G-vlan500]description VOIP 0500 VLAN
+[4800G-vlan500]quit
+[4800G]voice vlan 500 enable 
+[4800G]interface GigabitEthernet 1/0/4 to 1/0/24 
+voice vlan enable 
+[4800G]save
+The current configuration will be written to the device. Are you sure? [Y/N]:y
+Please input the file name(*.cfg)[flash:/3comoscfg.cfg]
+(To leave the existing filename unchanged, press the enter key):
+flash:/3comoscfg.cfg exists, overwrite? [Y/N]:y
+Validating file. Please wait...................
+The current configuration is saved to the active main board successfully.
+Configuration is saved to device successfully.
 ```
 
 ### How to enable Web Interface ###
@@ -384,45 +423,6 @@ quit
 save
 ```
 
-### Setup VLAN ###
-
-The primary two ports on the switch we need to setup are ports 1/0/1 and 1/0/2, 1/0/1 is the WAN port untagged vlan 500 and 1/0/2 is the trunk port for the hypervisor one of the required VLANs for it is 600 for general LAN traffic. The rest of the VLANs are for virtual machines (PBX, Automation, etc) which will be connected by virtual bridges. Port 1/0/3 is our emergency test port for the WAN, Unplug trunk and plug in a test machine to see if the WAN is functioning properly.
-
-```
-<4800G>system-view
-System View: return to User View with Ctrl+Z.
-[4800G]vlan 100
-[4800G-vlan100]description WAN 0100 VLAN
-[4800G-vlan100]port GigabitEthernet 1/0/1 GigabitEthernet 1/0/3
-[4800G-vlan100]vlan 200
-[4800G-vlan200]description LAN 0200 VLAN
-[4800G-vlan200]port GigabitEthernet 1/0/4 to 1/0/24
-[4800G-vlan200]vlan 222
-[4800G-vlan222]description Default 0222 VLAN
-[4800G-vlan222]vlan 300
-[4800G-vlan300]description Automation 0300 VLAN
-[4800G-vlan300]vlan 400
-[4800G-vlan400]description WiFi 0400 VLAN
-[4800G-vlan400]vlan 450
-[4800G-vlan450]description Guest Wifi 0450 VLAN
-[4800G-vlan450]vlan 555
-[4800G-vlan555]description TOR 0555 VLAN
-[4800G-vlan555]vlan 500
-[4800G-vlan500]description VOIP 0500 VLAN
-[4800G-vlan500]quit
-[4800G]voice vlan 500 enable 
-[4800G]interface GigabitEthernet 1/0/4 to 1/0/24 
-voice vlan enable 
-[4800G]save
-The current configuration will be written to the device. Are you sure? [Y/N]:y
-Please input the file name(*.cfg)[flash:/3comoscfg.cfg]
-(To leave the existing filename unchanged, press the enter key):
-flash:/3comoscfg.cfg exists, overwrite? [Y/N]:y
-Validating file. Please wait...................
-The current configuration is saved to the active main board successfully.
-Configuration is saved to device successfully.
-```
-
 ### Setup Voice ###
 
 ```
@@ -450,7 +450,7 @@ Configuration is saved to device successfully.
 [4800G-GigabitEthernet1/0/2]port link-mode bridge
 [4800G-GigabitEthernet1/0/2]port link-type trunk
 [4800G-GigabitEthernet1/0/2]undo port trunk permit vlan 1
-[4800G-GigabitEthernet1/0/2]port trunk permit vlan 100 200 222 300 400 450 555 600
+[4800G-GigabitEthernet1/0/2]port trunk permit vlan 100 200 222 300 400 450 555 500
 [4800G-GigabitEthernet1/0/2]port trunk pvid vlan 222
 [4800G-GigabitEthernet1/0/2]broadcast-suppression pps 3000
 [4800G-GigabitEthernet1/0/2]undo jumboframe enable
