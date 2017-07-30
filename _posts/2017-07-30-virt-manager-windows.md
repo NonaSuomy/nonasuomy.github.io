@@ -32,3 +32,21 @@ Click Connect.
 Look in the LXTerminal window, it should be waiting for you to type your hypervisor password.
 
 You should now see your VM's load.
+
+Or run in cmd/batch file to start x11
+
+```
+C:\cygwin64\bin\run.exe /usr/bin/bash.exe -l -c /usr/bin/startxwin
+```
+
+Make a file C:\cygwin64\home\<USERNAME>\.startxwinrc
+
+```
+lxterminal
+```
+
+When X11 Loads it will also run a terminal which you then can just type:
+
+```
+virt-manager --no-fork
+```
