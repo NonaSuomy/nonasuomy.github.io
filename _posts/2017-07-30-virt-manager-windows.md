@@ -7,15 +7,15 @@ title: Arch Linux Infrastructure - Virt-Manager - CYGWin + Windows
 
 Download: [https://www.cygwin.com/setup-x86_64.exe](https://www.cygwin.com/setup-x86_64.exe)
 
-Install virt-manager
+Install virt-manager.
 
-Install x11
+Install x11 (I just install the full x11 pack).
  xorg-server
  xinit
 
-run startxwin in cygwin.
+Run startxwin in cygwin.
 
-run lxterminal from the x applications menu on :0 (Taskbar beside the clock CYGWIN logo)
+Run lxterminal from the "x applications menu on :0" (Taskbar beside the clock CYGWIN logo)
 
 Type ```virt-manager --no-fork```
 
