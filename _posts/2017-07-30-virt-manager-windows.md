@@ -35,12 +35,15 @@ You should now see your VM's load.
 
 Or run in cmd/batch file to start x11
 
+
+x11start.bat
 ```
 C:\cygwin64\bin\run.exe /usr/bin/bash.exe -l -c /usr/bin/startxwin
 ```
 
 Make a file C:\cygwin64\home\<USERNAME>\.startxwinrc
 
+.startxwinrc
 ```
 lxterminal
 ```
@@ -48,5 +51,19 @@ lxterminal
 When X11 Loads it will also run a terminal which you then can just type:
 
 ```
+virt-manager --no-fork
+```
+
+**Note:** *After you click your virtual machine pay attention to the terminal window as you will have to type your hypervisor password there.*
+
+## Manual Run ##
+
+If you don't want to configure stuff above just run it all manually.
+
+Load X11 in the background, export x11's display to our current CLI, run virt-manager in that display.
+
+```
+startxwin >/dev/null 2>&1 &
+export DISPLAY=:0.0
 virt-manager --no-fork
 ```
