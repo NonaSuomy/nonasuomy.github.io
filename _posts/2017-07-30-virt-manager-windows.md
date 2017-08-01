@@ -15,6 +15,8 @@ Install x11 (I just install the full x11 pack).
  xorg-server
  xinit
 
+Install openssh for connecting to remote hypervisors.
+
 Run startxwin in cygwin.
 
 Run lxterminal from the "x applications menu on :0" (Taskbar beside the clock CYGWIN logo)
