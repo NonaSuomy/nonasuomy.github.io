@@ -9,13 +9,24 @@ This is to run virt-manager on a windows box metal, instead of using X11 forward
 
 Download: [https://www.cygwin.com/setup-x86_64.exe](https://www.cygwin.com/setup-x86_64.exe)
 
-Install virt-manager.
+Install cygwin.
 
-Install x11 (I just install the full x11 pack).
- xorg-server
- xinit
+The bare minimum packages required:
 
-Install openssh for connecting to remote hypervisors.
+```
+X11 => lxqt-openssh-askpass: LXQT SSH password dialog
+Net => openssh: The OpenSSH server and client programs
+Debug => python-gi-debuginfo: Debug info for python-gi
+Python => python-gi-devel: Python GObject Introspection bindings
+Python => python2-cairo: Python bindings to libcairo
+Python => python2-cairo-devel: Python bindings to libcairo
+Python => python3-cairo: Python bindings to libcairo
+Python => python3-cairo-devel: Python bindings to libcairo
+System => virt-manager: Virtualization manager
+X11 => xinit: X.Org X server launcher
+X11 => xlaunch: GUI tool for configuring and starting the XWin X server
+X11 => xorg-server: X.Org X servers
+```
 
 Run startxwin in cygwin.
 
@@ -71,3 +82,20 @@ startxwin >/dev/null 2>&1 &
 export DISPLAY=:0.0
 virt-manager --no-fork
 ```
+
+**Example**
+
+```
+windowsuser@windowsbox ~
+$ startxwin >/dev/null 2>&1 &
+[1] 7840
+
+windowsuser@windowsbox ~
+$ export DISPLAY=:0.0
+
+windowsuser@windowsbox ~
+$ virt-manager --no-fork
+root@10.0.1.10's password:
+```
+
+**Note:** *The password prompt will show up after you make a connection in the virt-manager window.*
