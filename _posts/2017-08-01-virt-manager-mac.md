@@ -13,6 +13,9 @@ Install BREW.
 
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+```
 ==> This script will install:
 /usr/local/bin/brew
 /usr/local/share/doc/homebrew
@@ -167,6 +170,9 @@ Install XQuartz
 
 ```
 brew cask install xquartz
+```
+
+```
 ==> Tapping caskroom/cask
 Cloning into '/usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask'...
 remote: Counting objects: 3774, done.
@@ -196,6 +202,9 @@ Add Tap For virt-manager
 
 ```
 brew tap nonasuomy/homebrew-virt-manager
+```
+
+```
 ==> Tapping nonasuomy/virt-manager
 Cloning into '/usr/local/Homebrew/Library/Taps/nonasuomy/homebrew-virt-manager'...
 remote: Counting objects: 9, done.
@@ -209,6 +218,9 @@ Install virt-manager & virt-viewer
 
 ```
 brew install virt-manager virt-viewer
+```
+
+```
 ==> Installing virt-manager from nonasuomy/virt-manager
 ==> Installing dependencies for nonasuomy/virt-manager/virt-manager: readline, sqlite, gdbm, openssl, xz, python3, intltool, pkg-config, dbus, libpng, freetype, fontconfig, pixman, gettext, libffi, pcre, glib, cairo, jpeg, libtiff, python, gobject-introspection, shared-mime-info, gdk-pixbuf, libcroco, graphite2, icu4c, harfbuzz, pango, librsvg, gnome-icon-theme, atk, libepoxy, hicolor-icon-theme, gsettings-desktop-schemas, gtk+3, libtasn1, gmp, nettle, libunistring, p11-kit, gnutls, libgpg-error, libgcrypt, gtk-vnc, check, glib-networking, vala, libsoup, libxml2, py2cairo, pygobject3, libosinfo, yajl, libvirt, libvirt-glib, libtool, spice-protocol, libusb, usbredir, spice-gtk, pcre2, vte3
 ==> Installing nonasuomy/virt-manager/virt-manager dependency: readline
@@ -752,18 +764,29 @@ patching file virt-xml
 Edit /usr/local/bin/virt-manager and add ":/usr/local/lib/python2.7/site-packages" before " exec ".
 
 ```
+sudo nano /usr/local/bin/virt-manager
+```
+
+```
 #!/bin/bash
 PYTHONPATH="/usr/local/opt/libxml2/lib/python2.7/site-packages:/usr/local/Cellar/virt-manager/1.4.1/libexec/vendor/lib/python2.7/site-packages:/usr/local/lib/python2.7/site-packages" exec "/usr/local/Cellar/virt-manager/1.4.1/libexec/bin/virt-manager" "$@"
 ```
 
-Run virt-manager --no-fork
+Run 
 
-If you want password prompts use askpass.
+```
+virt-manager --no-fork
+```
+
+If you want password prompts use askpass instead of --no-fork.
 
 Add the tap.
 
 ```
 brew tap theseal/ssh-askpass
+```
+
+```
 ==> Tapping theseal/ssh-askpass
 Cloning into '/usr/local/Homebrew/Library/Taps/theseal/homebrew-ssh-askpass'...
 remote: Counting objects: 5, done.
@@ -777,6 +800,9 @@ Install askpass.
 
 ```
 brew install ssh-askpass
+```
+
+```
 ==> Installing ssh-askpass from theseal/ssh-askpass
 ==> Using the sandbox
 ==> Downloading https://github.com/theseal/ssh-askpass/archive/v1.2.1.tar.gz
@@ -797,4 +823,4 @@ Start virt-manager.
 virt-manager
 ```
 
-Should now prompt for a yes for adding keys and password GUI box.
+Should now prompt for a yes for adding keys and password GUI box for your hypervisor.
