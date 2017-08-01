@@ -648,6 +648,8 @@ The above commands reload the kvm_intel and kvm kernel modules.
 
 ### Start virt-manager ###
 
+**Note:** *If you require to run virt-manager from a Windows box checkout the guide here: [virt-manager-windows](../virt-manager-windows)*
+
 ```
 sudo virt-manager
 ```
