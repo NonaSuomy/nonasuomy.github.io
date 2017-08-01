@@ -175,7 +175,7 @@ i3-wm (Windows manager to use virt-manager)
 sudo pacman -S xorg xorg-xinit i3-wm i3status i3lock dmenu ranger rxvt-unicode chromium firefox scrot
 ```
 
-Hit <Enter> on any default option selections during install process.
+Hit Enter on any default option selections during install process.
 
 #### Configure startx To Start i3-wm ####
 
