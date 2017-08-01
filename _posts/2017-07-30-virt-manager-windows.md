@@ -41,7 +41,7 @@ Click Compatibility Tab.
 Priviledge Level
  (Check) Run this program as an administrator
 
-If it is disabled click "Change settings for all users" first.
+**Note:** *If it is disabled click "Change settings for all users" first.*
 
 Then run "Cygwin64 Terminal".
 
