@@ -3,7 +3,7 @@ layout: post
 title: Arch Linux Infrastructure - Virt-Manager - BREW + Mac
 ---
 
-Guide to run virt-manager on a Mac box bare metal, instead of using X11 forwarding to a remote window of virt-manager.
+Guide to run virt-manager on a MacOS box bare metal, instead of using X11 forwarding to a remote window of virt-manager.
 
 # Brew + Virt-Manager #
 
