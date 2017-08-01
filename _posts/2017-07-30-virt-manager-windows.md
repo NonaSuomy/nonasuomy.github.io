@@ -5,6 +5,8 @@ title: Arch Linux Infrastructure - Virt-Manager - CYGWin + Windows
 
 # CYGWIN + Virt-Manager #
 
+This is to run virt-manager on a windows box metal, instead of using X11 forwarding to a remote window of it.
+
 Download: [https://www.cygwin.com/setup-x86_64.exe](https://www.cygwin.com/setup-x86_64.exe)
 
 Install virt-manager.
