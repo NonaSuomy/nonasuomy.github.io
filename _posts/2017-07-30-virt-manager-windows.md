@@ -3,7 +3,7 @@ layout: post
 title: Arch Linux Infrastructure - Virt-Manager - CYGWin + Windows
 ---
 
-This is to run virt-manager on a Windows box bare metal, instead of using X11 forwarding to a remote window of virt-manager.
+Guide to run virt-manager on a Windows box bare metal, instead of using X11 forwarding to a remote window of virt-manager.
 
 # CYGWIN + Virt-Manager #
 
