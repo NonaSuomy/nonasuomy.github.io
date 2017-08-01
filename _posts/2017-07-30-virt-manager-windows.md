@@ -9,7 +9,7 @@ This is to run virt-manager on a Windows box metal, instead of using X11 forward
 
 Download: [https://www.cygwin.com/setup-x86_64.exe](https://www.cygwin.com/setup-x86_64.exe)
 
-Install cygwin.
+Install Cygwin64.
 
 The bare minimum packages required:
 
