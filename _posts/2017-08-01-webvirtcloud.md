@@ -13,7 +13,7 @@ title: Arch Linux Infrastructure - Brouter Inception - Part 3.1 - WebVirtCloud
 
 [Part 03 - Hypervisor OS Setup](../Infrastructure-Part-3)
 
-[Part 03.1 - Hypervisor WebVirtCloud You Are Here!
+Part 03.1 - Hypervisor WebVirtCloud You Are Here!
 
 [Part 04 - Virtual Router](../Infrastructure-Part-4)
 
@@ -31,12 +31,12 @@ title: Arch Linux Infrastructure - Brouter Inception - Part 3.1 - WebVirtCloud
 
 # WebVirtCloud #
 
-## Features
+## Features ##
 
 * User can add SSH public key to root in Instance (Tested only Ubuntu)
 * User can change root password in Instance (Tested only Ubuntu)
 
-### Warning!!!
+### How To Update ###
 
 How to update <code>gstfsd</code> daemon on hypervisor:
 
@@ -45,11 +45,11 @@ wget -O - https://clck.ru/9VMRH | sudo tee -a /usr/local/bin/gstfsd
 sudo service supervisor restart
 ```
 
-### Description
+### Description ###
 
 WebVirtCloud is a virtualization web interface for admins and users. It can delegate Virtual Machine's to users. A noVNC viewer presents a full graphical console to the guest domain.  KVM is currently the only hypervisor supported.
 
-### Install WebVirtCloud Panel (Arch Linux)
+### Install WebVirtCloud Panel (Arch Linux) ###
 
 ```bash
 sudo pacman -Sy git python-virtualenv python libxml2 libvirt zlib nginx supervisor libsasl gcc pkg-config
@@ -61,15 +61,17 @@ cd ..
 sudo mv webvirtcloud /srv
 sudo chown -R http:http /srv/webvirtcloud
 cd /srv/webvirtcloud
-sudo virtualenv venv
+sudo virtualenv venv --python=python2.7
 source venv/bin/activate
-pip install -r conf/requirements.txt
+sudo pip install -r conf/requirements.txt 
 sudo python manage.py migrate
 sudo chown -R http:http /srv/webvirtcloud
 sudo rm /etc/nginx/sites-enabled/default
 ```
 
-Restart services for running WebVirtCloud:
+**Note:** *sudo pip install -r conf/requiements.txt will fail on python-libvirt maybe try to install a different version...*
+
+Enable & start services for running WebVirtCloud:
 
 ```bash
 sudo systemctl enable nginx
@@ -87,7 +89,93 @@ NOT COMPLETE YET FROM HERE DOWN!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Setup libvirt and KVM on server
 
 ```bash
-wget -O - https://clck.ru/9V9fH | sudo sh
+wget -O - https://raw.githubusercontent.com/retspen/webvirtcloud/master/dev/libvirt-bootstrap.sh | sudo sh
+```
+
+```
+sudo curl https://raw.githubusercontent.com/retspen/webvirtcloud/master/conf/supervisor/gstfsd.conf > /etc/supervisord.d/gstfsd.ini
+```
+
+Configure the supervisor.
+
+Add the following after the [include] line (after *files = ... * actually):
+
+```
+sudo nano /etc/supervisord.conf
+```
+
+```
+[program:webvirtcloud]
+command=/srv/webvirtcloud/venv/bin/gunicorn webvirtcloud.wsgi:application -c /srv/webvirtcloud/gunicorn.conf.py
+directory=/srv/webvirtcloud
+user=nginx
+autostart=true
+autorestart=true
+redirect_stderr=true
+
+[program:novncd]
+command=/srv/webvirtcloud/venv/bin/python /srv/webvirtcloud/console/novncd
+directory=/srv/webvirtcloud
+user=nginx
+autostart=true
+autorestart=true
+redirect_stderr=true
+```
+
+Edit the nginx.conf file
+
+You will need to edit the main nginx.conf file as the one that comes from the rpm's will not work. Comment the following lines:
+
+```
+#    server {
+#        listen       80 default_server;
+#        listen       [::]:80 default_server;
+#        server_name  _;
+#        root         /usr/share/nginx/html;
+#
+#        # Load configuration files for the default server block.
+#        include /etc/nginx/default.d/*.conf;
+#
+#        location / {
+#        }
+#
+#        error_page 404 /404.html;
+#            location = /40x.html {
+#        }
+#
+#        error_page 500 502 503 504 /50x.html;
+#            location = /50x.html {
+#        }
+#    }
+}
+```
+
+Also make sure file in /etc/nginx/conf.d/webvirtcloud.conf has the proper paths:
+
+```
+server {
+    listen 80;
+
+    server_name servername.domain.com;
+    access_log /var/log/nginx/webvirtcloud-access_log; 
+
+    location /static/ {
+        root /srv/webvirtcloud;
+        expires max;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-for $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host:$server_port;
+        proxy_set_header X-Forwarded-Proto $remote_addr;
+        proxy_connect_timeout 600;
+        proxy_read_timeout 600;
+        proxy_send_timeout 600;
+        client_max_body_size 1024M;
+    }
+}
 ```
 
 Change permission for selinux:
@@ -97,16 +185,19 @@ sudo semanage fcontext -a -t httpd_sys_content_t "/srv/webvirtcloud(/.*)"
 ```
 
 Add required user to the kvm group:
+
 ```bash
-sudo usermod -G kvm -a webvirtmgr
+sudo useradd -M -G kvm -r webvirtmgr
 ```
 
 Let's restart nginx and the supervisord services:
+
 ```bash
 sudo systemctl restart nginx && systemctl restart supervisord
 ```
 
 And finally, check everything is running:
+
 ```bash
 sudo supervisorctl status
 
@@ -115,34 +206,36 @@ webvirtcloud                     RUNNING    pid 24185, uptime 2:59:14
 
 ```
 
-#### Apache mod_wsgi configuration
+#### Apache mod_wsgi configuration ####
+
 ```
 WSGIDaemonProcess webvirtcloud threads=2 maximum-requests=1000 display-name=webvirtcloud
 WSGIScriptAlias / /srv/webvirtcloud/webvirtcloud/wsgi.py
 ```
 
-#### Install final required packages for libvirtd and others on Host Server
+#### Install final required packages for libvirtd and others on Host Server ####
+
 ```bash
-wget -O - https://clck.ru/9V9fH | sudo sh
+wget -O - https://raw.githubusercontent.com/retspen/webvirtcloud/master/dev/libvirt-bootstrap.sh | sudo sh
 ```
 
 Done!!
 
 Go to http://serverip and you should see the login screen.
 
-### Default credentials
+### Default credentials ###
 <pre>
 login: admin
 password: admin
 </pre>
 
-### How To Update
+### How To Update ###
 ```bash
 git pull
 python manage.py migrate
 sudo service supervisor restart
 ```
 
-### License
+### License ###
 
 WebVirtCloud is licensed under the [Apache Licence, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
