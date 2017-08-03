@@ -803,8 +803,38 @@ You should connect without entering a password.
 
 It should now be possible to log in to WebVirtCloud with an ssh user.
 
+http://hypervisorip
 
+Click Computes.
 
+Click +.
+
+```
+Add Connection
+
+  Click SSH Connections tab.
+
+Label: hypervisor001
+FQDN / IP: localhost
+Username: webvirtmgr
+```
+
+Click Add.
+
+```
+Computes
+hq
+Status: Connected
+No details available
+```
+
+Success!
+
+Click Instances.
+
+You should see all your VM listed w00t!
+
+Click + to add some VM's.
 
 ### How To Update ###
 
