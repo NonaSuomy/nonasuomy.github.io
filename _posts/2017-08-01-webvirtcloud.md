@@ -41,8 +41,8 @@ Part 03.1 - Hypervisor WebVirtCloud You Are Here!
 How to update <code>gstfsd</code> daemon on hypervisor:
 
 ```bash
-wget -O - https://clck.ru/9VMRH | sudo tee -a /usr/local/bin/gstfsd
-sudo service supervisor restart
+wget -O - https://raw.githubusercontent.com/retspen/webvirtcloud/master/conf/daemon/gstfsd | sudo tee -a /usr/local/bin/gstfsd
+sudo systemctl restart supervisord
 ```
 
 ### Description ###
@@ -52,21 +52,21 @@ WebVirtCloud is a virtualization web interface for admins and users. It can dele
 ### Install WebVirtCloud Panel (Arch Linux) ###
 
 ```bash
-sudo pacman -Sy git python-virtualenv python libxml2 libvirt zlib nginx supervisor libsasl gcc pkg-config
+sudo pacman -Sy base-devel git python-virtualenv python libxml2 libvirt zlib nginx supervisor libsasl gcc pkg-config
 git clone https://github.com/retspen/webvirtcloud
 cd webvirtcloud
+sudo mkdir /etc/nginx/sites-enabled
+sudo mkdir /etc/nginx/sites-available
 sudo cp conf/supervisor/webvirtcloud.conf /etc/supervisor.d
-sudo cp conf/nginx/webvirtcloud.conf /etc/nginx
+sudo cp conf/nginx/webvirtcloud.conf /etc/nginx/sites-enabled/
 cd ..
 sudo mv webvirtcloud /srv
-sudo chown -R http:http /srv/webvirtcloud
 cd /srv/webvirtcloud
 sudo virtualenv venv --python=python2.7
 source venv/bin/activate
 sudo pip install -r conf/requirements.txt 
 sudo python manage.py migrate
 sudo chown -R http:http /srv/webvirtcloud
-sudo rm /etc/nginx/sites-enabled/default
 ```
 
 **Note:** *sudo pip install -r conf/requiements.txt will fail on python-libvirt maybe try to install a different version...*
@@ -83,25 +83,12 @@ sudo service start supervisord
 sudo service status supervisord
 ```
 
-NOT COMPLETE YET FROM HERE DOWN!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-Setup libvirt and KVM on server
-
-```bash
-wget -O - https://raw.githubusercontent.com/retspen/webvirtcloud/master/dev/libvirt-bootstrap.sh | sudo sh
-```
-
-```
-sudo curl https://raw.githubusercontent.com/retspen/webvirtcloud/master/conf/supervisor/gstfsd.conf > /etc/supervisord.d/gstfsd.ini
-```
-
 Configure the supervisor.
 
 Add the following after the [include] line (after *files = ... * actually):
 
 ```
-sudo nano /etc/supervisord.conf
+sudo nano /etc/supervisor.d/webvirtcloud.conf
 ```
 
 ```
@@ -122,41 +109,154 @@ autorestart=true
 redirect_stderr=true
 ```
 
-Edit the nginx.conf file
-
-You will need to edit the main nginx.conf file as the one that comes from the rpm's will not work. Comment the following lines:
+```
+sudo nano /etc/supervisor.d/gstfsd.conf
+```
 
 ```
+[program:gstfsd]
+command=/usr/bin/python2 /usr/local/bin/gstfsd
+directory=/usr/local/bin
+user=root
+autostart=true
+autorestart=true
+redirect_stderr=true
+```
+
+Edit the nginx.conf file
+
+You will need to edit the main nginx.conf file as the one that comes from the rpm's will not work. Comment the following lines and add the sites-enabled at the end of the http section:
+
+```
+sudo nano /etc/nginx/nginx.conf
+```
+
+```
+#user html;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
 #    server {
-#        listen       80 default_server;
-#        listen       [::]:80 default_server;
-#        server_name  _;
-#        root         /usr/share/nginx/html;
-#
-#        # Load configuration files for the default server block.
-#        include /etc/nginx/default.d/*.conf;
-#
+#        listen       80;
+#        server_name  localhost;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
 #        location / {
+#            root   /usr/share/nginx/html;
+#            index  index.html index.htm;
 #        }
-#
-#        error_page 404 /404.html;
-#            location = /40x.html {
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+#        error_page   500 502 503 504  /50x.html;
+#        location = /50x.html {
+#            root   /usr/share/nginx/html;
 #        }
-#
-#        error_page 500 502 503 504 /50x.html;
-#            location = /50x.html {
-#        }
+
+        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+        #
+        #location ~ \.php$ {
+        #    proxy_pass   http://127.0.0.1;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #    root           html;
+        #    fastcgi_pass   127.0.0.1:9000;
+        #    fastcgi_index  index.php;
+        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        #    include        fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #    deny  all;
+        #}
 #    }
+
+
+    # another virtual host using mix of IP-, name-, and port-based configuration
+    #
+    #server {
+    #    listen       8000;
+    #    listen       somename:8080;
+    #    server_name  somename  alias  another.alias;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+
+    # HTTPS server
+    #
+    #server {
+    #    listen       443 ssl;
+    #    server_name  localhost;
+
+    #    ssl_certificate      cert.pem;
+    #    ssl_certificate_key  cert.key;
+
+    #    ssl_session_cache    shared:SSL:1m;
+    #    ssl_session_timeout  5m;
+
+    #    ssl_ciphers  HIGH:!aNULL:!MD5;
+    #    ssl_prefer_server_ciphers  on;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+include /etc/nginx/sites-enabled/*.conf;
 }
 ```
 
-Also make sure file in /etc/nginx/conf.d/webvirtcloud.conf has the proper paths:
+Also make sure file in /etc/nginx/sites-enabled/webvirtcloud.conf has the proper paths:
 
 ```
 server {
     listen 80;
 
-    server_name servername.domain.com;
+    server_name localhost;
     access_log /var/log/nginx/webvirtcloud-access_log; 
 
     location /static/ {
@@ -178,10 +278,12 @@ server {
 }
 ```
 
-Change permission for selinux:
+```
+yaourt libguestfs
+```
 
-```bash
-sudo semanage fcontext -a -t httpd_sys_content_t "/srv/webvirtcloud(/.*)"
+```
+sudo wget https://raw.githubusercontent.com/retspen/webvirtcloud/master/conf/supervisor/gstfsd.conf -P /etc/supervisord.d/
 ```
 
 Add required user to the kvm group:
@@ -201,22 +303,10 @@ And finally, check everything is running:
 ```bash
 sudo supervisorctl status
 
+gstfsd                           RUNNING    pid 24187, uptime 2:59:14
 novncd                           RUNNING    pid 24186, uptime 2:59:14
 webvirtcloud                     RUNNING    pid 24185, uptime 2:59:14
 
-```
-
-#### Apache mod_wsgi configuration ####
-
-```
-WSGIDaemonProcess webvirtcloud threads=2 maximum-requests=1000 display-name=webvirtcloud
-WSGIScriptAlias / /srv/webvirtcloud/webvirtcloud/wsgi.py
-```
-
-#### Install final required packages for libvirtd and others on Host Server ####
-
-```bash
-wget -O - https://raw.githubusercontent.com/retspen/webvirtcloud/master/dev/libvirt-bootstrap.sh | sudo sh
 ```
 
 Done!!
@@ -224,13 +314,16 @@ Done!!
 Go to http://serverip and you should see the login screen.
 
 ### Default credentials ###
+
 <pre>
 login: admin
 password: admin
 </pre>
 
 ### How To Update ###
+
 ```bash
+cd /srv/webvirtcloud
 git pull
 python manage.py migrate
 sudo service supervisor restart
@@ -239,3 +332,39 @@ sudo service supervisor restart
 ### License ###
 
 WebVirtCloud is licensed under the [Apache Licence, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
+
+
+NOT COMPLETE YET FROM HERE DOWN!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Not really sure just yet of what to do with these items below as they fail in Arch.
+
+Change permission for selinux:
+
+```
+yaourt selinux ??
+```
+
+```bash
+sudo semanage fcontext -a -t httpd_sys_content_t "/srv/webvirtcloud(/.*)"
+```
+
+#### Apache mod_wsgi configuration ####
+
+```
+sudo pacman -Sy mod_wsgi2  ??
+```
+
+```
+WSGIDaemonProcess webvirtcloud threads=2 maximum-requests=1000 display-name=webvirtcloud
+WSGIScriptAlias / /srv/webvirtcloud/webvirtcloud/wsgi.py
+```
+
+#### Install final required packages for libvirtd and others on Host Server ####
+
+```
+sudo pacman -Sy libvirtd qemu virt-manager
+```
+
+```bash
+wget -O - https://raw.githubusercontent.com/retspen/webvirtcloud/master/dev/libvirt-bootstrap.sh | sudo sh
+```
