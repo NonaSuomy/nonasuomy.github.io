@@ -669,12 +669,6 @@ server {
 yaourt libguestfs --noconfirm
 ```
 
-Add required user to the kvm group:
-
-```bash
-sudo useradd -M -G kvm -r webvirtmgr
-```
-
 Enable & start services for running WebVirtCloud:
 
 ```bash
@@ -708,6 +702,109 @@ Go to http://hypervisorip and you should see the login screen.
 login: admin
 password: admin
 </pre>
+
+# For new versions of webvirtmgr
+
+1. Create SSH private key and ssh config options (On system where WebVirtMgr is installed):
+
+   `$ sudo su - http -s /bin/bash`
+    
+   `(nginx default user might be different than "nginx", "www-data" or "http" might be used : check nginx.conf)`
+
+   `exit`
+   
+   `sudo chown -R http:http /srv/http`
+   
+   `$ sudo su - http -s /bin/bash`
+   
+   `$ ssh-keygen`
+
+   `Generating public/private rsa key pair.`
+
+    `Enter file in which to save the key (path-to-id-rsa-in-nginx-home):` _Just hit Enter here!_
+
+```
+Created directory '/srv/http/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /srv/http/.ssh/id_rsa.
+Your public key has been saved in /srv/http/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:hash http@hypervisor
+The key's randomart image is:
++---[RSA 2048]----+
+|                 |
++----[SHA256]-----+
+```
+
+    `$ touch ~/.ssh/config && echo -e "StrictHostKeyChecking=no\nUserKnownHostsFile=/dev/null" >> ~/.ssh/config`
+    
+    `$ chmod 0600 ~/.ssh/config`
+
+    `$ exit`
+    
+2. Add webvirt user (on qemu-kvm/libvirt host server) and add it to the proper group :
+
+Add required user to the kvm & libvirt group:
+
+```bash
+sudo useradd -M -G kvm,libvirt -d /home/webvirtmgr -r webvirtmgr
+```
+
+```
+sudo passwd webvirtmgr
+New password:
+Retype new password:
+passwd: password updated successfully
+```
+
+3. Back to webvirtmgr host and copy public key to qemu-kvm/libvirt host server:
+
+    `$ sudo su - http -s /bin/bash`
+
+    `$ ssh-copy-id webvirtmgr@localhost`
+
+```
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/srv/http/.ssh/id_rsa.pub"
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+Warning: Permanently added 'localhost' (ECDSA) to the list of known hosts.
+webvirtmgr@localhost's password:
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'webvirtmgr@localhost'"
+and check to make sure that only the key(s) you wanted were added.
+```
+
+    Or if you changed the default SSH port use:
+
+    `$ ssh-copy-id -P YOUR_SSH_PORT webvirtmgr@qemu-kvm-libvirt-host`
+
+Now you can test the connection by entering:
+
+```
+[http@hypervisor ~]$ ssh webvirtmgr@localhost
+Warning: Permanently added 'localhost' (ECDSA) to the list of known hosts.
+Last login: Thu Aug  3 16:04:25 2017 from yourip
+[webvirtmgr@hypervisor ~]$ exit
+[http@hypervisor ~]$ exit
+```
+
+For a non-standard SSH port use:
+
+    $ ssh -P YOUR_SSH_PORT webvirtmgr@localhost
+
+You should connect without entering a password.
+
+4. Set up permissions to manage libvirt (on qemu-kvm/libvirt host server):
+
+**Archlinux:** We already did this with our useradd command above...
+
+It should now be possible to log in to WebVirtCloud with an ssh user.
+
+
+
 
 ### How To Update ###
 
