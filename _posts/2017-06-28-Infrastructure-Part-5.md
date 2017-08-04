@@ -3,7 +3,7 @@ layout: post
 title: Arch Linux Infrastructure - VoIP Server - Part 5 - VoIPServer
 ---
 
-![alt text]({{ site.baseurl }}../images/infrastructure/HOTInfrastructureLayoutVoIP.png "Infrastructure Switch")
+![alt text]({{ site.baseurl }}../images/infrastructure/HOTInfrastructureLayoutVoIP.png "Infrastructure VoIP")
 
 # Index #
 
@@ -345,6 +345,7 @@ archlinux-2017.06.01-x86_64.iso           488.00 MiB   iso
 IncrediblePBX13.2.iso                     849.00 MiB   iso
 OPNsense-17.1.4-OpenSSL-cdrom-amd64.iso   858.43 MiB   iso
 pfSense-CE-2.3.4-RELEASE-amd64.iso        626.79 MiB   iso
+SL-7.3-x86_64-netinst.iso		  406.00 MiB   iso
 ```
 
 Click on Scientific Linux iso then click Choose Volume.
@@ -355,7 +356,7 @@ Click OK.
 Virual Disk
   Sorce path: /var/lib/libvirt/images/iso/SL-7.3-x86_64-netinst.iso  Disconnect
   Device type: IDE CDROM 1
-  Storage size: 858.43 MiB
+  Storage size: 406.00 MiB
   Readonly: X
   Shareable:
 ```
