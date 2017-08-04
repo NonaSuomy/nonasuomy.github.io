@@ -116,10 +116,10 @@ set nowrap
 
 ### Install Virtual Machine Packages ###
 
-Install libvirt, virt-manager, qemu, qemu-arch-extra, dmidecode, ovmf, openssh, ebtables, bridge-utils, openbsd-netcat, tcpdump
+Install libvirt, virt-manager, qemu, qemu-arch-extra, dmidecode, ovmf, dnsmasq, openssh, ebtables, bridge-utils, openbsd-netcat, tcpdump
  
 ```
-sudo pacman -S libvirt virt-manager qemu qemu-arch-extra dmidecode ovmf openssh ebtables bridge-utils openbsd-netcat tcpdump
+sudo pacman -S libvirt virt-manager qemu qemu-arch-extra dmidecode ovmf dnsmasq openssh ebtables bridge-utils openbsd-netcat tcpdump
 ```
 
 ### Add User To Virtual Machine Groups ###
@@ -166,7 +166,19 @@ sudo sed -i s/78/kvm/ /etc/libvirt/qemu.conf
 sudo nano /etc/libvirt/qemu.conf
 nvram=["/usr/share/ovmf/ovmf_code_x64.bin:/usr/share/ovmf/ovmf_vars_x64.bin"]
 ```
- 
+
+### Auto-Start Virtual Bridging For VM Default NIC ###
+
+```
+[user@hypervisor nginx]$ sudo virsh net-autostart default
+Network default marked as autostarted
+
+[user@hypervisor nginx]$ sudo virsh net-list --all
+ Name                 State      Autostart     Persistent
+----------------------------------------------------------
+ default              active     yes           yes
+```
+
 ### Setup A Windows Manager For Virt-Manager ###
 
 i3-wm (Windows manager to use virt-manager)
