@@ -695,12 +695,16 @@ Done!!
 
 Go to http://hypervisorip and you should see the login screen.
 
+![alt text]({{ site.baseurl }}../images/infrastructure/webvirtcloud001.png "Infrastructure WebGUI")
+
 ### Default credentials ###
 
 <pre>
 login: admin
 password: admin
 </pre>
+
+![alt text]({{ site.baseurl }}../images/infrastructure/webvirtcloud002.png "Infrastructure WebGUI")
 
 ## Add SSH Hypervisor Login ##
 
@@ -854,7 +858,7 @@ You should see all your VM listed (If you had some built) w00t!
 
 Click + to add some VM's.
 
-
+![alt text]({{ site.baseurl }}../images/infrastructure/webvirtcloud003.png "Infrastructure WebGUI")
 
 ### How To Update ###
 
