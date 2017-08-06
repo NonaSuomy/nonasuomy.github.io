@@ -247,6 +247,8 @@ EXTRALANS=""
 # ISP Maximum Speeds
 ```
 
+**WAN**
+
 ```
 nano /var/lib/lxc/clearos/rootfs/etc/sysconfig/network-scripts/ifcfg-eth0
 ```
@@ -270,6 +272,8 @@ UUID="8839d2a0-b6bb-4baa-8e99-903d296f76f2"
 DEVICE="eth0"
 ONBOOT="yes"
 ```
+
+**LAN**
 
 ```
 nano /var/lib/lxc/clearos/rootfs/etc/sysconfig/network-scripts/ifcfg-eth1
@@ -298,6 +302,8 @@ DEVICE="eth1"
 ONBOOT="yes"
 ```
 
+**IoT**
+
 ```
 nano /var/lib/lxc/clearos/rootfs/etc/sysconfig/network-scripts/ifcfg-eth2
 ```
@@ -311,6 +317,8 @@ BOOTPROTO="static"
 IPADDR="10.0.2.1"
 NETMASK="255.255.255.0"
 ```
+
+**WiFiMain**
 
 ```
 nano /var/lib/lxc/clearos/rootfs/etc/sysconfig/network-scripts/ifcfg-eth3
@@ -326,6 +334,8 @@ IPADDR="10.0.3.1"
 NETMASK="255.255.255.0"
 ```
 
+**WiFiGuest**
+
 ```
 nano /var/lib/lxc/clearos/rootfs/etc/sysconfig/network-scripts/ifcfg-eth4
 ```
@@ -339,6 +349,8 @@ BOOTPROTO="static"
 IPADDR="10.0.4.1"
 NETMASK="255.255.255.0"
 ```
+
+**Voice**
 
 ```
 nano /var/lib/lxc/clearos/rootfs/etc/sysconfig/network-scripts/ifcfg-eth5
@@ -378,7 +390,7 @@ If you attach to the interface and you want to see if the IP's are working.
 
 You should see all the interfaces we made eth0, eth1, eth2, eth3, eth4 and eth5 and their IP address.
 
-Try this if you are not attached to the LXC
+Try this if you are not attached to the LXC.
 
 ```
 [root@hypervisor ~]# lxc-ls --fancy
@@ -388,9 +400,7 @@ clearos STOPPED 0         -      -    -
 
 If it's running you will see an IP address there of the first interface (WAN).
 
-```
-
-If you want to auto start this container 
+If you want to auto start this container.
 
 ```
 nano /var/lib/lxc/clearos/config
@@ -400,13 +410,13 @@ nano /var/lib/lxc/clearos/config
 lxc.start.auto = 1
 ```
 
-We can check that line works with
+We can check that line works with lxc-ls --fancy again.
 
 ```
 lxc-ls --fancy
 ```
 
-You can even set a boot order and a boot delay :
+You can even set a boot order and a boot delay.
 
 ```
 lxc.start.delay = 0 (in seconds)
