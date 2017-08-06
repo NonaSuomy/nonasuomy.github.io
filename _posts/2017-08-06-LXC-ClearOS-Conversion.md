@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Arch Linux Infrastructure - Brouter Inception - Part 4 - Virtual Router
+title: Arch Linux Infrastructure - Brouter Inception - Part 4.1 - Virtual Router - LXC ClearOS
 ---
 
 ![alt text]({{ site.baseurl }}../images/infrastructure/HOTInfrastructureLayoutFW.png "Infrastructure Switch")
