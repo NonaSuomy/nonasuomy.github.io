@@ -63,6 +63,10 @@ sudo guestmount -a /var/lib/libvirt/images/clearos.qcow2 -m /dev/clearos/root /m
 
 ## LXC ##
 
+```
+pacman -Sy lxc
+```
+
 ### Create a new empty lxc container ###
 
 Create a new empty LXC container with a default configuration. I'll name it 'clearos'.
@@ -77,6 +81,12 @@ LXC's containers are created within /var/lib/lxc and you should now see /var/lib
 
 ```
 rsync -av /mnt/clearosmnt/* /var/lib/lxc/clearos/rootfs
+```
+
+### Unmount Image ###
+
+```
+sudo guestunmount /mnt
 ```
 
 ### Prepare the container's device nodes and fix fstab ###
@@ -384,6 +394,9 @@ Otherwise you won't see all the interfaces we added above.
 
 If you attach to the interface and you want to see if the IP's are working.
 
+**Note:** *Use full paths to tools otherwise you will get command not found, use whereis to find the ones you want to use. If you SSH in you don't have to do that.*
+
+
 ```
 /usr/sbin/ip addr
 ```
@@ -422,6 +435,18 @@ You can even set a boot order and a boot delay.
 lxc.start.delay = 0 (in seconds)
 lxc.start.order = 0 (higher means earlier)
 ```
+
+Connect to the ClearOS webGUI
+
+https://10.0.1.1:81
+
+Username: root
+
+Password: One you set from the prior install on the VM.
+
+Chose the Gateway option.
+
+Click next finish the setup wizard.
 
 Ignore the rest of this as it is for a Ubuntu system but you might want to do something similar for a CentOS system...
 
