@@ -35,6 +35,14 @@ Part 04.1 - ALT - Virtual Router - LXC ClearOS - You Are Here!
 
 Create a new KVM virtual machine and install ClearOS to it from the install media.
 
+[http://mirror.clearos.com/clearos/7/iso/x86_64/ClearOS-DVD-x86_64.iso](http://mirror.clearos.com/clearos/7/iso/x86_64/ClearOS-DVD-x86_64.iso)
+
+
+```
+cd /var/lib/libvirt/images/iso/
+wget http://mirror1-newyork.clearos.com/clearos/7/iso/x86_64/ClearOS-DVD-x86_64.iso
+```
+
 Follow the pfsense guide if you need help with virt-manager.
 
 After complete and running shutdown vm.
