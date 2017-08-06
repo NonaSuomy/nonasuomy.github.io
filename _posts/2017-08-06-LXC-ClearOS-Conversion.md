@@ -419,9 +419,10 @@ Ignore the rest of this as it is for a Ubuntu system but you might want to do so
 
 There are some things that are not needed anymore. All commands are entered within the container.
 
+```
  $ apt-get remove --purge acpid acpi
  $ update-rc.d -f hwclock.sh remove
  $ update-rc.d -f mountall.sh remove
  $ update-rc.d -f checkfs.sh remove
  $ update-rc.d -f udev remove
-Let's see how we can improve the container in the future..
+```
