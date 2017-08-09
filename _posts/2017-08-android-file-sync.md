@@ -59,5 +59,46 @@ root@nasip:~ # exit
 logout
 Connection to nasip closed.
 
+ -r, --recursive             recurse into directories
+ -l, --links                 copy symlinks as symlinks
+ -t, --times                 preserve modification times
+ -D                          same as --devices --specials
+ -v, --verbose               increase verbosity
+ --size-only             skip files that match in size
+--delete                delete extraneous files from dest dirs
+
+
+batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq .plugged)         wifistat=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .ssid)                                                       case "$batstat" in                                 *AC*)                                              echo "Plugged in!"                               case "$wifistat" in                                *"All Your Base"*)                                 echo "Connected to home WiFi"                    export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib                                        /data/data/com.termux/files/usr/bin/rsync \                                                       -rltDv --size-only --dry-run \                   --chmod=u=rwX,g=rX,o=rX \                        --exclude=".android_secure" \                    --exclude "Music" --exclude "Audio" \            --exclude "bcnav" --exclude "Locus" \            --exclude "Movies" --exclude "external_sd" \
+--exclude "bcnav" --exclude "Locus" \            --exclude "Movies" --exclude "external_sd" \                                                      --exclude "georg" --exclude "pulse" \            --exclude "Android/data/com.google.android.apps.currents" \                                       --exclude "waze/tts" \                           -e "/data/data/com.termux/files/usr/bin/ssh -i /data/data/com.termux/files/home/.ssh/id_rsa -l root" \                                             /sdcard/ root@10.20.30.112:/mnt/HQ/Storage/nonasuomy/mobile/                                    ;;                                               *)                                                 echo "Not connected to home WiFi"              ;;                                             esac                                           ;;                                               *)                                                 echo "Unplugged!"                              ;;                                             esac
+
+
+
+Alarms                          SoundRecorder
+AndroIRC                        TWRP
+Android                         ViPER4Android
+ArduinoDroid                    arise_addon.prop
+DCIM                            backups
+Download                        com.facebook.katana
+Facebook Messenger              com.facebook.orca
+MEGA                            data
+MagiskManager                   dianxin
+Movies                          recording20170704222417.wav
+Music                           report
+Notifications                   storage
+Pictures                        usb_cam_log.txt
+Podcasts                        vlc_crash_20170628_105857.log
+Ringtones                       vlc_logcat_20170628_105857.log
+Snapchat
+
+/storage/6703-55FF/
+Android
+Downloads
+Hangouts
+ROM Tools
+Recordings
+default.profile_backup
+picsbackupdups
+pics
+
 
 ```
