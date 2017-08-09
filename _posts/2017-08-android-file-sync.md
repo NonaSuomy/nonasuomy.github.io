@@ -90,6 +90,12 @@ Rsync nfo.
 --dry-run                    Test do nothing else!
 ```
 
+Scripting...
+
+```
+sudo ./turmuxrsync.sh
+```
+
 ```
 #!/bin/sh
 batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq .plugged)         wifistat=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .ssid)                                 case "$batstat" in
