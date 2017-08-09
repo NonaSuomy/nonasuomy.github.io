@@ -112,33 +112,34 @@ $ termux-wifi-connectioninfo
   "ssid": "<unknown ssid>",
   "ssid_hidden": true,
   "supplicant_state": "DISCONNECTED"
- }
+}
+```
+
+Plugged In
  
- Plugged In
- 
- ```
- termux-battery-status
- {
+```
+termux-battery-status
+{
   "health": "GOOD",
   "percentage": 100,
   "plugged": "PLUGGED_AC",
   "status": "FULL",
   "temperature": 34.79999923706055
- }
- ```
+}
+```
  
- Unplugged.
+Unplugged.
  
- ```
- termux-battery-status
- {
+```
+termux-battery-status
+{
   "health": "GOOD",
   "percentage": 100,
   "plugged": "UNPLUGGED",
   "status": "DISCHARGING",
   "temperature": 34.70000076293945
- }
- ```
+}
+```
  
 Rsync nfo.
 
