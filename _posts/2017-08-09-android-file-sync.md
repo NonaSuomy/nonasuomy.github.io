@@ -172,6 +172,7 @@ servpath="/mnt/datastore001/Storage/user/mobile/"
 sdint="/sdcard/"
 sdext="/storage/4321-FFFF/"
 perms="rwX,g=rX,o=rX"
+
 # Configuration end
 
 batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq .plugged)         wifistat=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .supplicant_state)                     
