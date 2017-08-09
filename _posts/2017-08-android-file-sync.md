@@ -1,3 +1,8 @@
+---
+layout: post
+title: Arch Linux Infrastructure - Backups - Android to NAS
+---
+
 ```
 https://termux.com/
 https://play.google.com/store/apps/details?id=com.termux
@@ -6,14 +11,22 @@ apt upgrade
 apt install rsync
 apt install termux-api
 apt install jq
+```
 
 https://github.com/termux/termux-api-package/tree/master/script
+
 https://github.com/termux/termux-app/issues/61
+
 https://github.com/st42/termux-sudo
 
+```
 termux-battery-status | jq .plugged
 termux-wifi-connectioninfo | jq .ssid
+```
 
+Generate ssh keys for script to logon to NAS.
+
+```
 ssh-keygen
 Generating public/private rsa key pair.
 Enter file in which to save the key (/data/data/com.termux/files/home/.ssh/id_rsa):
@@ -43,7 +56,11 @@ Number of key(s) added: 1
 
 Now try logging into the machine, with:   "ssh 'root@nasip'"
 and check to make sure that only the key(s)you wanted were added.
+```
 
+Test connection...
+
+```
 $ ssh root@nasip
 Last login: Sat Jul 22 22:49:15 2017 from 10.13.37.167
 FreeBSD 11.0-STABLE (FreeNAS.amd64) #0 r313908+b3722b04944(freenas/11.0-stable): Sat Jul  1 02:44:49 UTC 2017
@@ -58,8 +75,12 @@ Welcome to FreeNAS
 root@nasip:~ # exit
 logout
 Connection to nasip closed.
+```
 
- -r, --recursive             recurse into directories
+Rsync nfo.
+
+```
+ -r, --recursive            ` recurse into directories
  -l, --links                 copy symlinks as symlinks
  -t, --times                 preserve modification times
  -D                          same as --devices --specials
@@ -67,7 +88,10 @@ Connection to nasip closed.
 --size-only                  skip files that match in size
 --delete                     delete extraneous files from dest dirs
 --dry-run                    Test do nothing else!
+```
 
+```
+#!/bin/sh
 batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq .plugged)         wifistat=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .ssid)                                 case "$batstat" in
  *AC*)
    echo "Plugged in!"
@@ -80,15 +104,12 @@ batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq 
        --chmod=u=rwX,g=rX,o=rX \
        --exclude=".android_secure" \
        --exclude "Music" --exclude "Audio" \
-       --exclude "bcnav" --exclude "Locus" \
+       --exclude "dianxin" --exclude "TWRP" \
        --exclude "Movies" --exclude "external_sd" \
-       --exclude "bcnav" --exclude "Locus" \
-       --exclude "Movies" --exclude "external_sd" \
-       --exclude "georg" --exclude "pulse" \
-       --exclude "Android/data/com.google.android.apps.currents" \
-       --exclude "waze/tts" \
+       --exclude "Alarms" --exclude "ViPER4Android" \
+       --exclude "MagiskManager" \
        -e "/data/data/com.termux/files/usr/bin/ssh -i /data/data/com.termux/files/home/.ssh/id_rsa -l root" \
-       /sdcard/ root@10.20.30.112:/mnt/HQ/Storage/nonasuomy/mobile/
+       /sdcard/ /storage/6543-2109/ root@nasip:/mnt/HQ/Storage/nonasuomy/mobile/
      ;;
      *)
        echo "Not connected to home WiFi"
@@ -99,10 +120,14 @@ batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq 
    echo "Unplugged!"
  ;;
 esac
+```
 
+Device folder structure for testing
 
+```
+/SDCARD/
 
-Alarms                          SoundRecorder
+Alarms                          SoundRecorder
 AndroIRC                        TWRP
 Android                         ViPER4Android
 ArduinoDroid                    arise_addon.prop
@@ -120,6 +145,7 @@ Ringtones                       vlc_logcat_20170628_105857.log
 Snapchat
 
 /storage/6703-55FF/
+
 Android
 Downloads
 Hangouts
@@ -128,6 +154,4 @@ Recordings
 default.profile_backup
 picsbackupdups
 pics
-
-
 ```
