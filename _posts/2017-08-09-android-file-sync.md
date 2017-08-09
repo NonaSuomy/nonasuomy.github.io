@@ -171,7 +171,8 @@ servcon="nasIP"
 servpath="/mnt/datastore001/Storage/user/mobile/"
 sdint="/sdcard/"
 sdext="/storage/4321-FFFF/"
-perms="rwX,g=rX,o=rX"
+perms="u=rwX,g=rX,o=rX"
+rsyncopt="-rltDv --size-only --times"
 
 # Configuration end
 
@@ -189,8 +190,8 @@ case "$batstat" in
             echo "Connected to Home WiFi"
             export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib 
             /data/data/com.termux/files/usr/bin/rsync \
-            -rltDv --size-only --times \
-            --chmod=u=$perms \
+            $rsyncopt \
+            --chmod=$perms \
             --exclude=".android_secure" \
             --exclude "Music" \
             --exclude "Movies" --exclude "external_sd" \
