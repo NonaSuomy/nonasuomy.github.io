@@ -162,33 +162,53 @@ sudo ./turmuxrsync.sh
 
 ```
 #!/data/data/com.termux/files/usr/bin/sh
-batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq .plugged)         wifistat=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .ssid)                                 case "$batstat" in
- *AC*)
-   echo "Plugged in!"
-   case "$wifistat" in
-     *"YOURSSID"*)
-       echo "Connected to home WiFi"
-       export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib                              
-       /data/data/com.termux/files/usr/bin/rsync \
-       -rltDv --size-only --dry-run \
-       --chmod=u=rwX,g=rX,o=rX \
-       --exclude=".android_secure" \
-       --exclude "Music" --exclude "Audio" \
-       --exclude "dianxin" --exclude "TWRP" \
-       --exclude "Movies" --exclude "external_sd" \
-       --exclude "Alarms" --exclude "ViPER4Android" \
-       --exclude "MagiskManager" \
-       -e "/data/data/com.termux/files/usr/bin/ssh -i /data/data/com.termux/files/home/.ssh/id_rsa -l root" \
-       /sdcard/ /storage/6543-2109/ root@nasip:/mnt/HQ/Storage/nonasuomy/mobile/
-     ;;
-     *)
-       echo "Not connected to home WiFi"
-     ;;
-   esac
-   ;;
- *)
-   echo "Unplugged!"
- ;;
+
+# Configuration
+
+myssid="YOURSSID"
+servuser="useraccount"
+servcon="nasIP"
+servpath="/mnt/datastore001/Storage/user/mobile/"
+sdint="/sdcard/"
+sdext="/storage/4321-FFFF/"
+perms="rwX,g=rX,o=rX"
+# Configuration end
+
+batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq .plugged)         wifistat=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .supplicant_state)                     
+wifissid=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .ssid)                              
+
+case "$batstat" in
+  *AC*)
+    echo "Plugged in!"
+    case "$wifistat" in
+      *"COMPLETED"*)
+        echo "WiFi Connected"
+        case "$wifissid" in
+          *"All Your Base"*)
+            echo "Connected to Home WiFi"
+            export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib 
+            /data/data/com.termux/files/usr/bin/rsync \
+            -rltDv --size-only --times \
+            --chmod=u=$perms \
+            --exclude=".android_secure" \
+            --exclude "Music" \
+            --exclude "Movies" --exclude "external_sd" \
+            -e "/data/data/com.termux/files/usr/bin/ssh -i /data/data/com.termux/files/home/.ssh/id_rsa -l $servuser" \
+            $sdint $sdext $servuser@$servcon:$servpath
+          ;;
+          *)
+            echo "Not connected to Home WiFi"
+          ;;
+        esac
+        ;;
+      *)
+        echo "WiFi Not Connected."
+      ;;
+    esac
+    ;;
+  *)
+    echo "Unplugged!"
+  ;;
 esac
 ```
 
