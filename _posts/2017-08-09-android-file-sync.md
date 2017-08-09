@@ -77,6 +77,69 @@ logout
 Connection to nasip closed.
 ```
 
+Test termux-api
+
+WiFi Connected.
+
+```
+termux-wifi-connectioninfo
+{
+"bssid": "42:de:ad:fe:ed:10",
+"frequency_mhz": 2447,
+  "ip": "10.0.5.52",
+  "link_speed_mbps": 58,
+  "mac_address": "02:00:00:00:00:00",
+  "network_id": 19,
+  "rssi": -60,
+  "ssid": "YOURSSID",
+  "ssid_hidden": false,
+  "supplicant_state": "COMPLETED"
+}
+```
+
+WiFi Disconnected.
+
+```
+$ termux-wifi-connectioninfo
+{
+  "bssid": "00:00:00:00:00:00",
+  "frequency_mhz": -1,
+  "ip": "0.0.0.0",
+  "link_speed_mbps": -1,
+  "mac_address": "02:00:00:00:00:00",
+  "network_id": -1,
+  "rssi": -127,
+  "ssid": "<unknown ssid>",
+  "ssid_hidden": true,
+  "supplicant_state": "DISCONNECTED"
+ }
+ 
+ Plugged In
+ 
+ ```
+ termux-battery-status
+ {
+  "health": "GOOD",
+  "percentage": 100,
+  "plugged": "PLUGGED_AC",
+  "status": "FULL",
+  "temperature": 34.79999923706055
+ }
+ ```
+ 
+ Unplugged.
+ 
+ ```
+ termux-battery-status
+ {
+  "health": "GOOD",
+  "percentage": 100,
+  "plugged": "UNPLUGGED",
+  "status": "DISCHARGING",
+  "temperature": 34.70000076293945
+ }
+ ```
+ 
 Rsync nfo.
 
 ```
@@ -97,12 +160,12 @@ sudo ./turmuxrsync.sh
 ```
 
 ```
-#!/bin/sh
+#!/data/data/com.termux/files/usr/bin/sh
 batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq .plugged)         wifistat=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .ssid)                                 case "$batstat" in
  *AC*)
    echo "Plugged in!"
    case "$wifistat" in
-     *"All Your Base"*)
+     *"YOURSSID"*)
        echo "Connected to home WiFi"
        export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib                              
        /data/data/com.termux/files/usr/bin/rsync \
