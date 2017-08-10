@@ -187,7 +187,7 @@ case "$batstat" in
         echo "WiFi Connected"
         case "$wifissid" in
           *"All Your Base"*)
-            echo "Connected to Home WiFi"
+            echo "Connected to $wifissid WiFi"
             export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib 
             /data/data/com.termux/files/usr/bin/rsync \
             $rsyncopt \
@@ -197,7 +197,7 @@ case "$batstat" in
             $bssedir $servuser@$servcon:$servpath
           ;;
           *)
-            echo "Not connected to Home WiFi"
+            echo "Not connected to your WiFi."
           ;;
         esac
         ;;
@@ -214,7 +214,10 @@ esac
 
 Backup Folder/File List
 
-rsyncfile.lst
+```
+nano -w rsyncfile.lst
+```
+
 ```
 /sdcard/DCIM
 /sdcard/Documents
