@@ -186,15 +186,15 @@ case "$batstat" in
       *"COMPLETED"*)
         echo "WiFi Connected"
         case "$wifissid" in
-          *"All Your Base"*)
+          *"$myssid"*)
             echo "Connected to $wifissid WiFi"
             export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib 
             /data/data/com.termux/files/usr/bin/rsync \
             $rsyncopt \
             --chmod=$perms \
             --files-from=$filelst \
-            $-e "/data/data/com.termux/files/usr/bin/ssh -i /data/data/com.termux/files/home/.ssh/id_rsa -l $servuser" \
-            $bssedir $servuser@$servcon:$servpath
+            -e "/data/data/com.termux/files/usr/bin/ssh -i /data/data/com.termux/files/home/.ssh/id_rsa -l $servuser" \
+            $basedir $servuser@$servcon:$servpath
           ;;
           *)
             echo "Not connected to your WiFi."
@@ -267,6 +267,14 @@ Test it out!
 ```
 sudo chmod 755 termuxrsync.sh
 sudo ./termuxrsync.sh
+```
+
+If your not rooted and didn't install sudo, just use sh.
+
+You will get a permission denied warning from the basedir / but then when it starts reading the files you have access to it should start working.
+
+```
+sh termuxrsync.sh
 ```
 
 Testing...
