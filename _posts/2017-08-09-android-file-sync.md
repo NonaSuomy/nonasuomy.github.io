@@ -169,8 +169,8 @@ myssid="YOURSSID"
 servuser="useraccount"
 servcon="nasIP"
 servpath="/mnt/datastore001/Storage/user/mobile/"
-sdint="/sdcard/"
-sdext="/storage/4321-FFFF/"
+filelst="rsyncfile.lst"
+basedir="/"
 perms="u=rwX,g=rX,o=rX"
 rsyncopt="-rltDv --size-only --times"
 
@@ -192,14 +192,12 @@ case "$batstat" in
             /data/data/com.termux/files/usr/bin/rsync \
             $rsyncopt \
             --chmod=$perms \
-            --exclude=".android_secure" \
-            --exclude "Music" \
-            --exclude "Movies" --exclude "external_sd" \
-            -e "/data/data/com.termux/files/usr/bin/ssh -i /data/data/com.termux/files/home/.ssh/id_rsa -l $servuser" \
-            $sdint $sdext $servuser@$servcon:$servpath
+            --files-from=$filelst \
+            $-e "/data/data/com.termux/files/usr/bin/ssh -i /data/data/com.termux/files/home/.ssh/id_rsa -l $servuser" \
+            $bssedir $servuser@$servcon:$servpath
           ;;
-          *)
-            echo "Not connected to Home WiFi"
+          *)
+            echo "Not connected to Home WiFi"
           ;;
         esac
         ;;
@@ -212,6 +210,19 @@ case "$batstat" in
     echo "Unplugged!"
   ;;
 esac
+```
+
+Backup Folder/File List
+
+rsyncfile.lst
+```
+/sdcard/DCIM
+/sdcard/Documents
+/sdcard/Download
+/sdcard/Movies
+/sdcard/Pictures
+/sdcard/SoundRecorder
+/storage/4242-FFFF/sdbackup
 ```
 
 Device folder structure for testing
@@ -236,7 +247,7 @@ Podcasts                        vlc_crash_20170628_105857.log
 Ringtones                       vlc_logcat_20170628_105857.log
 Snapchat
 
-/storage/6703-55FF/
+/storage/4242-FFFF/,
 
 Android
 Downloads
