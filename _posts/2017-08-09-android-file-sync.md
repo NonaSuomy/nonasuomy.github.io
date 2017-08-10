@@ -8,9 +8,13 @@ https://termux.com/
 https://play.google.com/store/apps/details?id=com.termux
 apt update
 apt upgrade
-apt install rsync
-apt install termux-api
-apt install jq
+pkg install rsync
+pkg install termux-api
+pkg install jq
+pkg install curl
+pkg install wget
+pkg install openssh
+pkg install nano
 ```
 
 https://github.com/termux/termux-api-package/tree/master/script
