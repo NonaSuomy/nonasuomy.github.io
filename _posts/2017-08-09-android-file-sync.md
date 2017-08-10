@@ -188,18 +188,25 @@ case "$batstat" in
     echo "Plugged in!"
     case "$wifistat" in
       *"COMPLETED"*)
-        echo "WiFi Connected"
+        echo "WiFi Connected"
         case "$wifissid" in
           *"$myssid"*)
-            echo "Connected to $wifissid WiFi"
-            export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib 
-            /data/data/com.termux/files/usr/bin/rsync \
-            $rsyncopt \
-            --chmod=$perms \
-            --files-from=$filelst \
-            -e "/data/data/com.termux/files/usr/bin/ssh -i /data/data/com.termux/files/home/.ssh/id_rsa -l $servuser" \
-            $basedir $servuser@$servcon:$servpath
-          ;;
+            echo "Connected to $wifissid WiFi"
+            ping -q -c1 $servcon > /dev/null 2>&1; pong=$?
+            if [ $pong -eq 0 ]
+            then
+              echo "NAS On-line
+              export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib 
+              /data/data/com.termux/files/usr/bin/rsync \
+              $rsyncopt \
+              --chmod=$perms \
+              --files-from=$filelst \
+              -e "/data/data/com.termux/files/usr/bin/ssh -i /data/data/com.termux/files/home/.ssh/id_rsa -l $servuser" \
+              $basedir $servuser@$servcon:$servpath
+            else
+              echo "NAS Off-Line"
+            fi
+             ;;
           *)
             echo "Not connected to your WiFi."
           ;;
