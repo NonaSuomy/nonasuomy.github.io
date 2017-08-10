@@ -157,7 +157,7 @@ Rsync nfo.
 Scripting...
 
 ```
-sudo ./turmuxrsync.sh
+nano -w termuxrsync.sh
 ```
 
 ```
@@ -261,3 +261,23 @@ default.profile_backup
 picsbackupdups
 pics
 ```
+
+Test it out!
+
+```
+sudo chmod 755 termuxrsync.sh
+sudo ./termuxrsync.sh
+```
+
+Testing...
+
+```
+Plugged in!
+WiFi Connected
+Connected to "YOURSSID" WiFi
+sending incremental file list
+
+sent 39,610 bytes  received 364 bytes  15,989.60 bytes/sec                                        total size is 12,356,571,115  speedup is 309,115.20
+```
+
+Looks good, files showed up on the NAS.
