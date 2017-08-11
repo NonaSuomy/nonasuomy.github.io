@@ -161,7 +161,8 @@ Rsync nfo.
 Scripting...
 
 ```
-nano -w termuxrsync.sh
+wget https://raw.githubusercontent.com/NonaSuomy/termuxrsyncauto/master/termuxrsyncauto.sh
+nano -w termuxrsyncauto.sh
 ```
 
 ```
