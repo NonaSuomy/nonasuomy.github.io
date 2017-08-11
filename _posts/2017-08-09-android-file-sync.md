@@ -181,8 +181,8 @@ rsyncopt="-rltDv --size-only --times"
 
 # Configuration end
 
-batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq .plugged)         wifistat=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .supplicant_state)                     
-wifissid=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .ssid)                              
+batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq .plugged) wifistat=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .supplicant_state)   
+wifissid=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .ssid)
 
 case "$batstat" in
   *AC*)
@@ -196,8 +196,8 @@ case "$batstat" in
             ping -q -c1 $servcon > /dev/null 2>&1; pong=$?
             if [ $pong -eq 0 ]
             then
-              echo "NAS On-line
-              export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib 
+              echo "NAS On-Line"
+              export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib 
               /data/data/com.termux/files/usr/bin/rsync \
               $rsyncopt \
               --chmod=$perms \
@@ -231,36 +231,30 @@ nano -w rsyncfile.lst
 ```
 
 ```
-/sdcard/DCIM
-/sdcard/Documents
-/sdcard/Download
-/sdcard/Movies
-/sdcard/Pictures
-/sdcard/SoundRecorder
+/storage/emulated/0/DCIM
+/storage/emulated/0/Documents
+/storage/emulated/0/Download
+/storage/emulated/0/Movies
+/storage/emulated/0/Pictures
+/storage/emulated/0/SoundRecorder
 /storage/4242-FFFF/sdbackup
 ```
 
 Device folder structure for testing
 
 ```
-/SDCARD/
+/storage/emulated/0/
 
 Alarms                          SoundRecorder
 AndroIRC                        TWRP
 Android                         ViPER4Android
-ArduinoDroid                    arise_addon.prop
+ArduinoDroid                    Ringtones
 DCIM                            backups
-Download                        com.facebook.katana
-Facebook Messenger              com.facebook.orca
-MEGA                            data
-MagiskManager                   dianxin
-Movies                          recording20170704222417.wav
-Music                           report
-Notifications                   storage
-Pictures                        usb_cam_log.txt
-Podcasts                        vlc_crash_20170628_105857.log
-Ringtones                       vlc_logcat_20170628_105857.log
-Snapchat
+Download                        Podcasts
+MEGA                            data
+Movies                          Pictures
+Music                           report
+Notifications                   storage       
 
 /storage/4242-FFFF/,
 
@@ -295,6 +289,7 @@ Testing...
 Plugged in!
 WiFi Connected
 Connected to "YOURSSID" WiFi
+NAS On-Line
 sending incremental file list
 
 sent 39,610 bytes  received 364 bytes  15,989.60 bytes/sec                                        total size is 12,356,571,115  speedup is 309,115.20
