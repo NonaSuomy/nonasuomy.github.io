@@ -3,6 +3,9 @@ layout: post
 title: Arch Linux Infrastructure - Backups - Android to NAS
 ---
 
+
+[https://github.com/NonaSuomy/termuxrsyncauto](https://github.com/NonaSuomy/termuxrsyncauto)
+
 ```
 https://termux.com/
 https://play.google.com/store/apps/details?id=com.termux
