@@ -181,7 +181,8 @@ rsyncopt="-rltDv --size-only --times"
 
 # Configuration end
 
-batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq .plugged) wifistat=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .supplicant_state)   
+batstat=$(/data/data/com.termux/files/usr/libexec/termux-api BatteryStatus | jq .plugged)
+wifistat=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .supplicant_state)
 wifissid=$(/data/data/com.termux/files/usr/libexec/termux-api WifiConnectionInfo | jq .ssid)
 
 case "$batstat" in
