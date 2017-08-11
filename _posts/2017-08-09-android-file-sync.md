@@ -3,7 +3,6 @@ layout: post
 title: Arch Linux Infrastructure - Backups - Android to NAS
 ---
 
-
 [https://github.com/NonaSuomy/termuxrsyncauto](https://github.com/NonaSuomy/termuxrsyncauto)
 
 ```
@@ -25,6 +24,78 @@ https://github.com/termux/termux-api-package/tree/master/script
 https://github.com/termux/termux-app/issues/61
 
 https://github.com/st42/termux-sudo
+
+Give storage permissions to termux for file copying to prevent permission denied errors.
+
+```
+termux-setup-storage
+```
+
+Test termux-api
+
+WiFi Connected.
+
+```
+termux-wifi-connectioninfo
+{
+"bssid": "42:de:ad:fe:ed:10",
+"frequency_mhz": 2447,
+  "ip": "10.0.5.52",
+  "link_speed_mbps": 58,
+  "mac_address": "02:00:00:00:00:00",
+  "network_id": 19,
+  "rssi": -60,
+  "ssid": "YOURSSID",
+  "ssid_hidden": false,
+  "supplicant_state": "COMPLETED"
+}
+```
+
+WiFi Disconnected.
+
+```
+$ termux-wifi-connectioninfo
+{
+  "bssid": "00:00:00:00:00:00",
+  "frequency_mhz": -1,
+  "ip": "0.0.0.0",
+  "link_speed_mbps": -1,
+  "mac_address": "02:00:00:00:00:00",
+  "network_id": -1,
+  "rssi": -127,
+  "ssid": "<unknown ssid>",
+  "ssid_hidden": true,
+  "supplicant_state": "DISCONNECTED"
+}
+```
+
+Plugged In
+ 
+```
+termux-battery-status
+{
+  "health": "GOOD",
+  "percentage": 100,
+  "plugged": "PLUGGED_AC",
+  "status": "FULL",
+  "temperature": 34.79999923706055
+}
+```
+
+Unplugged.
+ 
+```
+termux-battery-status
+{
+  "health": "GOOD",
+  "percentage": 100,
+  "plugged": "UNPLUGGED",
+  "status": "DISCHARGING",
+  "temperature": 34.70000076293945
+}
+```
+
+Test termux-api commands and json query.
 
 ```
 termux-battery-status | jq .plugged
@@ -83,70 +154,6 @@ root@nasip:~ # exit
 logout
 Connection to nasip closed.
 ```
-
-Test termux-api
-
-WiFi Connected.
-
-```
-termux-wifi-connectioninfo
-{
-"bssid": "42:de:ad:fe:ed:10",
-"frequency_mhz": 2447,
-  "ip": "10.0.5.52",
-  "link_speed_mbps": 58,
-  "mac_address": "02:00:00:00:00:00",
-  "network_id": 19,
-  "rssi": -60,
-  "ssid": "YOURSSID",
-  "ssid_hidden": false,
-  "supplicant_state": "COMPLETED"
-}
-```
-
-WiFi Disconnected.
-
-```
-$ termux-wifi-connectioninfo
-{
-  "bssid": "00:00:00:00:00:00",
-  "frequency_mhz": -1,
-  "ip": "0.0.0.0",
-  "link_speed_mbps": -1,
-  "mac_address": "02:00:00:00:00:00",
-  "network_id": -1,
-  "rssi": -127,
-  "ssid": "<unknown ssid>",
-  "ssid_hidden": true,
-  "supplicant_state": "DISCONNECTED"
-}
-```
-
-Plugged In
- 
-```
-termux-battery-status
-{
-  "health": "GOOD",
-  "percentage": 100,
-  "plugged": "PLUGGED_AC",
-  "status": "FULL",
-  "temperature": 34.79999923706055
-}
-```
- 
-Unplugged.
- 
-```
-termux-battery-status
-{
-  "health": "GOOD",
-  "percentage": 100,
-  "plugged": "UNPLUGGED",
-  "status": "DISCHARGING",
-  "temperature": 34.70000076293945
-}
-```
  
 Rsync nfo.
 
@@ -180,7 +187,7 @@ servpath="/mnt/datastore001/Storage/user/mobile/"
 filelst="rsyncfile.lst"
 basedir="/"
 perms="u=rwX,g=rX,o=rX"
-rsyncopt="-rltDv --size-only --times"
+rsyncopt="-rltDv --size-only"
 
 # Configuration end
 
@@ -275,8 +282,8 @@ pics
 Test it out!
 
 ```
-sudo chmod 755 termuxrsync.sh
-sudo ./termuxrsync.sh
+sudo chmod 755 termuxrsyncauto.sh
+sudo ./termuxrsyncauto.sh
 ```
 
 If your not rooted and didn't install sudo, just use sh.
@@ -284,7 +291,7 @@ If your not rooted and didn't install sudo, just use sh.
 You will get a permission denied warning from the basedir / but then when it starts reading the files you have access to it should start working.
 
 ```
-sh termuxrsync.sh
+sh termuxrsyncauto.sh
 ```
 
 Testing...
@@ -300,3 +307,5 @@ sent 39,610 bytes  received 364 bytes  15,989.60 bytes/sec               
 ```
 
 Looks good, files showed up on the NAS.
+
+To be continued (busybox - crond,crontab).
