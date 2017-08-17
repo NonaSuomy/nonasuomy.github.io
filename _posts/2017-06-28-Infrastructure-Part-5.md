@@ -529,7 +529,15 @@ tar zxvf incrediblepbx*
 
 The Incredible PBX installer runs unattended so find something to do for the next 30-60 minutes unless you just like watching over 1000 packages install. When the installation is complete, reboot your server and log back in as root. You should be greeted by something like the status of the major apps as well as your free RAM and DISK space and IP.
 
-**Note:** *I did two installs on SL73 and with both none of the commands were there below, asterisk -rvvvvvvv wasn' t there, couldn't access the WebGUI, Ran the installer a second time  ```./IncrediblePBX*``` then it downloaded even more stuff and finally I saw it compiling asterisk and then everything seemed to work.*
+**Note:** *I did three installs on SL73 and with all installs none of the commands were there below, asterisk -rvvvvvvv wasn't there, couldn't access the WebGUI, Ran the installer a second time then it downloaded even more stuff and finally I saw it compiling asterisk and then everything seemed to work.*
+
+System reboots automatically after the first run.
+
+Log back in and then run the install script again.
+
+```
+./IncrediblePBX*
+```
 
 After installation completes you should get some text that says so then asks you to hit enter to reboot if everything went well.
 
@@ -692,14 +700,14 @@ RAM: 144M    Sci Linux v.7/64    Disk: 8.8G
 
 Asterisk 13.13.1      Incredible GUI 12.0.39
 
-Private IP: 192.168.1.106
+Private IP: 10.0.3.254
 
 Public IP: XXX.XXX.XXX.XXX
 
 System Time: Thu Jun 29 2017
 ```
 
-Open a web browser, we installed chromium and firefox so pick your poison and enter http://192.168.1.106
+Open a web browser, we installed chromium and firefox so pick your poison and enter http://10.0.3.254
 
 Click the User/Admin switch at the bottom left to Admin then click Incredible PBX Administration.
 
@@ -1455,14 +1463,14 @@ Import/Export My Devices List
 
 Package Import/Export
 
-IP address of phone server: 10.0.5.254 Determine for me
+IP address of phone server: 10.0.3.254 Determine for me
 Configuration Type: File (TFTP/FTP)	
 Global Final Config & Firmware Directory: /tftpboot/
 
 Time
 
 Time Zone (like England/London): Americas
-Time Server (NTP Server): 10.0.5.1	
+Time Server (NTP Server): 10.0.3.1	
 
 Local Paths
 
@@ -1500,7 +1508,7 @@ Update Globals
 IP address of phone server:: 
 ```
 
-Click Determine for me or set your VoIPServer IP:  10.0.5.254
+Click Determine for me or set your VoIPServer IP:  10.0.3.254
 
 ```
 Configuration Type: File (TFTP/FTP)
@@ -1513,7 +1521,7 @@ Fix your Timezone to where ever you are.
 Time Zone (like England/London)
 ```
 
-Time Server (NTP Server): 10.0.5.1
+Time Server (NTP Server): 10.0.3.1
 
 I set my time server to the virtual router so everything is in sync with it.
 
@@ -1620,7 +1628,7 @@ Test TFTP Server.
 
 ```
 cd
-tftp 192.168.1.106
+tftp 10.0.3.254
 tftp> get test.txt
 tftp> quit
 cat test.txt
@@ -1807,7 +1815,7 @@ systemctl status vsftpd
 Test FTP connection.
 
 ```
-ftp -nv 10.0.5.254
+ftp -nv 10.0.3.254
 user 
 331 Please specify the password.
 Password:
@@ -2019,10 +2027,10 @@ Add the first 6 hex values of your phones MAC address if not already there.
 
 Automatically add devices.
 
-Click Search on Serach or new devices in netmask 10.0.5.254/24 whatever IP range you have check use nmap.
+Click Search on Serach or new devices in netmask 10.0.3.254/24 whatever IP range you have check use nmap.
 
 ```
- Search Search for new devices in netmask: 10.0.5.254/24 X(Use NMAP)
+ Search Search for new devices in netmask: 10.0.3.254/24 X(Use NMAP)
 ```
 
 Now you should see your phone sets listed under "Unmanaged Extensions".
@@ -2175,11 +2183,11 @@ If you don't want to deal with OSS Endpoint, just toss this configuration file i
     bg.hiRes.color.selection="3,6"
     feature.urlDialing.enabled="0"
     np.normal.ringing.calls.tonePattern="ringer15"
-    tcpIpApp.sntp.address="10.0.5.1"
+    tcpIpApp.sntp.address="10.0.3.1"
     tcpIpApp.sntp.gmtOffset="-18000"
     up.backlight.onIntensity="0"
     up.backlight.timeout="5"
-    upgrade.custom.server.url="http://10.0.5.254/ucs.xml"
+    upgrade.custom.server.url="http://10.0.3.254/ucs.xml"
     bg.hiRes.color.bm.6.name="BravestWarrior.jpg"
     msg.mwi.1.callBack="*97"
     msg.mwi.1.callBackMode="contact"
@@ -2193,7 +2201,7 @@ If you don't want to deal with OSS Endpoint, just toss this configuration file i
     saf.2="Warble.wav"
     saf.3="SoundPointIPWelcome.wav"
     saf.4="LoudRing.wav"
-    voIpProt.server.1.address="10.0.5.254"
+    voIpProt.server.1.address="10.0.3.254"
     voIpProt.server.1.expires="600"
   />
 </PHONE_CONFIG>
