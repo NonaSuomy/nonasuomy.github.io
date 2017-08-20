@@ -196,7 +196,7 @@ OS: Generic
 Install: Local CDROM/ISO
 Memory: 1024 MiB
 CPUs: 1
-Storage: 10.0 GiB /var/lib/libvirt/images/VirtualRouter.qcow2
+Storage: 20.0 GiB /var/lib/libvirt/images/VirtualRouter.qcow2
 X Customize configuration before install
 
 Network selection
@@ -1936,6 +1936,14 @@ Click Check For Updates.
 
 Install the phone firmware you own, were going to install Cisco and Polycom.
 
+**Note:** *If you click the package manager and you get a file missing error, reinstall OSS Module from the module admin.*
+
+```
+Cant find file: /var/www/html/admin/modules/_ep_phone_modules/endpoint/master.json
+```
+
+Delete and reinstall OSS and try again.
+
 ```
 Install Polycom
 
@@ -3053,6 +3061,230 @@ Format Incoming Number?	(132) 456-7890
 ```
 
 In KODI make sure webserver IP is right, enabled and set to port 8080 with the right username/password.
+
+## Troubleshooting ##
+
+### You have 72 tampered files ###
+
+```
+You have 72 tampered files
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/agi-bin/parkfetch.agi missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/agi-bin/parkuser.php missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/assets/css/parking.css missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/assets/js/jquery.numeric.js missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/assets/js/park.js missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/functions.inc/dialplan.php missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/functions.inc/geters_seters.php missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/functions.inc/registries.php missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/functions.inc.php altered"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/install.php altered"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/LICENSE missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/module.xml altered"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/page.parking.php missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/Parking.class.php missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/uninstall.php altered"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/views/header.php missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/views/lot.php missing"
+Module: "Incredible PBX GUI", File: "/var/www/html/admin/modules/incrediblepbx/views/overview.php missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/agi-bin/parkfetch.agi missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/agi-bin/parkuser.php missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/assets/css/parking.css missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/assets/js/jquery.numeric.js missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/assets/js/park.js missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/functions.inc/dialplan.php missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/functions.inc/geters_seters.php missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/functions.inc/registries.php missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/functions.inc.php missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/install.php missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/LICENSE missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/module.xml altered"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/page.parking.php missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/Parking.class.php missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/uninstall.php missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/views/header.php missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/views/lot.php missing"
+Module: "ConfigEdit", File: "/var/www/html/admin/modules/configedit/views/overview.php missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/agi-bin/parkfetch.agi missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/agi-bin/parkuser.php missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/assets/css/parking.css missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/assets/js/jquery.numeric.js missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/assets/js/park.js missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/functions.inc/dialplan.php missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/functions.inc/geters_seters.php missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/functions.inc/registries.php missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/functions.inc.php missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/install.php missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/LICENSE missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/module.xml altered"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/page.parking.php missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/Parking.class.php missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/uninstall.php missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/views/header.php missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/views/lot.php missing"
+Module: "phpMyAdmin", File: "/var/www/html/admin/modules/phpmyadmin/views/overview.php missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/agi-bin/parkfetch.agi missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/agi-bin/parkuser.php missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/assets/css/parking.css missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/assets/js/jquery.numeric.js missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/assets/js/park.js missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/functions.inc/dialplan.php missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/functions.inc/geters_seters.php missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/functions.inc/registries.php missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/functions.inc.php missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/install.php missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/LICENSE missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/module.xml altered"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/page.parking.php missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/Parking.class.php missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/uninstall.php missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/views/header.php missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/views/lot.php missing"
+Module: "Sys Info", File: "/var/www/html/admin/modules/sysinfo/views/overview.php missing"
+```
+
+On the console run gui-fix in the root scripts folder.
+
+```
+root@voipserv:~ $ mkdir -p /var/www/manual/images
+root@voipserv:~ $ mkdir -p /var/www/html/admin/modules/framework/amp_conf/htdocs/admin/images
+root@voipserv:~ $ gui-fix
+
+Please wait...
+
+SETTING FILE PERMISSIONS.................Done
+Removing any dangling symlinks
+Dangling symlinks removed
+
+Please wait...
+
+Getting Data from Online Server...Done
+Checking Signatures of Modules...
+Checking announcement...Good
+Checking arimanager...Good
+Checking asterisk-cli...Good
+Checking asteriskinfo...Good
+Checking backup...Good
+Checking blacklist...Good
+Checking builtin...Good
+Checking callforward...Good
+Checking callrecording...Good
+Checking callwaiting...Good
+Checking campon...Good
+Checking cdr...Good
+Checking certman...Good
+Checking cidlookup...Good
+Checking configedit...Signature Invalid
+	Could not find signed module on remote server!
+Checking contactmanager...Good
+Checking core...Good
+Checking customappsreg...Good
+Checking dashboard...Good
+Checking daynight...Good
+Checking digium_phones...Good
+Checking digiumaddoninstaller...Good
+Checking directory...Good
+Checking disa...Good
+Checking donotdisturb...Good
+Checking endpointman...Good
+Checking fax...Good
+Checking featurecodeadmin...Good
+Checking findmefollow...Good
+Checking framework...Good
+Checking hotelwakeup...Good
+Checking iaxsettings...Good
+Checking incrediblepbx...Signature Invalid
+	Could not find signed module on remote server!
+Checking infoservices...Good
+Checking ivr...Good
+Checking logfiles...Good
+Checking manager...Good
+Checking miscapps...Good
+Checking miscdests...Good
+Checking motif...Good
+Checking music...Good
+Checking outroutemsg...Good
+Checking paging...Good
+Checking parking...Good
+Checking pbdirectory...Good
+Checking phonebook...Good
+Checking phpagiconf...Good
+Checking phpinfo...Good
+Checking phpmyadmin...Signature Invalid
+	Could not find signed module on remote server!
+Checking pinsets...Good
+Checking presencestate...Good
+Checking printextensions...Good
+Checking queues...Good
+Checking recordings...Good
+Checking ringgroups...Good
+Checking setcid...Good
+Checking sipsettings...Good
+Checking speeddial...Good
+Checking superfecta...Good
+Checking sysinfo...Signature Invalid
+	Could not find signed module on remote server!
+Checking timeconditions...Good
+Checking ucp...Good
+Checking userman...Good
+Checking vmblast...Good
+Checking voicemail...Good
+Checking weakpasswords...Good
+Checking webrtc...Good
+Done
+
+SETTING FILE PERMISSIONS.................Done
+Removing any dangling symlinks
+Dangling symlinks removed
+trying to run as user asterisk:
+
+[SIGNATURECHECK] already set to [0]
+
+
+Please wait...
+
+Successfully reloaded
+
+Please wait...
+
+
+KILLING AMP PROCESSES
+mpg123: no process found
+
+Usage:
+ kill [options] <pid|name> [...]
+
+Options:
+ -a, --all              do not restrict the name-to-pid conversion to processes
+                        with the same uid as the present process
+ -s, --signal <sig>     send specified signal
+ -q, --queue <sig>      use sigqueue(2) rather than kill(2)
+ -p, --pid              print pids without signaling them
+ -l, --list [=<signal>] list signal names, or convert one to a name
+ -L, --table            list signal names and numbers
+
+ -h, --help     display this help and exit
+ -V, --version  output version information and exit
+
+For more details see kill(1).
+op_server.pl: no process found
+
+Please wait...
+
+SETTING FILE PERMISSIONS.................Done
+Removing any dangling symlinks
+Dangling symlinks removed
+
+STARTING ASTERISK
+Asterisk Started
+trying to run as user asterisk:
+
+[SIGNATURECHECK] already set to [0]
+
+
+Please wait...
+
+Successfully reloaded
+```
 
 ## Extras ##
 
