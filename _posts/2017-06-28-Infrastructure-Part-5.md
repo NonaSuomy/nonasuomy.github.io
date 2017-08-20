@@ -1456,7 +1456,7 @@ Click Apply Config highlighted Red at the top.
 
 Click Connectivity.
 
-Click OSS Endpoint Addvanced Settings.
+Click OSS Endpoint Advanced Settings.
 
 ```
 End Point Configuration Manager
@@ -1583,6 +1583,11 @@ Do what it says.
 ```
 chown -hR root:asterisk /tftpboot/
 chmod g+w /tftpboot/
+```
+
+```
+Disabled is set to "yes" in /etc/xinetd.d/tftp. Please fix 
+Then restart your TFTP service
 ```
 
 Edit the TFTP configuration file.
@@ -1892,7 +1897,7 @@ Instead of:
 pam_service_name=vsftpd
 ```
 
-By default vsFTPd uses the file /etc/pam.d/vsftpd. This file by default requires FTP users to have a shell listed in /etc/shells and requires them not to be listed in /etc/ftpusers. If you check those 2 things your probably find what the problem is.  You shouldn't have to comment out that line in the pam file.
+By default vsFTPd uses the file /etc/pam.d/vsftpd. This file by default requires FTP users to have a shell listed in /etc/shells and requires them not to be listed in /etc/vsftpd/ftpusers. If you check those 2 things your probably find what the problem is.  You shouldn't have to comment out that line in the pam file.
 
 ```
 nano /etc/shells
