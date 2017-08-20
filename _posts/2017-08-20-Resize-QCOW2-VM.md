@@ -72,3 +72,97 @@ mv outdisk.qcow2 indisk.qcow2
 ```
 
 Reboot the guest and test the new disk file carefully before deleting the original file.
+
+Resize the partition inside the VM.
+
+**Red Hat Enterprise Linux & derivatives, CentOS, Scientific Linux, etc**
+
+```
+vgdisplay
+```
+
+```
+  --- Volume group ---
+  VG Name               scientific_server
+  System ID             
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  4
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                2
+  Open LV               2
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               18.80 GiB
+  PE Size               4.00 MiB
+  Total PE              4813
+  Alloc PE / Size       2253 / 8.80 GiB
+  Free  PE / Size       2560 / 10.00 GiB
+  VG UUID               5b1ccM-N1G7-zQum-QRXv-O8Us-dzJH-6LdAyC
+```
+
+```
+lvdisplay
+```
+
+```
+  --- Logical volume ---
+  LV Path                /dev/scientific_server/swap
+  LV Name                swap
+  VG Name                scientific_server
+  LV UUID                arRXqi-blzx-bjWb-IFbV-L7k1-L7SE-1GGsV7
+  LV Write Access        read/write
+  LV Creation host, time server.local, 2017-08-16 19:07:54 -0400
+  LV Status              available
+  # open                 2
+  LV Size                1.00 GiB
+  Current LE             256
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:1
+   
+  --- Logical volume ---
+  LV Path                /dev/scientific_server/root
+  LV Name                root
+  VG Name                scientific_server
+  LV UUID                4rwPsh-0Xht-DXff-g5Vu-C3in-jMaV-5A7DqP
+  LV Write Access        read/write
+  LV Creation host, time server.local, 2017-08-16 19:07:55 -0400
+  LV Status              available
+  # open                 1
+  LV Size                7.80 GiB
+  Current LE             1997
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:0
+```
+
+```
+lvextend --extents +100%FREE /dev/scientific_server/root
+```
+
+```
+  Size of logical volume scientific_server/root changed from 7.80 GiB (1997 extents) to 17.80 GiB (4557 extents).
+  Logical volume scientific_server/root successfully resized.
+```
+
+**Other File Systems**
+
+EXT3/4 Based File Systems
+
+```
+resize2fs /dev/centos/var
+```
+
+XFS Based File Systems
+
+```
+xfs_growfs /dev/centos/var
+```
