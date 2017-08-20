@@ -517,6 +517,13 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 reboot
 ```
 
+If you forget to do the sed above and updates for modules is not working, fix it like this.
+
+```
+mysql -u root -p passw0rd asterisk -e "update freepbx_settings set value='http://wable-repo.wardmundy.net' where keyword='MODULE_REPO' and description='repo server' limit 1"
+amportal restart
+```
+
 ### Install IncrediblePBX13 ###
 
 ```
@@ -524,6 +531,7 @@ cd /root
 wget http://incrediblepbx.com/incrediblepbx13-12.2-centos.tar.gz
 tar zxvf incrediblepbx*
 ./create-swapfile-DO
+sed -i 's/repo2/repo/g' IncrediblePBX13-12R.sh
 ./IncrediblePBX*
 ```
 
