@@ -153,16 +153,53 @@ lvextend --extents +100%FREE /dev/scientific_server/root
   Logical volume scientific_server/root successfully resized.
 ```
 
+```
+vgs
+```
+
+```
+  VG                  #PV #LV #SN Attr   VSize  VFree
+  scientific_server   1   2   0 wz--n- 18.80g    0 
+```
+
+```
+xfs_growfs /dev/mapper/scientific_server-root 
+```
+
+```
+meta-data=/dev/mapper/scientific_server-root isize=512    agcount=4, agsize=511232 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0 spinodes=0
+data     =                       bsize=4096   blocks=2044928, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal               bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+data blocks changed from 2044928 to 4666368
+```
+
+```
+df -h
+```
+
+```
+Filesystem                            Size  Used Avail Use% Mounted on
+/dev/mapper/scientific_server-root   18G  7.8G   11G  44% /
+devtmpfs                              486M     0  486M   0% /dev
+tmpfs                                 496M     0  496M   0% /dev/shm
+tmpfs                                 496M  6.7M  490M   2% /run
+tmpfs                                 496M     0  496M   0% /sys/fs/cgroup
+/dev/vda2                            1014M  176M  839M  18% /boot
+/dev/vda1                             200M  9.5M  191M   5% /boot/efi
+tmpfs                                 100M     0  100M   0% /run/user/0
+```
+
+
 **Other File Systems**
 
 EXT3/4 Based File Systems
 
 ```
 resize2fs /dev/centos/var
-```
-
-XFS Based File Systems
-
-```
-xfs_growfs /dev/centos/var
 ```
