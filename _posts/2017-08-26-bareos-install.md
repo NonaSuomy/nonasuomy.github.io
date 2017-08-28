@@ -187,6 +187,17 @@ cp /etc/bareos/bareos-sd.d/device/tapedrive-0.conf.example /etc/bareos/bareos-sd
 cp /etc/bareos/bareos-dir.d/storage/Tape.conf.example /etc/bareos/bareos-dir.d/storage/Tape.conf
 ```
 
+Change owner and permissions.
+
+```
+chown bareos:bareos /etc/bareos/bareos-sd.d/autochanger/*
+chown bareos:bareos /etc/bareos/bareos-sd.d/device/*
+chown bareos:bareos /etc/bareos/bareos-dir.d/storage/*
+chmod 640 /etc/bareos/bareos-sd.d/autochanger/*
+chmod 640 /etc/bareos/bareos-sd.d/device/*
+chmod 640 /etc/bareos/bareos-dir.d/storage/*
+```
+
 Autochanger Setup.
 
 ```
@@ -321,5 +332,6 @@ Storage {
   Password = "storage director password here"
   Device = autochanger-0
   Media Type = LTO
+  Auto Changer = yes
 }
 ```
