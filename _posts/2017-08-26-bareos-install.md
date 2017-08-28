@@ -145,6 +145,8 @@ systemctl restart httpd
 
 Should be able to login with that username and password now.
 
+### Adding An Autochanging Tape Library ###
+
 Check for autochanger and tape drives.
 
 ```
@@ -335,3 +337,14 @@ Storage {
   Auto Changer = yes
 }
 ```
+
+Restart bareos services and httpd.
+
+```
+systemctl restart bareos-dir
+systemctl restart bareos-sd
+systemctl restart bareos-fd
+systemctl restart httpd
+```
+
+Under the storage tab there should now be the tape storage.
