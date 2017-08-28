@@ -221,7 +221,7 @@ Autochanger {
 
   # an Autochanger can contain multiple drive devices
   Device = tapedrive-0
-  #Device = tapedrive-1
+  Device = tapedrive-1
 
   Changer Command = "/usr/lib/bareos/scripts/mtx-changer %c %o %S %a %d"
 }
