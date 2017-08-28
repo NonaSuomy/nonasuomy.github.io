@@ -20,7 +20,7 @@ wget -O /etc/yum.repos.d/bareos.repo http://download.bareos.org/bareos/release/l
 Install the required packages.
 
 ```
-yum install bareos bareos-database-mysql bareos-webui mariadb-server
+yum install bareos bareos-database-mysql bareos-webui bareos-storage-tape mariadb-server
 ```
 
 Start mariadb & start at boot.
