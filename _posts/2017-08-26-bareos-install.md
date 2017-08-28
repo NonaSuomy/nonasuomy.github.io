@@ -36,7 +36,7 @@ Run the mysql_secure_install script.
 mysql_secure_installation
 ```
 
-next create a file :
+Create a file.
 
 ```
 nano ~/.my.cnf
@@ -145,4 +145,181 @@ systemctl restart httpd
 
 Should be able to login with that username and password now.
 
+Check for autochanger and tape drives.
 
+```
+lsscsi --generic
+
+[0:0:0:0]    tape    IBM      ULTRIUM-TD3      88M0  /dev/st0   /dev/sg4 
+[0:0:0:1]    mediumx IBM      33614LX          0029  /dev/sch0  /dev/sg6 
+[3:0:1:0]    disk    ATA      WDC WD30EFRX-68E 0A82  /dev/sda   /dev/sg0 
+[4:0:0:0]    disk    ATA      WDC WD30EFRX-68E 0A82  /dev/sdb   /dev/sg1 
+[5:0:0:0]    disk    ATA      WDC WD30EFRX-68E 0A80  /dev/sdc   /dev/sg2 
+[7:0:0:0]    disk    Lexar    USB Flash Drive  1100  /dev/sdd   /dev/sg3 
+[8:0:0:0]    tape    IBM      ULTRIUM-TD3      88M0  /dev/st1   /dev/sg5
+```
+
+```
+ls -rtl /dev/tape/by-id
+total 0
+lrwxrwxrwx 1 root root  9 Aug 24 20:44 scsi-35005076312020c2e -> ../../st0
+lrwxrwxrwx 1 root root 10 Aug 24 20:44 scsi-35005076312020c2e-nst -> ../../nst0
+lrwxrwxrwx 1 root root  9 Aug 24 20:44 scsi-35005076312020ac6 -> ../../st1
+lrwxrwxrwx 1 root root 10 Aug 24 20:44 scsi-35005076312020ac6-nst -> ../../nst1
+lrwxrwxrwx 1 root root  9 Aug 24 20:44 scsi-3100000e09e0b4486 -> ../../sg6
+```
+
+Make sure you installed bareos-storage-tape above or else the files in these locations wont be there.
+
+```
+/usr/lib/bareos/scripts/mtx-changer
+/etc/bareos/bareos-sd.d/autochanager/autochanger-0.conf.example
+/etc/bareos/bareos-sd.d/device/tapedrive-0.conf.example
+/etc/bareos/bareos-dir.d/storage/tape.conf.example
+```
+
+Copy and Rename all tape related example files.
+
+```
+cp /etc/bareos/bareos-sd.d/autochanager/autochanger-0.conf.example /etc/bareos/bareos-sd.d/autochanager/autochanger-0.conf
+cp /etc/bareos/bareos-sd.d/device/tapedrive-0.conf.example /etc/bareos/bareos-sd.d/device/tapedrive-0.conf
+cp /etc/bareos/bareos-sd.d/device/tapedrive-0.conf.example /etc/bareos/bareos-sd.d/device/tapedrive-1.conf
+cp /etc/bareos/bareos-dir.d/storage/Tape.conf.example /etc/bareos/bareos-dir.d/storage/Tape.conf
+```
+
+Autochanger Setup.
+
+```
+nano /etc/bareos/bareos-sd.d/autochanager/autochanger-0.conf
+
+#
+# Preparations:
+#
+# on Linux use "lsscsi --generic"
+# to get a list of your SCSI devices.
+# However, normaly you should access your devices by-id
+# (eg. /dev/tape/by-id/scsi-350011d00018a5f03-nst),
+# because the short device names like /dev/sg7
+# might change on reboot.
+#
+
+Autochanger {
+  Name = "autochanger-0"
+  # adapt this, to match your storage loader
+  Changer Device = /dev/tape/by-id/scsi-35001234567890
+
+  # an Autochanger can contain multiple drive devices
+  Device = tapedrive-0
+  #Device = tapedrive-1
+
+  Changer Command = "/usr/lib/bareos/scripts/mtx-changer %c %o %S %a %d"
+}
+```
+
+Tape drive 0 setup.
+
+```
+#
+# Preparations:
+#
+# on Linux use "lsscsi --generic"
+# to get a list of your SCSI devices.
+# However, normaly you should access your devices by-id
+# (eg. /dev/tape/by-id/scsi-350011d00018a5f03-nst),
+# because the short device names like /dev/nst1
+# might change on reboot.
+#
+
+Device {
+
+    Name = "tapedrive-0"
+    DeviceType = tape
+
+    # default:0, only required if the autoloader have multiple drives.
+    DriveIndex = 0
+
+    # if only one drive is available, this is normally /dev/nst0.
+    # However, it is advised to access it via id (/dev/tape/by-id/...).
+    #ArchiveDevice = /dev/nst0
+    ArchiveDevice = /dev/tape/by-id/scsi-35001234567891-nst
+
+    # arbitrary string that descripes the the storage media.
+    # Bareos uses this to determine, which device can be handle what medi$
+    MediaType = LTO
+
+    # enable "Check Labels" if tapes with ANSI/IBM labels
+    # should be preserved
+    #Check Labels = yes
+
+    AutoChanger = yes                       # default: no
+    AutomaticMount = yes                    # default: no
+    MaximumFileSize = 10GB                  # default: 1000000000 (1GB)
+}
+```
+
+Tape drive 1 setup.
+
+```
+#
+# Preparations:
+#
+# on Linux use "lsscsi --generic"
+# to get a list of your SCSI devices.
+# However, normaly you should access your devices by-id
+# (eg. /dev/tape/by-id/scsi-35001234567892-nst),
+# because the short device names like /dev/nst1
+# might change on reboot.
+#
+
+Device {
+
+    Name = "tapedrive-1"
+    DeviceType = tape
+
+    # default:0, only required if the autoloader have multiple drives.
+    DriveIndex = 1
+
+    # if only one drive is available, this is normally /dev/nst0.
+    # However, it is advised to access it via id (/dev/tape/by-id/...).
+    #ArchiveDevice = /dev/nst1
+    ArchiveDevice = /dev/tape/by-id/scsi-350011d00018a5f04-nst
+
+    # arbitrary string that descripes the the storage media.
+    # Bareos uses this to determine, which device can be handle what medi$
+    MediaType = LTO
+
+    # enable "Check Labels" if tapes with ANSI/IBM labels
+    # should be preserved
+    #Check Labels = yes
+
+    AutoChanger = yes                       # default: no
+    AutomaticMount = yes                    # default: no
+    MaximumFileSize = 10GB                  # default: 1000000000 (1GB)
+}
+```
+
+Get storage director password.
+
+```
+cat /etc/bareos/bareos-sd.d/director/bareos-dir.conf
+
+Director {
+  Name = bareos-dir
+  Password = "Storage director password will show up here."
+  Description = "Director, who is permitted to contact this storage daemon."
+}
+```
+
+Setup Tape.conf
+
+```
+nano /etc/bareos/bareos-dir.d/storage/Tape.conf
+
+Storage {
+  Name = Tape
+  Address  = localhost
+  Password = "storage director password here"
+  Device = autochanger-0
+  Media Type = LTO
+}
+```
