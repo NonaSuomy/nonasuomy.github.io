@@ -195,6 +195,91 @@ jails  Storage
 folder001  folder002  folder003
 ```
 
+### Some Other Stuff ###
+
+#### RSync Files From ZFS to BTRFS Mounts ####
+
+Made a btrfs storage pool on a fresh 8TB Drive for transfer in Rockstor WebGUI.
+
+Storage => Pools => Create Pool
+
+Select options and name fresh attached drive, should see it show up under /mnt2/BTRFSPOOL001/
+
+```
+df -h
+
+Filesystem                            Size  Used Avail Use% Mounted on
+devtmpfs                              3.9G     0  3.9G   0% /dev
+tmpfs                                 3.9G     0  3.9G   0% /dev/shm
+tmpfs                                 3.9G  8.8M  3.9G   1% /run
+tmpfs                                 3.9G     0  3.9G   0% /sys/fs/cgroup
+/dev/sdf3                              13G  2.2G  9.0G  20% /
+tmpfs                                 3.9G  4.0K  3.9G   1% /tmp
+/dev/sdf3                              13G  2.2G  9.0G  20% /home
+/dev/sdf1                             477M  119M  329M  27% /boot
+tmpfs                                 798M     0  798M   0% /run/user/0
+/dev/sdf3                              13G  2.2G  9.0G  20% /mnt2/rockstor_rockstor
+ZFSPOOL001                                    5.2T  128K  5.2T   1% /ZFSPOOL001
+ZFSPOOL001/Storage                            5.3T  127G  5.2T   3% /ZFSPOOL001/Storage
+ZFSPOOL001/jails                              5.2T  256K  5.2T   1% /ZFSPOOL001/jails
+ZFSPOOL001/jails/.warden-template-pluginjail  5.2T  593M  5.2T   1% /ZFSPOOL001/jails/.warden-template-pluginjail
+ZFSPOOL001/jails/.warden-template-standard    5.2T  2.2G  5.2T   1% /ZFSPOOL001/jails/.warden-template-standard
+ZFSPOOL001/jails/bacula-sd_2                  5.2T  757M  5.2T   1% /ZFSPOOL001/jails/bacula-sd_2
+ZFSPOOL001/jails/bareos-fd_1                  5.2T  2.5G  5.2T   1% /ZFSPOOL001/jails/bareos-fd_1
+ZFSPOOL001/jails/madsonic_1                   5.2T  1.1G  5.2T   1% /ZFSPOOL001/jails/madsonic_1
+ZFSPOOL001/jails/nextcloud_2                  5.2T  1.9G  5.2T   1% /ZFSPOOL001/jails/nextcloud_2
+ZFSPOOL001/jails/resilio_1                    5.2T  737M  5.2T   1% /ZFSPOOL001/jails/resilio_1
+ZFSPOOL001/jails/subsonic_1                   5.2T  1.1G  5.2T   1% /ZFSPOOL001/jails/subsonic_1
+ZFSPOOL001/jails/syncthing_1                  5.2T  745M  5.2T   1% /ZFSPOOL001/jails/syncthing_1
+ZFSPOOL001/jails/transmission_1               5.2T  678M  5.2T   1% /ZFSPOOL001/jails/transmission_1
+/dev/sdc                                      7.3T  5.7G  7.3T   1% /mnt2/BTRFSPOOL001
+```
+
+Install tmux to run in the background for transfer.
+
+```
+yum install tmux
+```
+
+Start tmux session.
+
+```
+tmux new -s mytransfer
+```
+
+RSync Args
+
+```
+ -r, --recursive             recurse into directories
+ -l, --links                 copy symlinks as symlinks
+ -t, --times                 preserve modification times
+ -D                          same as --devices --specials
+ -v, --verbose               increase verbosity
+--size-only                  skip files that match in size
+--delete                     delete extraneous files from dest dirs
+--dry-run                    Test do nothing else!
+```
+
+Copy files.
+
+```
+rsync -rltDv --size-only -P /ZFSPOOL001/Storage /mnt2/BTRFSPOOL001/
+```
+
+Detach from session.
+
+```
+ctrl+b d
+```
+
+Reattach to session.
+
+```
+tmux a -t mytransfer
+```
+
+#### ZFS REMOVAL ####
+
 If you want to remove zfs for any reason.
 
 **Note:** *Do not do this unless you no longer require the use of ZFS Pools.*
