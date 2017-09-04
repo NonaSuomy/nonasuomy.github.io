@@ -36,7 +36,11 @@ yum install kernel-ml-devel zfs
 Enable ZFS Services
 
 ```
-systemctl preset zfs-import-cache zfs-import-scan zfs-mount zfs-share zfs-zed zfs.target
+systemctl preset zfs-import-cache zfs-import-scan zfs-mount zfs-share zfs-zed zfs.target zfs-import-scan
+```
+
+```
+systemctl start zfs-import-scan
 ```
 
 Modprobe
@@ -44,6 +48,12 @@ Modprobe
 ```
 /sbin/modprobe zfs
 /sbin/modprobe spl
+```
+
+Reboot
+
+```
+reboot
 ```
 
 Check Mounts
