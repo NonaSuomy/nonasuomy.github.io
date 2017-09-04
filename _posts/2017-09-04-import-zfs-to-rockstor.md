@@ -206,6 +206,18 @@ Storage => Pools => Create Pool
 Select options and name fresh attached drive, should see it show up under /mnt2/BTRFSPOOL001/ or whatever it was named.
 
 ```
+Name: BTRFSPOOL001 
+Raid configuration: Single 
+Compression: No 
+Mount options: none 
+Select disks: sdc 
+
+Submit
+```
+
+Show Mount Points.
+
+```
 df -h
 
 Filesystem                            Size  Used Avail Use% Mounted on
