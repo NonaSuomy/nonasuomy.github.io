@@ -203,7 +203,7 @@ Made a btrfs storage pool on a fresh 8TB Drive for transfer in Rockstor WebGUI.
 
 Storage => Pools => Create Pool
 
-Select options and name fresh attached drive, should see it show up under /mnt2/BTRFSPOOL001/
+Select options and name fresh attached drive, should see it show up under /mnt2/BTRFSPOOL001/ or whatever it was named.
 
 ```
 df -h
