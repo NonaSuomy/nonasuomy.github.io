@@ -3,9 +3,9 @@ layout: post
 title: KODI - Raspberry Pi - Arduino - Hyperion Ambilight Boblight
 ---
 
-# Hyperion #
-
 ![alt text]({{ site.baseurl }}../images/hyperion/HyperionCap.png "Layout")
+
+# Hyperion #
 
 ## Configuration Builder Machine ##
 
