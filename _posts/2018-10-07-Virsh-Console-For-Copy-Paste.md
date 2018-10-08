@@ -47,7 +47,7 @@ password
 vi ~/.ssh/authorized_keys
 ```
 
-Paste in your massive key, save and should be good to go.
+Paste in massive key, save and should be good to go.
 
 To exit type exit then push CTRL + [
 
