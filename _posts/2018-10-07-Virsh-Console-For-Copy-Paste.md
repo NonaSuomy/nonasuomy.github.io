@@ -18,7 +18,7 @@ cat ~/.ssh/id_rsa.pub
 
 Copy the key...
 
-## virsh console ##
+## virt-manager or virt-viewer etc ##
 
 Inside the VM via virt-manager or virt-viewer enable the tty for use with virsh.
 
@@ -29,6 +29,8 @@ systemctl status serial-getty@ttyS0.service
 ```
 
 Make sure the virt-manager window is not open for the VM you want to attach.
+
+## virsh console ##
 
 SSH into the hypervisor then connect to the console that was just made.
 
