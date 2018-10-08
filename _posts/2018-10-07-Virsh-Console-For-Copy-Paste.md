@@ -49,6 +49,6 @@ vi ~/.ssh/authorized_keys
 
 Paste in massive key, save and should be good to go.
 
-To exit type exit then push CTRL + [
+To exit type exit then push CTRL + ]
 
 **Note:** *If you don't type exit the next person that types the virsh console command will not be prompted for a password. You may want to disable the tty systemctl service that was started after finished for security reasons.*
