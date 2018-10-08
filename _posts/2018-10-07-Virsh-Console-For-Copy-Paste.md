@@ -3,9 +3,9 @@ layout: post
 title: Hypervisor Virsh Console for Copy & Pasting id_rsa.pub To Terminal of VM
 ---
 
-# Process #
-
 Didn't have public key added to the VM that was locked down, needed a way to paste the long id_ssh.pub key to the vm's authorized_keys.
+
+# Process #
 
 ## Local Machine ##
 
