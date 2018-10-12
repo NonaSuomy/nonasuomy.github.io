@@ -160,8 +160,8 @@ From another machine on the same network mount the NFS share.
 ```
 sudo pacman -S nfs-utils
 mkdir -p /mnt/nfs/archlinux
-sudo mount 10.0.1.10:/srv/pxeboot /mnt/nfs/home
-ls /mnt/nfs/home
+sudo mount 10.0.1.10:/srv/pxeboot /mnt/nfs/archlinux
+ls /mnt/nfs/archlinux
 hello.txt
 ```
 
@@ -487,3 +487,5 @@ PXE-M0F: Exiting Intel Boot Agent.
 If something like this happens, check all paths and network connections something is amiss!
 
 Maybe the machine is on the wrong vlan or network interface or not plugged in, a share permission, typos, files in the wrong spot, etc, happens to the best of us... good luck.
+
+Feel free to umount anything we mounted to cleanup...
