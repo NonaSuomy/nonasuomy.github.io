@@ -82,6 +82,8 @@ On another system on the same network...
 ```
 sudo pacman -S tftp-hpa
 echo "get hello.txt" | tftp 10.0.1.10
+tftp> get hello.txt
+tftp>
 cat hello.txt
 hello
 ```
@@ -130,11 +132,37 @@ echo "/srv/pxeboot 10.0.1.0/24(ro,no_root_squash,no_subtree_check)" >> /etc/expo
 exportfs -a
 ```
 
+ro: This option gives the client machine read-only access to the volume.
+
+no_subtree_check: This option prevents subtree checking, which is a process where the host must check whether the file is actually still available in the exported tree for every request. This can cause many problems when a file is renamed while the client has it opened. In almost all cases, it is better to disable subtree checking.
+
+no_root_squash: By default, NFS translates requests from a root user remotely into a non-privileged user on the server. This was supposed to be a security feature by not allowing a root account on the client to use the filesystem of the host as root. This directive disables this for certain shares.
+
+**Note:** *exportfs -rav if the server is currently running.*
+
 Enable/Start the NFS service.
 
 ```
 sudo systemctl enable nfs-server
 sudo systemctl start nfs-server
+```
+
+### TEST NFS Share ###
+
+Add a test file to the NFS Server.
+
+```
+echo "hello" | sudo tee /srv/pxeboot/hello.txt
+```
+
+From another machine on the same network mount the NFS share.
+
+```
+sudo pacman -S nfs-utils
+mkdir -p /mnt/nfs/archlinux
+sudo mount 10.0.1.10:/srv/pxeboot /mnt/nfs/home
+ls /mnt/nfs/home
+hello.txt
 ```
 
 Add Arch files to the TFTP/NFS directories.
