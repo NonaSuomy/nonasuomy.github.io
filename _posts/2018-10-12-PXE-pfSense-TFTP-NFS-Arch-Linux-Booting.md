@@ -174,7 +174,7 @@ append initrd=archlinux/arch/boot/x86_64/archiso.img archisobasedir=arch archiso
 
 **Note:** *You can add multiple sections to the above like below if you want to make different images to boot. Just add more /srv/pxeboot/archlinuxcustom etc directories and customise away.*
 
-**Note:** *If you add multiple directories you need to add them to your NFS Server /etc/exports as well or you will get permission denied*
+**Note:** *If you add multiple directories you need to add them to your NFS Server /etc/exports as well or you will get permission denied.*
 
 ### [Optional Stuff] ###
 
@@ -409,7 +409,11 @@ mkdir /srv/pxeboot/archcustom
 mkdir /mnt/archcustom
 sudo mount -o loop,ro ~/code/archlive/out/archlinux-2018.10.01-x86_64.iso /mnt/archcustom
 cp /mnt/archcustom/* /srv/pxeboot/archcustom/
-or scp it to the server if you built it on another machine...
+```
+
+SCP it to the server if you built it on another machine...
+
+```
 scp -r /mnt/archcustom/* root@10.0.1.52:/srv/pxeboot/archcustom
 ```
 
@@ -452,6 +456,6 @@ PXE-E53: No boot filename received
 PXE-M0F: Exiting Intel Boot Agent.
 ```
 
-If something like this happens check all paths and network connections something is amiss!
+If something like this happens, check all paths and network connections something is amiss!
 
 Maybe the machine is on the wrong vlan or network interface or not plugged in, a share permission, typos, files in the wrong spot, etc, happens to the best of us... good luck.
