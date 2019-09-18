@@ -18,10 +18,9 @@ X11 => lxqt-openssh-askpass: LXQT SSH password dialog
 Net => openssh: The OpenSSH server and client programs
 Debug => python-gi-debuginfo: Debug info for python-gi
 Python => python-gi-devel: Python GObject Introspection bindings
-Python => python2-cairo: Python bindings to libcairo
-Python => python2-cairo-devel: Python bindings to libcairo
-Python => python3-cairo: Python bindings to libcairo
-Python => python3-cairo-devel: Python bindings to libcairo
+Python => python27-cairo: Python bindings to libcairo
+Python => python-cairo-devel: Python bindings to libcairo
+Python => python37-cairo: Python bindings to libcairo
 System => virt-manager: Virtualization manager
 X11 => xinit: X.Org X server launcher
 X11 => xlaunch: GUI tool for configuring and starting the XWin X server
@@ -174,3 +173,33 @@ root@10.0.1.10's password:
 **Note:** *The password prompt will show up after you make a connection in the virt-manager window.*
 
 or just ```virt-manager``` if you setup askpass properly above, which will fire off a GUI password box instead of using the terminal.
+
+## Troubleshooting ##
+
+**Trouble**
+
+Unable to connect to libvirt qemu+ssh://root@X.X.X.X/system.
+End of file while reading data: sh: nc: command not found: Input/output error
+
+**Shoot**
+
+Install BSD Version of NetCat on your Hypervisor.
+
+```
+pacman -S openbsd-netcat
+```
+
+
+**Trouble**
+
+Unable to connect to libvirt qemu+ssh://root@X.X.X.X/system.
+The remote host requires a version of netcat/nc which supports the -U option.
+
+**Shoot**
+
+Install BSD Version of NetCat on your Hypervisor.
+
+```
+pacman -R gnu-netcat
+pacman -S openbsd-netcat
+```
