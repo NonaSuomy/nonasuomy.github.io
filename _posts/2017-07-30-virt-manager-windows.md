@@ -14,7 +14,11 @@ Install Cygwin64.
 The bare minimum packages required:
 
 ```
-X11 => lxqt-openssh-askpass: LXQT SSH password dialog
+X11 => xinit: X.Org X server launcher
+X11 => xlaunch: GUI tool for configuring and starting the XWin X server
+X11 => xorg-server: X.Org X servers
+X11 => gnome-openssh-askpass: Gnome SSH password dialog
+X11 => gnome-ssh-askpass-debuginfo: Debug info for Gnome SSH password dialog
 Net => openssh: The OpenSSH server and client programs
 Debug => python-gi-debuginfo: Debug info for python-gi
 Python => python-gi-devel: Python GObject Introspection bindings
@@ -22,9 +26,6 @@ Python => python27-cairo: Python bindings to libcairo
 Python => python-cairo-devel: Python bindings to libcairo
 Python => python37-cairo: Python bindings to libcairo
 System => virt-manager: Virtualization manager
-X11 => xinit: X.Org X server launcher
-X11 => xlaunch: GUI tool for configuring and starting the XWin X server
-X11 => xorg-server: X.Org X servers
 ```
 
 Right click "Cygwin64 Terminal" run as administrator.
@@ -44,7 +45,7 @@ Priviledge Level
 
 Then run "Cygwin64 Terminal".
 
-Next create a system link to fix the broken link for askpass in virt-manager, virt-manager points to /usr/sbin/ssh-askpass, cygwin installs it to /bin/lxqt-openssh-askpass.
+**Only if you install lxqt-openssh-askpass not if install gnome-openssh-askpass** Next create a system link to fix the broken link for askpass in virt-manager, virt-manager points to /usr/sbin/ssh-askpass, cygwin installs it to /bin/lxqt-openssh-askpass.
 
 ```
 ln -s /bin/lxqt-openssh-askpass /usr/sbin/ssh-askpass
