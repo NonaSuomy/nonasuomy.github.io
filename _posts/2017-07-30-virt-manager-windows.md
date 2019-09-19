@@ -45,12 +45,6 @@ Priviledge Level
 
 Then run "Cygwin64 Terminal".
 
-**Only if you install lxqt-openssh-askpass not if install gnome-openssh-askpass** Next create a system link to fix the broken link for askpass in virt-manager, virt-manager points to /usr/sbin/ssh-askpass, cygwin installs it to /bin/lxqt-openssh-askpass.
-
-```
-ln -s /bin/lxqt-openssh-askpass /usr/sbin/ssh-askpass
-```
-
 ## Create A Batch File & Start virt-manager From GUI Icon With askpass ##
 
 lxqt-openssh-askpass (password popup) instead of the terminal password entry below.
@@ -203,4 +197,20 @@ Install BSD Version of NetCat on your Hypervisor.
 ```
 pacman -R gnu-netcat
 pacman -S openbsd-netcat
+```
+
+**Trouble**
+
+Askpass dialog not popping up.
+
+**Shoot**
+
+You may have installed lxqt-openssh-askpass instead of gnome-openssh-askpass either reinstall gnome-openssh-askpass or make a systemlink for lxqt-openssh-askpass to work.
+
+***Only if you install lxqt-openssh-askpass not if install gnome-openssh-askpass*** 
+
+Create a system link to fix the broken link for askpass in virt-manager, virt-manager points to /usr/sbin/ssh-askpass, cygwin installs it to /bin/lxqt-openssh-askpass.
+
+```
+ln -s /bin/lxqt-openssh-askpass /usr/sbin/ssh-askpass
 ```
