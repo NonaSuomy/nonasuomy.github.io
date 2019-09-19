@@ -13,13 +13,17 @@ Install Cygwin64.
 
 The bare minimum packages required:
 
+Click View: Full 
+
+Use the search box and look for these packages by name.
+
 ```
 X11 => xinit: X.Org X server launcher
 X11 => xlaunch: GUI tool for configuring and starting the XWin X server
 X11 => xorg-server: X.Org X servers
-X11 => gnome-openssh-askpass: Gnome SSH password dialog
-X11 => gnome-ssh-askpass-debuginfo: Debug info for Gnome SSH password dialog
 Net => openssh: The OpenSSH server and client programs
+Gnome => gnome-openssh-askpass: Gnome GTK+ passphrase grabber ssh-add
+Debug => gnome-ssh-askpass-debuginfo: Debug info for gnome-ssh-askpass
 Debug => python-gi-debuginfo: Debug info for python-gi
 Python => python-gi-devel: Python GObject Introspection bindings
 Python => python27-cairo: Python bindings to libcairo
