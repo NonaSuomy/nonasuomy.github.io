@@ -207,7 +207,7 @@ Askpass dialog not popping up.
 
 You may have installed lxqt-openssh-askpass instead of gnome-openssh-askpass either reinstall gnome-openssh-askpass or make a systemlink for lxqt-openssh-askpass to work.
 
-***Only if you install lxqt-openssh-askpass not if install gnome-openssh-askpass*** 
+*Only if you install lxqt-openssh-askpass. Not if you install gnome-openssh-askpass* 
 
 Create a system link to fix the broken link for askpass in virt-manager, virt-manager points to /usr/sbin/ssh-askpass, cygwin installs it to /bin/lxqt-openssh-askpass.
 
