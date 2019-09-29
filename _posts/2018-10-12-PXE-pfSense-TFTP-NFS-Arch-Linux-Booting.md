@@ -48,7 +48,7 @@ mkdir /srv/extra
 Install TFTP Server.
 
 ```
-sudo pacman -S tftp-hba
+sudo pacman -S tftp-hpa
 ```
 
 Setup TFTP Server with --verbose mode so you can see if the pxeboot is actually getting to it.
