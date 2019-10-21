@@ -258,7 +258,7 @@ xpra[1553]: 2019-10-09 17:03:28,805 pointer device emulation using XTest
 xpra[1553]: 2019-10-09 17:03:28,818 serving html content from: /usr/share/xpra/www
 ```
 
-## Xpra Client Arch Linux ##
+## XPRA Client Arch Linux ##
 
 Install XPRA on the client machine.
 
@@ -272,7 +272,7 @@ Attach XPRA client to XPRA server with SSH.
 xpra attach --ssh="ssh -p 22" ssh:10.0.10.15
 ```
 
-## Xpra Client Windows ##
+## XPRA Client Windows ##
 
 Download the windows client.
 
