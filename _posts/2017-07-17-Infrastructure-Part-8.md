@@ -21,7 +21,7 @@ title: Arch Linux Infrastructure -  Part 8 - NFTables Transparent TOR Proxy / SS
 
 [Part 07 - NAS](../Infrastructure-Part-7)
 
-Part 08 - Transparent TOR Proxy - You Are Here!
+Part 08 - NFTables Transparent TOR Proxy / SSH / IRC - You Are Here!
 
 [Part 09 - Underconstruction](../Infrastructure-Part-9)
 
