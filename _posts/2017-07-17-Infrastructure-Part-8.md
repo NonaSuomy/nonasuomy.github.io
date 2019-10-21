@@ -133,6 +133,8 @@ sudo systemctl start sshd
 
 ## Transparent TOR Proxy ##
 
+**Warning:** *Kernels can leak ack/syn/etc on connect disconnect. Another issue is a lot of software cry out for home base unbeknownst to the user which can leak data as well. Transparent Proxy is less of a safe practice as you are not actively engaging your brain in anonymous good practice giving yourself a false sense of it.*
+
 Install nftables & tor
 
 ```
