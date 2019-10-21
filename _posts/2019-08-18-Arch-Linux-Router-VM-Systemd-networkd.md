@@ -1,4 +1,3 @@
-Stuff here.
 ---
 layout: post
 title: Arch Linux Infrastructure - Brouter Inception - Part 4a - Arch Linux Router - Systemd-networkd
