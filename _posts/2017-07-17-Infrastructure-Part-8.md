@@ -157,6 +157,8 @@ sudo systemctl enable tor
 sudo systemctl start tor
 ```
 
+## NFTables ##
+
 Configure NFTables.
 
 /etc/nftables.conf
@@ -236,6 +238,8 @@ connected to 10.223.8.73:80 (320 bytes), seq=1 time=670.23 ms
 round-trip min/avg/max = 620.2/1407.5/5963.0 ms
 ```
 
+## TMUX & IRSSI ##
+
 Install tmux & irssi.
 
 ```
@@ -280,6 +284,8 @@ Configure irssi.
 /set dcc_download_path ~/Downloads
 ```
 
+### Basic Login ###
+
 Configure basic freenode account.
 
 ```
@@ -298,7 +304,7 @@ After you login with your normal account change your nick then group it.
 /msg NickServ GROUP
 ```
 
-Login with SASL
+### Login with SASL ###
 
 ```
 /network add -sasl_username <login> -sasl_password <password> -sasl_mechanism PLAIN freenode
@@ -307,7 +313,7 @@ Login with SASL
 /save
 ```
 
-Login with TOR
+### Login with TOR ###
 
 TOR V3 Address for freenode instead of chat.freenode.net
 
@@ -381,7 +387,7 @@ Other IRSSI Commands.
 /SET autolog ON
 ```
 
-Aspell
+### Aspell ###
 
 Plugins
 
@@ -443,7 +449,7 @@ Create the spellchecker window.
 /WINDOW HIDE
 ```
 
-Other irssi stuff
+### Other irssi stuff ###
 
 ```
 /set autolog on
@@ -452,7 +458,7 @@ Other irssi stuff
 /set max_command_history 9999
 ```
 
-Nick Highlight
+### Nick Highlight ###
 
 ```
 /HILIGHT
@@ -482,4 +488,5 @@ Turn on terminal beeps.
 /set bell_beeps ON
 /set beep_msg_level MSGS NOTICES DCC DCCMSGS HILIGHT
 ```
+
 Continue to [Part 09 - Underconstruction](../Infrastructure-Part-9)
