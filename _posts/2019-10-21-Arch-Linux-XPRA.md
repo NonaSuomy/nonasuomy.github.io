@@ -5,6 +5,8 @@ title: Arch Linux - XPRA
 
 XPRA is a pretty smooth running app server for X11.
 
+XPRA - X11 Persistent Remote Applications.
+
 # XPRA #
 
 Install XPRA.
