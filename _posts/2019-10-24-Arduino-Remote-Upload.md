@@ -492,6 +492,10 @@ Install.
 ./ArduinoCreateAgent-1.0-linux-x64-installer.run
 ```
 
+
+
+```
+
 INFO[0000] Version:1.0.317-dev                          
 INFO[0000] Hostname: Unknown                            
 INFO[0000] Garbage collection is on using Standard mode, meaning we just let Golang determine when to garbage collect. 
