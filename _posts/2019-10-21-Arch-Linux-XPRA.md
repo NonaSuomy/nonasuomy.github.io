@@ -195,17 +195,17 @@ Start xpra on boot with username.
 
 /etc/systemd/system/xpra@.service
 ```
+{% raw %}
 [Unit]
 Description=xpra display
 [Service]
 Type=simple
 User=%i
 EnvironmentFile=/etc/conf.d/xpra
-{% raw %}
 ExecStart=/usr/bin/xpra --no-daemon start ${%i}
-{% endraw %}
 [Install]
 WantedBy=multi-user.target
+{% endraw %}
 ```
 
 Enable/Start systemd service.
