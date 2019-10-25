@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Arch Linux XPRA
+title: Arch Linux - XPRA
 ---
 
 XPRA is a pretty smooth running app server for X11.
@@ -201,7 +201,9 @@ Description=xpra display
 Type=simple
 User=%i
 EnvironmentFile=/etc/conf.d/xpra
+{% raw %}
 ExecStart=/usr/bin/xpra --no-daemon start ${%i}
+{% endraw %}
 [Install]
 WantedBy=multi-user.target
 ```
