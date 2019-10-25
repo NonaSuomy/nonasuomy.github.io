@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Arch Linux - XPRA
+title: Arch Linux XPRA
 ---
 
 XPRA is a pretty smooth running app server for X11.
