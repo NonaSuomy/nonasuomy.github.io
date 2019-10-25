@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Arch Linux Infrastructure - Part 6a - Arch Linux Arduino Remote Upload
+title: Arch Linux Infrastructure - Part 6b - Arch Linux Arduino Remote Upload
 ---
 
 ![alt text]({{ site.baseurl }}../images/infrastructure/HOTInfrastructureLayoutIoT.png "Arch Linux Arduino Remote Upload")
