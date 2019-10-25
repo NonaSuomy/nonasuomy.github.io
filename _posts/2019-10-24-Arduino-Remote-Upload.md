@@ -728,6 +728,34 @@ https://github.com/arduino/Arduino/blob/master/arduino-core/src/cc/arduino/packa
 
 I changed them to 20000, which seems to wait long enough to re-find the port but then gives a butterfly programmer error instead of the timeout.
 
+```
+sudo pacman -S ant gcc git make
+mkdir code
+cd ~/Code
+git clone https://github.com/arduino/Arduino.git
+```
+
+Update to the latest sources with the git pull command if you want to compile on another occasion. 
+
+```
+git pull
+```
+
+Compile Arduino Sources
+
+```
+cd Arduino/build
+ant dist
+```
+
+Enter build number (Just press enter).
+
+```
+[input] Enter version number: [1.8.10] < Just Press [Enter]
+BUILD SUCCESSFUL
+Total time: 1 minutes 5 seconds
+```
+
 ## Method 3 - Worked ##
 
 **Note:** *Make sure you remove all the things done in prior methods otherwise the device won’t show up in the Xpra streaming Arduino IDE session.*
