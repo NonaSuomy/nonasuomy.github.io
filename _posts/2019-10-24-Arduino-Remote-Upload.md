@@ -722,9 +722,11 @@ Device disconnects and can't find a way to auto attach it again without going ba
 
 Attempted to edit this file and recompile the Arduino IDE to extend the timeout with no luck maybe I didn't change the right values?
 
-https://github.com/arduino/Arduino/blob/master/arduino-core/src/cc/arduino/packages/uploaders/SerialUploader.java#L213
-https://github.com/arduino/Arduino/blob/master/arduino-core/src/cc/arduino/packages/uploaders/SerialUploader.java#L232
-https://github.com/arduino/Arduino/blob/master/arduino-core/src/cc/arduino/packages/uploaders/SerialUploader.java#L269
+[SerialUploader.java#L213](https://github.com/arduino/Arduino/blob/master/arduino-core/src/cc/arduino/packages/uploaders/SerialUploader.java#L213)
+
+[SerialUploader.java#L232](https://github.com/arduino/Arduino/blob/master/arduino-core/src/cc/arduino/packages/uploaders/SerialUploader.java#L232)
+
+[SerialUploader.java#L269](https://github.com/arduino/Arduino/blob/master/arduino-core/src/cc/arduino/packages/uploaders/SerialUploader.java#L269)
 
 I changed them to 20000, which seems to wait long enough to re-find the port but then gives a butterfly programmer error instead of the timeout.
 
