@@ -188,7 +188,7 @@ Fix printing / mdns warnings, enable starting new commands and start an xterm wi
 start-new-commands = yes
 printing                      = no
 mdns                          = no
-start                            = xterm
+start                         = xterm
 ```
 
 Start xpra on boot with username.
