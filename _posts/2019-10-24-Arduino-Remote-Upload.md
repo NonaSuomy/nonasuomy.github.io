@@ -406,14 +406,14 @@ server:# usbip bind --busid=1-2 - Bind usbip-host.ko to the device of busid 1-2.
 
 ## Troubleshooting ##
 
-*Trouble*
+**Trouble**
 
 ```
 libusbip: error: udev_device_new_from_subsystem_sysname failed
 usbip: error: open vhci_driver
 ```
 
-*Shoot*
+**Shoot**
 
 ```
 lsmod | grep vhci_hcd
