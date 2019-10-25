@@ -185,7 +185,7 @@ Fix printing / mdns warnings, enable starting new commands and start an xterm wi
 
 /etc/xpra/xpra.conf
 ```
-start-new-commands = yes
+start-new-commands            = yes
 printing                      = no
 mdns                          = no
 start                         = xterm
